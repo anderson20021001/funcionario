@@ -117,13 +117,16 @@ include("inc/nav.php");
                                                             <section class="col col-2">
                                                                 <label class="label">CPF</label>
                                                                 <label class="input">
-                                                                    <input id="senhaConfirma" maxlength="20" name="senhaConfirma" type="password" class="required" value="">
+                                                                    <input id="senhaConfirma" 
+                                                                    maxlength="20" name="senhaConfirma" type="password" class="required" value="">
                                                                 </label>
                                                             </section>
                                                             <section class="col col-4 col-auto">
-                                                                <label class="label " for="funcionario">Funcionário</label>
-                                                                <label class="select">
-                                                                    <select id="funcionario" name="funcionario">
+                                                                <label class="label " for="funcionario">Data de Nascimento</label>
+                                                                <input id="date" type="date"/
+                                                                >
+                                                                <!-- <label class="select">
+                                                                    <!-- <select id="funcionario" name="funcionario">
                                                                         <option></option>
                                                                         <?php
                                                                         $reposit = new reposit();
@@ -137,8 +140,8 @@ include("inc/nav.php");
                                                                             echo '<option value=' . $id . '>' . $descricao . '</option>';
                                                                         }
                                                                         ?>
-                                                                    </select><i></i>
-                                                                </label>
+                                                                    </select><i></i> -->
+                                                                </label> -->
                                                             </section>
                                                             <section class="col col-2 col-auto">
                                                                 <label class="label">Restaurar senha</label>
