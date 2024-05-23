@@ -59,6 +59,7 @@ $page_nav = array("home" => array("title" => "Home", "icon" => "fa-home", "url" 
 
 
 //Configurações 
+
 $condicaoConfiguracoesOK = (in_array('USUARIO_ACESSAR', $arrayPermissao, true));
 $condicaoConfiguracoesOK = (($condicaoConfiguracoesOK) or in_array('PERMISSAOUSUARIO_ACESSAR', $arrayPermissao, true));
 $condicaoConfiguracoesOK = (($condicaoConfiguracoesOK) or in_array('PARAMETRO_ACESSAR', $arrayPermissao, true));
