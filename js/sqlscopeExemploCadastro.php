@@ -183,7 +183,15 @@ function grava()
 
     $restaurarSenha = (int)$_POST['restaurarSenha'];
 
-    $sql = "Ntl.usuario_Atualiza " . $id . "," . $ativo . "," . $login . "," . $senha . "," . $tipoUsuario . "," . $usuario . "," . $funcionario . "," . $restaurarSenha . " ";
+    $sql = "Ntl.usuario_Atualiza " 
+    .  $id . "," 
+    . $ativo . "," 
+    . $login . "," 
+    . $senha . "," 
+    . $tipoUsuario . "," 
+    . $usuario . "," 
+    . $funcionario . "," 
+    . $restaurarSenha . " ";
 
     $reposit = new reposit();
     $result = $reposit->Execprocedure($sql);
