@@ -50,8 +50,8 @@ include("inc/nav.php");
 <!-- MAIN PANEL -->
 <div id="main" role="main">
     <?php
-//configure ribbon (breadcrumbs) array("name"=>"url"), leave url empty if no url
-//$breadcrumbs["New Crumb"] => "http://url.com"
+    //configure ribbon (breadcrumbs) array("name"=>"url"), leave url empty if no url
+    //$breadcrumbs["New Crumb"] => "http://url.com"
     $breadcrumbs["Configurações"] = "";
     include("inc/ribbon.php");
     ?>
@@ -62,14 +62,14 @@ include("inc/nav.php");
         <section id="widget-grid" class="">
             <div class="row">
                 <article class="col-sm-12 col-md-12 col-lg-12 sortable-grid ui-sortable centerBox">
-                    <div class="jarviswidget" id="wid-id-1" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-sortable="false" style="">
+                    <div class="jarviswidget" id="wid-id-1" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-sortable="false">
                         <header>
                             <span class="widget-icon"><i class="fa fa-cog"></i></span>
                             <h2>Usuário</h2>
                         </header>
                         <div>
                             <div class="widget-body no-padding">
-                                <form action="javascript:gravar()" class="smart-form client-form" id="formUsuario" method="post">    
+                                <form action="javascript:gravar()" class="smart-form client-form" id="formUsuario" method="post">
                                     <div class="panel-group smart-accordion-default" id="accordion">
                                         <div class="panel panel-default">
                                             <div class="panel-heading">
@@ -95,9 +95,9 @@ include("inc/nav.php");
                                                                 <label class="label">&nbsp;</label>
                                                                 <label id="labelAtivo" class="checkbox ">
                                                                     <input checked="checked" id="ativo" name="ativo" type="checkbox" value="true"><i></i>
-                                                                    Ativo 
-                                                                </label>                                                                                    
-                                                            </section>                                                                                                                                            
+                                                                    Ativo
+                                                                </label>
+                                                            </section>
                                                         </div>
                                                         <div class="row">
                                                         </div>
@@ -105,51 +105,32 @@ include("inc/nav.php");
                                                             <section class="col col-2">
                                                                 <label class="label">Nome</label>
                                                                 <label class="input"><i class="icon-prepend fa fa-user"></i>
-                                                                    <input id="login" maxlength="255" name="login" class="required" type="text" value="">
-                                                                </label>
-                                                            </section>
-                                                            <section class="col col-2">
-                                                                <label class="label">Ativo</label>
-                                                                <label class="input">
-                                                                    <input id="senha" maxlength="20" name="senha" type="password" class="required" value="">
+                                                                    <input id="nome" maxlength="255" name="nome" class="required" type="text" value="">
                                                                 </label>
                                                             </section>
                                                             <section class="col col-2">
                                                                 <label class="label">CPF</label>
                                                                 <label class="input">
-                                                                    <input id="senhaConfirma" 
-                                                                    maxlength="20" name="senhaConfirma" type="password" class="required" value="">
+                                                                    <input id="cpf" maxlength="14" name="cpf" type="text" class="required" value="" placeholder="xxx.xxx.xxx-xx">
                                                                 </label>
                                                             </section>
-                                                            <section class="col col-2 col-auto hidden" id="dataInicioSection">
-                                                                <label class="label" for="dataInicioFiltro">Data Inicio</label>
+                                                            <section class="col col-2">
+                                                                <label class="label" for="dataNascimento">Data de Nascimento</label>
                                                                 <label class="input">
                                                                     <i class="icon-append fa fa-calendar"></i>
-                                                                    <input id="dataInicioFiltro" name="dataInicioFiltro" type="text" placeholder="dd/mm/aaaa" data-dateformat="dd/mm/yy" class="datepicker text-center" value="" data-mask="99/99/9999" data-mask-placeholder="dd/mm/aaaa" autocomplete="off">
+                                                                    <input type="text" id="dataNascimento" name="dataNascimento">
                                                                 </label>
-                                                            </section>
-                                                            <section class="col col-2 col-auto">
-                                                                <label class="label">Restaurar senha</label>
-                                                                <label class="select">
-                                                                    <select id="restaurarSenha" name="restaurarSenha">
-                                                                        <option value="1" >Sim</option> 
-                                                                        <option value="0">Não</option> 
-                                                                    </select><i></i> 
-                                                                </label> 
-                                                            </section> 
                                                         </div>
                                                     </fieldset>
-                                                </div>                                                        
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                     <footer>
                                         <button type="button" id="btnExcluir" class="btn btn-danger" aria-hidden="true" title="Excluir" style="display:<?php echo $esconderBtnExcluir ?>">
-                                            <span class="fa fa-trash" ></span>
+                                            <span class="fa fa-trash"></span>
                                         </button>
-                                        <div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-dialog-buttons ui-draggable" 
-                                             tabindex="-1" role="dialog" aria-describedby="dlgSimpleExcluir" aria-labelledby="ui-id-1" 
-                                             style="height: auto; width: 600px; top: 220px; left: 262px; display: none;">
+                                        <div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-dialog-buttons ui-draggable" tabindex="-1" role="dialog" aria-describedby="dlgSimpleExcluir" aria-labelledby="ui-id-1" style="height: auto; width: 600px; top: 220px; left: 262px; display: none;">
                                             <div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
                                                 <span id="ui-id-2" class="ui-dialog-title">
                                                 </span>
@@ -163,19 +144,19 @@ include("inc/nav.php");
                                             </div>
                                         </div>
                                         <button type="submited" id="btnGravar" class="btn btn-success" aria-hidden="true" title="Gravar" style="display:<?php echo $esconderBtnGravar ?>">
-                                            <span class="fa fa-floppy-o" ></span>
+                                            <span class="fa fa-floppy-o"></span>
                                         </button>
                                         <button type="button" id="btnNovo" class="btn btn-primary" aria-hidden="true" title="Novo" style="display:<?php echo $esconderBtnGravar ?>">
-                                            <span class="fa fa-file-o" ></span>
+                                            <span class="fa fa-file-o"></span>
                                         </button>
                                         <button type="button" id="btnVoltar" class="btn btn-default" aria-hidden="true" title="Voltar">
-                                            <span class="fa fa-backward " ></span>
+                                            <span class="fa fa-backward "></span>
                                         </button>
                                     </footer>
-                                </form>                                            
+                                </form>
                             </div>
-                        </div>                                
-                    </div>                                
+                        </div>
+                    </div>
                 </article>
             </div>
         </section>
@@ -200,7 +181,7 @@ include("inc/footer.php");
 include("inc/scripts.php");
 ?>
 
-<script src="<?php echo ASSETS_URL; ?>/js/businessUsuario.js" type="text/javascript"></script> 
+<script src="<?php echo ASSETS_URL; ?>/js/businessFuncionario.js" type="text/javascript"></script>
 
 <!-- PAGE RELATED PLUGIN(S) 
 <script src="..."></script>-->
@@ -227,63 +208,66 @@ include("inc/scripts.php");
 
 
 <script language="JavaScript" type="text/javascript">
-    $(document).ready(function () {
-        jQuery.validator.addMethod(
-                "senhaRequerida",
-                function (value, element, params) {
-                    var senha = $("#senha").val();
-                    var codigo = +$("#codigo").val();
-                    var senhaConfirma = $("#senhaConfirma").val();
-
-                    if (codigo === 0) {
-                        if (senha === "") {
-                            return false;
-                        }
-                    } else {
-                        if ((senha === "") & (senhaConfirma !== "")) {
-                            return false;
-                        }
-                    }
-
-                    return true;
-                }, ''
-                );
+    $(document).ready(function() {
+        $("#cpf").mask("999.999.999-99");
+        $("#dataNascimento").mask('99/99/9999')
 
         jQuery.validator.addMethod(
-                "confirmaSenhaRequerida",
-                function (value, element, params) {
-                    var senha = $("#senha").val();
-                    var senhaConfirma = $("#senhaConfirma").val();
-                    var codigo = +$("#codigo").val();
+            "senhaRequerida",
+            function(value, element, params) {
+                var senha = $("#senha").val();
+                var codigo = +$("#codigo").val();
+                var senhaConfirma = $("#senhaConfirma").val();
 
-                    if (codigo === 0) {
-                        if (senhaConfirma === "") {
-                            return false;
-                        }
-                    } else {
-                        if ((senha !== "") & (senhaConfirma === "")) {
-                            return false;
-                        }
+                if (codigo === 0) {
+                    if (senha === "") {
+                        return false;
                     }
+                } else {
+                    if ((senha === "") & (senhaConfirma !== "")) {
+                        return false;
+                    }
+                }
 
-                    return true;
-                }, ''
-                );
+                return true;
+            }, ''
+        );
 
         jQuery.validator.addMethod(
-                "confirmaSenhaequalto",
-                function (value, element, params) {
-                    var senha = $("#senha").val();
-                    var senhaConfirma = $("#senhaConfirma").val();
+            "confirmaSenhaRequerida",
+            function(value, element, params) {
+                var senha = $("#senha").val();
+                var senhaConfirma = $("#senhaConfirma").val();
+                var codigo = +$("#codigo").val();
 
-                    if ((senha !== "") | (senhaConfirma !== "")) {
-                        if (senha !== senhaConfirma) {
-                            return false;
-                        }
+                if (codigo === 0) {
+                    if (senhaConfirma === "") {
+                        return false;
                     }
-                    return true;
-                }, ''
-                );
+                } else {
+                    if ((senha !== "") & (senhaConfirma === "")) {
+                        return false;
+                    }
+                }
+
+                return true;
+            }, ''
+        );
+
+        jQuery.validator.addMethod(
+            "confirmaSenhaequalto",
+            function(value, element, params) {
+                var senha = $("#senha").val();
+                var senhaConfirma = $("#senhaConfirma").val();
+
+                if ((senha !== "") | (senhaConfirma !== "")) {
+                    if (senha !== senhaConfirma) {
+                        return false;
+                    }
+                }
+                return true;
+            }, ''
+        );
 
         $('#formUsuario').validate({
             // Rules for form validation
@@ -323,15 +307,15 @@ include("inc/scripts.php");
             },
 
             // Do not change code below
-            errorPlacement: function (error, element) {
+            errorPlacement: function(error, element) {
                 error.insertAfter(element.parent());
                 //$("#accordionCadastro").click();
                 $("#accordionCadastro").removeClass("collapsed");
             },
-            highlight: function (element) {
+            highlight: function(element) {
                 //$(element).parent().addClass('error');
             },
-            unhighlight: function (element) {
+            unhighlight: function(element) {
                 //$(element).parent().removeClass('error');
             }
         });
@@ -339,7 +323,7 @@ include("inc/scripts.php");
         carregaPagina();
 
         $.widget("ui.dialog", $.extend({}, $.ui.dialog.prototype, {
-            _title: function (title) {
+            _title: function(title) {
                 if (!this.options.title) {
                     title.html("&#160;");
                 } else {
@@ -355,22 +339,22 @@ include("inc/scripts.php");
             modal: true,
             title: "<div class='widget-header'><h4><i class='fa fa-warning'></i> Atenção</h4></div>",
             buttons: [{
-                    html: "Excluir registro",
-                    "class": "btn btn-success",
-                    click: function () {
-                        $(this).dialog("close");
-                        excluir();
-                    }
-                }, {
-                    html: "<i class='fa fa-times'></i>&nbsp; Cancelar",
-                    "class": "btn btn-default",
-                    click: function () {
-                        $(this).dialog("close");
-                    }
-                }]
+                html: "Excluir registro",
+                "class": "btn btn-success",
+                click: function() {
+                    $(this).dialog("close");
+                    excluir();
+                }
+            }, {
+                html: "<i class='fa fa-times'></i>&nbsp; Cancelar",
+                "class": "btn btn-default",
+                click: function() {
+                    $(this).dialog("close");
+                }
+            }]
         });
 
-        $("#btnExcluir").on("click", function () {
+        $("#btnExcluir").on("click", function() {
             var id = +$("#codigo").val();
 
             if (id === 0) {
@@ -384,11 +368,14 @@ include("inc/scripts.php");
             }
         });
 
-        $("#btnNovo").on("click", function () {
+        $("#btnNovo").on("click", function() {
             novo();
         });
+        $("#btnGravar").on("click", function() {
+            gravar();
+        });
 
-        $("#btnVoltar").on("click", function () {
+        $("#btnVoltar").on("click", function() {
             voltar();
         });
     });
@@ -407,7 +394,7 @@ include("inc/scripts.php");
         $("#nome").focus();
 
     }
-    
+
     function novo() {
         $(location).attr('href', 'usuarioCadastro.php');
     }
@@ -429,67 +416,33 @@ include("inc/scripts.php");
 
     function gravar() {
         var id = +($("#codigo").val());
-        var ativo = 0;
-        if ($("#ativo").is(':checked')) {
-            ativo = 1;
-        }
-        var login = $("#login").val();
-        var senha = $("#senha").val();
-        var funcionario = $("#funcionario").val();
-        var senhaConfirma = $("#senhaConfirma").val();
-        var tipoUsuario = "C";
-        var restaurarSenha = $("#restaurarSenha").val();
-        if (login === "") {
-            smartAlert("Atenção", "Informe o login !", "error");
-            $("#login").focus();
+        var ativo = $('#ativo').val();
+        var nome = $("#nome").val();
+        var cpf = $("#cpf").val();
+        var dataNascimento = $("#dataNascimento").val();
+
+
+        if (nome === "") {
+            smartAlert("Atenção", "Informe o nome !", "error");
+            $("#nome").focus();
             return;
         }
 
-        if (/^[a-zA-Z]*$/.test(login) === false) {
-            smartAlert("Atenção", "O login não pode conter caracteres acentuados, numéricos e especiais.", "error");
-            $("#login").focus();
+
+        if (cpf === "") {
+            smartAlert("Atenção", "Informe o cpf !", "error");
+            $("#cpf").focus();
+            return;
+
+        }
+        if (dataNascimento === "") {
+            smartAlert("Atenção", "Informe a data de nascimento !", "error");
+            $("#dataNascimento").focus();
             return;
         }
 
-        if (id === 0) {
-            if (senha === "") {
-                smartAlert("Atenção", "Informe a senha.", "error");
-                $("#senha").focus();
-                return;
-            }
 
-            if (/^[a-zA-Z0-9\!\#\$\&\*\-\+\?\.\;\,\:\]\[\(\)]*$/.test(senha) === false) {
-                smartAlert("Atenção", "A senha não pode conter caracteres acentuados.", "error");
-                $("#senha").focus();
-                return;
-            }
 
-            if (senhaConfirma === "") {
-                smartAlert("Atenção", "Informe a confirmação de senha.", "error");
-                $("#senhaConfirma").focus();
-                return;
-            }
-
-            if (senha !== senhaConfirma) {
-                smartAlert("Atenção", "Informe a confirmação de senha igual a senha.", "error");
-                $("#senhaConfirma").focus();
-                return;
-            }
-        } else {
-            if ((senha !== "") | (senhaConfirma !== "")) {
-                if (senha !== senhaConfirma) {
-                    smartAlert("Atenção", "Informe a confirmação de senha igual a senha.", "error");
-                    $("#senhaConfirma").focus();
-                    return;
-                }
-                if (/^[a-zA-Z0-9\!\#\$\&\*\-\+\?\.\;\,\:\]\[\(\)]*$/.test(senha) === false) {
-                    smartAlert("Atenção", "A senha não pode conter caracteres acentuados.", "error");
-                    $("#senha").focus();
-                    return;
-                }
-            }
-        }
-        gravaUsuario(id, ativo, login, senha, senhaConfirma, tipoUsuario,funcionario,restaurarSenha);
+        gravaUsuario(id, ativo, nome, cpf, dataNascimento);
     }
 </script>
-

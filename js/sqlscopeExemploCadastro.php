@@ -27,19 +27,13 @@ if ($funcao == 'gravarNovaSenha') {
 
 return;
 
-function grava()
-{
-
+function grava(){
     $reposit = new reposit();
-    $possuiPermissao = $reposit->PossuiPermissao("USUARIO_ACESSAR|USUARIO_GRAVAR");
+    $utils= new comum();
 
-    if ($possuiPermissao === 0) {
-        $mensagem = "O usuário não tem permissão para gravar!";
-        echo "failed#" . $mensagem . ' ';
-        return;
-    }
-
-    $reposit = new reposit();
+    $nome = $utils->formatarString([$_POST]['nome']);
+    $cpf = $utils->formatarString([$_POST]['cpf']);
+    $dataNascimento = $utils->formatarString($_POST['dataNascimento']);
 
     if ((empty($_POST['id'])) || (!isset($_POST['id'])) || (is_null($_POST['id']))) {
         $id = 0;
@@ -54,144 +48,23 @@ function grava()
     }
 
     $nome = $_POST['nome'];
-    $tipoUsuario = $_POST['tipoUsuario'];
-    $tipoUsuario = "'" . $tipoUsuario . "'";
+    $cpf = $_POST['cpf'];
+    $dataNascimento = $_POST['dataNascimento'];
+
     $nome = "'" . $nome . "'";
-
-    $funcionario = (int)$_POST['funcionario'];
-    if ($funcionario == 0) {
-        $funcionario = 'NULL';
-    }
-
-    $login = $_POST["login"];
-    if ((empty($_POST['login'])) || (!isset($_POST['login'])) || (is_null($_POST['login']))) {
-        $mensagem = "Informe o login.";
-        echo "failed#" . $mensagem . ' ';
-        return;
-    } else {
-        $comum = new comum();
-        $login = trim($login);
-        $validouLogin = $comum->validaLogin($login);
-
-        if ($validouLogin === 0) {
-            $login = "'" . $login . "'";
-        } else {
-            switch ($validouLogin) {
-                case 1:
-                    $mensagem = "Login não pode conter espaços.";
-                    break;
-                case 2:
-                    $mensagem = "Login deve possuir caracteres alfabéticos e não pode conter caracteres acentuados e/ou especiais.";
-                    break;
-                case 3:
-                    $mensagem = "Login deve possuir no mínimo 5 caracter.";
-                    break;
-                case 4:
-                    $mensagem = "Login ultrapassou de 15 caracteres.";
-                    break;
-            }
-            echo "failed#" . $mensagem . ' ';
-            return;
-        }
-    }
-
-    $senhaConfirma = $_POST["senhaConfirma"];
-    $senha = $_POST["senha"];
-
-    if ($id === 0) {
-        if ((empty($_POST['senhaConfirma'])) || (!isset($_POST['senhaConfirma'])) || (is_null($_POST['senhaConfirma']))) {
-            $mensagem = "Informe a confirmação da senha.";
-            echo "failed#" . $mensagem . ' ';
-            return;
-        }
-        if ((empty($_POST['senha'])) || (!isset($_POST['senha'])) || (is_null($_POST['senha']))) {
-            $mensagem = "Informe a senha.";
-            echo "failed#" . $mensagem . ' ';
-            return;
-        }
-    } else {
-        if ((empty($_POST['senhaConfirma'])) || (!isset($_POST['senhaConfirma'])) || (is_null($_POST['senhaConfirma']))) {
-            $senhaConfirma = null;
-        }
-        if ((empty($_POST['senha'])) || (!isset($_POST['senha'])) || (is_null($_POST['senha']))) {
-            $senha = null;
-        }
-    }
-
-    if ((!is_null($senhaConfirma)) or (!is_null($senha))) {
-        $comum = new comum();
-        $validouSenha = 1;
-        if (!is_null($senha)) {
-            $validouSenha = $comum->validaSenha($senha);
-        }
-        if ($validouSenha === 0) {
-            if ($senhaConfirma !== $senha) {
-                $mensagem = "A confirmação da senha deve ser igual a senha.";
-                echo "failed#" . $mensagem . ' ';
-                return;
-            } else {
-                $comum = new comum();
-                $senhaCript = $comum->criptografia($senha);
-                $senha = "'" . $senhaCript . "'";
-            }
-        } else {
-            switch ($validouSenha) {
-                case 1:
-                    $mensagem = "Senha não pode conter espaços.";
-                    break;
-                case 2:
-                    $mensagem = "Senha deve possuir no mínimo 7 caracter.";
-                    break;
-                case 3:
-                    $mensagem = "Senha ultrapassou de 15 caracteres.";
-                    break;
-                case 4:
-                    $mensagem = "Senha deve possuir no mínimo um caractér númerico.";
-                    break;
-                case 5:
-                    $mensagem = "Senha deve possuir no mínimo um caractér alfabético.";
-                    break;
-                case 6:
-                    $mensagem = "Senha deve possuir no mínimo um caracter especial.\nSão válidos : ! # $ & * - + ? . ; , : ] [ ( )";
-                    break;
-                case 7:
-                    $mensagem = "Senha não pode ter caracteres acentuados.";
-                    break;
-            }
-            echo "failed#" . $mensagem . ' ';
-            return;
-        }
-    }
-
-    if (is_null($senha)) {
-        $senha = "NULL";
-    }
-
-    if ((empty($_POST['tipoUsuario'])) || (!isset($_POST['tipoUsuario'])) || (is_null($_POST['tipoUsuario']))) {
-        $tipoUsuario = 'NULL';
-    } else {
-        $tipoUsuario = "'" . $_POST["tipoUsuario"] . "'";
-    }
+    $cpf = "'" . $cpf . "'";
+    $dataNascimento = "'" . $dataNascimento . "'";
 
     session_start();
     $usuario = $_SESSION['login'];
     $usuario = "'" . $usuario . "'";
-    if (validaUsuario($login) && $id == 0) {
-        echo "failed#" . "Usuário já cadastrado!";
-        return;
-    }
-
-    $restaurarSenha = (int)$_POST['restaurarSenha'];
-
-    $sql = "Ntl.usuario_Atualiza " 
-    .  $id . "," 
-    . $ativo . "," 
-    . $login . "," 
-    . $senha . "," 
-    . $tipoUsuario . "," 
-    . $usuario . "," 
-    . $funcionario . "," 
-    . $restaurarSenha . " ";
+    $sql = "dbo.funcionario_Atualiza
+     $id,
+     $ativo,
+     $nome,
+     $cpf,
+     $dataNascimento,
+     ";
 
     $reposit = new reposit();
     $result = $reposit->Execprocedure($sql);
