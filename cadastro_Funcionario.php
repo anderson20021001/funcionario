@@ -123,8 +123,7 @@ include("inc/nav.php");
                                                             </section>
                                                             <section class="col col-4 col-auto">
                                                                 <label class="label " for="funcionario">Data de Nascimento</label>
-                                                                <input id="date" type="date"/
-                                                                >
+                                                                <input id="date" type="date" class="required" maxlength="14" placeholder="000.000.000-00"/>
                                                                 <!-- <label class="select">
                                                                     <!-- <select id="funcionario" name="funcionario">
                                                                         <option></option>
