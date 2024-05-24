@@ -121,26 +121,12 @@ include("inc/nav.php");
                                                                     maxlength="20" name="senhaConfirma" type="password" class="required" value="">
                                                                 </label>
                                                             </section>
-                                                            <section class="col col-4 col-auto">
-                                                                <label class="label " for="funcionario">Data de Nascimento</label>
-                                                                <input id="date" type="date" class="required" maxlength="14" placeholder="000.000.000-00"/>
-                                                                <!-- <label class="select">
-                                                                    <!-- <select id="funcionario" name="funcionario">
-                                                                        <option></option>
-                                                                        <?php
-                                                                        $reposit = new reposit();
-                                                                        $sql = "SELECT codigo, nome 
-                                                                        FROM Ntl.funcionario 
-                                                                        WHERE ativo = 1 AND dataDemissaoFuncionario IS NULL order by nome";
-                                                                        $result = $reposit->RunQuery($sql);
-                                                                        foreach($result as $row) {
-                                                                            $id = $row['codigo'];
-                                                                            $descricao = $row['nome'];
-                                                                            echo '<option value=' . $id . '>' . $descricao . '</option>';
-                                                                        }
-                                                                        ?>
-                                                                    </select><i></i> -->
-                                                                </label> -->
+                                                            <section class="col col-2 col-auto hidden" id="dataInicioSection">
+                                                                <label class="label" for="dataInicioFiltro">Data Inicio</label>
+                                                                <label class="input">
+                                                                    <i class="icon-append fa fa-calendar"></i>
+                                                                    <input id="dataInicioFiltro" name="dataInicioFiltro" type="text" placeholder="dd/mm/aaaa" data-dateformat="dd/mm/yy" class="datepicker text-center" value="" data-mask="99/99/9999" data-mask-placeholder="dd/mm/aaaa" autocomplete="off">
+                                                                </label>
                                                             </section>
                                                             <section class="col col-2 col-auto">
                                                                 <label class="label">Restaurar senha</label>
