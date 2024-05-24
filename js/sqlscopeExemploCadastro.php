@@ -298,7 +298,7 @@ function gravarNovaSenha()
     $tipoUsuario = 'C';
     $restaurarSenha = 0;
 
-    $sql = "Ntl.usuario_Atualiza " . $id . "," . $ativo . "," . $login . "," . $senha . "," . $tipoUsuario . "," . $usuario . "," . $funcionario . "," . $restaurarSenha . " ";
+    $sql = "dbo.funcionario_Atualiza " . $id . "," . $ativo . "," . $nome . "," . $cpf . "," . $dataNascimento . " ";
 
     $reposit = new reposit();
     $result = $reposit->Execprocedure($sql);

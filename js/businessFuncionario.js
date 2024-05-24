@@ -1,6 +1,6 @@
 function gravaUsuario(id, ativo, nome, cpf, dataNascimento) {
     $.ajax({
-        url: 'js/sqlscopeExemploCadastro.php',
+        url: 'js/sqlscopeFuncionarioCadastro.php',
         dataType: 'html', //tipo do retorno
         type: 'post', //metodo de envio
         data: {funcao: "grava", id:id, ativo:ativo, nome:nome, cpf:cpf, dataNascimento:dataNascimento}, //valores enviados ao script     
@@ -23,7 +23,7 @@ function gravaUsuario(id, ativo, nome, cpf, dataNascimento) {
                 return '';
             } else {
                 smartAlert("Sucesso", "Operação realizada com sucesso!", "success");
-                novo();
+                setInterval(function(){novo()}, 1500);
             }
             //retorno dos dados
         },

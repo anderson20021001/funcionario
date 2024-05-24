@@ -69,7 +69,7 @@ include("inc/nav.php");
                         </header>
                         <div>
                             <div class="widget-body no-padding">
-                                <form action="javascript:gravar()" class="smart-form client-form" id="formUsuario" method="post">
+                                <form class="smart-form client-form" id="formUsuario">
                                     <div class="panel-group smart-accordion-default" id="accordion">
                                         <div class="panel panel-default">
                                             <div class="panel-heading">
@@ -396,7 +396,7 @@ include("inc/scripts.php");
     }
 
     function novo() {
-        $(location).attr('href', 'usuarioCadastro.php');
+        $(location).attr('href', 'cadastroFuncionario.php');
     }
 
     function voltar() {
@@ -440,8 +440,6 @@ include("inc/scripts.php");
             $("#dataNascimento").focus();
             return;
         }
-
-
 
         gravaUsuario(id, ativo, nome, cpf, dataNascimento);
     }

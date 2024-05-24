@@ -217,6 +217,15 @@ function validaData($value)
     return $value;
 }
 
+function formataDataSql($value)
+{
+    $value = explode("/", $value);
+    $value = $value[2] . "-" . $value[1] . "-" . $value[0];
+    $value = "'" . $value . "'";
+    return $value;
+}
+
+
 function validaDataXML($value)
 {
     $value = explode("/", $value);
