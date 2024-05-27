@@ -3,7 +3,7 @@
 require_once("inc/init.php");
 
 //require UI configuration (nav, ribbon, etc.)
-//require_once("inc/config.ui.php");
+require_once("inc/config.ui.php");
 
 //colocar o tratamento de permissão sempre abaixo de require_once("inc/config.ui.php");
 $condicaoAcessarOK = true;
