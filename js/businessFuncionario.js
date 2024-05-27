@@ -37,7 +37,7 @@ function gravaUsuario(id, ativo, nome, cpf, dataNascimento) {
 
 function recuperaUsuario(id) {
     $.ajax({
-        url: 'js/sqlscopeUsuario.php', //caminho do arquivo a ser executado
+        url: 'js/sqlscopeFuncionarioCadastro.php', //caminho do arquivo a ser executado
         dataType: 'html', //tipo do retorno
         type: 'post', //metodo de envio
         data: {funcao: 'recupera', id: id}, //valores enviados ao script     
@@ -58,17 +58,17 @@ function recuperaUsuario(id) {
                 var out = piece[1];
                 piece = out.split("^");
                 var codigo = +piece[0];
-                var login = piece[1];
-                var ativo = +piece[2];
-                var tipoUsuario = piece[3];
-                var funcionario = +piece[4];
-                var restaurarSenha = +piece[5];
+                var ativo = piece[1];
+                var nome = piece[2];
+                var cpf = piece[3];
+                var dataNascimento = piece[4];
+    
                
                 $("#codigo").val(codigo);
-                $("#login").val(login);
                 $("#ativo").val(ativo);
-                $("#funcionario").val(funcionario);
-                $("#restaurarSenha").val(restaurarSenha);
+                $("#nome").val(nome);
+                $("#cpf").val(cpf);
+                $("#dataNascimento").val(dataNascimento);
                 if (ativo === 1) {
                     $('#ativo').prop('checked', true);
                 } else {
@@ -87,7 +87,7 @@ function recuperaUsuario(id) {
 
 function excluirUsuario(id) {
     $.ajax({
-        url: 'js/sqlscopeUsuario.php', //caminho do arquivo a ser executado
+        url: 'js/sqlscopeFuncionarioCadastro.php', //caminho do arquivo a ser executado
         dataType: 'html', //tipo do retorno
         type: 'post', //metodo de envio
         data: {funcao: 'excluir', id: id}, //valores enviados ao script     

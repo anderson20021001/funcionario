@@ -6,45 +6,98 @@ include "js/repositorio.php";
         <table id="tableSearchResult" class="table table-bordered table-striped table-condensed table-hover dataTable">
             <thead>
                 <tr role="row">
-                    <th class="text-left" style="min-width:30px;">Login</th>
-                    <th class="text-left" style="min-width:30px;">Funcionário</th>
-                    <th class="text-left" style="min-width:35px;">Ativo</th>
+                    <th class="text-left" style="min-width:20px;">Codigo</th>
+                    <th class="text-left" style="min-width:20px;">Nome</th>
+                    <th class="text-left" style="min-width:20px;">Data de Nascimento</th>
+                    <th class="text-left" style="min-width:25px;">Cpf</th>
+                    <th class="text-left" style="min-width:25px;">Ativo</th>
                 </tr>
             </thead>
             <tbody>
                 <?php
                 $nomeFiltro = "";
-                $where = "WHERE (0 = 0)";
+                $where = " WHERE (0 = 0)";
 
-                $nomeFiltro = "";
-                if ($_GET["nomeFiltro"] != "") {
-                    $nomeFiltro = $_GET["nomeFiltro"];
-                    $where = $where . " AND (USU.[login] like '%' + " . "replace('" . $nomeFiltro . "',' ','%') + " . "'%')";
+                // $nomeFiltro = "$nome";
+                // if ($_GET["nomeFiltro"] != "") {
+                //     $nomeFiltro = $_GET["nomeFiltro"];
+                //     $where = $where . " AND (USU.[login] like '%' + " . "replace('" . $nomeFiltro . "',' ','%') + " . "'%')";
+                // }
+
+                 $nomeFiltro = $nome;
+                if ($_POST["nomeFiltro"] != "") {
+                    $nomeFiltro = $_POST["nomeFiltro"];
+                    $where = $where . " AND (nome like '%' + " . "replace('" . $nomeFiltro . "',' ','%') + " . "'%')";
                 }
 
-                $sql = " SELECT USU.codigo,USU.[login],USU.ativo,F.nome AS nomeFuncionario FROM Ntl.usuario USU 
-                           LEFT JOIN Ntl.funcionario F ON F.codigo = USU.funcionario ";
-                $where = $where . " AND USU.tipoUsuario = 'C' ";
+
+                // $cpfFiltro = $cpf;
+                // if ($_POST["cpf"] != "") {
+                //     $cpfFiltro = $_POST["cpfFiltro"];
+                //     $where = $where . " AND (nome like '%' + " . "replace('" . $cpfFiltro . "',' ','%') + " . "'%')";
+                // }
+
+                 $cpfFiltro = $cpf;
+                if ($_POST["cpfFiltro"] != "") {
+                    $cpfFiltro = $_POST["cpfFiltro"];
+                    $where = $where . " AND cpf = '$cpfFiltro'";
+                }
+
+                $dataNascimentoFiltro = $dataNascimento;
+                if ($_POST["dataNascimentoFiltro"] != "") {
+                    $dataNascimentoFiltro = $_POST["dataNascimentoFiltro"];
+                    $where = $where . " AND dataNascimento >= '$dataNascimentoFiltro'";;
+                }
+
+                $dataNascimentoFiltro = $dataNascimento;
+                if ($_POST["dataNascimentoFiltro"] != "") {
+                    $dataNascimentoFiltro = $_POST["dataNascimentoFiltro"];
+                    $where = $where . " AND dataNascimento >= '$dataNascimentoFiltro'";;
+                }
+
+                $dataFimFiltro = $dataNascimento;
+                if ($_POST["dataFimFiltro"] != "") {
+                    $dataFimFiltro = $_POST["dataFimFiltro"];
+                    $where = $where . " AND dataNascimento <= '$dataFimFiltro'";;
+                }
+
+
+                $ativoFiltro = $ativo;
+                if ($_POST["ativoFiltro"] != "") {
+                    $ativoFiltro = $_POST["ativoFiltro"];
+                    $where = $where . " AND ativo = '$ativoFiltro'";;
+                }
+
+
+                $sql = " select codigo, nome, ativo, cpf, dataNascimento from dbo.funcionarioCadastro";
 
                 $sql = $sql . $where;
                 $reposit = new reposit();
                 $result = $reposit->RunQuery($sql);
 
                 foreach($result as $row) {
-                    $id = (int) $row['codigo'];
-                    $login = $row['login'];
-                    $ativo = (int) $row['ativo'];
-                    $funcionario = $row['nomeFuncionario'];
-                    $descricaoAtivo = "";
+                    $codigo = (int) $row['codigo'];
+                    $nome =  $row['nome'];
+                    $ativo = (int )$row['ativo'];
+                    $cpf =   $row['cpf'];
+                    $dataNascimento = $row['dataNascimento'];
                     if ($ativo == 1) {
                         $descricaoAtivo = "Sim";
                     } else {
                         $descricaoAtivo = "Não";
                     }
+                   
+                    if ($dataNascimento) {
+                        $dataNascimento = explode(" ", $dataNascimento);
+                        $data = explode("-", $dataNascimento[0]);
+                        $dataNascimento = ($data[2]. "/". $data[1]. "/". $data[0]);
+                    };
 
                     echo '<tr >';
-                    echo '<td class="text-left"><a href="usuarioCadastro.php?id=' . $id . '">' . $login . '</a></td>';
-                    echo '<td class="text-left">' . $funcionario . '</td>';
+                    echo '<td class="text-left"><a href="cadastroFuncionario.php?id=' . $codigo . '">' . $codigo . '</a></td>';
+                    echo '<td class="text-left">' . $nome . '</td>';
+                    echo '<td class="text-left">' . $dataNascimento . '</td>';
+                    echo '<td class="text-left">' . $cpf . '</td>';
                     echo '<td class="text-left">' . $descricaoAtivo . '</td>';
                     echo '</tr >';
                 }

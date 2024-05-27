@@ -27,7 +27,8 @@ if ($funcao == 'gravarNovaSenha') {
 
 return;
 
-function grava(){
+function grava()
+{
 
     if ((empty($_POST['id'])) || (!isset($_POST['id'])) || (is_null($_POST['id']))) {
         $id = 0;
@@ -40,13 +41,14 @@ function grava(){
     } else {
         $ativo = (int) $_POST["ativo"];
     }
-    
+
     $reposit = new reposit();
-    $utils= new comum();
+    $utils = new comum();
 
     $nome = $utils->formatarString($_POST['nome']);
     $cpf = $utils->formatarString($_POST['cpf']);
     $dataNascimento = $utils->formataDataSql($_POST['dataNascimento']);
+    $ativo = 1;
 
 
     $sql = "dbo.funcionario_Atualiza
@@ -78,50 +80,29 @@ function recupera()
         return;
     }
 
-    if (($condicaoId === true) && ($condicaoLogin === true)) {
-        $mensagem = "Somente 1 parâmetro de pesquisa deve ser informado.";
-        echo "failed#" . $mensagem . ' ';
-        return;
-    }
+    $id = (int) $_POST["id"];
 
-    if ($condicaoId) {
-        $usuarioIdPesquisa = $_POST["id"];
-    }
-
-    if ($condicaoLogin) {
-        $loginPesquisa = $_POST["loginPesquisa"];
-    }
-
-    $sql = " SELECT USU.codigo,USU.[login],USU.ativo,tipoUsuario,funcionario,restaurarSenha
-             FROM Ntl.usuario USU WHERE (0 = 0) ";
-
-    if ($condicaoId) {
-        $sql = $sql . " AND USU.codigo = " . $usuarioIdPesquisa . " ";
-    }
-
-    if ($condicaoLogin) {
-        $sql = $sql . " AND USU.login = '" . $loginPesquisa . "' ";
-    }
+    $sql = " SELECT codigo, ativo, nome, cpf, dataNascimento
+             FROM dbo.funcionarioCadastro WHERE (0 = 0) and codigo = $id";
 
     $reposit = new reposit();
     $result = $reposit->RunQuery($sql);
 
     $out = "";
     if ($row = $result[0]) {
-        $id = +$row['codigo'];
-        $login = $row['login'];
-        $ativo = +$row['ativo'];
-        $tipoUsuario = $row['tipoUsuario'];
-        $funcionario = +$row['funcionario'];
-        $restaurarSenha = +$row['restaurarSenha'];
+        $codigo = +$row['codigo'];
+        $ativo = $row['ativo'];
+        $nome = $row['nome'];
+        $cpf = $row['cpf'];
+        $dataNascimento = $row['dataNascimento'];
+    
     }
 
-    $out =   $id . "^" .
-        $login . "^" .
+    $out =   $codigo . "^" .
         $ativo . "^" .
-        $tipoUsuario . "^" .
-        $funcionario . "^" .
-        $restaurarSenha;
+        $nome . "^" .
+        $cpf . "^" .
+        $dataNascimento;
 
     if ($out == "") {
         echo "failed#";
@@ -131,34 +112,24 @@ function recupera()
     echo "sucess#" . $out;
     return;
 }
+
 function excluir()
 {
 
     $reposit = new reposit();
-    $possuiPermissao = $reposit->PossuiPermissao("USUARIO_ACESSAR|USUARIO_EXCLUIR");
 
-    if ($possuiPermissao === 0) {
-        $mensagem = "O usuário não tem permissão para excluir!";
-        echo "failed#" . $mensagem . ' ';
-        return;
-    }
+    $id = (int)$_POST["id"];
 
-    $id = $_POST["id"];
-
-    if ((empty($_POST['id']) || (!isset($_POST['id'])) || (is_null($_POST['id'])))) {
-        $mensagem = "Selecione um usuário.";
-        echo "failed#" . $mensagem . ' ';
-        return;
-    }
+    // if ((empty($_POST['id'])  (!isset($_POST['id']))  (is_null($_POST['id'])))) {
+    //     $mensagem = "Selecione um usuário.";
+    //     echo "failed#" . $mensagem . ' ';
+    //     return;
+    // }
 
     session_start();
-    $usuario = $_SESSION['login'];
-    $usuario = "'" . $usuario . "'";
 
-    $sql = "usuario_Deleta " . $id . "," . $usuario . " ";
-
+    $result = $reposit->update('dbo.funcionarioCadastro' . '|' . 'ativo = 0' . '|' . 'codigo =' . $id);
     $reposit = new reposit();
-    $result = $reposit->Execprocedure($sql);
 
     if ($result < 1) {
         echo ('failed#');

@@ -6,8 +6,8 @@ require_once("inc/init.php");
 require_once("inc/config.ui.php");
 
 //colocar o tratamento de permissão sempre abaixo de require_once("inc/config.ui.php");
-$condicaoAcessarOK = (in_array('USUARIO_ACESSAR', $arrayPermissao, true));
-$condicaoGravarOK = (in_array('USUARIO_GRAVAR', $arrayPermissao, true));
+$condicaoAcessarOK = true;
+$condicaoGravarOK = true;
 
 if ($condicaoAcessarOK == false) {
     unset($_SESSION['login']);
@@ -80,24 +80,46 @@ include("inc/nav.php");
                                                 <div class="panel-body no-padding">
                                                     <fieldset>
                                                         <div class="row">
-                                                            <section class="col col-6">
+                                                            <section class="col col-3">
                                                                 <label class="label">Nome</label>
                                                                 <label class="input"><i class="icon-prepend fa fa-user"></i>
                                                                     <input id="nome" maxlength="50" name="nome" type="text" value="">
                                                                 </label>
                                                             </section>
-                                                                        <section class="col col-6">
-                                            <label class="label">Ativo</label>
-                                            <label class="select">
-                                                <select id="ativo" name="ativo">
-                                                    <option value="">Selecione</option>
-                                                    <option value="1">Sim</option>
-                                                    <option value="0">Não</option>
-                                                </select>
-                                                <i></i>
-                                            </label>
-                                        </section>
+                                                            <section class="col col-3">
+                                                                <label class="label">CPF</label>
+                                                                <label class="input"><i class="icon-prepend fa fa-user"></i>
+                                                                    <input id="cpf" maxlength="50" name="cpf" type="text" value="">
+                                                                </label>
+                                                            </section>
+                                                            <section class="col col-2">
+                                                                <label class="label">Data de Nascimento - Início</label>
+                                                                <label class="input"><i class="icon-prepend fa fa-user"></i>
+                                                                    <input id="dataNascimento" maxlength="50" name="dataNascimento" type="text" value="">
+                                                                </label>
+                                                            </section>
+
+                                                            <section class="col col-2">
+                                                                <label class="label">Data de Nascimento - Fim </label>
+                                                                <label class="input"><i class="icon-prepend fa fa-user"></i>
+                                                                    <input id="dataFim" maxlength="50" name="dataFim" type="text" value="">
+                                                                </label>
+                                                            </section>
+
+                                                            <section class="col col-2">
+                                                                <label class="label">Ativo</label>
+                                                                <label class="select">
+                                                                    <select id="ativo" name="ativo">
+                                                                        <option></option>
+                                                                        <option value="1">Sim</option>
+                                                                        <option value="0">Não</option>
+                                                                    </select>
+                                                                    <i></i>
+                                                                </label>
+                                                            </section>
                                                         </div>
+
+                                                        <div class="row"></div>
 
                                                     </fieldset>
                                                 </div>
@@ -173,12 +195,14 @@ include("inc/scripts.php");
     function listarFiltro() {
         var nome = $('#nome').val();
         var dataNascimento = $('#dataNascimento').val();
+        var dataFim = $('#dataFim').val();
         var cpf = $('#cpf').val();
         var ativo = $('#ativo').val();
- 
-        $('#resultadoBusca').load('usuarioFiltroListagem.php?', {
+
+        $('#resultadoBusca').load('exemploFiltroListagem.php?', {
             nomeFiltro: nome,
             dataNascimentoFiltro: dataNascimento,
+            dataFimFiltro: dataFim,
             cpfFiltro: cpf,
             ativoFiltro: ativo
         });
