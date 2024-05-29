@@ -24,8 +24,11 @@ if ($funcao == 'recuperarDadosUsuario') {
 if ($funcao == 'gravarNovaSenha') {
     call_user_func($funcao);
 }
-
-return;
+if ($funcao == 'verificaCpf') {
+    call_user_func($funcao);
+}
+// 
+// return;
 
 function grava()
 {
@@ -137,5 +140,31 @@ function excluir()
     }
 
     echo 'sucess#' . $result;
+    return;
+}
+
+function verificaCpf(){
+    if ((empty($_POST['cpf'])) || (!isset($_POST['cpf'])) || (is_null($_POST['cpf']))) {
+        $id = 0;
+    } else {
+        $id = $_POST["cpf"];
+    }
+
+
+    $reposit = new reposit();
+    $utils = new comum();
+
+    $cpf = $utils->formatarString($_POST['cpf']);
+
+    $sql = "SELECT cpf from dbo.funcionarioCadastro where cpf = $cpf";
+
+    $reposit = new reposit();
+    $result = $reposit->RunQuery($sql);
+
+    $ret = 'sucess#Pode Cadastrar cpf';
+    if (count($result)>0) {
+        $ret = 'failed#cpf ja cadastrado';
+    }
+    echo $ret;
     return;
 }

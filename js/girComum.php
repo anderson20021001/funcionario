@@ -238,7 +238,7 @@ function validaDataInversa($campo)
 {
     $campo = explode("-", $campo);
     $diaCampo = explode(" ", $campo[2]);
-    $campo = $diaCampo[0] . "/" . $campo[1] . "/" . $campo[0];
+    $campo = $diaCampo[0] . "/" . $campo[1] . "/" . $campo[2];
     return $campo;
 }
 

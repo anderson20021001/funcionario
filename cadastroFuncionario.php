@@ -120,6 +120,15 @@ include("inc/nav.php");
                                                                     <i class="icon-append fa fa-calendar"></i>
                                                                     <input type="text" id="dataNascimento" name="dataNascimento">
                                                                 </label>
+                                                            </section>
+
+                                                                <section class="col col-3">
+                                                                <label class="label" for="dataNascimento">_POST(idade)</label>
+                                                                <label class="input">
+                                                                    <i class="icon-append fa fa-calendar"></i>
+                                                                    <input type="text" id="idade" name="idade" class="reandoly">
+                                                                </label>
+                                                                </section>
                                                         </div>
                                                     </fieldset>
                                                 </div>
@@ -211,6 +220,13 @@ include("inc/scripts.php");
     $(document).ready(function() {
         $("#cpf").mask("999.999.999-99");
         $("#dataNascimento").mask('99/99/9999')
+
+
+        var hoje = new Date();
+        var nasc = new Date(data);
+        var idade = hoje.getFullYear() - nasc.getFullYear();
+        var m = hoje.getMonth() - nasc.getMonth();
+        if (m < 0 || (m === 0 && hoje.getDate() < nasc.getDate())) idade--;
 
         jQuery.validator.addMethod(
             "senhaRequerida",
@@ -371,12 +387,17 @@ include("inc/scripts.php");
         $("#btnNovo").on("click", function() {
             novo();
         });
+
         $("#btnGravar").on("click", function() {
             gravar();
         });
 
         $("#btnVoltar").on("click", function() {
             voltar();
+        });
+
+        $("#cpf").on("change", function() {
+            verificarCpf();
         });
     });
 
@@ -392,7 +413,6 @@ include("inc/scripts.php");
             }
         }
         $("#nome").focus();
-
     }
 
     function novo() {
@@ -410,7 +430,6 @@ include("inc/scripts.php");
             smartAlert("Atenção", "Selecione um registro para excluir!", "error");
             return;
         }
-
         excluirUsuario(id);
     }
 
@@ -421,26 +440,38 @@ include("inc/scripts.php");
         var cpf = $("#cpf").val();
         var dataNascimento = $("#dataNascimento").val();
 
-
         if (nome === "") {
             smartAlert("Atenção", "Informe o nome !", "error");
             $("#nome").focus();
             return;
         }
-
-
+ 
         if (cpf === "") {
             smartAlert("Atenção", "Informe o cpf !", "error");
             $("#cpf").focus();
             return;
-
         }
+
         if (dataNascimento === "") {
             smartAlert("Atenção", "Informe a data de nascimento !", "error");
             $("#dataNascimento").focus();
             return;
         }
-
         gravaUsuario(id, ativo, nome, cpf, dataNascimento);
+    }
+
+
+    function verificarCpf(){
+        var cpf = $("#cpf").val();
+        verificaCpf(cpf)
+        
+    }
+    function idade(){
+        var hoje = new Date();
+        var nasc = new Date(data);
+        var idade = hoje.getFullYear() - nasc.getFullYear();
+        var m = hoje.getMonth() - nasc.getMonth();
+        if (m < 0 || (m === 0 && hoje.getDate() < nasc.getDate())) idade--;
+        
     }
 </script>
