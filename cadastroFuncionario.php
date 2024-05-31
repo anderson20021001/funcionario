@@ -105,7 +105,7 @@ include("inc/nav.php");
                                                             <section class="col col-2">
                                                                 <label class="label">Nome</label>
                                                                 <label class="input"><i class="icon-prepend fa fa-user"></i>
-                                                                    <input id="nome" maxlength="255" name="nome" class="required" type="text" value="">
+                                                                    <input id="nome" maxlength="255" name="nome" class="required"  type="text" value="">
                                                                 </label>
                                                             </section>
                                                             <section class="col col-2">
@@ -122,14 +122,13 @@ include("inc/nav.php");
                                                                 </label>
                                                             </section>
 
-                                                                <section class="col col-3">
-                                                                <label class="label" for="dataNascimento">_POST(idade)</label>
-                                                                <label class="input">
-                                                                    <i class="icon-append fa fa-calendar"></i>
-                                                                    <input type="text" id="idade" name="idade" class="reandoly">
-                                                                </label>
-                                                                </section>
-                                                        </div>
+                                                              <section class="col col-1">
+                                                            <label class="label" for="idade">Idade</label>
+                                                            <label class="input">
+                                                                <input type="text" id="idade" name="idade" class="readonly" disabled>
+                                                            </label>
+                                                        </section>          
+                                                         </div>
                                                     </fieldset>
                                                 </div>
                                             </div>
@@ -220,13 +219,6 @@ include("inc/scripts.php");
     $(document).ready(function() {
         $("#cpf").mask("999.999.999-99");
         $("#dataNascimento").mask('99/99/9999')
-
-
-        var hoje = new Date();
-        var nasc = new Date(data);
-        var idade = hoje.getFullYear() - nasc.getFullYear();
-        var m = hoje.getMonth() - nasc.getMonth();
-        if (m < 0 || (m === 0 && hoje.getDate() < nasc.getDate())) idade--;
 
         jQuery.validator.addMethod(
             "senhaRequerida",
@@ -452,7 +444,7 @@ include("inc/scripts.php");
             return;
         }
 
-        if (dataNascimento === "") {
+        if (dataNascimento === "" ) {
             smartAlert("Atenção", "Informe a data de nascimento !", "error");
             $("#dataNascimento").focus();
             return;
@@ -466,12 +458,59 @@ include("inc/scripts.php");
         verificaCpf(cpf)
         
     }
-    function idade(){
-        var hoje = new Date();
-        var nasc = new Date(data);
-        var idade = hoje.getFullYear() - nasc.getFullYear();
-        var m = hoje.getMonth() - nasc.getMonth();
-        if (m < 0 || (m === 0 && hoje.getDate() < nasc.getDate())) idade--;
-        
+
+   
+// function limparCampoData() {
+//     document.getElementById('dataNascimento').value = ""; // Limpa o valor do campo de entrada de data
+// }
+
+// $('#dataNascimento').on('change', function(){
+//     if (validadeData()) {
+//     }
+// });
+        function calcularIdade() {
+            var dataNasc = document.getElementById('dataNascimento').value;
+            if (dataNasc) {
+                var hoje = new Date();
+                var nasc = new Date(dataNasc);
+                var idade = hoje.getFullYear() - nasc.getFullYear();
+                var m = hoje.getMonth() - nasc.getMonth();
+                if (m < 0 || (m === 0 && hoje.getDate() < nasc.getDate())) {
+                    idade--;
+                }
+                // document.getElementById('idade').value = idade;
+                $('#idade').val(idade);
+            } else {
+                alert('Por favor, insira uma data de nascimento válida.');
+            }
+        }
+       
+        // Adiciona o evento de clique ao documento inteiro
+        // document.addEventListener('focusout', calcularIdade);
+        $('#dataNascimento').on('change', function(){calcularIdade()});
+
+
+        function verificaIdade() {
+    var idadeCalcule = document.getElementById('idade').value;
+
+    if (idadeCalcule < 14 || idadeCalcule > 120) {
+        limparCampoData();
+        alert("Por favor, digite uma idade válida entre 14 e 120 anos.");
+        return false; // Retorna false para indicar que a validação falhou
     }
+    
+    return true; // Retorna true se a validação for bem-sucedida
+}
+
+function limparCampoData() {
+    document.getElementById('dataNascimento').value = ""; // Limpa o valor do campo de entrada de data
+}
+
+// Chama a função verificaIdade() quando o campo de data de nascimento é alterado
+$('#dataNascimento').on('change', function() {
+    verificaIdade();
+});
+
+
+
 </script>
