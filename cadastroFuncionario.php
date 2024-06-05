@@ -557,6 +557,7 @@ include("inc/scripts.php");
         print("olaolaoalalalaoa")
         print(mes)
         if(){
+            nascimento()
         if (idadeCalcule < 14 || idadeCalcule > 125) {
             nascimento();
             limparCampoData();
@@ -577,6 +578,6 @@ include("inc/scripts.php");
     });
     function nascimento(){
     var dia = dataNascimento.getDay()
-        var mes = dataNascimento.getMonth()
+    var mes = dataNascimento.getMonth()
     }
 </script>
