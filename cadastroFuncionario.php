@@ -3,7 +3,7 @@
 require_once("inc/init.php");
 
 //require UI configuration (nav, ribbon, etc.)
-//require_once("inc/config.ui.php");
+require_once("inc/config.ui.php");
 
 //colocar o tratamento de permissão sempre abaixo de require_once("inc/config.ui.php");
 $condicaoAcessarOK = true;
@@ -30,7 +30,7 @@ if ($condicaoExcluirOK === false) {
   YOU CAN SET CONFIGURATION VARIABLES HERE BEFORE IT GOES TO NAV, RIBBON, ETC.
   E.G. $page_title = "Custom Title" */
 
-$page_title = "Usuário";
+$page_title = "Funcionário";
 
 /* ---------------- END PHP Custom Scripts ------------- */
 
@@ -42,7 +42,7 @@ include("inc/header.php");
 
 //include left panel (navigation)
 //follow the tree in inc/config.ui.php
-$page_nav["configuracao"]["sub"]["usuarios"]["active"] = true;
+$page_nav["Configuração"]["sub"]["funcionario"]["active"] = true;
 
 include("inc/nav.php");
 ?>
@@ -53,6 +53,7 @@ include("inc/nav.php");
     //configure ribbon (breadcrumbs) array("name"=>"url"), leave url empty if no url
     //$breadcrumbs["New Crumb"] => "http://url.com"
     $breadcrumbs["Configurações"] = "";
+    $breadcrumbs["Cadastro"] = "";
     include("inc/ribbon.php");
     ?>
 
@@ -65,7 +66,7 @@ include("inc/nav.php");
                     <div class="jarviswidget" id="wid-id-1" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-sortable="false">
                         <header>
                             <span class="widget-icon"><i class="fa fa-cog"></i></span>
-                            <h2>Usuário</h2>
+                            <h2>Funcionário</h2>
                         </header>
                         <div>
                             <div class="widget-body no-padding">
@@ -105,13 +106,19 @@ include("inc/nav.php");
                                                             <section class="col col-2">
                                                                 <label class="label">Nome</label>
                                                                 <label class="input"><i class="icon-prepend fa fa-user"></i>
-                                                                    <input id="nome" maxlength="255" name="nome" class="required"  type="text" value="">
+                                                                    <input id="nome" maxlength="255" name="nome" class="required" type="text" value="">
                                                                 </label>
                                                             </section>
                                                             <section class="col col-2">
                                                                 <label class="label">CPF</label>
                                                                 <label class="input">
                                                                     <input id="cpf" maxlength="14" name="cpf" type="text" class="required" value="" placeholder="xxx.xxx.xxx-xx">
+                                                                </label>
+                                                            </section>
+                                                            <section class="col col-2">
+                                                                <label class="label">RG</label>
+                                                                <label class="input">
+                                                                    <input id="rg" maxlength="12" name="rg" type="text" class="required" value="" placeholder="xx.xxx.xxx-x">
                                                                 </label>
                                                             </section>
                                                             <section class="col col-2">
@@ -122,13 +129,51 @@ include("inc/nav.php");
                                                                 </label>
                                                             </section>
 
-                                                              <section class="col col-1">
-                                                            <label class="label" for="idade">Idade</label>
-                                                            <label class="input">
-                                                                <input type="text" id="idade" name="idade" class="readonly" disabled>
-                                                            </label>
-                                                        </section>          
-                                                         </div>
+                                                            <section class="col col-1">
+                                                                <label class="label" for="idade">Idade</label>
+                                                                <label class="input">
+                                                                    <input type="text" id="idade" name="idade" class="readonly" disabled>
+                                                                </label>
+                                                            </section>
+                                                        <div>
+                                                        <section class="col col-2 col-auto" required>
+                                                                <label class="label" for="genero">Gênero</label>
+                                                                <label class="select">
+                                                                    <select id="genero" class="required" name="genero">
+                                                                        <?php
+                                                                        $reposit = new reposit();
+                                                                        $sql = "SELECT codigo, descricao FROM 
+                                                                        dbo.genero";
+                                                                        $result = $reposit->RunQuery($sql);
+                                                                        foreach ($result as $row) {
+                                                                            $codigo = +$row['codigo'];
+                                                                            $descricao = $row['descricao'];
+                                                                            echo '<option value=' . $codigo . '>' . $descricao . '</option>';
+                                                                        }
+                                                                        ?>
+                                                                    </select><i></i>
+                                                            </section>
+                                                            <section class="col col-2 col-auto" required>
+                                                                <label class="label" for="estadoCivil">Estado Civil</label>
+                                                                <label class="select">
+                                                                    <select id="estadoCivil" class="required" name="estadoCivil">
+                                                                        <?php
+                                                                        $reposit = new reposit();
+                                                                        $sql = "SELECT codigo, estadoCivil FROM 
+                                                                        dbo.genero";
+                                                                        $result = $reposit->RunQuery($sql);
+                                                                        foreach ($result as $row) {
+                                                                            $codigo = +$row['codigo'];
+                                                                            $descricao = $row['descricao'];
+                                                                            echo '<option value=' . $codigo . '>' . $descricao . '</option>';
+                                                                        }
+                                                                        ?>
+                                                                    </select><i></i>
+                                                            </section>
+
+                                                            
+                                                            
+                                                        </div>
                                                     </fieldset>
                                                 </div>
                                             </div>
@@ -218,6 +263,7 @@ include("inc/scripts.php");
 <script language="JavaScript" type="text/javascript">
     $(document).ready(function() {
         $("#cpf").mask("999.999.999-99");
+        $("#rg").mask("99.999.999-9");
         $("#dataNascimento").mask('99/99/9999')
 
         jQuery.validator.addMethod(
@@ -412,7 +458,7 @@ include("inc/scripts.php");
     }
 
     function voltar() {
-        $(location).attr('href', 'usuarioFiltro.php');
+        $(location).attr('href', 'filtroFuncionario.php');
     }
 
     function excluir() {
@@ -430,6 +476,7 @@ include("inc/scripts.php");
         var ativo = $('#ativo').val();
         var nome = $("#nome").val();
         var cpf = $("#cpf").val();
+        var rg = $("#rg").val();
         var dataNascimento = $("#dataNascimento").val();
 
         if (nome === "") {
@@ -437,14 +484,19 @@ include("inc/scripts.php");
             $("#nome").focus();
             return;
         }
- 
+
         if (cpf === "") {
             smartAlert("Atenção", "Informe o cpf !", "error");
             $("#cpf").focus();
             return;
         }
+        if (rg === "") {
+            smartAlert("Atenção", "Informe o rg !", "error");
+            $("#rg").focus();
+            return;
+        }
 
-        if (dataNascimento === "" ) {
+        if (dataNascimento === "") {
             smartAlert("Atenção", "Informe a data de nascimento !", "error");
             $("#dataNascimento").focus();
             return;
@@ -453,64 +505,78 @@ include("inc/scripts.php");
     }
 
 
-    function verificarCpf(){
+    function verificarCpf() {
         var cpf = $("#cpf").val();
         verificaCpf(cpf)
-        
+
     }
 
-   
-// function limparCampoData() {
-//     document.getElementById('dataNascimento').value = ""; // Limpa o valor do campo de entrada de data
-// }
+    function verificaRG() {
+        var rg = $("#rg").val();
+        verificaRG(rg)
 
-// $('#dataNascimento').on('change', function(){
-//     if (validadeData()) {
-//     }
-// });
-        function calcularIdade() {
-            var dataNasc = document.getElementById('dataNascimento').value;
-            if (dataNasc) {
-                var hoje = new Date();
-                var nasc = new Date(dataNasc);
-                var idade = hoje.getFullYear() - nasc.getFullYear();
-                var m = hoje.getMonth() - nasc.getMonth();
-                if (m < 0 || (m === 0 && hoje.getDate() < nasc.getDate())) {
-                    idade--;
-                }
-                // document.getElementById('idade').value = idade;
-                $('#idade').val(idade);
-            } else {
-                alert('Por favor, insira uma data de nascimento válida.');
+    }
+
+
+    // function limparCampoData() {
+    //     document.getElementById('dataNascimento').value = ""; // Limpa o valor do campo de entrada de data
+    // }
+
+    // $('#dataNascimento').on('change', function(){
+    //     if (validadeData()) {
+    //     }
+    // });
+    function calcularIdade() {
+        var dataNasc = document.getElementById('dataNascimento').value;
+        if (dataNasc) {
+            var hoje = new Date();
+            var nasc = new Date(dataNasc);
+            var idade = hoje.getFullYear() - nasc.getFullYear();
+            var m = hoje.getMonth() - nasc.getMonth();
+            if (m < 0 || (m === 0 && hoje.getDate() < nasc.getDate())) {
+                idade--;
             }
+            // document.getElementById('idade').value = idade;
+            $('#idade').val(idade);
+        } else {
+            alert('Por favor, insira uma data de nascimento válida.');
         }
-       
-        // Adiciona o evento de clique ao documento inteiro
-        // document.addEventListener('focusout', calcularIdade);
-        $('#dataNascimento').on('change', function(){calcularIdade()});
-
-
-        function verificaIdade() {
-    var idadeCalcule = document.getElementById('idade').value;
-
-    if (idadeCalcule < 14 || idadeCalcule > 120) {
-        limparCampoData();
-        alert("Por favor, digite uma idade válida entre 14 e 120 anos.");
-        return false; // Retorna false para indicar que a validação falhou
     }
-    
-    return true; // Retorna true se a validação for bem-sucedida
-}
 
-function limparCampoData() {
-    document.getElementById('dataNascimento').value = ""; // Limpa o valor do campo de entrada de data
-}
-
-// Chama a função verificaIdade() quando o campo de data de nascimento é alterado
-$('#dataNascimento').on('change', function() {
-    verificaIdade();
-});
+    // Adiciona o evento de clique ao documento inteiro
+    // document.addEventListener('focusout', calcularIdade);
+    $('#dataNascimento').on('change', function() {
+        calcularIdade()
+    });
 
 
+    function verificaIdade() {
+        var idadeCalcule = document.getElementById('idade').value;
+        
 
+        print("olaolaoalalalaoa")
+        print(mes)
+        if(){
+        if (idadeCalcule < 14 || idadeCalcule > 125) {
+            nascimento();
+            limparCampoData();
+            alert("Por favor, digite uma idade válida entre 14 e 120 anos.");
+            return false; // Retorna false para indicar que a validação falhou
+        }
+    }
+        return true; // Retorna true se a validação for bem-sucedida
+    }
+
+    function limparCampoData() {
+        document.getElementById('dataNascimento').value = ""; // Limpa o valor do campo de entrada de data
+    }
+
+    // Chama a função verificaIdade() quando o campo de data de nascimento é alterado
+    $('#dataNascimento').on('change', function() {
+        verificaIdade();
+    });
+    function nascimento(){
+    var dia = dataNascimento.getDay()
+        var mes = dataNascimento.getMonth()
+    }
 </script>

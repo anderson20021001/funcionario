@@ -255,4 +255,53 @@ function formatarString($value)
         $aux = "'".trim($aux)."'";
         return $aux;
     }
+
+    function verificaRG($rg = null) {
+
+        // Verifica se um número foi informado
+        if(empty($rg)) {
+            return false;
+        }
+
+        // Elimina possivel mascara
+        $caracterMascara = array(".", "-");
+        $rg = str_replace($caracterMascara, '', $rg);
+        $rg = str_pad($rg, 9, '0', STR_PAD_LEFT);
+
+        // Verifica se o numero de digitos informados é igual a 11 
+        if (strlen($rg) != 9) {
+            return false;
+        }
+        // Verifica se nenhuma das sequências invalidas abaixo 
+        // foi digitada. Caso afirmativo, retorna falso
+        else if ($rg == '000000000' || 
+            $rg == '111111111' || 
+            $rg == '222222222' || 
+            $rg == '333333333' || 
+            $rg == '444444444' || 
+            $rg == '555555555' || 
+            $rg == '666666666' || 
+            $rg == '777777777' || 
+            $rg == '888888888' || 
+            $rg == '999999999') {
+            return false;
+         // Calcula os digitos verificadores para verificar se o
+         // CPF é válido
+         } else {   
+
+            for ($t = 9; $t < 11; $t++) {
+
+                for ($d = 0, $c = 0; $c < $t; $c++) {
+                    $d += $rg[$c] * (($t + 1) - $c);
+                }
+                $d = ((10 * $d) % 11) % 10;
+                if ($rg[$c] != $d) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+    }
+
 }

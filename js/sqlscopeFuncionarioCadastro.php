@@ -50,6 +50,7 @@ function grava()
 
     $nome = $utils->formatarString($_POST['nome']);
     $cpf = $utils->formatarString($_POST['cpf']);
+    $rg = $utils->formatarString($_POST['rg']);
     $dataNascimento = $utils->formataDataSql($_POST['dataNascimento']);
     $ativo = 1;
 
@@ -59,6 +60,7 @@ function grava()
      $ativo,
      $nome,
      $cpf,
+     $rg,
      $dataNascimento";
 
     $reposit = new reposit();
@@ -85,7 +87,7 @@ function recupera()
 
     $id = (int) $_POST["id"];
 
-    $sql = " SELECT codigo, ativo, nome, cpf, dataNascimento
+    $sql = " SELECT codigo, ativo, nome, cpf, rg, dataNascimento
              FROM dbo.funcionarioCadastro WHERE (0 = 0) and codigo = $id";
 
     $reposit = new reposit();
@@ -97,6 +99,7 @@ function recupera()
         $ativo = $row['ativo'];
         $nome = $row['nome'];
         $cpf = $row['cpf'];
+        $rg = $row['rg'];
         $dataNascimento = $row['dataNascimento'];
     
     }
@@ -105,6 +108,7 @@ function recupera()
         $ativo . "^" .
         $nome . "^" .
         $cpf . "^" .
+        $rg . "^" .
         $dataNascimento;
 
     if ($out == "") {
@@ -164,6 +168,32 @@ function verificaCpf(){
     $ret = 'sucess#Pode Cadastrar cpf';
     if (count($result)>0) {
         $ret = 'failed#cpf ja cadastrado';
+    }
+    echo $ret;
+    return;
+}
+
+function verificaRG(){
+    if ((empty($_POST['rg'])) || (!isset($_POST['rg'])) || (is_null($_POST['rg']))) {
+        $id = 0;
+    } else {
+        $id = $_POST["rg"];
+    }
+
+
+    $reposit = new reposit();
+    $utils = new comum();
+
+    $cpf = $utils->formatarString($_POST['rg']);
+
+    $sql = "SELECT rg from dbo.funcionarioCadastro where rg = $rg";
+
+    $reposit = new reposit();
+    $result = $reposit->RunQuery($sql);
+
+    $ret = 'sucess#Pode Cadastrar rg';
+    if (count($result)>0) {
+        $ret = 'failed#rg ja cadastrado';
     }
     echo $ret;
     return;
