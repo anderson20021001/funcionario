@@ -5,7 +5,7 @@ include "girComum.php";
 
 $funcao = $_POST["funcao"];
 
-if ($funcao == 'grava') {
+if ($funcao == 'gravaEstadoCivilPessoa') {
     call_user_func($funcao);
 }
 
@@ -30,7 +30,7 @@ if ($funcao == 'verificaCpf') {
 // 
 // return;
 
-function grava()
+function gravaEstadoCivilPessoa()
 {
 
     if ((empty($_POST['id'])) || (!isset($_POST['id'])) || (is_null($_POST['id']))) {
@@ -48,23 +48,15 @@ function grava()
     $reposit = new reposit();
     $utils = new comum();
 
-    $nome = $utils->formatarString($_POST['nome']);
-    $cpf = $utils->formatarString($_POST['cpf']);
-    $rg = $utils->formatarString($_POST['rg']);
-    $dataNascimento = $utils->formataDataSql($_POST['dataNascimento']);
-    $genero = $_POST['genero'];
-    $estadoCivil = $_POST['estadoCivil'];
+    
+    $estadoCivil = $utils->formatarString($_POST['estadoCivil']);
+    
     $ativo = 1;
 
-    
-     $sql = "dbo.funcionario_Atualiza
+
+    $sql = "dbo.estadoCivil_Atualiza
      $id,
      $ativo,
-     $nome,
-     $cpf,
-     $dataNascimento,
-     $rg,
-     $genero,
      $estadoCivil";
 
     $reposit = new reposit();
@@ -77,39 +69,6 @@ function grava()
     echo $ret;
     return;
 }
-
-
-// function gravaGenero()
-// {
-
-//     if ((empty($_POST['id'])) || (!isset($_POST['id'])) || (is_null($_POST['id']))) {
-//         $id = 0;
-//     } else {
-//         $id = (int) $_POST["id"];
-//     }
-
-//     $reposit = new reposit();
-
-//     $descricao = $_POST['descricao'];
-//     $ativo = 1;
-
-
-//     $sql = "dbo.genero_Atualiza
-//     $id,
-//     $ativo,
-//     $descricao";
-
-//    $reposit = new reposit();
-//    $result = $reposit->Execprocedure($sql);
-
-//    $ret = 'sucess#';
-//    if ($result < 1) {
-//        $ret = 'failed#';
-//    }
-//    echo $ret;
-//    return;
-// }
-
 
 function recupera()
 {
@@ -124,7 +83,7 @@ function recupera()
 
     $id = (int) $_POST["id"];
 
-    $sql = " SELECT codigo, ativo, nome, cpf, dataNascimento, rg,  genero, estadoCivil
+    $sql = " SELECT codigo, ativo, nome, cpf, rg, dataNascimento
              FROM dbo.funcionarioCadastro WHERE (0 = 0) and codigo = $id";
 
     $reposit = new reposit();
@@ -136,10 +95,8 @@ function recupera()
         $ativo = $row['ativo'];
         $nome = $row['nome'];
         $cpf = $row['cpf'];
-        $dataNascimento = $row['dataNascimento'];
         $rg = $row['rg'];
-        $genero = $row['genero'];
-        $estadoCivil = $row['estadoCivil'];
+        $dataNascimento = $row['dataNascimento'];
     
     }
 
@@ -147,10 +104,8 @@ function recupera()
         $ativo . "^" .
         $nome . "^" .
         $cpf . "^" .
-        $dataNascimento . "^" .
         $rg . "^" .
-        $genero . "^" .
-        $estadoCivil;
+        $dataNascimento;
 
     if ($out == "") {
         echo "failed#";

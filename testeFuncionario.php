@@ -82,195 +82,87 @@ include("inc/nav.php");
                                                     </a>
                                                 </h4>
                                             </div>
-
+                                            
                                             <div id="collapseCadastro" class="panel-collapse collapse in">
                                                 <div class="panel-body no-padding">
                                                     <fieldset>
                                                         <div class="row">
-                                                            <section class="col col-1 hidden">
-                                                                <label class="label">Código</label>
-                                                                <label class="input">
-                                                                    <input id="codigo" name="codigo" type="text" class="readonly" readonly>
-                                                                </label>
-                                                            </section>
-                                                            <section class="col col-2 hidden">
-                                                                <label class="label">&nbsp;</label>
-                                                                <label id="labelAtivo" class="checkbox ">
-                                                                    <input checked="checked" id="ativo" name="ativo" type="checkbox" value="true"><i></i>
-                                                                    Ativo
-                                                                </label>
-                                                            </section>
                                                         </div>
                                                         <div class="row">
                                                         </div>
                                                         <div class="row">
-                                                            <section class="col col-2">
-                                                                <label class="label">Nome</label>
-                                                                <label class="input"><i class="icon-prepend fa fa-user"></i>
-                                                                    <input id="nome" maxlength="255" name="nome" class="required" type="text" value="">
-                                                                </label>
-                                                            </section>
-                                                            <section class="col col-2">
-                                                                <label class="label">CPF</label>
-                                                                <label class="input">
-                                                                    <input id="cpf" maxlength="14" name="cpf" type="text" class="required" value="" placeholder="xxx.xxx.xxx-xx">
-                                                                </label>
-                                                            </section>
-                                                            <section class="col col-2">
-                                                                <label class="label">RG</label>
-                                                                <label class="input">
-                                                                    <input id="rg" maxlength="12" name="rg" type="text" class="required" value="" placeholder="xx.xxx.xxx-x">
-                                                                </label>
-                                                            </section>
-                                                            <section class="col col-2">
-                                                                <label class="label" for="dataNascimento">Data de Nascimento</label>
-                                                                <label class="input">
-                                                                    <i class="icon-append fa fa-calendar"></i>
-                                                                    <input type="text" id="dataNascimento" name="dataNascimento">
-                                                                </label>
-                                                            </section>
+                                                          
+                                                       
 
-                                                            <section class="col col-1">
-                                                                <label class="label" for="idade">Idade</label>
-                                                                <label class="input">
-                                                                    <input type="text" id="idade" name="idade" class="readonly" disabled>
-                                                                </label>
-                                                            </section>
-                                                            <div>
-                                                                <section class="col col-2 col-auto" required>
-                                                                    <label class="label" for="genero">Gênero</label>
-                                                                    <label class="select">
-                                                                        <select id="genero" class="required" name="genero">
-                                                                            <?php
-                                                                            $reposit = new reposit();
-                                                                            $sql = "SELECT codigo, descricao FROM 
-                                                                        dbo.genero";
-                                                                            $result = $reposit->RunQuery($sql);
-                                                                            foreach ($result as $row) {
-                                                                                $codigo = +$row['codigo'];
-                                                                                $descricao = $row['descricao'];
-                                                                                echo '<option value=' . $codigo . '>' . $descricao . '</option>';
-                                                                            }
-                                                                            ?>
-                                                                        </select><i></i>
-                                                                </section>
-                                                                <section class="col col-2 col-auto" required>
-                                                                    <label class="label" for="estadoCivil">Estado Civil</label>
-                                                                    <label class="select">
-                                                                        <select id="estadoCivil" class="required" name="estadoCivil">
-                                                                            <?php
-                                                                            $reposit = new reposit();
-                                                                            $sql = "SELECT codigo, estadoCivil FROM 
-                                                                        dbo.estadoCivil";
-                                                                            $result = $reposit->RunQuery($sql);
-                                                                            foreach ($result as $row) {
-                                                                                $codigo = +$row['codigo'];
-                                                                                $estadoCivil = $row['estadoCivil'];
-                                                                                echo '<option value=' . $codigo . '>' . $estadoCivil . '</option>';
-                                                                            }
-                                                                            ?>
-                                                                        </select><i></i>
-                                                                </section>
-
-
-
-                                                            </div>
+                                                            
+                                                            
+                                                        </div>
                                                     </fieldset>
+                                                    
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="panel-group smart-accordion-default" id="accordion">
-                                            <div class="panel panel-default">
-                                                <div class="panel-heading">
-                                                    <h4 class="panel-title">
-                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseCadastro" class="" id="accordionCadastro">
-                                                            <i class="fa fa-lg fa-angle-down pull-right"></i>
-                                                            <i class="fa fa-lg fa-angle-up pull-right"></i>
-                                                            Endereço
-                                                        </a>
-                                                    </h4>
-                                                </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseCadastro" class="" id="accordionCadastro">
+                                                        <i class="fa fa-lg fa-angle-down pull-right"></i>
+                                                        <i class="fa fa-lg fa-angle-up pull-right"></i>
+                                                        Cadastro
+                                                    </a>
+                                                </h4>
+                                            </div>
+                                            
+                                            <div id="collapseCadastro" class="panel-collapse collapse in">
+                                                <div class="panel-body no-padding">
+                                                    <fieldset>
+                                                        <div class="row">
+                                                        </div>
+                                                        <div class="row">
+                                                        </div>
+                                                        <div class="row">
+                                                          
+                                                       
 
-                                                <div id="collapseCadastro" class="panel-collapse collapse in">
-                                                    <div class="panel-body no-padding">
-                                                        <fieldset class="col-6">
-
-                                                            <div class="table-responsive" style="min-height: 155px; width:50%; border: 1px solid #ddd; margin-bottom: 13px; overflow-x: auto;">
-                                                                <table id="tableTelefone" class="table table-bordered table-striped table-condensed table-hover dataTable">
-                                                                    <thead>
-                                                                        <tr role="row">
-
-                                                                            <th class="text-left" style="min-width: 500%;">Telefone</th>
-                                                                            <th class="text-left" style="min-width: 500%;">Principal</th>
-                                                                            <th class="text-left" style="min-width: 500%;">WhatsApp</th>
-                                                                        </tr>
-
-                                                                    </thead>
-
-
-                                                                    <tbody>
-
-                                                                    </tbody>
-                                                                </table>
-                                                            </div>
-                                                        </fieldset>   
-                                                        <fieldset class="col-6">                    
-                                                            <div class="table-responsive" style="min-height: 155px; width:50%; border: 1px solid #ddd; margin-bottom: 13px; overflow-x: auto;">
-                                                                <table id="tableTelefone" class="table table-bordered table-striped table-condensed table-hover dataTable">
-                                                                    <thead>
-                                                                        <th class="text-left" style="min-width: 500%;">Telefone</th>
-                                                                        <th class="text-left" style="min-width: 500%;">Principal</th>
-                                                                        <th class="text-left" style="min-width: 500%;">WhatsApp</th>
-                                                                        </tr>
-
-                                                                    </thead>
-
-
-                                                                    <tbody>
-
-                                                                    </tbody>
-                                                                </table>
-
-                                                            </div>
-
-
-
-
-
-                                                        </fieldset>
-
-                                                    </div>
+                                                            
+                                                            
+                                                        </div>
+                                                    </fieldset>
+                                                    
                                                 </div>
                                             </div>
                                         </div>
-
-                                        <footer>
-                                            <button type="button" id="btnExcluir" class="btn btn-danger" aria-hidden="true" title="Excluir" style="display:<?php echo $esconderBtnExcluir ?>">
-                                                <span class="fa fa-trash"></span>
-                                            </button>
-                                            <div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-dialog-buttons ui-draggable" tabindex="-1" role="dialog" aria-describedby="dlgSimpleExcluir" aria-labelledby="ui-id-1" style="height: auto; width: 600px; top: 220px; left: 262px; display: none;">
-                                                <div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
-                                                    <span id="ui-id-2" class="ui-dialog-title">
-                                                    </span>
-                                                </div>
-                                                <div id="dlgSimpleExcluir" class="ui-dialog-content ui-widget-content" style="width: auto; min-height: 0px; max-height: none; height: auto;">
-                                                    <p>CONFIRMA A EXCLUSÃO ? </p>
-                                                </div>
-                                                <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-                                                    <div class="ui-dialog-buttonset">
-                                                    </div>
+                                    </div>
+                                    
+                                    
+                                    <footer>
+                                        <button type="button" id="btnExcluir" class="btn btn-danger" aria-hidden="true" title="Excluir" style="display:<?php echo $esconderBtnExcluir ?>">
+                                            <span class="fa fa-trash"></span>
+                                        </button>
+                                        <div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-dialog-buttons ui-draggable" tabindex="-1" role="dialog" aria-describedby="dlgSimpleExcluir" aria-labelledby="ui-id-1" style="height: auto; width: 600px; top: 220px; left: 262px; display: none;">
+                                            <div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
+                                                <span id="ui-id-2" class="ui-dialog-title">
+                                                </span>
+                                            </div>
+                                            <div id="dlgSimpleExcluir" class="ui-dialog-content ui-widget-content" style="width: auto; min-height: 0px; max-height: none; height: auto;">
+                                                <p>CONFIRMA A EXCLUSÃO ? </p>
+                                            </div>
+                                            <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+                                                <div class="ui-dialog-buttonset">
                                                 </div>
                                             </div>
-                                            <button type="submited" id="btnGravar" class="btn btn-success" aria-hidden="true" title="Gravar" style="display:<?php echo $esconderBtnGravar ?>">
-                                                <span class="fa fa-floppy-o"></span>
-                                            </button>
-                                            <button type="button" id="btnNovo" class="btn btn-primary" aria-hidden="true" title="Novo" style="display:<?php echo $esconderBtnGravar ?>">
-                                                <span class="fa fa-file-o"></span>
-                                            </button>
-                                            <button type="button" id="btnVoltar" class="btn btn-default" aria-hidden="true" title="Voltar">
-                                                <span class="fa fa-backward "></span>
-                                            </button>
-                                        </footer>
+                                        </div>
+                                        <button type="submited" id="btnGravar" class="btn btn-success" aria-hidden="true" title="Gravar" style="display:<?php echo $esconderBtnGravar ?>">
+                                            <span class="fa fa-floppy-o"></span>
+                                        </button>
+                                        <button type="button" id="btnNovo" class="btn btn-primary" aria-hidden="true" title="Novo" style="display:<?php echo $esconderBtnGravar ?>">
+                                            <span class="fa fa-file-o"></span>
+                                        </button>
+                                        <button type="button" id="btnVoltar" class="btn btn-default" aria-hidden="true" title="Voltar">
+                                            <span class="fa fa-backward "></span>
+                                        </button>
+                                    </footer>
                                 </form>
                             </div>
                         </div>
@@ -515,7 +407,7 @@ include("inc/scripts.php");
             var idd = idx[1];
             if (idd !== "") {
                 recuperaUsuario(idd);
-
+                
             }
         }
         $("#nome").focus();
@@ -582,7 +474,7 @@ include("inc/scripts.php");
             $("#estadoCivil").focus();
             return;
         }
-        gravaUsuario(id, ativo, nome, cpf, rg, dataNascimento, genero, estadoCivil);
+        gravaUsuario(id, ativo, nome, cpf,rg, dataNascimento, genero, estadoCivil);
     }
 
 
@@ -609,16 +501,16 @@ include("inc/scripts.php");
     // });
     function calcularIdade() {
         var dataNasc = document.getElementById('dataNascimento').value;
-        var hoje = new Date();
-        var nasc = new Date(dataNasc);
-        var idade = hoje.getFullYear() - nasc.getFullYear();
-        var m = hoje.getMonth() - nasc.getMonth();
+            var hoje = new Date();
+            var nasc = new Date(dataNasc);
+            var idade = hoje.getFullYear() - nasc.getFullYear();
+            var m = hoje.getMonth() - nasc.getMonth();
         if (dataNasc) {
-
+           
             if (m < 0 || (m === 0 && hoje.getDate() < nasc.getDate())) {
                 idade--;
             }
-            document.getElementById('idade').value = idade;
+             document.getElementById('idade').value = idade;
             $('#idade').val(idade);
         } else {
             alert('Por favor, insira uma data de nascimento válida.');
@@ -651,4 +543,5 @@ include("inc/scripts.php");
     $('#dataNascimento').on('change', function() {
         verificaIdade();
     });
+  
 </script>

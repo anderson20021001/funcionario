@@ -1,9 +1,9 @@
-function gravaUsuario(id, ativo, nome, cpf,rg, dataNascimento, genero, estadoCivil) {
+function gravaEstadoCivilPessoa(codigo, ativo, estadoCivil) {
     $.ajax({
-        url: 'js/sqlscopeFuncionarioCadastro.php',
+        url: 'js/sqlscope_estadoCivil.php',
         dataType: 'html', //tipo do retorno
         type: 'post', //metodo de envio
-        data: {funcao: "grava", id:id, ativo:ativo, nome:nome, cpf:cpf, rg:rg, dataNascimento:dataNascimento, genero:genero, estadoCivil:estadoCivil}, //valores enviados ao script     
+        data: {funcao: "gravaEstadoCivilPessoa", codigo:codigo, ativo:ativo, estadoCivil:estadoCivil}, //valores enviados ao script     
         beforeSend: function () {
             //função chamada antes de realizar o ajax
         },
@@ -97,20 +97,13 @@ function recuperaUsuario(id) {
                 var nome = piece[2];
                 var cpf = piece[3];
                 var dataNascimento = piece[4];
-                var rg = piece[5];
-                var genero = piece[6];
-                var estadoCivil = piece[7];
-            
+    
                
                 $("#codigo").val(codigo);
                 $("#ativo").val(ativo);
                 $("#nome").val(nome);
                 $("#cpf").val(cpf);
-                $("#rg").val(rg);
                 $("#dataNascimento").val(dataNascimento);
-                calcularIdade()
-                $("#genero").val(genero);
-                $("#estadoCivil").val(estadoCivil);
                 if (ativo === 1) {
                     $('#ativo').prop('checked', true);
                 } else {

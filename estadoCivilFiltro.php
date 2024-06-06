@@ -81,31 +81,11 @@ include("inc/nav.php");
                                                     <fieldset>
                                                         <div class="row">
                                                             <section class="col col-3">
-                                                                <label class="label">Nome</label>
+                                                                <label class="label">Descrição</label>
                                                                 <label class="input"><i class="icon-prepend fa fa-user"></i>
-                                                                    <input id="nome" maxlength="50" name="nome" type="text" value="">
+                                                                    <input id="descricao" maxlength="50" name="descricao" type="text" value="">
                                                                 </label>
                                                             </section>
-                                                            <section class="col col-3">
-                                                                <label class="label">CPF</label>
-                                                                <label class="input"><i class="icon-prepend fa fa-address-card"></i>
-                                                                    <input id="cpf" maxlength="50" name="cpf" type="text" value="">
-                                                                </label>
-                                                            </section>
-                                                            <section class="col col-2">
-                                                                <label class="label">Data de Nascimento - Início</label>
-                                                                <label class="input"><i class=" icon-prepend fa fa-calendar"></i>
-                                                                    <input id="dataNascimento" maxlength="50" name="dataNascimento" type="text" value="">
-                                                                </label>
-                                                            </section>
-
-                                                            <section class="col col-2">
-                                                                <label class="label">Data de Nascimento - Fim </label>
-                                                                <label class="input"><i class=" icon-prepend fa fa-calendar"></i>
-                                                                    <input id="dataFim" maxlength="50" name="dataFim" type="text" value="">
-                                                                </label>
-                                                            </section>
-
                                                             <section class="col col-2">
                                                                 <label class="label">Ativo</label>
                                                                 <label class="select">
@@ -190,25 +170,15 @@ include("inc/scripts.php");
         $('#btnNovo').on("click", function() {
             novo();
         });
-
-        $("#dataNascimento").mask('99/99/9999')
-        $("#dataFim").mask('99/99/9999')
-        $("#cpf").mask("999.999.999-99");
     });
-    
 
     function listarFiltro() {
-        var nome = $('#nome').val();
-        var dataNascimento = $('#dataNascimento').val();
-        var dataFim = $('#dataFim').val();
-        var cpf = $('#cpf').val();
+        var descricao = $('#descricao').val();
         var ativo = $('#ativo').val();
+    
 
-        $('#resultadoBusca').load('exemploFiltroListagem.php?', {
-            nomeFiltro: nome,
-            dataNascimentoFiltro: dataNascimento,
-            dataFimFiltro: dataFim,
-            cpfFiltro: cpf,
+        $('#resultadoBusca').load('generoFiltroListagem.php?', {
+            descricaoFiltro: descricao,
             ativoFiltro: ativo
         });
     }
