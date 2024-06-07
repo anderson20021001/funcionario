@@ -82,87 +82,282 @@ include("inc/nav.php");
                                                     </a>
                                                 </h4>
                                             </div>
-                                            
+
                                             <div id="collapseCadastro" class="panel-collapse collapse in">
                                                 <div class="panel-body no-padding">
                                                     <fieldset>
                                                         <div class="row">
+                                                            <section class="col col-1 hidden">
+                                                                <label class="label">Código</label>
+                                                                <label class="input">
+                                                                    <input id="codigo" name="codigo" type="text" class="readonly" readonly>
+                                                                </label>
+                                                            </section>
+                                                            <section class="col col-2 hidden">
+                                                                <label class="label">&nbsp;</label>
+                                                                <label id="labelAtivo" class="checkbox ">
+                                                                    <input checked="checked" id="ativo" name="ativo" type="checkbox" value="true"><i></i>
+                                                                    Ativo
+                                                                </label>
+                                                            </section>
                                                         </div>
                                                         <div class="row">
                                                         </div>
                                                         <div class="row">
-                                                          
-                                                       
+                                                            <section class="col col-2">
+                                                                <label class="label">Nome</label>
+                                                                <label class="input"><i class="icon-prepend fa fa-user"></i>
+                                                                    <input id="nome" maxlength="255" name="nome" class="required" type="text" value="">
+                                                                </label>
+                                                            </section>
+                                                            <section class="col col-2">
+                                                                <label class="label">CPF</label>
+                                                                <label class="input">
+                                                                    <input id="cpf" maxlength="14" name="cpf" type="text" class="required" value="" placeholder="xxx.xxx.xxx-xx">
+                                                                </label>
+                                                            </section>
+                                                            <section class="col col-2">
+                                                                <label class="label">RG</label>
+                                                                <label class="input">
+                                                                    <input id="rg" maxlength="12" name="rg" type="text" class="required" value="" placeholder="xx.xxx.xxx-x">
+                                                                </label>
+                                                            </section>
+                                                            <section class="col col-2">
+                                                                <label class="label" for="dataNascimento">Data de Nascimento</label>
+                                                                <label class="input">
+                                                                    <i class="icon-append fa fa-calendar"></i>
+                                                                    <input type="text" id="dataNascimento" name="dataNascimento">
+                                                                </label>
+                                                            </section>
 
-                                                            
-                                                            
-                                                        </div>
+                                                            <section class="col col-1">
+                                                                <label class="label" for="idade">Idade</label>
+                                                                <label class="input">
+                                                                    <input type="text" id="idade" name="idade" class="readonly" disabled>
+                                                                </label>
+                                                            </section>
+                                                            <div>
+                                                                <section class="col col-2 col-auto" required>
+                                                                    <label class="label" for="genero">Gênero</label>
+                                                                    <label class="select">
+                                                                        <select id="genero" class="required" name="genero">
+                                                                            <?php
+                                                                            $reposit = new reposit();
+                                                                            $sql = "SELECT codigo, descricao FROM 
+                                                                        dbo.genero";
+                                                                            $result = $reposit->RunQuery($sql);
+                                                                            foreach ($result as $row) {
+                                                                                $codigo = +$row['codigo'];
+                                                                                $descricao = $row['descricao'];
+                                                                                echo '<option value=' . $codigo . '>' . $descricao . '</option>';
+                                                                            }
+                                                                            ?>
+                                                                        </select><i></i>
+                                                                </section>
+                                                                <section class="col col-2 col-auto" required>
+                                                                    <label class="label" for="estadoCivil">Estado Civil</label>
+                                                                    <label class="select">
+
+                                                                        <select id="estadoCivil" class="required" name="estadoCivil">
+                                                                            <option></option>
+                                                                            <?php
+                                                                            $reposit = new reposit();
+                                                                            $sql = "SELECT codigo, estadoCivil FROM 
+                                                                        dbo.estadoCivil";
+                                                                            $result = $reposit->RunQuery($sql);
+                                                                            foreach ($result as $row) {
+                                                                                $codigo = +$row['codigo'];
+                                                                                $estadoCivil = $row['estadoCivil'];
+                                                                                echo '<option value=' . $codigo . '>' . $estadoCivil . '</option>';
+                                                                            }
+                                                                            ?>
+                                                                        </select><i></i>
+                                                                </section>
+
+
+
+                                                            </div>
                                                     </fieldset>
-                                                    
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="panel-group smart-accordion-default" id="accordion">
+                                        <!-- Accordion para Contato -->
                                         <div class="panel panel-default">
                                             <div class="panel-heading">
                                                 <h4 class="panel-title">
-                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseCadastro" class="" id="accordionCadastro">
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseContato" class="" id="accordionContato">
                                                         <i class="fa fa-lg fa-angle-down pull-right"></i>
                                                         <i class="fa fa-lg fa-angle-up pull-right"></i>
-                                                        Cadastro
+                                                        Contato
                                                     </a>
                                                 </h4>
                                             </div>
-                                            
-                                            <div id="collapseCadastro" class="panel-collapse collapse in">
+                                            <div id="collapseContato" class="panel-collapse collapse">
                                                 <div class="panel-body no-padding">
-                                                    <fieldset>
-                                                        <div class="row">
-                                                        </div>
-                                                        <div class="row">
-                                                        </div>
-                                                        <div class="row">
-                                                          
-                                                       
+                                                    <fieldset class="col col-6">
+                                                        <input id="jsonTelefone" name="jsonTelefone" type="hidden" value="[]">
+                                                        <div id="formTelefone" class="col-12 required">
+                                                            <input id="telefoneId" name="telefoneId" type="hidden" value="">
+                                                            <input id="descricaoTelefonePrincipal" name="descricaoTelefonePrincipal" type="hidden" value="">
+                                                            <input id="descricaoTelefoneWhatsApp" name="descricaoTelefoneWhatsApp" type="hidden" value="">
+                                                            <input id="sequencialTelefone" name="sequencialTelefone" type="hidden" value="">
 
-                                                            
-                                                            
+                                                            <div class="row">
+                                                                <section class="col col-4">
+                                                                    <label class="label">Telefone</label>
+                                                                    <label class="input"><i class="icon-prepend fa fa-phone"></i>
+                                                                        <input id="telefone" name="telefone" class="required" type="text" class="form-control" value="">
+                                                                    </label>
+                                                                </section>
+
+                                                                <section class="col col-md-2">
+                                                                    <label class="label">&nbsp;</label>
+                                                                    <label class="checkbox ">
+                                                                        <input id="telefonePrincipal" name="telefonePrincipal" type="checkbox" value="true" checked="checked"><i></i>
+                                                                        Principal
+                                                                    </label>
+                                                                </section>
+
+                                                                <section class="col col-md-2">
+                                                                    <label class="label">&nbsp;</label>
+                                                                    <label class="checkbox ">
+                                                                        <input id="telefoneWhatsApp" name="telefoneWhatsApp" type="checkbox" value="true"><i> </i>
+                                                                        WhatsApp
+                                                                    </label>
+                                                                </section>
+
+                                                                <section class="col col-md-4">
+                                                                    <label class="label">&nbsp;</label>
+                                                                    <button id="btnAddTelefone" type="button" class="btn btn-primary">
+                                                                        <i class="fa fa-plus"></i>
+                                                                    </button>
+                                                                    <button id="btnExcluirTelefone" type="button" class="btn btn-danger">
+                                                                        <i class="fa fa-minus"></i>
+                                                                    </button>
+                                                                </section>
+                                                            </div>
+                                                            <div class="table-responsive" style="min-height: 115px; width:95%; border: 1px solid #ddd; margin-bottom: 13px; overflow-x: auto;">
+                                                                <table id="tableTelefone" class="table table-bordered table-striped table-condensed table-hover dataTable">
+                                                                    <thead>
+                                                                        <tr role="row">
+                                                                            <th></th>
+                                                                            <th class="text-left" style="min-width: 500%;">Telefone</th>
+                                                                            <th class="text-left">Principal</th>
+                                                                            <th class="text-left">WhatsApp</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                      
+
+                                                           
+
+
+
+
                                                         </div>
-                                                    </fieldset>
-                                                    
+                                                        </fieldset>
+
+                                                        <fieldset class="col col-6">
+                                                        <input id="jsonTelefone" name="jsonTelefone" type="hidden" value="[]">
+                                                        <div id="formTelefone" class="col-12 required">
+                                                            <input id="telefoneId" name="telefoneId" type="hidden" value="">
+                                                            <input id="descricaoTelefonePrincipal" name="descricaoTelefonePrincipal" type="hidden" value="">
+                                                            <input id="descricaoTelefoneWhatsApp" name="descricaoTelefoneWhatsApp" type="hidden" value="">
+                                                            <input id="sequencialTelefone" name="sequencialTelefone" type="hidden" value="">
+                                                            
+                                                            <div class="row">
+                                                                <section class="col col-4">
+                                                                    <label class="label">Telefone</label>
+                                                                    <label class="input"><i class="icon-prepend fa fa-phone"></i>
+                                                                        <input id="telefone" name="telefone" class="required" type="text" class="form-control" value="">
+                                                                    </label>
+                                                                </section>
+
+                                                                <section class="col col-2">
+                                                                    <label class="label">&nbsp;</label>
+                                                                    <label class="checkbox ">
+                                                                        <input id="telefonePrincipal" name="telefonePrincipal" type="checkbox" value="true" checked="checked"><i></i>
+                                                                        Principal
+                                                                    </label>
+                                                                </section>
+
+                                                                <section class="col col-2">
+                                                                    <label class="label">&nbsp;</label>
+                                                                    <label class="checkbox ">
+                                                                        <input id="telefoneWhatsApp" name="telefoneWhatsApp" type="checkbox" value="true"><i> </i>
+                                                                        WhatsApp
+                                                                    </label>
+                                                                </section>
+
+                                                                <section class="col col-4">
+                                                                    <label class="label">&nbsp;</label>
+                                                                    <button id="btnAddTelefone" type="button" class="btn btn-primary">
+                                                                        <i class="fa fa-plus"></i>
+                                                                    </button>
+                                                                    <button id="btnExcluirTelefone" type="button" class="btn btn-danger">
+                                                                        <i class="fa fa-minus"></i>
+                                                                    </button>
+                                                                </section>
+                                                            </div>
+                                                            <div class="table-responsive" style="min-height: 115px; width: 95%; border: 1px solid #ddd; margin-bottom: 13px; overflow-x: auto;">
+                                                                <table id="tableTelefone" class="table table-bordered table-striped table-condensed table-hover dataTable">
+                                                                    <thead>
+                                                                        <tr role="row">
+                                                                            <th></th>
+                                                                            <th class="text-left" style="min-width: 500%;">Telefone</th>
+                                                                            <th class="text-left">Principal</th>
+                                                                            <th class="text-left">WhatsApp</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                      
+
+                                                           
+
+
+
+
+
+                                                        </fieldset>
+
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    
-                                    
-                                    <footer>
-                                        <button type="button" id="btnExcluir" class="btn btn-danger" aria-hidden="true" title="Excluir" style="display:<?php echo $esconderBtnExcluir ?>">
-                                            <span class="fa fa-trash"></span>
-                                        </button>
-                                        <div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-dialog-buttons ui-draggable" tabindex="-1" role="dialog" aria-describedby="dlgSimpleExcluir" aria-labelledby="ui-id-1" style="height: auto; width: 600px; top: 220px; left: 262px; display: none;">
-                                            <div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
-                                                <span id="ui-id-2" class="ui-dialog-title">
-                                                </span>
-                                            </div>
-                                            <div id="dlgSimpleExcluir" class="ui-dialog-content ui-widget-content" style="width: auto; min-height: 0px; max-height: none; height: auto;">
-                                                <p>CONFIRMA A EXCLUSÃO ? </p>
-                                            </div>
-                                            <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-                                                <div class="ui-dialog-buttonset">
+
+                                        <footer>
+                                            <button type="button" id="btnExcluir" class="btn btn-danger" aria-hidden="true" title="Excluir" style="display:<?php echo $esconderBtnExcluir ?>">
+                                                <span class="fa fa-trash"></span>
+                                            </button>
+                                            <div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-dialog-buttons ui-draggable" tabindex="-1" role="dialog" aria-describedby="dlgSimpleExcluir" aria-labelledby="ui-id-1" style="height: auto; width: 600px; top: 220px; left: 262px; display: none;">
+                                                <div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
+                                                    <span id="ui-id-2" class="ui-dialog-title">
+                                                    </span>
+                                                </div>
+                                                <div id="dlgSimpleExcluir" class="ui-dialog-content ui-widget-content" style="width: auto; min-height: 0px; max-height: none; height: auto;">
+                                                    <p>CONFIRMA A EXCLUSÃO ? </p>
+                                                </div>
+                                                <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+                                                    <div class="ui-dialog-buttonset">
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <button type="submited" id="btnGravar" class="btn btn-success" aria-hidden="true" title="Gravar" style="display:<?php echo $esconderBtnGravar ?>">
-                                            <span class="fa fa-floppy-o"></span>
-                                        </button>
-                                        <button type="button" id="btnNovo" class="btn btn-primary" aria-hidden="true" title="Novo" style="display:<?php echo $esconderBtnGravar ?>">
-                                            <span class="fa fa-file-o"></span>
-                                        </button>
-                                        <button type="button" id="btnVoltar" class="btn btn-default" aria-hidden="true" title="Voltar">
-                                            <span class="fa fa-backward "></span>
-                                        </button>
-                                    </footer>
+                                            <button type="submited" id="btnGravar" class="btn btn-success" aria-hidden="true" title="Gravar" style="display:<?php echo $esconderBtnGravar ?>">
+                                                <span class="fa fa-floppy-o"></span>
+                                            </button>
+                                            <button type="button" id="btnNovo" class="btn btn-primary" aria-hidden="true" title="Novo" style="display:<?php echo $esconderBtnGravar ?>">
+                                                <span class="fa fa-file-o"></span>
+                                            </button>
+                                            <button type="button" id="btnVoltar" class="btn btn-default" aria-hidden="true" title="Voltar">
+                                                <span class="fa fa-backward "></span>
+                                            </button>
+                                        </footer>
                                 </form>
                             </div>
                         </div>
@@ -176,6 +371,7 @@ include("inc/nav.php");
     <!-- END MAIN CONTENT -->
 
 </div>
+
 
 
 <!-- END MAIN PANEL -->
@@ -543,5 +739,134 @@ include("inc/scripts.php");
     $('#dataNascimento').on('change', function() {
         verificaIdade();
     });
+    function addTelefone() {
+        var item = $("#formTelefone").toObject({
+            mode: 'combine',
+            skipEmpty: false,
+            nodeCallback: processDataTel
+        });
+
+        if (item["sequencialTel"] === '') {
+            if (jsonTelefoneArray.length === 0) {
+                item["sequencialTel"] = 1;
+            } else {
+                item["sequencialTel"] = Math.max.apply(Math, jsonTelefoneArray.map(function(o) {
+                    return o.sequencialTel;
+                })) + 1;
+            }
+            item["telefoneId"] = 0;
+        } else {
+            item["sequencialTel"] = +item["sequencialTel"];
+        }
+
+        var index = -1;
+        $.each(jsonTelefoneArray, function(i, obj) {
+            if (+$('#sequencialTel').val() === obj.sequencialTel) {
+                index = i;
+                return false;
+            }
+        });
+
+        if (index >= 0)
+            jsonTelefoneArray.splice(index, 1, item);
+        else
+            jsonTelefoneArray.push(item);
+
+        $("#jsonTelefone").val(JSON.stringify(jsonTelefoneArray));
+        fillTableTelefone();
+        clearFormTelefone();
+
+    }
+    function validaTelefone() {
+        var existe = false;
+        var achou = false;
+        var tel = $('#telefone').val();
+        var sequencial = +$('#sequencialTel').val();
+        var telefonePrincipalMarcado = 0;
+
+        for (i = jsonTelefoneArray.length - 1; i >= 0; i--) {
+            if (telefonePrincipalMarcado === 1) {
+                if ((jsonTelefoneArray[i].telefonePrincipal === 1) && (jsonTelefoneArray[i].sequencialTel !== sequencial)) {
+                    achou = true;
+                    break;
+                }
+            }
+        }
+
+        if (existe === true) {
+            smartAlert("Erro", "Telefone já cadastrado.", "error");
+            return false;
+        }
+
+        return true;
+    }
+    function fillTableTelefone() {
+        $("#tableTelefone tbody").empty();
+        for (var i = 0; i < jsonTelefoneArray.length; i++) {
+            if (jsonTelefoneArray[i].telefone !== null && jsonTelefoneArray[i].telefone != '') {
+                var row = $('<tr />');
+                $("#tableTelefone tbody").append(row);
+                row.append($('<td><label class="checkbox"><input type="checkbox" name="checkbox" value="' + jsonTelefoneArray[i].sequencialTel + '"><i></i></label></td>'));
+                row.append($('<td class="text-nowrap" onclick="carregaTelefone(' + jsonTelefoneArray[i].sequencialTel + ');">' + jsonTelefoneArray[i].telefone + '</td>'));
+                row.append($('<td class="text-nowrap">' + jsonTelefoneArray[i].descricaoTelefonePrincipal + '</td>'));
+            }
+        }
+    }
+ function processDataTel(node) {
+        var fieldId = node.getAttribute ? node.getAttribute('id') : '';
+        var fieldName = node.getAttribute ? node.getAttribute('name') : '';
+
+        if (fieldName !== '' && (fieldId === "telefone")) {
+            var valorTel = $("#telefone").val();
+            if (valorTel !== '') {
+                fieldName = "telefone";
+            }
+            return {
+                name: fieldName,
+                value: valorTel
+            };
+        }
+        if (fieldName !== '' && (fieldId === "telefonePrincipal")) {
+            var telefonePrincipal = 0;
+            if ($("#telefonePrincipal").is(':checked') === true) {
+                telefonePrincipal = 1;
+            }
+            return {
+                name: fieldName,
+                value: telefonePrincipal
+            };
+        }
+
+        return false;
+    }
+function excluirContato() {
+        var arrSequencial = [];
+        $('#tableTelefone input[type=checkbox]:checked').each(function() {
+            arrSequencial.push(parseInt($(this).val()));
+        });
+        if (arrSequencial.length > 0) {
+            for (i = jsonTelefoneArray.length - 1; i >= 0; i--) {
+                var obj = jsonTelefoneArray[i];
+                if (jQuery.inArray(obj.sequencialTel, arrSequencial) > -1) {
+                    jsonTelefoneArray.splice(i, 1);
+                }
+            }
+            $("#jsonTelefone").val(JSON.stringify(jsonTelefoneArray));
+            fillTableTelefone();
+        } else
+            smartAlert("Erro", "Selecione pelo menos 1 telefone para excluir.", "error");
+    }
+ function carregaTelefone(sequencialTel) {
+        var arr = jQuery.grep(jsonTelefoneArray, function(item, i) {
+            return (item.sequencialTel === sequencialTel);
+        });
+
+        clearFormTelefone();
+
+        if (arr.length > 0) {
+            var item = arr[0];
+            $("#telefoneId").val(item.telefoneId);            
+        }
+    }
   
 </script>
