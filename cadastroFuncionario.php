@@ -729,13 +729,15 @@ include("inc/scripts.php");
         verificaIdade();
     });
 
-    //TABELA DE TELEFONE
+    //TABELA DE TELEFONEf
     function addTelefone() {
         var item = $("#formTelefone").toObject({
             mode: 'combine',
             skipEmpty: false,
             nodeCallback: processDataTel
         });
+
+
 
         if (item["sequencialTel"] === '') {
             if (jsonTelefoneArray.length === 0) {
@@ -801,8 +803,10 @@ include("inc/scripts.php");
                 $("#tableTelefone tbody").append(row);
                 row.append($('<td><label class="checkbox"><input type="checkbox" name="checkbox" value="' + jsonTelefoneArray[i].sequencialTel + '"><i></i></label></td>'));
                 row.append($('<td class="text-nowrap" onclick="carregaTelefone(' + jsonTelefoneArray[i].sequencialTel + ');">' + jsonTelefoneArray[i].telefone + '</td>'));
-                row.append($('<td class="text-nowrap">' + jsonTelefoneArray[i].descricaoTelefonePrincipal + '</td>'));
-                row.append($('<td class="text-nowrap">' + jsonTelefoneArray[i].descricaoTelefoneWhatsapp + '</td>'));
+                row.append($('<td class="text-nowrap">' + jsonTelefoneArray[i].telefonePrincipal + '</td>'));
+                row.append($('<td class="text-nowrap">' + jsonTelefoneArray[i].telefoneWhatsapp + '</td>'));
+
+                
             }
         }
     }
