@@ -45,17 +45,43 @@ function grava()
         $ativo = (int) $_POST["ativo"];
     }
 
-    $reposit = new reposit();
-    $utils = new comum();
+    $nomeXml = "ArrayOfFilepondAta";
+    $nomeTabela = "ataUpload";
+    if (sizeof($arrayCaminhosFilepondAta) > 0) {
+        $xmlJsonTelefone = '<?xml version="1.0"?>';
+        $xmlJsonTelefone = $xmlJsonTelefone . '<' . $nomeXml . ' xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">';
+        foreach ($arrayCaminhosFilepondAta as $chave) {
+            $xmlJsonTelefone = $xmlJsonTelefone . "<" . $formTelefone . ">";
+            foreach ($chave as $campo => $valor) {
+                if (($campo === "sequencialFilepond")) {
+                    continue;
+                }
+                if (($campo === "FilepondValor")) {
+                    $valor = $valor;
+                }
+                $xmlJsonAta = $xmlJsonAta . "<" . $campo . ">" . $valor . "</" . $campo . ">";
+            }
+            $xmlJsonAta = $xmlJsonAta . "</" . $nomeTabela . ">";
+        }
+        $xmlJsonAta = $xmlJsonAta . "</" . $nomeXml . ">";
+    } else {
+        $sqlDelete = "DELETE FROM [Ntl].[ataUpload]
+         WHERE campo = '$nomeCampo'  AND ata = $codigo and caminho = $caminho";
+        $reposit = new reposit();
+        $girComum = new comum();
 
-    $nome = $utils->formatarString($_POST['nome']);
-    $cpf = $utils->formatarString($_POST['cpf']);
-    $rg = $utils->formatarString($_POST['rg']);
-    $dataNascimento = $utils->formataDataSql($_POST['dataNascimento']);
-    $genero = $_POST['genero'];
-    $estadoCivil = $_POST['estadoCivil'];
-    $ativo = 1;
-
+        $result = $reposit->Execprocedure($sqlDelete);
+        $xmlJsonAta = '<?xml version="1.0"?>';
+        $xmlJsonAta = $xmlJsonAta . '<' . $nomeXml . ' xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">';
+        $xmlJsonAta = $xmlJsonAta . "</" . $nomeXml . ">";
+    }
+    $xml = simplexml_load_string($xmlJsonAta);
+    if ($xml === false) {
+        $mensagem = "Erro na criação do XML de Solicitação";
+        echo "failed#" . $mensagem . ' ';
+        return;
+    }
+    $xmlJsonAta = "'" . $xmlJsonAta . "'";
     
      $sql = "dbo.funcionario_Atualiza
      $id,
@@ -76,6 +102,8 @@ function grava()
     }
     echo $ret;
     return;
+
+
 }
 
 
@@ -239,3 +267,4 @@ function verificaRG(){
     echo $ret;
     return;
 }
+
