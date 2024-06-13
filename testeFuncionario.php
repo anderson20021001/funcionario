@@ -300,10 +300,19 @@ include("inc/nav.php");
                                                                 </table>
                                                             </div>
                                                     </fieldset>
+                                                    
                                                 </div>
+                                                
                                             </div>
-                                        </div>
+                                            
+                                          </div>
+                                        
+                                        
+                                        
                                     </div>
+                                    
+
+                                    
 
                                     <footer>
                                         <button type="button" id="btnExcluir" class="btn btn-danger" aria-hidden="true" title="Excluir" style="display:<?php echo $esconderBtnExcluir ?>">

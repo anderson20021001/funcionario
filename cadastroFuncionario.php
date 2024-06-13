@@ -540,9 +540,9 @@ include("inc/scripts.php");
         var dataNascimento = $("#dataNascimento").val();
         var genero = $("#genero").val();
         var estadoCivil = $("#estadoCivil").val();
-        var telefone = item["telefone"].val();
-        var telefonePrincipal = item["telefonePrincipal"].val();
-        var telefoneWhatsapp = item["telefoneWhatsapp"].val();
+        var jsonTelefone = $("#jsonTelefone").val();
+        var jsonEmail = $("#jsonEmail").val();
+        
 
 
         if (nome === "") {
@@ -577,7 +577,7 @@ include("inc/scripts.php");
             $("#estadoCivil").focus();
             return;
         }
-        gravaUsuario(id, ativo, nome, cpf, rg, dataNascimento, genero, estadoCivil, telefone, telefonePrincipal, telefoneWhatsapp );
+        gravaUsuario(id, ativo, nome, cpf, rg, dataNascimento, genero, estadoCivil,jsonTelefone, jsonEmail );
     }
 
     function verificarCpf() {

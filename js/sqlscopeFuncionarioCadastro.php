@@ -5,6 +5,7 @@ include "girComum.php";
 
 $funcao = $_POST["funcao"];
 
+
 if ($funcao == 'grava') {
     call_user_func($funcao);
 }
@@ -44,44 +45,73 @@ function grava()
     } else {
         $ativo = (int) $_POST["ativo"];
     }
+    $reposit = new reposit();
+    $utils = new comum();
+    
+    $nome = $utils->formatarString($_POST['nome']);
+    $cpf = $utils->formatarString($_POST['cpf']);
+    $rg = $utils->formatarString($_POST['rg']);
+    $dataNascimento = $utils->formataDataSql($_POST['dataNascimento']);
+    $genero = $_POST['genero'];
+    $estadoCivil = $_POST['estadoCivil'];
+    $telefone = $_POST['jsonTelefoneArray'];
+    $email = $_POST['jsonEmailArray'];
 
     $nomeXml = "ArrayOfFilepondAta";
-    $nomeTabela = "ataUpload";
-    if (sizeof($arrayCaminhosFilepondAta) > 0) {
-        $xmlJsonTelefone = '<?xml version="1.0"?>';
-        $xmlJsonTelefone = $xmlJsonTelefone . '<' . $nomeXml . ' xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">';
-        foreach ($arrayCaminhosFilepondAta as $chave) {
-            $xmlJsonTelefone = $xmlJsonTelefone . "<" . $formTelefone . ">";
+    $nomeTabela = "telefone";
+    if (sizeof($telefone) > 0) {
+        $xmlTelefone = '<?xml version="1.0"?>';
+        $xmlTelefone = $xmlTelefone . '<' . $nomeXml . ' xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">';
+        foreach ($telefone as $chave) {
+            $xmlTelefone = $xmlTelefone . "<" . $nomeTabela . ">";
             foreach ($chave as $campo => $valor) {
-                if (($campo === "sequencialFilepond")) {
-                    continue;
-                }
-                if (($campo === "FilepondValor")) {
-                    $valor = $valor;
-                }
-                $xmlJsonAta = $xmlJsonAta . "<" . $campo . ">" . $valor . "</" . $campo . ">";
+               
+                $xmlTelefone = $xmlTelefone . "<" . $campo . ">" . $valor . "</" . $campo . ">";
             }
-            $xmlJsonAta = $xmlJsonAta . "</" . $nomeTabela . ">";
+            $xmlTelefone = $xmlTelefone . "</" . $nomeTabela . ">";
         }
-        $xmlJsonAta = $xmlJsonAta . "</" . $nomeXml . ">";
-    } else {
-        $sqlDelete = "DELETE FROM [Ntl].[ataUpload]
-         WHERE campo = '$nomeCampo'  AND ata = $codigo and caminho = $caminho";
-        $reposit = new reposit();
-        $girComum = new comum();
-
-        $result = $reposit->Execprocedure($sqlDelete);
-        $xmlJsonAta = '<?xml version="1.0"?>';
-        $xmlJsonAta = $xmlJsonAta . '<' . $nomeXml . ' xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">';
-        $xmlJsonAta = $xmlJsonAta . "</" . $nomeXml . ">";
+        $xmlTelefone = $xmlTelefone . "</" . $nomeXml . ">";
+    } else{
+        $xmlTelefone = '<?xml version="1.0"?>';
+        $xmlTelefone = $xmlTelefone . '<' . $nomeXml . ' xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">';
+        $xmlTelefone = $xmlTelefone . "</" . $nomeXml . ">";
     }
-    $xml = simplexml_load_string($xmlJsonAta);
+    $xml = simplexml_load_string($xmlTelefone);
     if ($xml === false) {
         $mensagem = "Erro na criação do XML de Solicitação";
         echo "failed#" . $mensagem . ' ';
         return;
     }
-    $xmlJsonAta = "'" . $xmlJsonAta . "'";
+    $xmlTelefone = "'" . $xmlTelefone . "'";
+
+
+    $nomeXml = "ArrayOfFilepondAta";
+    $nomeTabela = "email";
+    if (sizeof($email) > 0) {
+        $xmlEmail = '<?xml version="1.0"?>';
+        $xmlEmail = $xmlEmail . '<' . $nomeXml . ' xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">';
+        foreach ($email as $chave) {
+            $xmlEmail = $xmlEmail . "<" . $nomeTabela . ">";
+            foreach ($chave as $campo => $valor) {
+               
+                $xmlEmail = $xmlEmail . "<" . $campo . ">" . $valor . "</" . $campo . ">";
+            }
+            $xmlEmail = $xmlEmail . "</" . $nomeTabela . ">";
+        }
+        $xmlEmail = $xmlEmail . "</" . $nomeXml . ">";
+    } else{
+        $xmlEmail = '<?xml version="1.0"?>';
+        $xmlEmail = $xmlEmail . '<' . $nomeXml . ' xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">';
+        $xmlEmail = $xmlEmail . "</" . $nomeXml . ">";
+    }
+    $xml = simplexml_load_string($xmlEmail);
+    if ($xml === false) {
+        $mensagem = "Erro na criação do XML de Solicitação";
+        echo "failed#" . $mensagem . ' ';
+        return;
+    }
+    $xmlEmail = "'" . $xmlEmail . "'";
+  
     
      $sql = "dbo.funcionario_Atualiza
      $id,
@@ -91,7 +121,9 @@ function grava()
      $dataNascimento,
      $rg,
      $genero,
-     $estadoCivil";
+     $estadoCivil,
+     $xmlTelefone,
+     $xmlEmail";
 
     $reposit = new reposit();
     $result = $reposit->Execprocedure($sql);
@@ -102,10 +134,7 @@ function grava()
     }
     echo $ret;
     return;
-
-
 }
-
 
 // function gravaGenero()
 // {
