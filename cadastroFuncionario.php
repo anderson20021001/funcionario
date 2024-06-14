@@ -532,6 +532,7 @@ include("inc/scripts.php");
     }
 
     function gravar() {
+        debugger
         var id = +($("#codigo").val());
         var ativo = $('#ativo').val();
         var nome = $("#nome").val();
@@ -540,8 +541,6 @@ include("inc/scripts.php");
         var dataNascimento = $("#dataNascimento").val();
         var genero = $("#genero").val();
         var estadoCivil = $("#estadoCivil").val();
-        var jsonTelefone = $("#jsonTelefone").val();
-        var jsonEmail = $("#jsonEmail").val();
         
 
 
@@ -577,7 +576,7 @@ include("inc/scripts.php");
             $("#estadoCivil").focus();
             return;
         }
-        gravaUsuario(id, ativo, nome, cpf, rg, dataNascimento, genero, estadoCivil,jsonTelefone, jsonEmail );
+        gravaUsuario(id, ativo, nome, cpf, rg, dataNascimento, genero, estadoCivil,jsonTelefoneArray, jsonEmailArray );
     }
 
     function verificarCpf() {

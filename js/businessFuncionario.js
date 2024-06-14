@@ -100,6 +100,7 @@ function recuperaUsuario(id) {
                 var rg = piece[5];
                 var genero = piece[6];
                 var estadoCivil = piece[7];
+                var email = piece[8]
             
                
                 $("#codigo").val(codigo);
@@ -118,6 +119,7 @@ function recuperaUsuario(id) {
                 }
                 return;
             }
+                
         },
         error: function (xhr, er) {
             //tratamento de erro

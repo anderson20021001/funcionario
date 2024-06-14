@@ -57,7 +57,9 @@ function grava()
     $telefone = $_POST['jsonTelefoneArray'];
     $email = $_POST['jsonEmailArray'];
 
-    $nomeXml = "ArrayOfFilepondAta";
+
+
+    $nomeXml = "ArrayOfTelefone";
     $nomeTabela = "telefone";
     if (sizeof($telefone) > 0) {
         $xmlTelefone = '<?xml version="1.0"?>';
@@ -65,6 +67,19 @@ function grava()
         foreach ($telefone as $chave) {
             $xmlTelefone = $xmlTelefone . "<" . $nomeTabela . ">";
             foreach ($chave as $campo => $valor) {
+                if($campo == "telefonePrincipal"){
+                    if($valor == "Sim")
+                        $valor = 1;
+                    else
+                        $valor = 0;
+                }
+
+                if($campo == "telefoneWhatsapp" ){
+                    if($valor == "Sim")
+                        $valor = 1;
+                    else
+                        $valor = 0;
+                } 
                
                 $xmlTelefone = $xmlTelefone . "<" . $campo . ">" . $valor . "</" . $campo . ">";
             }
@@ -78,14 +93,14 @@ function grava()
     }
     $xml = simplexml_load_string($xmlTelefone);
     if ($xml === false) {
-        $mensagem = "Erro na criação do XML de Solicitação";
+        $mensagem = "Erro na criação do XML de Telefone";
         echo "failed#" . $mensagem . ' ';
         return;
     }
     $xmlTelefone = "'" . $xmlTelefone . "'";
 
 
-    $nomeXml = "ArrayOfFilepondAta";
+    $nomeXml = "ArrayOfFilepondAta";;
     $nomeTabela = "email";
     if (sizeof($email) > 0) {
         $xmlEmail = '<?xml version="1.0"?>';
@@ -93,6 +108,12 @@ function grava()
         foreach ($email as $chave) {
             $xmlEmail = $xmlEmail . "<" . $nomeTabela . ">";
             foreach ($chave as $campo => $valor) {
+                if($campo == "emailPrincipal"){
+                    if($valor == "true")
+                        $valor = 1;
+                    else
+                        $valor = 0;
+                }
                
                 $xmlEmail = $xmlEmail . "<" . $campo . ">" . $valor . "</" . $campo . ">";
             }
@@ -106,7 +127,7 @@ function grava()
     }
     $xml = simplexml_load_string($xmlEmail);
     if ($xml === false) {
-        $mensagem = "Erro na criação do XML de Solicitação";
+        $mensagem = "Erro na criação do XML de Telefone";
         echo "failed#" . $mensagem . ' ';
         return;
     }
@@ -132,7 +153,7 @@ function grava()
     if ($result < 1) {
         $ret = 'failed#';
     }
-    echo $ret;
+     echo $ret;
     return;
 }
 
