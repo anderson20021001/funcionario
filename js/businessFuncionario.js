@@ -71,6 +71,7 @@ function verificaCpf(cpf) {
 }
 
 function recuperaUsuario(id) {
+    debugger
     $.ajax({
         url: 'js/sqlscopeFuncionarioCadastro.php', //caminho do arquivo a ser executado
         dataType: 'html', //tipo do retorno
@@ -86,8 +87,11 @@ function recuperaUsuario(id) {
             if (data.indexOf('failed') > -1) {
                 return;
             } else {
+                
                 data = data.replace(/failed/g, '');
                 var piece = data.split("#");
+
+                
 
                 var mensagem = piece[0];
                 var out = piece[1];
@@ -100,8 +104,9 @@ function recuperaUsuario(id) {
                 var rg = piece[5];
                 var genero = piece[6];
                 var estadoCivil = piece[7];
-                var email = piece[8]
-            
+                var jsonTelefone = piece[8];
+                var jsonEmail = piece[9];
+           
                
                 $("#codigo").val(codigo);
                 $("#ativo").val(ativo);
@@ -112,13 +117,22 @@ function recuperaUsuario(id) {
                 calcularIdade()
                 $("#genero").val(genero);
                 $("#estadoCivil").val(estadoCivil);
+                $("#jsonTelefone").val(jsonTelefone);
+                $("#jsonEmail").val(jsonEmail);
                 if (ativo === 1) {
                     $('#ativo').prop('checked', true);
                 } else {
                     $('#ativo').prop('checked', false);
                 }
+
+                jsonTelefoneArray = JSON.parse($("#jsonTelefone").val());
+                jsonEmailArray = JSON.parse($("#jsonEmail").val());
+                fillTableTelefone();
+                fillTableEmail();  
+               
                 return;
             }
+                
                 
         },
         error: function (xhr, er) {

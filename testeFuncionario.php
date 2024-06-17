@@ -306,7 +306,37 @@ include("inc/nav.php");
                                             </div>
                                             
                                           </div>
-                                        
+                                  <!-- Accordion para Contato -->
+                                  <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseContato" class="" id="accordionContato">
+                                                        <i class="fa fa-lg fa-angle-down pull-right"></i>
+                                                        <i class="fa fa-lg fa-angle-up pull-right"></i>
+                                                        Endereço
+                                                    </a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapseEndereco" class="panel-collapse collapse">
+                                                <div class="panel-body no-padding">
+                                                    <fieldset class="col col-6">
+                                                        <input id="jsonTelefone" name="jsonTelefone" type="hidden" value="[]">
+                                                        <div id="formTelefone" class="col-12 required">
+                                                            <input id="telefoneId" name="telefoneId" type="hidden" value="">
+                                                            <input id="descricaoTelefonePrincipal" name="descricaoTelefonePrincipal" type="hidden" value="">
+                                                            <input id="descricaoTelefoneWhatsApp" name="descricaoTelefoneWhatsApp" type="hidden" value="">
+                                                            <input id="sequencialTel" name="sequencialTel" type="hidden" value="">
+
+                                                            
+
+                                                   
+                                                    
+                                                </div>
+                                                
+                                            </div>
+                                            
+                                          </div>
+
                                         
                                         
                                     </div>

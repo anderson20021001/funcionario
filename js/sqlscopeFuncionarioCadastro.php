@@ -47,7 +47,7 @@ function grava()
     }
     $reposit = new reposit();
     $utils = new comum();
-    
+
     $nome = $utils->formatarString($_POST['nome']);
     $cpf = $utils->formatarString($_POST['cpf']);
     $rg = $utils->formatarString($_POST['rg']);
@@ -67,26 +67,26 @@ function grava()
         foreach ($telefone as $chave) {
             $xmlTelefone = $xmlTelefone . "<" . $nomeTabela . ">";
             foreach ($chave as $campo => $valor) {
-                if($campo == "telefonePrincipal"){
-                    if($valor == "Sim")
+                if ($campo == "telefonePrincipal") {
+                    if ($valor == "Sim")
                         $valor = 1;
                     else
                         $valor = 0;
                 }
 
-                if($campo == "telefoneWhatsapp" ){
-                    if($valor == "Sim")
+                if ($campo == "telefoneWhatsapp") {
+                    if ($valor == "Sim")
                         $valor = 1;
                     else
                         $valor = 0;
-                } 
-               
+                }
+
                 $xmlTelefone = $xmlTelefone . "<" . $campo . ">" . $valor . "</" . $campo . ">";
             }
             $xmlTelefone = $xmlTelefone . "</" . $nomeTabela . ">";
         }
         $xmlTelefone = $xmlTelefone . "</" . $nomeXml . ">";
-    } else{
+    } else {
         $xmlTelefone = '<?xml version="1.0"?>';
         $xmlTelefone = $xmlTelefone . '<' . $nomeXml . ' xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">';
         $xmlTelefone = $xmlTelefone . "</" . $nomeXml . ">";
@@ -108,19 +108,19 @@ function grava()
         foreach ($email as $chave) {
             $xmlEmail = $xmlEmail . "<" . $nomeTabela . ">";
             foreach ($chave as $campo => $valor) {
-                if($campo == "emailPrincipal"){
-                    if($valor == "true")
+                if ($campo == "emailPrincipal") {
+                    if ($valor == "true")
                         $valor = 1;
                     else
                         $valor = 0;
                 }
-               
+
                 $xmlEmail = $xmlEmail . "<" . $campo . ">" . $valor . "</" . $campo . ">";
             }
             $xmlEmail = $xmlEmail . "</" . $nomeTabela . ">";
         }
         $xmlEmail = $xmlEmail . "</" . $nomeXml . ">";
-    } else{
+    } else {
         $xmlEmail = '<?xml version="1.0"?>';
         $xmlEmail = $xmlEmail . '<' . $nomeXml . ' xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">';
         $xmlEmail = $xmlEmail . "</" . $nomeXml . ">";
@@ -132,9 +132,9 @@ function grava()
         return;
     }
     $xmlEmail = "'" . $xmlEmail . "'";
-  
-    
-     $sql = "dbo.funcionario_Atualiza
+
+
+    $sql = "dbo.funcionario_Atualiza
      $id,
      $ativo,
      $nome,
@@ -153,7 +153,7 @@ function grava()
     if ($result < 1) {
         $ret = 'failed#';
     }
-     echo $ret;
+    echo $ret;
     return;
 }
 
@@ -205,6 +205,7 @@ function recupera()
     $sql = " SELECT codigo, ativo, nome, cpf, dataNascimento, rg,  genero, estadoCivil
              FROM dbo.funcionarioCadastro WHERE (0 = 0) and codigo = $id";
 
+
     $reposit = new reposit();
     $result = $reposit->RunQuery($sql);
 
@@ -218,8 +219,70 @@ function recupera()
         $rg = $row['rg'];
         $genero = $row['genero'];
         $estadoCivil = $row['estadoCivil'];
-    
     }
+
+    $sql = "SELECT  codigo, telefone, principal, whatsapp FROM dbo.telefone WHERE codigoTel = $id";
+    $reposit = new reposit();
+    $result = $reposit->RunQuery($sql);
+
+    $arrayTelefone = [];
+
+    foreach ($result as $index => $item) {
+        $sequencialTelefone = $index + 1;
+
+        if ($item['principal'] == 1) {
+            $descricaoPrincipal = 'Sim';
+        } else {
+            $descricaoPrincipal = 'Não';
+        }
+
+        if ($item['whatsapp'] == 1) {
+            $descricaoWhatsApp = 'Sim';
+        } else {
+            $descricaoWhatsApp = 'Não';
+        }
+
+        array_push($arrayTelefone, [
+            'codigo' => $item['codigo'],
+            'telefone' => $item['telefone'],
+            'descricaoTelefonePrincipal' => $descricaoPrincipal,
+            'descricaoTelefoneWhatsApp' => $descricaoWhatsApp,
+            'telefonePrincipal' => $item['principal'],
+            'telefoneWhatsApp' => $item['whatsapp']
+        ]);
+    }
+
+    $jsonTelefone = json_encode($arrayTelefone);
+
+
+
+    $sql = "SELECT  codigo, email, principal FROM dbo.email WHERE codigoEmail = $id";
+    $reposit = new reposit();
+    $result = $reposit->RunQuery($sql);
+
+    $arrayEmail = [];
+
+    foreach ($result as $index => $item) {
+        $sequencialEmail = $index + 1;
+
+        if ($item['principal'] == 1) {
+            $descricaoPrincipal = 'Sim';
+        } else {
+            $descricaoPrincipal = 'Não';
+        }
+
+
+        array_push($arrayEmail, [
+            'codigo' => $item['codigo'],
+            'email' => $item['email'],
+            'descricaoEmailPrincipal' => $descricaoPrincipal,
+            'emailPrincipal' => $item['principal'],
+        ]);
+    }
+
+    $jsonEmail = json_encode($arrayEmail);
+
+
 
     $out =   $codigo . "^" .
         $ativo . "^" .
@@ -228,14 +291,18 @@ function recupera()
         $dataNascimento . "^" .
         $rg . "^" .
         $genero . "^" .
-        $estadoCivil;
+        $estadoCivil  . "^" .
+        $jsonTelefone . "^" .
+        $jsonEmail;
 
     if ($out == "") {
         echo "failed#";
         return;
     }
 
-    echo "sucess#" . $out;
+    echo "sucess#" . $out . "#" . $jsonTelefone . "^" .  
+    $jsonEmail;
+    
     return;
 }
 
@@ -266,7 +333,8 @@ function excluir()
     return;
 }
 
-function verificaCpf(){
+function verificaCpf()
+{
     if ((empty($_POST['cpf'])) || (!isset($_POST['cpf'])) || (is_null($_POST['cpf']))) {
         $id = 0;
     } else {
@@ -285,14 +353,15 @@ function verificaCpf(){
     $result = $reposit->RunQuery($sql);
 
     $ret = 'sucess#Pode Cadastrar cpf';
-    if (count($result)>0) {
+    if (count($result) > 0) {
         $ret = 'failed#cpf ja cadastrado';
     }
     echo $ret;
     return;
 }
 
-function verificaRG(){
+function verificaRG()
+{
     if ((empty($_POST['rg'])) || (!isset($_POST['rg'])) || (is_null($_POST['rg']))) {
         $id = 0;
     } else {
@@ -311,10 +380,9 @@ function verificaRG(){
     $result = $reposit->RunQuery($sql);
 
     $ret = 'sucess#Pode Cadastrar rg';
-    if (count($result)>0) {
+    if (count($result) > 0) {
         $ret = 'failed#rg ja cadastrado';
     }
     echo $ret;
     return;
 }
-

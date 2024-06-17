@@ -770,9 +770,9 @@ include("inc/scripts.php");
                 var row = $('<tr />');
                 $("#tableTelefone tbody").append(row);
                 row.append($('<td><label class="checkbox"><input type="checkbox" name="checkbox" value="' + jsonTelefoneArray[i].sequencialTel + '"><i></i></label></td>'));
-                row.append($('<td class="text-nowrap" onclick="carregaTelefone(' + jsonTelefoneArray[i].sequencialTel + ');">' + jsonTelefoneArray[i].telefone + '</td>'));
-                row.append($('<td class="text-nowrap">' + jsonTelefoneArray[i].telefonePrincipal + '</td>'));
-                row.append($('<td class="text-nowrap">' + jsonTelefoneArray[i].telefoneWhatsapp + '</td>'));
+                row.append($('<td class="text-nowrap" onclick="carregaTelefone(' + jsonTelefoneArray[i].sequencialTel + ')";>' + jsonTelefoneArray[i].telefone + '</td>'));
+                row.append($('<td class="text-nowrap">' + (jsonTelefoneArray[i].telefonePrincipal == 1 ? "Sim" : "Não") + '</td>'));
+                row.append($('<td class="text-nowrap">' + (jsonTelefoneArray[i].telefoneWhatsApp == 1 ? "Sim" : "Não")  + '</td>'));
 
 
             }
@@ -826,6 +826,8 @@ include("inc/scripts.php");
     }
 
     function carregaTelefone(sequencialTel) {
+        debugger
+        alert("hello")
         var arr = jQuery.grep(jsonTelefoneArray, function(item, i) {
             return (item.sequencialTel === sequencialTel);
         });
@@ -835,6 +837,7 @@ include("inc/scripts.php");
         if (arr.length > 0) {
             var item = arr[0];
             $("#telefoneId").val(item.telefoneId);
+            $("#telefone").val(item.telefone);            
         }
     }
 
@@ -952,7 +955,7 @@ include("inc/scripts.php");
                 $("#tableEmail tbody").append(row);
                 row.append($('<td><label class="checkbox"><input type="checkbox" name="checkbox" value="' + jsonEmailArray[i].sequencialEmail + '"><i></i></label></td>'));
                 row.append($('<td class="text-nowrap" onclick="carregaEmail(' + jsonEmailArray[i].sequencialEmail + ');">' + jsonEmailArray[i].email + '</td>'));
-                row.append($('<td class="text-nowrap">' + jsonEmailArray[i].descricaoPrincipal + '</td>'));
+                row.append($('<td class="text-nowrap">' + (jsonEmailArray[i].emailPrincipal == 1 ? "Sim" : "Não") + '</td>'));
 
             }
         }
@@ -1004,16 +1007,18 @@ include("inc/scripts.php");
             smartAlert("Erro", "Selecione pelo menos 1 telefone para excluir.", "error");
     }
 
-    function carregaTelefone(sequencialTel) {
-        var arr = jQuery.grep(jsonTelefoneArray, function(item, i) {
-            return (item.sequencialTel === sequencialTel);
+    function carregaEmail(sequencialEmail) {
+        debugger
+        alert("hello word")
+        var arr = jQuery.grep(jsonEmailArray, function(item, i) {
+            return (item.sequencialEmail === sequencialEmail);
         });
 
-        clearFormTelefone();
+        clearFormEmail();
 
         if (arr.length > 0) {
             var item = arr[0];
-            $("#telefoneId").val(item.telefoneId);
+            $("#email").val(item.email);
         }
     }
 </script>
