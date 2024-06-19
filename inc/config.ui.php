@@ -5,6 +5,7 @@
 //array("Display Name" => "URL");
 $breadcrumbs = array(
     "Home" => APP_URL . "/index.php"
+    
 );
 
 include_once "js/repositorio.php";
@@ -58,7 +59,8 @@ if ($row = $result[0]) {
 $page_nav = array("home" => array("title" => "Home", "icon" => "fa-home", "url" => APP_URL . "/index.php"));
 
 
-//Configurações 
+
+// Configurações 
 
 $condicaoConfiguracoesOK = (in_array('USUARIO_ACESSAR', $arrayPermissao, true));
 $condicaoConfiguracoesOK = (($condicaoConfiguracoesOK) or in_array('PERMISSAOUSUARIO_ACESSAR', $arrayPermissao, true));

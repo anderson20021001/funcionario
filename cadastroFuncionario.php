@@ -43,6 +43,14 @@ include("inc/header.php");
 //include left panel (navigation)
 //follow the tree in inc/config.ui.php
 $page_nav["Configuração"]["sub"]["funcionario"]["active"] = true;
+$page_nav["Configuração"]["sub"]["funcionario"]["active"] = true;
+$page_nav["Configuração"]["sub"]["funcionario"]["active"] = true;
+$page_nav["Configuração"]["sub"]["funcionario"]["active"] = true;
+$page_nav["Configuração"]["sub"]["funcionario"]["active"] = true;
+$page_nav["Configuração"]["sub"]["funcionario"]["active"] = true;
+$page_nav["Configuração"]["sub"]["funcionario"]["active"] = true;
+$page_nav["Configuração"]["sub"]["funcionario"]["active"] = true;
+$page_nav["Configuração"]["sub"]["funcionario"]["active"] = true;
 
 include("inc/nav.php");
 ?>
@@ -541,7 +549,7 @@ include("inc/scripts.php");
         var dataNascimento = $("#dataNascimento").val();
         var genero = $("#genero").val();
         var estadoCivil = $("#estadoCivil").val();
-        
+
 
 
         if (nome === "") {
@@ -576,7 +584,7 @@ include("inc/scripts.php");
             $("#estadoCivil").focus();
             return;
         }
-        gravaUsuario(id, ativo, nome, cpf, rg, dataNascimento, genero, estadoCivil,jsonTelefoneArray, jsonEmailArray );
+        gravaUsuario(id, ativo, nome, cpf, rg, dataNascimento, genero, estadoCivil, jsonTelefoneArray, jsonEmailArray);
     }
 
     function verificarCpf() {
@@ -645,70 +653,15 @@ include("inc/scripts.php");
         verificaIdade();
     });
 
-    function clearFormTelefone(){
+    function clearFormTelefone() {
         $("#telefone").val('');
     }
 
-    function clearFormEmail(){
+    function clearFormEmail() {
         $("#email").val('');
     }
 
     //TABELA DE TELEFONEf
-    function addTelefone() {
-        var item = $("#formTelefone").toObject({
-            mode: 'combine',
-            skipEmpty: false,
-            nodeCallback: processDataTel
-        });
-
-        if (item["telefonePrincipal"] === 0) {
-            item["telefonePrincipal"] = "Não";
-        } else {
-            item["telefonePrincipal"] = "Sim";
-        }
-
-        if (item["telefoneWhatsapp"] === false) {
-            item["telefoneWhatsapp"] = "Não";
-        } else {
-            item["telefoneWhatsapp"] = "Sim";
-        }
-
-
-        if (item["sequencialTel"] === '') {
-            if (jsonTelefoneArray.length === 0) {
-                item["sequencialTel"] = 1;
-            } else {
-                item["sequencialTel"] = Math.max.apply(Math, jsonTelefoneArray.map(function(o) {
-                    return o.sequencialTel;
-                })) + 1;
-            }
-            item["telefoneId"] = 0;
-        } else {
-            item["sequencialTel"] = +item["sequencialTel"];
-        }
-
-        if (!validaTelefone()) {
-            return false;
-        }
-
-        var index = -1;
-        $.each(jsonTelefoneArray, function(i, obj) {
-            if (+$('#sequencialTel').val() === obj.sequencialTel) {
-                index = i;
-                return false;
-            }
-        });
-
-        if (index >= 0)
-            jsonTelefoneArray.splice(index, 1, item);
-        else
-            jsonTelefoneArray.push(item);
-
-        $("#jsonTelefone").val(JSON.stringify(jsonTelefoneArray));
-        fillTableTelefone();
-        // clearFormTelefone();
-
-    }
 
     function validaTelefone() {
         var achouTelefone = false;
@@ -763,6 +716,59 @@ include("inc/scripts.php");
         return true;
     }
 
+    function addTelefone() {
+        var item = $("#formTelefone").toObject({
+            mode: 'combine',
+            skipEmpty: false,
+            nodeCallback: processDataTel
+        });
+
+        item["descricaoPrincipal"] = item["telefoonePrincipal"] ? "Sim" : "Não"
+
+        if (item["telefoneWhatsapp"] === false) {
+            item["telefoneWhatsapp"] = "Não";
+        } else {
+            item["telefoneWhatsapp"] = "Sim";
+        }
+
+
+        if (item["sequencialTel"] === '') {
+            if (jsonTelefoneArray.length === 0) {
+                item["sequencialTel"] = 1;
+            } else {
+                item["sequencialTel"] = Math.max.apply(Math, jsonTelefoneArray.map(function(o) {
+                    return o.sequencialTel;
+                })) + 1;
+            }
+            item["telefoneId"] = 0;
+        } else {
+            item["sequencialTel"] = +item["sequencialTel"];
+        }
+
+        if (!validaTelefone()) {
+            return false;
+        }
+
+        var index = -1;
+        $.each(jsonTelefoneArray, function(i, obj) {
+            if (+$('#sequencialTel').val() === obj.sequencialTel) {
+                index = i;
+                return false;
+            }
+        });
+
+        if (index >= 0)
+            jsonTelefoneArray.splice(index, 1, item);
+        else
+            jsonTelefoneArray.push(item);
+
+        $("#jsonTelefone").val(JSON.stringify(jsonTelefoneArray));
+        fillTableTelefone();
+        // clearFormTelefone();
+
+    }
+
+
     function fillTableTelefone() {
         $("#tableTelefone tbody").empty();
         for (var i = 0; i < jsonTelefoneArray.length; i++) {
@@ -773,8 +779,6 @@ include("inc/scripts.php");
                 row.append($('<td class="text-nowrap" onclick="carregaTelefone(' + jsonTelefoneArray[i].sequencialTel + ')";>' + jsonTelefoneArray[i].telefone + '</td>'));
                 row.append($('<td class="text-nowrap">' + jsonTelefoneArray[i].telefonePrincipal + '</td>'));
                 row.append($('<td class="text-nowrap">' + jsonTelefoneArray[i].telefoneWhatsapp + '</td>'));
-
-
             }
         }
     }
@@ -837,7 +841,7 @@ include("inc/scripts.php");
         if (arr.length > 0) {
             var item = arr[0];
             $("#telefoneId").val(item.telefoneId);
-            $("#telefone").val(item.telefone);            
+            $("#telefone").val(item.telefone);
         }
     }
 

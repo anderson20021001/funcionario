@@ -58,6 +58,7 @@ include("inc/nav.php");
     ?>
 
     <!-- MAIN CONTENT -->
+    <!-- MAIN CONTENT -->
     <div id="content">
         <!-- widget grid -->
         <section id="widget-grid" class="">
@@ -82,7 +83,6 @@ include("inc/nav.php");
                                                     </a>
                                                 </h4>
                                             </div>
-
                                             <div id="collapseCadastro" class="panel-collapse collapse in">
                                                 <div class="panel-body no-padding">
                                                     <fieldset>
@@ -95,13 +95,11 @@ include("inc/nav.php");
                                                             </section>
                                                             <section class="col col-2 hidden">
                                                                 <label class="label">&nbsp;</label>
-                                                                <label id="labelAtivo" class="checkbox ">
+                                                                <label id="labelAtivo" class="checkbox">
                                                                     <input checked="checked" id="ativo" name="ativo" type="checkbox" value="true"><i></i>
                                                                     Ativo
                                                                 </label>
                                                             </section>
-                                                        </div>
-                                                        <div class="row">
                                                         </div>
                                                         <div class="row">
                                                             <section class="col col-2">
@@ -129,54 +127,48 @@ include("inc/nav.php");
                                                                     <input type="text" id="dataNascimento" name="dataNascimento">
                                                                 </label>
                                                             </section>
-
                                                             <section class="col col-1">
                                                                 <label class="label" for="idade">Idade</label>
                                                                 <label class="input">
                                                                     <input type="text" id="idade" name="idade" class="readonly" disabled>
                                                                 </label>
                                                             </section>
-                                                            <div>
-                                                                <section class="col col-2 col-auto" required>
-                                                                    <label class="label" for="genero">Gênero</label>
-                                                                    <label class="select">
-                                                                        <select id="genero" class="required" name="genero">
-                                                                            <?php
-                                                                            $reposit = new reposit();
-                                                                            $sql = "SELECT codigo, descricao FROM 
-                                                                        dbo.genero";
-                                                                            $result = $reposit->RunQuery($sql);
-                                                                            foreach ($result as $row) {
-                                                                                $codigo = +$row['codigo'];
-                                                                                $descricao = $row['descricao'];
-                                                                                echo '<option value=' . $codigo . '>' . $descricao . '</option>';
-                                                                            }
-                                                                            ?>
-                                                                        </select><i></i>
-                                                                </section>
-                                                                <section class="col col-2 col-auto" required>
-                                                                    <label class="label" for="estadoCivil">Estado Civil</label>
-                                                                    <label class="select">
-
-                                                                        <select id="estadoCivil" class="required" name="estadoCivil">
-                                                                            <option></option>
-                                                                            <?php
-                                                                            $reposit = new reposit();
-                                                                            $sql = "SELECT codigo, estadoCivil FROM 
-                                                                        dbo.estadoCivil";
-                                                                            $result = $reposit->RunQuery($sql);
-                                                                            foreach ($result as $row) {
-                                                                                $codigo = +$row['codigo'];
-                                                                                $estadoCivil = $row['estadoCivil'];
-                                                                                echo '<option value=' . $codigo . '>' . $estadoCivil . '</option>';
-                                                                            }
-                                                                            ?>
-                                                                        </select><i></i>
-                                                                </section>
-
-
-
-                                                            </div>
+                                                            <section class="col col-2 col-auto" required>
+                                                                <label class="label" for="genero">Gênero</label>
+                                                                <label class="select">
+                                                                    <select id="genero" class="required" name="genero">
+                                                                        <?php
+                                                                        $reposit = new reposit();
+                                                                        $sql = "SELECT codigo, descricao FROM dbo.genero";
+                                                                        $result = $reposit->RunQuery($sql);
+                                                                        foreach ($result as $row) {
+                                                                            $codigo = +$row['codigo'];
+                                                                            $descricao = $row['descricao'];
+                                                                            echo '<option value=' . $codigo . '>' . $descricao . '</option>';
+                                                                        }
+                                                                        ?>
+                                                                    </select><i></i>
+                                                                </label>
+                                                            </section>
+                                                            <section class="col col-2 col-auto" required>
+                                                                <label class="label" for="estadoCivil">Estado Civil</label>
+                                                                <label class="select">
+                                                                    <select id="estadoCivil" class="required" name="estadoCivil">
+                                                                        <option></option>
+                                                                        <?php
+                                                                        $reposit = new reposit();
+                                                                        $sql = "SELECT codigo, estadoCivil FROM dbo.estadoCivil";
+                                                                        $result = $reposit->RunQuery($sql);
+                                                                        foreach ($result as $row) {
+                                                                            $codigo = +$row['codigo'];
+                                                                            $estadoCivil = $row['estadoCivil'];
+                                                                            echo '<option value=' . $codigo . '>' . $estadoCivil . '</option>';
+                                                                        }
+                                                                        ?>
+                                                                    </select><i></i>
+                                                                </label>
+                                                            </section>
+                                                        </div>
                                                     </fieldset>
                                                 </div>
                                             </div>
@@ -201,7 +193,6 @@ include("inc/nav.php");
                                                             <input id="descricaoTelefonePrincipal" name="descricaoTelefonePrincipal" type="hidden" value="">
                                                             <input id="descricaoTelefoneWhatsApp" name="descricaoTelefoneWhatsApp" type="hidden" value="">
                                                             <input id="sequencialTel" name="sequencialTel" type="hidden" value="">
-
                                                             <div class="row">
                                                                 <section class="col col-4">
                                                                     <label class="label">Telefone</label>
@@ -209,24 +200,20 @@ include("inc/nav.php");
                                                                         <input id="telefone" name="telefone" class="required" type="tel" class="form-control" value="">
                                                                     </label>
                                                                 </section>
-
                                                                 <section class="col col-2">
                                                                     <label class="label">&nbsp;</label>
-                                                                    <label class="checkbox ">
+                                                                    <label class="checkbox">
                                                                         <input id="telefonePrincipal" name="telefonePrincipal" type="checkbox" value="true" checked="checked"><i></i>
                                                                         Principal
                                                                     </label>
                                                                 </section>
-
                                                                 <section class="col col-2">
                                                                     <label class="label">&nbsp;</label>
-                                                                    <label class="checkbox ">
+                                                                    <label class="checkbox">
                                                                         <input id="telefoneWhatsapp" name="telefoneWhatsapp" type="checkbox" value="true" checked="checked"><i></i>
                                                                         WhatsApp
                                                                     </label>
                                                                 </section>
-
-
                                                                 <section class="col col-4">
                                                                     <label class="label">&nbsp;</label>
                                                                     <button id="btnAddTelefone" type="button" class="btn btn-primary">
@@ -251,15 +238,14 @@ include("inc/nav.php");
                                                                     </tbody>
                                                                 </table>
                                                             </div>
+                                                        </div>
                                                     </fieldset>
-
                                                     <fieldset class="col col-6">
                                                         <input id="jsonEmail" name="jsonEmail" type="hidden" value="[]">
                                                         <div id="formEmail" class="col-12 required">
                                                             <input id="emailId" name="emailId" type="hidden" value="">
                                                             <input id="descricaoEmailPrincipal" name="descricaoEmailPrincipal" type="hidden" value="">
                                                             <input id="sequencialEmail" name="sequencialEmail" type="hidden" value="">
-
                                                             <div class="row">
                                                                 <section class="col col-6">
                                                                     <label class="label">Email</label>
@@ -267,15 +253,13 @@ include("inc/nav.php");
                                                                         <input id="email" name="email" class="required" type="email" class="form-control" value="">
                                                                     </label>
                                                                 </section>
-
                                                                 <section class="col col-2">
                                                                     <label class="label">&nbsp;</label>
-                                                                    <label class="checkbox ">
+                                                                    <label class="checkbox">
                                                                         <input id="emailPrincipal" name="emailPrincipal" type="checkbox" value="true" checked="checked"><i></i>
                                                                         Principal
                                                                     </label>
                                                                 </section>
-
                                                                 <section class="col col-4">
                                                                     <label class="label">&nbsp;</label>
                                                                     <button id="btnAddEmail" type="button" class="btn btn-primary">
@@ -299,18 +283,16 @@ include("inc/nav.php");
                                                                     </tbody>
                                                                 </table>
                                                             </div>
+                                                        </div>
                                                     </fieldset>
-                                                    
                                                 </div>
-                                                
                                             </div>
-                                            
-                                          </div>
-                                  <!-- Accordion para Contato -->
-                                  <div class="panel panel-default">
+                                        </div>
+                                        <!-- Accordion para Endereço -->
+                                        <div class="panel panel-default">
                                             <div class="panel-heading">
                                                 <h4 class="panel-title">
-                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseContato" class="" id="accordionContato">
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseEndereco" class="" id="accordionEndereco">
                                                         <i class="fa fa-lg fa-angle-down pull-right"></i>
                                                         <i class="fa fa-lg fa-angle-up pull-right"></i>
                                                         Endereço
@@ -319,31 +301,57 @@ include("inc/nav.php");
                                             </div>
                                             <div id="collapseEndereco" class="panel-collapse collapse">
                                                 <div class="panel-body no-padding">
-                                                    <fieldset class="col col-6">
-                                                        <input id="jsonTelefone" name="jsonTelefone" type="hidden" value="[]">
-                                                        <div id="formTelefone" class="col-12 required">
-                                                            <input id="telefoneId" name="telefoneId" type="hidden" value="">
-                                                            <input id="descricaoTelefonePrincipal" name="descricaoTelefonePrincipal" type="hidden" value="">
-                                                            <input id="descricaoTelefoneWhatsApp" name="descricaoTelefoneWhatsApp" type="hidden" value="">
-                                                            <input id="sequencialTel" name="sequencialTel" type="hidden" value="">
 
-                                                            
+                                                    <section class="col col-2">
+                                                        <label class="label">CEP</label>
+                                                        <label class="input"><i class="icon-prepend fa fa-address-card-o"></i>
+                                                            <input name="cep" id="cep" required pattern="\d{5}-\d{3}" />
+                                                        </label>
+                                                    </section>
 
-                                                   
+
+                                                    <section class="col col-4">
+                                                        <label class="label">Logradouro</label>
+                                                        <label class="input"><i class="icon-prepend fa fa-map-marker"></i>
+                                                            <input type="text" id="logradouro" class="logradouro-input" placeholder="Rua, Avenida, etc." required>
+                                                        </label>
+                                                    </section>
+
+                                                    <section class="col col-1">
+                                                        <label class="label" for="numero">Número</label>
+                                                        <label class="input">
+                                                            <i class="icon-prepend fa fa-sort-numeric-asc"></i>
+                                                            <input type="number" id="numero" required min="1">
+                                                        </label>
+                                                    </section>
+
+                                                    <section class="col col-3">
+                                                        <label class="label">Complemento</label>
+                                                        <label class="input"><i class="icon-prepend fa fa-home"></i>
+                                                            <input type="text" id="complemento" class="logradouro-input" required>
+                                                        </label>
+                                                    </section>
+
+                                                    <section class="col col-2">
+                                                        <label class="label">UF</label>
+                                                        <label class="input"><i class="icon-prepend fa fa-globe"></i>
+                                                            <input type="text" id="uf" class="logradouro-input" required>
+                                                        </label>
+                                                    </section>
+
+                                                    <section class="col col-2">
+                                                        <label class="label">Cidade</label>
+                                                        <label class="input"><i class="icon-prepend fa fa-globe"></i>
+                                                            <input type="text" id="uf" class="logradouro-input" required>
+                                                        </label>
+                                                    </section>
                                                     
+
+
                                                 </div>
-                                                
                                             </div>
-                                            
-                                          </div>
-
-                                        
-                                        
+                                        </div>
                                     </div>
-                                    
-
-                                    
-
                                     <footer>
                                         <button type="button" id="btnExcluir" class="btn btn-danger" aria-hidden="true" title="Excluir" style="display:<?php echo $esconderBtnExcluir ?>">
                                             <span class="fa fa-trash"></span>
@@ -380,8 +388,10 @@ include("inc/nav.php");
         </section>
         <!-- end widget grid -->
     </div>
-    <!-- END MAIN CONTENT -->
 </div>
+<!-- END MAIN CONTENT -->
+
+<!-- PAGE FOOTER -->
 
 <!-- END MAIN PANEL -->
 
@@ -433,6 +443,8 @@ include("inc/scripts.php");
         $("#cpf").mask("999.999.999-99");
         $("#rg").mask("99.999.999-9");
         $("#dataNascimento").mask('99/99/9999');
+        $("#cep").mask("99999-999");
+
 
         var SPMaskBehavior = function(val) {
                 return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00000';
@@ -681,11 +693,11 @@ include("inc/scripts.php");
         verificaIdade();
     });
 
-    function clearFormTelefone(){
+    function clearFormTelefone() {
         $("#telefone").val('');
     }
 
-    function clearFormEmail(){
+    function clearFormEmail() {
         $("#email").val('');
     }
 

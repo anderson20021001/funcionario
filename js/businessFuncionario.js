@@ -125,6 +125,7 @@ function recuperaUsuario(id) {
                     $('#ativo').prop('checked', false);
                 }
 
+                
                 jsonTelefoneArray = JSON.parse($("#jsonTelefone").val());
                 jsonEmailArray = JSON.parse($("#jsonEmail").val());
                 fillTableTelefone();
