@@ -43,7 +43,7 @@ function grava()
     if ((empty($_POST['ativo'])) || (!isset($_POST['ativo'])) || (is_null($_POST['ativo']))) {
         $ativo = 0;
     } else {
-        $ativo = (int) $_POST["ativo"];
+        $ativo = $_POST["ativo"];
     }
     $reposit = new reposit();
     $utils = new comum();
@@ -247,8 +247,11 @@ function recupera()
             'telefone' => $item['telefone'],
             'descricaoTelefonePrincipal' => $descricaoPrincipal,
             'descricaoTelefoneWhatsApp' => $descricaoWhatsApp,
-            'telefonePrincipal' => $item['principal'],
-            'telefoneWhatsApp' => $item['whatsapp']
+            'telefonePrincipal' => $descricaoPrincipal,
+            'telefoneWhatsapp' => $descricaoWhatsApp,
+            'sequencialTel' => $sequencialTelefone
+
+
         ]);
     }
 
@@ -277,6 +280,7 @@ function recupera()
             'email' => $item['email'],
             'descricaoEmailPrincipal' => $descricaoPrincipal,
             'emailPrincipal' => $item['principal'],
+            'sequencialEmail' => $sequencialEmail
         ]);
     }
 
