@@ -28,6 +28,10 @@ if ($funcao == 'gravarNovaSenha') {
 if ($funcao == 'verificaCpf') {
     call_user_func($funcao);
 }
+
+if ($funcao == 'verificaRG') {
+    call_user_func($funcao);
+}
 // 
 // return;
 
@@ -56,6 +60,14 @@ function grava()
     $estadoCivil = $_POST['estadoCivil'];
     $telefone = $_POST['jsonTelefoneArray'];
     $email = $_POST['jsonEmailArray'];
+    $cep = $utils->formatarString($_POST['cep']);
+    $logradouro = $utils->formatarString($_POST['logradouro']);
+    $complemento = $utils->formatarString($_POST['complemento']);
+    $numero = $utils->formatarString($_POST['numero']);
+    $uf = $utils->formatarString($_POST['uf']);
+    $bairro = $utils->formatarString($_POST['bairro']);
+    $cidade = $utils->formatarString($_POST['cidade']);
+    $ibge = $_POST['ibge'];;
 
 
 
@@ -144,7 +156,15 @@ function grava()
      $genero,
      $estadoCivil,
      $xmlTelefone,
-     $xmlEmail";
+     $xmlEmail,
+     $cep,
+     $logradouro,
+     $complemento,
+     $numero,
+     $uf,
+     $bairro,
+     $cidade,
+     $ibge";
 
     $reposit = new reposit();
     $result = $reposit->Execprocedure($sql);
@@ -383,7 +403,7 @@ function verificaRG()
     $reposit = new reposit();
     $result = $reposit->RunQuery($sql);
 
-    $ret = 'sucess#Pode Cadastrar rg';
+    $ret = 'sucess#Pode Cadastrar RG';
     if (count($result) > 0) {
         $ret = 'failed#rg ja cadastrado';
     }

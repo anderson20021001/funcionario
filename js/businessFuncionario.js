@@ -1,9 +1,10 @@
-function gravaUsuario(id, ativo, nome, cpf,rg, dataNascimento, genero, estadoCivil, jsonTelefoneArray, jsonEmailArray) {
+function gravaUsuario(id, ativo, nome, cpf,rg, dataNascimento, genero, estadoCivil, jsonTelefoneArray, jsonEmailArray, cep, logradouro, complemento, numero, uf, bairro, cidade, ibge) {
     $.ajax({
         url: 'js/sqlscopeFuncionarioCadastro.php',
         dataType: 'html', //tipo do retorno
         type: 'post', //metodo de envio
-        data: {funcao: "grava", id:id, ativo:ativo, nome:nome, cpf:cpf, rg:rg, dataNascimento:dataNascimento, genero:genero, estadoCivil:estadoCivil, jsonTelefoneArray:jsonTelefoneArray, jsonEmailArray}, //valores enviados ao script     
+        data: {funcao: "grava", id:id, ativo:ativo, nome:nome, cpf:cpf, rg:rg, dataNascimento:dataNascimento, genero:genero, estadoCivil:estadoCivil, jsonTelefoneArray:jsonTelefoneArray, jsonEmailArray,
+             cep:cep, logradouro:logradouro, complemento:complemento, numero:numero, uf:uf, bairro:bairro, cidade:cidade, ibge:ibge}, //valores enviados ao script     
         beforeSend: function () {
             //função chamada antes de realizar o ajax
         },
@@ -40,6 +41,42 @@ function verificaCpf(cpf) {
         dataType: 'html', //tipo do retorno
         type: 'post', //metodo de envio
         data: {funcao: 'verificaCpf', cpf: cpf}, //valores enviados ao script     
+        beforeSend: function () {
+            //função chamada antes de realizar o ajax
+        },
+        complete: function () {
+            //função executada depois de terminar o ajax
+        },
+        success: function (data, textStatus) {
+            var piece = data.split("#");
+        var mensagem = piece[1];
+            if (data.indexOf('failed') > -1) {
+                var piece = data.split("#");
+                var mensagem = piece[1];
+
+                if (mensagem !== "") {
+                    smartAlert("Atenção", mensagem, "error");
+                } else {
+                    smartAlert("Atenção", "Operação não realizada - entre em contato com a GIR!", "error");
+                }
+                
+            } else {
+                smartAlert("Sucesso", mensagem, "success");
+            
+            }
+        },
+        error: function (xhr, er) {
+            //tratamento de erro
+        }
+    });
+}
+
+function verificaRG(rg) {
+    $.ajax({
+        url: 'js/sqlscopeFuncionarioCadastro.php', //caminho do arquivo a ser executado
+        dataType: 'html', //tipo do retorno
+        type: 'post', //metodo de envio
+        data: {funcao: 'verificaRG', rg: rg}, //valores enviados ao script     
         beforeSend: function () {
             //função chamada antes de realizar o ajax
         },

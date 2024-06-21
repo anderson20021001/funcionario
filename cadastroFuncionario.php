@@ -250,7 +250,7 @@ include("inc/nav.php");
                                                                 <section class="col col-6">
                                                                     <label class="label">Email</label>
                                                                     <label class="input"><i class="icon-prepend fa fa-envelope"></i>
-                                                                        <input id="email" name="email" class="required" type="email" class="form-control" value="">
+                                                                        <input id="email" name="email" class="required" type="text" class="form-control" value="">
                                                                     </label>
                                                                 </section>
                                                                 <section class="col col-2">
@@ -306,7 +306,7 @@ include("inc/nav.php");
 
                                                     <fieldset>
                                                         <div class="row">
-                                                            <section class="col col-1 ">
+                                                            <section class="col col-2 ">
                                                                 <label class="label">CEP</label>
                                                                 <label class="input">
                                                                     <input id="cep" name="cep" type="text" class="required">
@@ -320,7 +320,7 @@ include("inc/nav.php");
                                                                     <input id="logradouro" maxlength="255" name="logradouro" class="readonly " type="text" value="" disabled>
                                                                 </label>
                                                             </section>
-                                                            <section class="col col-2">
+                                                            <section class="col col-3">
                                                                 <label class="label">Complemento</label>
                                                                 <label class="input">
                                                                     <input id="complemento" name="complemento" type="text" class="required" value="">
@@ -332,7 +332,7 @@ include("inc/nav.php");
                                                                     <input id="numero" name="numero" type="text" value="" class="required">
                                                                 </label>
                                                             </section>
-                                                            <section class="col col-1">
+                                                            <section class="col col-2">
                                                                 <label class="label">UF</label>
                                                                 <label class="input">
                                                                     <input type="text" id="uf" name="uf" class="readonly" disabled>
@@ -345,7 +345,7 @@ include("inc/nav.php");
                                                                 </label>
                                                             </section>
 
-                                                            <section class="col col-2">
+                                                            <section class="col col-3">
                                                                 <label class="label" for="idade">Cidade</label>
                                                                 <label class="input">
                                                                     <input type="text" id="cidade" name="cidade" class="readonly" disabled>
@@ -361,60 +361,8 @@ include("inc/nav.php");
 
                                                         </div>
 
-                                                        <div class="row">
-                                                            <section class="col col-1 ">
-                                                                <label class="label">CEP</label>
-                                                                <label class="input">
-                                                                    <input id="cep" name="cep" type="text" class="required">
-                                                                </label>
-                                                            </section>
-                                                        </div>
-                                                        <div class="row">
-                                                            <section class="col col-4">
-                                                                <label class="label">Logradouro</label>
-                                                                <label class="input">
-                                                                    <input id="logradouro" maxlength="255" name="logradouro" class="readonly " type="text" value="" disabled>
-                                                                </label>
-                                                            </section>
-                                                            <section class="col col-2">
-                                                                <label class="label">Complemento</label>
-                                                                <label class="input">
-                                                                    <input id="complemento" name="complemento" type="text" class="required" value="">
-                                                                </label>
-                                                            </section>
-                                                            <section class="col col-1">
-                                                                <label class="label">Número</label>
-                                                                <label class="input">
-                                                                    <input id="numero" name="numero" type="text" value="" class="required">
-                                                                </label>
-                                                            </section>
-                                                            <section class="col col-1">
-                                                                <label class="label">UF</label>
-                                                                <label class="input">
-                                                                    <input type="text" id="uf" name="uf" class="readonly" disabled>
-                                                                </label>
-                                                            </section>
-                                                            <section class="col col-2">
-                                                                <label class="label" for="idade">Bairro</label>
-                                                                <label class="input">
-                                                                    <input type="text" id="bairro" name="bairro" class="readonly" disabled>
-                                                                </label>
-                                                            </section>
 
-                                                            <section class="col col-2">
-                                                                <label class="label" for="idade">Cidade</label>
-                                                                <label class="input">
-                                                                    <input type="text" id="cidade" name="cidade" class="readonly" disabled>
-                                                                </label>
-                                                            </section>
 
-                                                            <section class="col col-2">
-                                                                <label class="label" for="idade">IBGE</label>
-                                                                <label class="input">
-                                                                    <input type="text" id="ibge" name="ibge" class="readonly" disabled>
-                                                                </label>
-                                                            </section>
-                                                        </div>
                                                 </div>
                                             </div>
                                             <footer>
@@ -641,11 +589,18 @@ include("inc/scripts.php");
 
         $("#cpf").on("change", function() {
             verificarCpf();
-            validaCPF();
+        });
+
+        $("#rg").on("change", function() {
+            verificarRG();
+        });
+        $("#nome").on("change", function() {
+            verificarNome();
         });
 
         $("#btnAddTelefone").on("click", function() {
             if (validaTelefone() === true) {
+                validEmail(email);
                 addTelefone();
             } else {
                 clearFormTelefone()
@@ -653,14 +608,16 @@ include("inc/scripts.php");
         });
 
         $("#btnAddEmail").on("click", function() {
-
-            if (validaEmail() === true) {
-                addEmail();
+            if (validEmail()) {
+                if (validaEmail() === true) {
+                    addEmail();
+                } else {
+                    clearFormEmail()
+                }
             } else {
-                clearFormEmail()
+                smartAlert("Atenção","VASCO","error");
+                return;
             }
-
-
         });
 
         $("#btnExcluirTelefone").on("click", function() {
@@ -716,6 +673,14 @@ include("inc/scripts.php");
         var dataNascimento = $("#dataNascimento").val();
         var genero = $("#genero").val();
         var estadoCivil = $("#estadoCivil").val();
+        var cep = $("#cep").val();
+        var logradouro = $("#logradouro").val();
+        var complemento = $("#complemento").val();
+        var numero = $("#numero").val();
+        var uf = $("#uf").val();
+        var bairro = $("#bairro").val();
+        var cidade = $("#cidade").val();
+        var ibge = $("#ibge").val();
 
 
 
@@ -751,67 +716,88 @@ include("inc/scripts.php");
             $("#estadoCivil").focus();
             return;
         }
-        gravaUsuario(id, ativo, nome, cpf, rg, dataNascimento, genero, estadoCivil, jsonTelefoneArray, jsonEmailArray);
+        if (cep === "") {
+            smartAlert("Atenção", "Informe o cep !", "error");
+            $("#cep").focus();
+            return;
+        }
+        if (complemento === "") {
+            smartAlert("Atenção", "Informe o complemento !", "error");
+            $("#complemento").focus();
+            return;
+        }
+        if (numero === "") {
+            smartAlert("Atenção", "Informe o estado civil !", "error");
+            $("#numero").focus();
+            return;
+        }
+        gravaUsuario(id, ativo, nome, cpf, rg, dataNascimento, genero, estadoCivil, jsonTelefoneArray, jsonEmailArray, cep, logradouro, complemento, numero, uf, bairro, cidade, ibge);
+    }
+    function verificarNome(){
+        var nome = $("#nome").val();
+        if (nome === (/^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$/)){
+            alert("corrijaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+        }else{
+            alert("Parabéns")
+        }
+       
     }
 
     function verificarCpf() {
+
+
         var cpf = $("#cpf").val();
-        verificaCpf(cpf)
-        validaCPF()
 
-    }
-
-    function validaCPF() {
-
-        // Verifica se um número foi informado
-        if (empty($cpf)) {
+        if (cpf == '000.000.000-00' ||
+            cpf == '111.111.111-11' ||
+            cpf == '..-' ||
+            cpf == '222.222.222-22' ||
+            cpf == '333.333.333-33' ||
+            cpf == '444.444.444-44' ||
+            cpf == '555.555.555-55' ||
+            cpf == '666.666.666-66' ||
+            cpf == '777.777.777-77' ||
+            cpf == '888.888.888-88' ||
+            cpf == '999.999.999-99' ||
+            cpf == '' || cpf.length != 14) {
+            smartAlert("Atenção", "CPF INVÁLIDO", "Error");
+            apagarCpf();
+            $("#cpf").focus();
             return false;
-        }
-
-        // Elimina possivel mascara
-        $caracterMascara = array(".", "-");
-        $cpf = str_replace($caracterMascara, '', $cpf);
-        $cpf = str_pad($cpf, 11, '0', STR_PAD_LEFT);
-
-        // Verifica se o numero de digitos informados é igual a 11 
-        if (strlen($cpf) != 11) {
-            return false;
-        }
-        // Verifica se nenhuma das sequências invalidas abaixo 
-        // foi digitada. Caso afirmativo, retorna falso
-        else if ($cpf == '00000000000' ||
-            $cpf == '11111111111' ||
-            $cpf == '22222222222' ||
-            $cpf == '33333333333' ||
-            $cpf == '44444444444' ||
-            $cpf == '55555555555' ||
-            $cpf == '66666666666' ||
-            $cpf == '77777777777' ||
-            $cpf == '88888888888' ||
-            $cpf == '99999999999') {
-            return false;
-            // Calcula os digitos verificadores para verificar se o
-            // CPF é válido
         } else {
-
-            for ($t = 9; $t < 11; $t++) {
-
-                for ($d = 0, $c = 0; $c < $t; $c++) {
-                    $d += $cpf[$c] * (($t + 1) - $c);
-                }
-                $d = ((10 * $d) % 11) % 10;
-                if ($cpf[$c] != $d) {
-                    return false;
-                }
-            }
-
-            return true;
+            verificaCpf(cpf);
         }
     }
 
-    function verificaRG() {
+    function apagarCpf() {
+        document.getElementById('cpf').value = "";
+    }
+
+    function verificarRG() {
         var rg = $("#rg").val();
-        verificaRG(rg)
+        if (rg == '00.000.000-0' ||
+            rg == '11.111.111-1' ||
+            rg == '..-' ||
+            rg == '22.222.222-2' ||
+            rg == '33.333.333-3' ||
+            rg == '44.444.444-4' ||
+            rg == '55.555.555-5' ||
+            rg == '66.666.666-6' ||
+            rg == '77.777.777-7' ||
+            rg == '88.888.888-8' ||
+            rg == '99.999.999-9') {
+            smartAlert("Atenção", "RG INVÁLIDO", "Error");
+            apagarRg();
+            $("#rg").focus();
+            return false;
+        } else {
+            verificaRG(rg);
+        }
+
+        function apagarRg() {
+            document.getElementById('rg').value = "";
+        }
+
 
     }
 
@@ -839,7 +825,9 @@ include("inc/scripts.php");
             document.getElementById('idade').value = idade;
             $('#idade').val(idade);
         } else {
-            alert('Por favor, insira uma data de nascimento válida.');
+            smartAlert("Atenção", 'Por favor, insira uma data de nascimento válida.', "error");
+
+
         }
     }
 
@@ -854,7 +842,8 @@ include("inc/scripts.php");
         if (idadeCalcule < 14 || idadeCalcule > 125) {
 
             limparCampoData();
-            alert("Por favor, digite uma idade válida entre 14 e 120 anos.");
+            smartAlert("Atenção", "Por favor, digite uma data válida.", "error");
+            limparCampoIdade()
             return false; // Retorna false para indicar que a validação falhou
         }
         return true; // Retorna true se a validação for bem-sucedida
@@ -862,6 +851,10 @@ include("inc/scripts.php");
 
     function limparCampoData() {
         document.getElementById('dataNascimento').value = ""; // Limpa o valor do campo de entrada de data
+    }
+
+    function limparCampoIdade() {
+        document.getElementById('idade').value = ""; // Limpa o valor do campo de entrada de data
     }
 
     // Chama a função verificaIdade() quando o campo de data de nascimento é alterado
@@ -1057,7 +1050,7 @@ include("inc/scripts.php");
 
     function carregaTelefone(sequencialTel) {
         debugger
-        alert("hello")
+
         var arr = jQuery.grep(jsonTelefoneArray, function(item, i) {
             return (item.sequencialTel === sequencialTel);
         });
@@ -1082,8 +1075,10 @@ include("inc/scripts.php");
 
 
     function validEmail(email) {
-        return /^[\w+.]+@\w+\.\w{2,}(?:\.\w{2})?$/.test(email)
+        var email = $("#email").val();
+        return /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(email)
     }
+
 
     function validaEmail() {
         var achouEmail = false;
@@ -1145,6 +1140,7 @@ include("inc/scripts.php");
             skipEmpty: false,
             nodeCallback: processDataTel
         });
+        validEmail();
 
         item["descricaoPrincipal"] = item["emailPrincipal"] ? "Sim" : "Não"
 
@@ -1181,6 +1177,7 @@ include("inc/scripts.php");
         $("#jsonEmail").val(JSON.stringify(jsonEmailArray));
         fillTableEmail();
         // clearFormTelefone();
+        clearFormEmail();
 
     }
 
@@ -1247,7 +1244,7 @@ include("inc/scripts.php");
 
     function carregaEmail(sequencialEmail) {
         debugger
-        alert("hello word")
+
         var arr = jQuery.grep(jsonEmailArray, function(item, i) {
             return (item.sequencialEmail === sequencialEmail);
         });
