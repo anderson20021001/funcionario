@@ -30,7 +30,7 @@ if ($funcao == 'verificaCpf') {
 }
 
 if ($funcao == 'verificaRG') {
-    call_user_func($funcao);
+       call_user_func($funcao);
 }
 // 
 // return;
