@@ -105,26 +105,26 @@ include("inc/nav.php");
                                                             <section class="col col-2">
                                                                 <label class="label">Nome</label>
                                                                 <label class="input"><i class="icon-prepend fa fa-user"></i>
-                                                                    <input id="nome" maxlength="15" name="nome" class="required" type="text" value="">
+                                                                    <input id="nome" name="nome" pattern="[a-zA]" class="required" onpaste="return false" ondrop="return false" type="text" value="">
                                                                 </label>
                                                             </section>
                                                             <section class="col col-2">
                                                                 <label class="label">CPF</label>
                                                                 <label class="input">
-                                                                    <input id="cpf" maxlength="14" name="cpf" type="text" class="required" value="" placeholder="xxx.xxx.xxx-xx">
+                                                                    <input id="cpf" maxlength="14" name="cpf" type="text" onpaste="return false" ondrop="return false" class="required" value="" placeholder="xxx.xxx.xxx-xx">
                                                                 </label>
                                                             </section>
                                                             <section class="col col-2">
                                                                 <label class="label">RG</label>
                                                                 <label class="input">
-                                                                    <input id="rg" maxlength="12" name="rg" type="text" class="required" value="" placeholder="xx.xxx.xxx-x">
+                                                                    <input id="rg" maxlength="12" name="rg" type="text" class="required" onpaste="return false" ondrop="return false" value="" placeholder="xx.xxx.xxx-x">
                                                                 </label>
                                                             </section>
                                                             <section class="col col-2">
                                                                 <label class="label" for="dataNascimento">Data de Nascimento</label>
                                                                 <label class="input">
                                                                     <i class="icon-append fa fa-calendar"></i>
-                                                                    <input type="text" id="dataNascimento" name="dataNascimento">
+                                                                    <input type="text" id="dataNascimento" name="dataNascimento"  onpaste="return false" ondrop="return false" class="datepicker" data-mask="99/99/9999">
                                                                 </label>
                                                             </section>
                                                             <section class="col col-1">
@@ -168,6 +168,27 @@ include("inc/nav.php");
                                                                     </select><i></i>
                                                                 </label>
                                                             </section>
+
+                                                            <section class="col col-3 col-auto" required>
+                                                                <label class="label" for="dependente">Primeiro Emprego</label>
+                                                                <label class="select">
+                                                                    <select id="emprego" class="required" name="dependente">
+                                                                        <option>Selecione</option>
+                                                                        <option>Sim</option>
+                                                                        <option>Não</option>
+
+
+                                                                        ?>
+                                                                    </select><i></i>
+                                                                </label>
+                                                            </section>
+
+                                                            <section class="col col-2">
+                                                                <label class="label">Pis</label>
+                                                                <label class="input">
+                                                                    <input id="nome" name="nome" class="required" type="Number" value="">
+                                                                </label>
+                                                            </section>
                                                         </div>
                                                     </fieldset>
                                                 </div>
@@ -197,7 +218,7 @@ include("inc/nav.php");
                                                                 <section class="col col-4">
                                                                     <label class="label">Telefone</label>
                                                                     <label class="input"><i class="icon-prepend fa fa-phone"></i>
-                                                                        <input id="telefone" name="telefone" class="required" type="tel" class="form-control" value="">
+                                                                        <input id="telefone" name="telefone" class="required" type="tel" onpaste="return false" ondrop="return false" class="form-control" value="">
                                                                     </label>
                                                                 </section>
                                                                 <section class="col col-2">
@@ -250,7 +271,7 @@ include("inc/nav.php");
                                                                 <section class="col col-6">
                                                                     <label class="label">Email</label>
                                                                     <label class="input"><i class="icon-prepend fa fa-envelope"></i>
-                                                                        <input id="email" name="email" class="required" type="text" class="form-control" value="">
+                                                                        <input id="email" name="email" class="required" type="text" onpaste="return false" ondrop="return false" class="form-control" value="">
                                                                     </label>
                                                                 </section>
                                                                 <section class="col col-2">
@@ -309,7 +330,7 @@ include("inc/nav.php");
                                                             <section class="col col-2 ">
                                                                 <label class="label">CEP</label>
                                                                 <label class="input">
-                                                                    <input id="cep" name="cep" type="text" class="required">
+                                                                    <input id="cep" name="cep" type="text" onpaste="return false" ondrop="return false" class="required">
                                                                 </label>
                                                             </section>
                                                         </div>
@@ -320,16 +341,16 @@ include("inc/nav.php");
                                                                     <input id="logradouro" maxlength="255" name="logradouro" class="readonly " type="text" value="" disabled>
                                                                 </label>
                                                             </section>
-                                                            <section class="col col-3">
+                                                            <section class="col col-4">
                                                                 <label class="label">Complemento</label>
                                                                 <label class="input">
-                                                                    <input id="complemento" name="complemento" type="text" class="required" value="">
+                                                                    <input id="complemento" name="complemento" onpaste="return false" ondrop="return false" type="text" class="required" value="">
                                                                 </label>
                                                             </section>
                                                             <section class="col col-1">
                                                                 <label class="label">Número</label>
                                                                 <label class="input">
-                                                                    <input id="numero" name="numero" type="text" value="" class="required">
+                                                                    <input id="numero" name="numero" type="text" onpaste="return false" ondrop="return false" value="" class="required">
                                                                 </label>
                                                             </section>
                                                             <section class="col col-2">
@@ -338,24 +359,43 @@ include("inc/nav.php");
                                                                     <input type="text" id="uf" name="uf" class="readonly" disabled>
                                                                 </label>
                                                             </section>
-                                                            <section class="col col-2">
+                                                            <section class="col col-4">
                                                                 <label class="label" for="idade">Bairro</label>
                                                                 <label class="input">
                                                                     <input type="text" id="bairro" name="bairro" class="readonly" disabled>
                                                                 </label>
                                                             </section>
 
-                                                            <section class="col col-3">
+                                                            <section class="col col-4">
                                                                 <label class="label" for="idade">Cidade</label>
                                                                 <label class="input">
                                                                     <input type="text" id="cidade" name="cidade" class="readonly" disabled>
                                                                 </label>
                                                             </section>
 
-                                                            <section class="col col-2">
+                                                            <section class="col col-3">
                                                                 <label class="label" for="idade">IBGE</label>
                                                                 <label class="input">
                                                                     <input type="text" id="ibge" name="ibge" class="readonly" disabled>
+                                                                </label>
+                                                            </section>
+
+                                                            <section class="col col-3 col-auto" required>
+                                                                <label class="label" for="dependente">Dependentes</label>
+                                                                <label class="select">
+                                                                    <select id="dependente" class="required" name="dependente">
+                                                                        <option></option>
+                                                                        <?php
+                                                                        $reposit = new reposit();
+                                                                        $sql = "SELECT codigo, dependente FROM dbo.dependente";
+                                                                        $result = $reposit->RunQuery($sql);
+                                                                        foreach ($result as $row) {
+                                                                            $codigo = +$row['codigo'];
+                                                                            $dependente = $row['dependente'];
+                                                                            echo '<option value=' . $codigo . '>' . $dependente . '</option>';
+                                                                        }
+                                                                        ?>
+                                                                    </select><i></i>
                                                                 </label>
                                                             </section>
 
@@ -459,6 +499,50 @@ include("inc/scripts.php");
         $("#rg").mask("99.999.999-9");
         $("#dataNascimento").mask('99/99/9999');
         $("#cep").mask("99999999");
+
+        $(function() {
+            $('#nome').on('keypress', function(e) {
+                $(this).val($(this).val().replace(/[0-9]+/g, ''))
+                if (e.keyCode >= 48 && e.keyCode <= 57) {
+                    e.preventDefault();
+                }
+            });
+
+            document.getElementById("nome").onkeypress = function(e) {
+                var chr = String.fromCharCode(e.which);
+                if ("qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM".indexOf(chr) < 0)
+                    return false;
+            };
+
+            // document.getElementById("cpf").onkeypress = function(e) {
+            //     var chr = String.fromCharCode(e.which);
+            //     if ("qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM".indexOf(chr) < 0)
+            //         return false;
+            // };
+
+            // document.getElementById("rg").onkeypress = function(e) {
+            //     var chr = String.fromCharCode(e.which);
+            //     if ("qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM".indexOf(chr) < 0)
+            //         return false;
+            // };
+
+            // document.getElementById("dataNascimento").onkeypress = function(e) {
+            //     var chr = String.fromCharCode(e.which);
+            //     if ("qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM".indexOf(chr) < 0)
+            //         return false;
+            // };
+
+        });
+        $('#nome').change(function validar() {
+            var textoValida = $('#nome').val();
+
+            if (textoValida == "1" || textoValida == "2" || textoValida == "3" || textoValida == "4" || textoValida == "5" || textoValida == "6" || textoValida == "7" || textoValida == "8" || textoValida == "9") {
+
+                smartAlert("Atenção", "No puede digitar", "error");
+                document.getElementById('nome').value = "";
+            }
+
+        });
 
         var SPMaskBehavior = function(val) {
                 return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00000';
@@ -615,8 +699,9 @@ include("inc/scripts.php");
                     clearFormEmail()
                 }
             } else {
-                smartAlert("Atenção","VASCO","error");
-                return;
+                smartAlert("Atenção", "VASCO", "error");
+                clearFormEmail()
+                return false;
             }
         });
 
@@ -733,15 +818,87 @@ include("inc/scripts.php");
         }
         gravaUsuario(id, ativo, nome, cpf, rg, dataNascimento, genero, estadoCivil, jsonTelefoneArray, jsonEmailArray, cep, logradouro, complemento, numero, uf, bairro, cidade, ibge);
     }
-    function verificarNome(){
-        var nome = $("#nome").val();
-        if (nome === (/^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$/)){
-            alert("corrijaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
-        }else{
-            alert("Parabéns")
-        }
-       
-    }
+    // function verificarNome(){
+    //     var nome = $("#nome").val();
+
+    //      if (nome =! (/^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$/) ){
+    //         alert("corrija")
+    //     }else{
+    //         alert("Parabéns")
+    //     }
+    // //    /^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$/
+    // }
+
+    // function validacpf() {
+
+    //     var cpf = document.cpf;
+    //     cpf = cpf.replace(".", "");
+    //     cpf = cpf.replace("-", "");
+    //     cpf = cpf.replace(".", "");
+
+    //     if (cpf.length != 11 ||
+    //         cpf == "00000000000" ||
+    //         cpf == "11111111111" ||
+    //         cpf == "22222222222" ||
+    //         cpf == "33333333333" ||
+    //         cpf == "44444444444" ||
+    //         cpf == "55555555555" ||
+    //         cpf == "66666666666" ||
+    //         cpf == "77777777777" ||
+    //         cpf == "88888888888" ||
+    //         cpf == "99999999999") {
+    //         document.getElementById("cpf").style.backgroundColor = "#faa"; //isso deixa o campo avermelhado
+    //         document.cpf.focus();
+    //         return false;
+    //     } else {
+    //         var soma = 0;
+    //         soma = soma + (parseInt(cpf.substring(0, 1))) * 10;
+    //         soma = soma + (parseInt(cpf.substring(1, 2))) * 9;
+    //         soma = soma + (parseInt(cpf.substring(2, 3))) * 8;
+    //         soma = soma + (parseInt(cpf.substring(3, 4))) * 7;
+    //         soma = soma + (parseInt(cpf.substring(4, 5))) * 6;
+    //         soma = soma + (parseInt(cpf.substring(5, 6))) * 5;
+    //         soma = soma + (parseInt(cpf.substring(6, 7))) * 4;
+    //         soma = soma + (parseInt(cpf.substring(7, 8))) * 3;
+    //         soma = soma + (parseInt(cpf.substring(8, 9))) * 2;
+    //     }
+
+    //     var resto1 = (soma * 10) % 11;
+
+    //     if ((resto1 == 10) || (resto1 == 11)) {
+    //         resto1 = 0;
+    //     }
+
+    //     var soma = 0;
+    //     soma = soma + (parseInt(cpf.substring(0, 1))) * 11;
+    //     soma = soma + (parseInt(cpf.substring(1, 2))) * 10;
+    //     soma = soma + (parseInt(cpf.substring(2, 3))) * 9;
+    //     soma = soma + (parseInt(cpf.substring(3, 4))) * 8;
+    //     soma = soma + (parseInt(cpf.substring(4, 5))) * 7;
+    //     soma = soma + (parseInt(cpf.substring(5, 6))) * 6;
+    //     soma = soma + (parseInt(cpf.substring(6, 7))) * 5;
+    //     soma = soma + (parseInt(cpf.substring(7, 8))) * 4;
+    //     soma = soma + (parseInt(cpf.substring(8, 9))) * 3;
+    //     soma = soma + (parseInt(cpf.substring(9, 10))) * 2;
+
+    //     var resto2 = (soma * 10) % 11;
+    //     if ((resto2 == 10) || (resto2 == 11)) {
+    //         resto2 = 0;
+    //     }
+
+    //     if (
+    //         (resto1 == (parseInt(cpf.substring(9, 10)))) &&
+    //         (resto2 == (parseInt(cpf.substring(10, 11))))) {
+    //         alert("deuserto");
+    //         return true;
+    //     } else {
+    //         alert("CPF inválido")
+    //         document.getElementById("cpf_verifica").style.backgroundColor = "#faa";
+    //         document.formulario1.cpf_verifica.focus();
+    //         return false;
+    //     }
+
+    // }
 
     function verificarCpf() {
 
@@ -819,16 +976,26 @@ include("inc/scripts.php");
         var m = hoje.getMonth() - nasc.getMonth();
         if (dataNasc) {
 
-            if (m < 0 || (m === 0 && hoje.getDate() < nasc.getDate())) {
+            if (m = !0 || (m === 0 && hoje.getDate() < nasc.getDate())) {
                 idade--;
             }
-            document.getElementById('idade').value = idade;
             $('#idade').val(idade);
         } else {
             smartAlert("Atenção", 'Por favor, insira uma data de nascimento válida.', "error");
-
+            limparCampoData();
+            limparCampoIdade();
+            verificaIdade();
 
         }
+        if (idade === NaN) {
+            limparCampoData();
+            limparCampoIdade();
+            
+
+        } // } else {
+        //     limparCampoData();
+        //     limparCampoIdade();
+        // }
     }
 
     // Adiciona o evento de clique ao documento inteiro
@@ -839,11 +1006,12 @@ include("inc/scripts.php");
 
     function verificaIdade() {
         var idadeCalcule = document.getElementById('idade').value;
-        if (idadeCalcule < 14 || idadeCalcule > 125) {
+        if (idadeCalcule < 14 || idadeCalcule > 125 || idadeCalcule === NaN) {
 
             limparCampoData();
+            limparCampoIdade();
             smartAlert("Atenção", "Por favor, digite uma data válida.", "error");
-            limparCampoIdade()
+            
             return false; // Retorna false para indicar que a validação falhou
         }
         return true; // Retorna true se a validação for bem-sucedida
@@ -886,6 +1054,13 @@ include("inc/scripts.php");
             smartAlert("Erro", "Informe o Telefone ", "error");
             return false;
         }
+
+        if (tell.length < 14) {
+            smartAlert("Erro", "Informe o Telefone ", "error");
+            return false;
+        }
+
+
 
         for (i = jsonTelefoneArray.length - 1; i >= 0; i--) {
             if (telefonePrincipal == true) {
@@ -1098,7 +1273,7 @@ include("inc/scripts.php");
             smartAlert("Erro", "Informe o Email ", "error");
             return false;
         }
-
+        
         for (i = jsonEmailArray.length - 1; i >= 0; i--) {
             if (emailPrincipal == true) {
                 if (jsonEmailArray[i].descricaoPrincipal && (jsonEmailArray[i].sequencialEmail !== sequencial)) {
