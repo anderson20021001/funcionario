@@ -67,7 +67,9 @@ function grava()
     $uf = $utils->formatarString($_POST['uf']);
     $bairro = $utils->formatarString($_POST['bairro']);
     $cidade = $utils->formatarString($_POST['cidade']);
-    $ibge = $_POST['ibge'];;
+    $ibge = $_POST['ibge'];
+    $emprego = $_POST['emprego'];
+    $pis = $utils->formatarString($_POST['pis']);
 
 
 
@@ -164,7 +166,9 @@ function grava()
      $uf,
      $bairro,
      $cidade,
-     $ibge";
+     $ibge,
+     $emprego,
+     $pis";
 
     $reposit = new reposit();
     $result = $reposit->Execprocedure($sql);
@@ -222,7 +226,7 @@ function recupera()
 
     $id = (int) $_POST["id"];
 
-    $sql = " SELECT codigo, ativo, nome, cpf, dataNascimento, rg,  genero, estadoCivil
+    $sql = " SELECT codigo, ativo, nome, cpf, dataNascimento, rg,  genero, estadoCivil, cep, logradouro, complemento, numero, uf, bairro, cidade
              FROM dbo.funcionarioCadastro WHERE (0 = 0) and codigo = $id";
 
 
@@ -231,7 +235,8 @@ function recupera()
 
     $out = "";
     if ($row = $result[0]) {
-        $codigo = +$row['codigo'];
+        $codigo = +
+        $row['codigo'];
         $ativo = $row['ativo'];
         $nome = $row['nome'];
         $cpf = $row['cpf'];
@@ -239,6 +244,13 @@ function recupera()
         $rg = $row['rg'];
         $genero = $row['genero'];
         $estadoCivil = $row['estadoCivil'];
+        $cep = $row['cep'];
+        $logradouro = $row['logradouro'];
+        $complemento = $row['complemento'];
+        $numero = $row['numero'];
+        $uf = $row['uf'];
+        $bairro = $row['bairro'];
+        $cidade = $row['cidade'];
     }
 
     $sql = "SELECT  codigo, telefone, principal, whatsapp FROM dbo.telefone WHERE codigoTel = $id";
@@ -250,13 +262,13 @@ function recupera()
     foreach ($result as $index => $item) {
         $sequencialTelefone = $index + 1;
 
-        if ($item['principal'] == 1) {
+        if ($item['principal']) {
             $descricaoPrincipal = 'Sim';
         } else {
             $descricaoPrincipal = 'Não';
         }
 
-        if ($item['whatsapp'] == 1) {
+        if ($item['whatsapp']) {
             $descricaoWhatsApp = 'Sim';
         } else {
             $descricaoWhatsApp = 'Não';
@@ -265,10 +277,10 @@ function recupera()
         array_push($arrayTelefone, [
             'codigo' => $item['codigo'],
             'telefone' => $item['telefone'],
-            'descricaoTelefonePrincipal' => $descricaoPrincipal,
-            'descricaoTelefoneWhatsApp' => $descricaoWhatsApp,
-            'telefonePrincipal' => $descricaoPrincipal,
-            'telefoneWhatsapp' => $descricaoWhatsApp,
+            'descricaoPrincipal' => $descricaoPrincipal,
+            'descricaoWhatsApp' => $descricaoWhatsApp,
+            'telefonePrincipal' => $item['principal'],
+            'telefoneWhatsapp' => $item['whatsapp'],
             'sequencialTel' => $sequencialTelefone
 
 

@@ -95,7 +95,7 @@ include("inc/nav.php");
                                                             <section class="col col-2">
                                                                 <label class="label">Data de Nascimento - Início</label>
                                                                 <label class="input"><i class=" icon-prepend fa fa-calendar"></i>
-                                                                    <input id="dataNascimento" maxlength="50" name="dataNascimento" type="text" value="">
+                                                                    <input id="dataNascimento" maxlength="50" name="dataNascimento" type="text" class="datepicker" value="">
                                                                 </label>
                                                             </section>
 

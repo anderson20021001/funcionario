@@ -199,9 +199,7 @@ include("inc/scripts.php");
 
 
 <script language="JavaScript" type="text/javascript">
-    $(document).ready(function() {
-        $("#cpf").mask("999.999.999-99");
-        $("#dataNascimento").mask('99/99/9999')
+ 
 
         jQuery.validator.addMethod(
             "senhaRequerida",
@@ -374,8 +372,7 @@ include("inc/scripts.php");
         $("#descricao").on("change", function() {
             verificarGenero();
         });
-    });
-
+    
     function carregaPagina() {
         var urlx = window.document.URL.toString();
         var params = urlx.split("?");

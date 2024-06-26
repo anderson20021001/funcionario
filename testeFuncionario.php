@@ -105,26 +105,64 @@ include("inc/nav.php");
                                                             <section class="col col-2">
                                                                 <label class="label">Nome</label>
                                                                 <label class="input"><i class="icon-prepend fa fa-user"></i>
-                                                                    <input id="nome" maxlength="255" name="nome" class="required" type="text" value="">
+                                                                    <input id="nome" name="nome" pattern="[a-zA]" class="required" onpaste="return false" ondrop="return false" type="text" value="">
                                                                 </label>
                                                             </section>
                                                             <section class="col col-2">
                                                                 <label class="label">CPF</label>
                                                                 <label class="input">
-                                                                    <input id="cpf" maxlength="14" name="cpf" type="text" class="required" value="" placeholder="xxx.xxx.xxx-xx">
+                                                                    <input id="cpf" maxlength="14" name="cpf" type="text" onpaste="return false" ondrop="return false" class="required" value="" placeholder="xxx.xxx.xxx-xx">
                                                                 </label>
                                                             </section>
                                                             <section class="col col-2">
                                                                 <label class="label">RG</label>
                                                                 <label class="input">
-                                                                    <input id="rg" maxlength="12" name="rg" type="text" class="required" value="" placeholder="xx.xxx.xxx-x">
+                                                                    <input id="rg" maxlength="12" name="rg" type="text" class="required" onpaste="return false" ondrop="return false" value="" placeholder="xx.xxx.xxx-x">
                                                                 </label>
                                                             </section>
+                                                            <!-- <section class="col col-2">
+                                                            <label class="label"> Data de Nascimento</label>
+                                                            <label class="input">                                                                
+                                                                <i class="icon-append fa fa-calendar"></i>
+                                                                <input id="dataNascimento" name="dataNascimento" type="text" class="datepicker">
+                                                                </label>
+                                                            </section> -->
                                                             <section class="col col-2">
                                                                 <label class="label" for="dataNascimento">Data de Nascimento</label>
                                                                 <label class="input">
                                                                     <i class="icon-append fa fa-calendar"></i>
-                                                                    <input type="text" id="dataNascimento" name="dataNascimento">
+                                                                    <input id="dataNascimento" name="dataNascimento" data-dateformat="dd/mm/yy" placeholder="dd/mm/aaaa" type="text" class="required datepicker " value="">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                                                                 </label>
                                                             </section>
                                                             <section class="col col-1">
@@ -168,6 +206,10 @@ include("inc/nav.php");
                                                                     </select><i></i>
                                                                 </label>
                                                             </section>
+
+                                                          
+
+                                                          
                                                         </div>
                                                     </fieldset>
                                                 </div>
@@ -197,7 +239,7 @@ include("inc/nav.php");
                                                                 <section class="col col-4">
                                                                     <label class="label">Telefone</label>
                                                                     <label class="input"><i class="icon-prepend fa fa-phone"></i>
-                                                                        <input id="telefone" name="telefone" class="required" type="tel" class="form-control" value="">
+                                                                        <input id="telefone" name="telefone" class="required" type="tel" onpaste="return false" ondrop="return false" class="form-control" value="">
                                                                     </label>
                                                                 </section>
                                                                 <section class="col col-2">
@@ -250,7 +292,7 @@ include("inc/nav.php");
                                                                 <section class="col col-6">
                                                                     <label class="label">Email</label>
                                                                     <label class="input"><i class="icon-prepend fa fa-envelope"></i>
-                                                                        <input id="email" name="email" class="required" type="email" class="form-control" value="">
+                                                                        <input id="email" name="email" class="required" type="text" onpaste="return false" ondrop="return false" class="form-control" value="">
                                                                     </label>
                                                                 </section>
                                                                 <section class="col col-2">
@@ -289,96 +331,35 @@ include("inc/nav.php");
                                             </div>
                                         </div>
                                         <!-- Accordion para Endereço -->
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading">
-                                                <h4 class="panel-title">
-                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseEndereco" class="" id="accordionEndereco">
-                                                        <i class="fa fa-lg fa-angle-down pull-right"></i>
-                                                        <i class="fa fa-lg fa-angle-up pull-right"></i>
-                                                        Endereço
-                                                    </a>
-                                                </h4>
+                                                
                                             </div>
-                                            <div id="collapseEndereco" class="panel-collapse collapse">
-                                                <div class="panel-body no-padding">
-
-                                                    <section class="col col-2">
-                                                        <label class="label">CEP</label>
-                                                        <label class="input"><i class="icon-prepend fa fa-address-card-o"></i>
-                                                            <input name="cep" id="cep" required pattern="\d{5}-\d{3}" />
-                                                        </label>
-                                                    </section>
-
-
-                                                    <section class="col col-4">
-                                                        <label class="label">Logradouro</label>
-                                                        <label class="input"><i class="icon-prepend fa fa-map-marker"></i>
-                                                            <input type="text" id="logradouro" class="logradouro-input" placeholder="Rua, Avenida, etc." required>
-                                                        </label>
-                                                    </section>
-
-                                                    <section class="col col-1">
-                                                        <label class="label" for="numero">Número</label>
-                                                        <label class="input">
-                                                            <i class="icon-prepend fa fa-sort-numeric-asc"></i>
-                                                            <input type="number" id="numero" required min="1">
-                                                        </label>
-                                                    </section>
-
-                                                    <section class="col col-3">
-                                                        <label class="label">Complemento</label>
-                                                        <label class="input"><i class="icon-prepend fa fa-home"></i>
-                                                            <input type="text" id="complemento" class="logradouro-input" required>
-                                                        </label>
-                                                    </section>
-
-                                                    <section class="col col-2">
-                                                        <label class="label">UF</label>
-                                                        <label class="input"><i class="icon-prepend fa fa-globe"></i>
-                                                            <input type="text" id="uf" class="logradouro-input" required>
-                                                        </label>
-                                                    </section>
-
-                                                    <section class="col col-2">
-                                                        <label class="label">Cidade</label>
-                                                        <label class="input"><i class="icon-prepend fa fa-globe"></i>
-                                                            <input type="text" id="uf" class="logradouro-input" required>
-                                                        </label>
-                                                    </section>
-                                                    
-
-
+                                            <footer>
+                                                <button type="button" id="btnExcluir" class="btn btn-danger" aria-hidden="true" title="Excluir" style="display:<?php echo $esconderBtnExcluir ?>">
+                                                    <span class="fa fa-trash"></span>
+                                                </button>
+                                                <div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-dialog-buttons ui-draggable" tabindex="-1" role="dialog" aria-describedby="dlgSimpleExcluir" aria-labelledby="ui-id-1" style="height: auto; width: 600px; top: 220px; left: 262px; display: none;">
+                                                    <div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
+                                                        <span id="ui-id-2" class="ui-dialog-title">
+                                                        </span>
+                                                    </div>
+                                                    <div id="dlgSimpleExcluir" class="ui-dialog-content ui-widget-content" style="width: auto; min-height: 0px; max-height: none; height: auto;">
+                                                        <p>CONFIRMA A EXCLUSÃO ? </p>
+                                                    </div>
+                                                    <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+                                                        <div class="ui-dialog-buttonset">
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <footer>
-                                        <button type="button" id="btnExcluir" class="btn btn-danger" aria-hidden="true" title="Excluir" style="display:<?php echo $esconderBtnExcluir ?>">
-                                            <span class="fa fa-trash"></span>
-                                        </button>
-                                        <div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-dialog-buttons ui-draggable" tabindex="-1" role="dialog" aria-describedby="dlgSimpleExcluir" aria-labelledby="ui-id-1" style="height: auto; width: 600px; top: 220px; left: 262px; display: none;">
-                                            <div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
-                                                <span id="ui-id-2" class="ui-dialog-title">
-                                                </span>
-                                            </div>
-                                            <div id="dlgSimpleExcluir" class="ui-dialog-content ui-widget-content" style="width: auto; min-height: 0px; max-height: none; height: auto;">
-                                                <p>CONFIRMA A EXCLUSÃO ? </p>
-                                            </div>
-                                            <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-                                                <div class="ui-dialog-buttonset">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <button type="submited" id="btnGravar" class="btn btn-success" aria-hidden="true" title="Gravar" style="display:<?php echo $esconderBtnGravar ?>">
-                                            <span class="fa fa-floppy-o"></span>
-                                        </button>
-                                        <button type="button" id="btnNovo" class="btn btn-primary" aria-hidden="true" title="Novo" style="display:<?php echo $esconderBtnGravar ?>">
-                                            <span class="fa fa-file-o"></span>
-                                        </button>
-                                        <button type="button" id="btnVoltar" class="btn btn-default" aria-hidden="true" title="Voltar">
-                                            <span class="fa fa-backward "></span>
-                                        </button>
-                                    </footer>
+                                                <button type="submited" id="btnGravar" class="btn btn-success" aria-hidden="true" title="Gravar" style="display:<?php echo $esconderBtnGravar ?>">
+                                                    <span class="fa fa-floppy-o"></span>
+                                                </button>
+                                                <button type="button" id="btnNovo" class="btn btn-primary" aria-hidden="true" title="Novo" style="display:<?php echo $esconderBtnGravar ?>">
+                                                    <span class="fa fa-file-o"></span>
+                                                </button>
+                                                <button type="button" id="btnVoltar" class="btn btn-default" aria-hidden="true" title="Voltar">
+                                                    <span class="fa fa-backward "></span>
+                                                </button>
+                                            </footer>
                                 </form>
                             </div>
                         </div>
@@ -428,7 +409,6 @@ include("inc/scripts.php");
 <script src="<?php echo ASSETS_URL; ?>/js/plugin/fullcalendar/fullcalendar.js"></script>
 <!--<script src="<?php echo ASSETS_URL; ?>/js/plugin/fullcalendar/locale-all.js"></script>-->
 
-
 <!-- Form to json -->
 <script src="<?php echo ASSETS_URL; ?>/js/plugin/form-to-json/form2js.js"></script>
 <script src="<?php echo ASSETS_URL; ?>/js/plugin/form-to-json/jquery.toObject.js"></script>
@@ -438,28 +418,13 @@ include("inc/scripts.php");
 
 <script language="JavaScript" type="text/javascript">
     $(document).ready(function() {
+
         jsonEmailArray = JSON.parse($("#jsonEmail").val());
         jsonTelefoneArray = JSON.parse($("#jsonTelefone").val());
         $("#cpf").mask("999.999.999-99");
         $("#rg").mask("99.999.999-9");
         $("#dataNascimento").mask('99/99/9999');
-        $("#cep").mask("99999-999");
-
-
-        var SPMaskBehavior = function(val) {
-                return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00000';
-            },
-            spOptions = {
-                onKeyPress: function(val, e, field, options) {
-                    field.mask(SPMaskBehavior.apply({}, arguments), options);
-                }
-            };
-
-        $('#telefone').mask(SPMaskBehavior, spOptions);
-
-
-
-        carregaPagina();
+        $("#cep").mask("99999999");
 
         $.widget("ui.dialog", $.extend({}, $.ui.dialog.prototype, {
             _title: function(title) {
@@ -493,6 +458,15 @@ include("inc/scripts.php");
             }]
         });
 
+        $("#dataNascimento").on("change", function() {
+            var dataNascimento = $("#dataNascimento").val();
+            if (validarData(dataNascimento) == false) {
+                smartAlert("Atenção", "Data Inválida!", "error");
+                $("#idade").val("");
+                $("#dataNascimento").val("");
+            }
+        });
+
         $("#btnExcluir").on("click", function() {
             var id = +$("#codigo").val();
 
@@ -523,20 +497,35 @@ include("inc/scripts.php");
             verificarCpf();
         });
 
+        $("#rg").on("change", function() {
+            verificarRG();
+        });
+
+        $("#nome").on("change", function() {
+            verificarNome();
+        });
+
         $("#btnAddTelefone").on("click", function() {
-            addTelefone()
-            clearFormEmail
+            if (validaTelefone() === true) {
+                validEmail(email);
+                addTelefone();
+            } else {
+                clearFormTelefone()
+            }
         });
 
         $("#btnAddEmail").on("click", function() {
-
-            if (validaEmail() === true) {
-                addEmail();
+            if (validEmail()) {
+                if (validaEmail() === true) {
+                    addEmail();
+                } else {
+                    clearFormEmail()
+                }
             } else {
+                smartAlert("Atenção", "VASCO", "error");
                 clearFormEmail()
+                return false;
             }
-
-
         });
 
         $("#btnExcluirTelefone").on("click", function() {
@@ -547,6 +536,98 @@ include("inc/scripts.php");
             excluirContatoEmail()
         });
 
+        $(function() {
+            $('#nome').on('keypress', function(e) {
+                $(this).val($(this).val().replace(/[0-9]+/g, ''))
+                if (e.keyCode >= 48 && e.keyCode <= 57) {
+                    e.preventDefault();
+                }
+            });
+
+            document.getElementById("nome").onkeypress = function(e) {
+                var chr = String.fromCharCode(e.which);
+                if ("qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM".indexOf(chr) < 0)
+                    return false;
+            };
+        });
+
+        $('#nome').change(function validar() {
+            var textoValida = $('#nome').val();
+
+            if (textoValida == "1" || textoValida == "2" || textoValida == "3" || textoValida == "4" || textoValida == "5" || textoValida == "6" || textoValida == "7" || textoValida == "8" || textoValida == "9") {
+
+                smartAlert("Atenção", "No puede digitar", "error");
+                document.getElementById('nome').value = "";
+            }
+
+        });
+
+        var SPMaskBehavior = function(val) {
+                return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00000';
+            },
+            spOptions = {
+                onKeyPress: function(val, e, field, options) {
+                    field.mask(SPMaskBehavior.apply({}, arguments), options);
+                }
+            };
+
+        $('#telefone').mask(SPMaskBehavior, spOptions);
+        $("#telefonePrincipal").prop('checked', false);
+        $("#telefoneWhatsapp").prop('checked', false);
+        $("#emailPrincipal").prop('checked', false);
+
+        $("#cep").blur(function() {
+
+            //Nova variável "cep" somente com dígitos.
+            var cep = $(this).val().replace(/\D/g, '');
+
+            //Verifica se campo cep possui valor informado.
+            if (cep != "") {
+
+                //Expressão regular para validar o CEP.
+                var validacep = /^[0-9]{8}$/;
+
+                //Valida o formato do CEP.
+                if (validacep.test(cep)) {
+
+                    //Preenche os campos com "..." enquanto consulta webservice.
+                    $("#rua").val("...");
+                    $("#bairro").val("...");
+                    $("#cidade").val("...");
+                    $("#uf").val("...");
+                    $("#ibge").val("...");
+
+                    //Consulta o webservice viacep.com.br/
+                    $.getJSON("https://viacep.com.br/ws/" + cep + "/json/?callback=?", function(dados) {
+
+                        if (!("erro" in dados)) {
+                            //Atualiza os campos com os valores da consulta.
+                            $("#logradouro").val(dados.logradouro);
+                            $("#bairro").val(dados.bairro);
+                            $("#cidade").val(dados.localidade);
+                            $("#uf").val(dados.uf);
+                            $("#ibge").val(dados.ibge);
+                        } //end if.
+                        else {
+                            //CEP pesquisado não foi encontrado.
+                            limpa_formulário_cep();
+                            alert("CEP não encontrado.");
+                        }
+                    });
+                } //end if.
+                else {
+                    //cep é inválido.
+                    limpa_formulário_cep();
+                    alert("Formato de CEP inválido.");
+                }
+            } //end if.
+            else {
+                //cep sem valor, limpa formulário.
+                limpa_formulário_cep();
+            }
+        });
+
+        carregaPagina();
     });
 
     function carregaPagina() {
@@ -573,6 +654,13 @@ include("inc/scripts.php");
     }
 
     function excluir() {
+
+
+
+
+
+
+        
         var id = +$("#codigo").val();
 
         if (id === 0) {
@@ -591,6 +679,14 @@ include("inc/scripts.php");
         var dataNascimento = $("#dataNascimento").val();
         var genero = $("#genero").val();
         var estadoCivil = $("#estadoCivil").val();
+        var cep = $("#cep").val();
+        var logradouro = $("#logradouro").val();
+        var complemento = $("#complemento").val();
+        var numero = $("#numero").val();
+        var uf = $("#uf").val();
+        var bairro = $("#bairro").val();
+        var cidade = $("#cidade").val();
+        var ibge = $("#ibge").val();
 
         if (nome === "") {
             smartAlert("Atenção", "Informe o nome !", "error");
@@ -624,95 +720,196 @@ include("inc/scripts.php");
             $("#estadoCivil").focus();
             return;
         }
-        gravaUsuario(id, ativo, nome, cpf, rg, dataNascimento, genero, estadoCivil);
+        if (cep === "") {
+            smartAlert("Atenção", "Informe o cep !", "error");
+            $("#cep").focus();
+            return;
+        }
+        if (complemento === "") {
+            smartAlert("Atenção", "Informe o complemento !", "error");
+            $("#complemento").focus();
+            return;
+        }
+        if (numero === "") {
+            smartAlert("Atenção", "Informe o estado civil !", "error");
+            $("#numero").focus();
+            return;
+        }
+        gravaUsuario(id, ativo, nome, cpf, rg, dataNascimento, genero, estadoCivil, jsonTelefoneArray, jsonEmailArray, cep, logradouro, complemento, numero, uf, bairro, cidade, ibge);
     }
 
     function verificarCpf() {
+
+
         var cpf = $("#cpf").val();
-        verificaCpf(cpf)
 
+        if (cpf == '000.000.000-00' ||
+            cpf == '111.111.111-11' ||
+            cpf == '..-' ||
+            cpf == '222.222.222-22' ||
+            cpf == '333.333.333-33' ||
+            cpf == '444.444.444-44' ||
+            cpf == '555.555.555-55' ||
+            cpf == '666.666.666-66' ||
+            cpf == '777.777.777-77' ||
+            cpf == '888.888.888-88' ||
+            cpf == '999.999.999-99' ||
+            cpf == '' || cpf.length != 14) {
+            smartAlert("Atenção", "CPF INVÁLIDO", "Error");
+            apagarCpf();
+            $("#cpf").focus();
+            return false;
+        } else {
+            verificaCpf(cpf);
+        }
     }
 
-    function verificaRG() {
+    function apagarCpf() {
+        document.getElementById('cpf').value = "";
+    }
+
+    function verificarRG() {
         var rg = $("#rg").val();
-        verificaRG(rg)
+        if (rg == '00.000.000-0' ||
+            rg == '11.111.111-1' ||
+            rg == '..-' ||
+            rg == '22.222.222-2' ||
+            rg == '33.333.333-3' ||
+            rg == '44.444.444-4' ||
+            rg == '55.555.555-5' ||
+            rg == '66.666.666-6' ||
+            rg == '77.777.777-7' ||
+            rg == '88.888.888-8' ||
+            rg == '99.999.999-9') {
+            smartAlert("Atenção", "RG INVÁLIDO", "Error");
+            apagarRg();
+            $("#rg").focus();
+            return false;
+        } else {
+            verificaRG(rg);
+        }
+
+        function apagarRg() {
+            document.getElementById('rg').value = "";
+        }
+
 
     }
 
-    // function limparCampoData() {
-    //     document.getElementById('dataNascimento').value = ""; // Limpa o valor do campo de entrada de data
-    // }
+    function validarData() {
+        var data = $("#dataNascimento").val();
+        data = data.replace(" /g, /");
+        var data_array = data.split("/"); //responsável por quebrar a data em array
 
-    // $('#dataNascimento').on('change', function(){
-    //     if (validadeData()) {
-    //     }
-    // });
+        //Inserir formato DD/MM/YYYY
+        if (data_array[0].length != 4) {
+            data = data_array[2] + "-" + data_array[1] + "-" + data_array[0];
+        }
 
-
-    function calcularIdade() {
-        var dataNasc = document.getElementById('dataNascimento').value;
+        //Calculo da idade referente a Data de Nascimento
         var hoje = new Date();
-        var nasc = new Date(dataNasc);
+        var nasc = new Date(data);
         var idade = hoje.getFullYear() - nasc.getFullYear();
         var m = hoje.getMonth() - nasc.getMonth();
-        if (dataNasc) {
+        if (m < 0 || (m === 0 && hoje.getDate() < nasc.getDate())) idade--;
 
-            if (m < 0 || (m === 0 && hoje.getDate() < nasc.getDate())) {
-                idade--;
-            }
-            document.getElementById('idade').value = idade;
-            $('#idade').val(idade);
-        } else {
-            alert('Por favor, insira uma data de nascimento válida.');
+        // if (idade <= 18) {
+        //     // alert("Usuários com menos de 18 anos não podem ser cadastrados.");
+        //     $("#idade").val(idade)
+        //     $("#btnGravar").prop('disabled', false);
+        //     return false;
+        // }
+
+        if (idade >= 14 && idade <= 150) {
+            // smartAlert("Sucesso","Data permitida.", "success")
+            $("#idade").val(idade)
+            $("#btnGravar").prop('disabled', false);
+            return;
         }
-    }
 
-    // Adiciona o evento de clique ao documento inteiro
-    // document.addEventListener('focusout', calcularIdade);
-    $('#dataNascimento').on('change', function() {
-        calcularIdade()
-    });
+        //Idade superior a 50 não altera o cadastro
 
-    function verificaIdade() {
-        var idadeCalcule = document.getElementById('idade').value;
-        if (idadeCalcule < 14 || idadeCalcule > 125) {
-
-            limparCampoData();
-            alert("Por favor, digite uma idade válida entre 14 e 120 anos.");
-            return false; // Retorna false para indicar que a validação falhou
-        }
-        return true; // Retorna true se a validação for bem-sucedida
-    }
-
-    function limparCampoData() {
-        document.getElementById('dataNascimento').value = ""; // Limpa o valor do campo de entrada de data
-    }
-
-    // Chama a função verificaIdade() quando o campo de data de nascimento é alterado
-    $('#dataNascimento').on('change', function() {
-        verificaIdade();
-    });
-
-    function clearFormTelefone() {
-        $("#telefone").val('');
-    }
-
-    function clearFormEmail() {
-        $("#email").val('');
+        if (hoje) return false;
     }
 
     //TABELA DE TELEFONEf
+
+    function validaTelefone() {
+        var achouTelefone = false;
+        var achouTelefonePrincipal = false;
+        let tell = $('#telefone').val();
+        let tellChecked = $('#telefonePrincipal').is(':checked');
+        let sequencial = +$('#sequencialTelefone').val();
+
+
+        if ($('#telefonePrincipal').is(':checked')) {
+            telefonePrincipal = true;
+        } else {
+            telefonePrincipal = false;
+        }
+
+        if (tell === '') {
+            smartAlert("Erro", "Informe o Telefone ", "error");
+            return false;
+        }
+
+        if (tell.length < 14) {
+            smartAlert("Erro", "Informe o Telefone ", "error");
+            return false;
+        }
+
+
+
+        for (i = jsonTelefoneArray.length - 1; i >= 0; i--) {
+            if (telefonePrincipal == true) {
+                if ((jsonTelefoneArray[i].telefonePrincipal == "Sim") && (jsonTelefoneArray[i].sequencialTelefone !== sequencial)) {
+                    achouTelefonePrincipal = true;
+                    break;
+                }
+            }
+
+            if (tell !== "") {
+                debugger
+                if ((jsonTelefoneArray[i].telefone === tell) && (jsonTelefoneArray[i].sequencialTelefone !== sequencial)) {
+                    achouTelefone = true;
+                    break;
+                }
+            }
+        }
+
+        if (achouTelefonePrincipal === true) {
+            smartAlert("Erro", "Já existe o Telefone Principal na lista.", "error");
+            clearFormTelefone();
+            return false;
+
+        }
+
+        if (achouTelefone === true) {
+            smartAlert("Erro", "Já existe o Telefone na lista.", "error");
+            clearFormTelefone();
+            return false;
+
+        }
+
+        return true;
+    }
+
     function addTelefone() {
+        debugger
         var item = $("#formTelefone").toObject({
             mode: 'combine',
             skipEmpty: false,
             nodeCallback: processDataTel
         });
 
-        if (item["telefonePrincipal"] === 0) {
-            item["telefonePrincipal"] = "Não";
-        } else {
+
+
+        item["descricaoPrincipal"] = item["telefonePrincipal"] ? "Sim" : "Não"
+
+        if (item["descricaoPrincipal"] === "Sim") {
             item["telefonePrincipal"] = "Sim";
+        } else {
+            item["telefonePrincipal"] = "Não";
         }
 
         if (item["telefoneWhatsapp"] === false) {
@@ -754,61 +951,8 @@ include("inc/scripts.php");
 
         $("#jsonTelefone").val(JSON.stringify(jsonTelefoneArray));
         fillTableTelefone();
-        // clearFormTelefone();
+        clearFormTelefone();
 
-    }
-
-    function validaTelefone() {
-        var achouTelefone = false;
-        var achouTelefonePrincipal = false;
-        let tell = $('#telefone').val();
-        let tellChecked = $('#telefonePrincipal').is(':checked');
-        let sequencial = +$('#sequencialTelefone').val();
-
-
-        if ($('#telefonePrincipal').is(':checked')) {
-            telefonePrincipal = true;
-        } else {
-            telefonePrincipal = false;
-        }
-
-        if (tell === '') {
-            smartAlert("Erro", "Informe o Telefone ", "error");
-            return false;
-        }
-
-        for (i = jsonTelefoneArray.length - 1; i >= 0; i--) {
-            if (telefonePrincipal == true) {
-                if ((jsonTelefoneArray[i].telefonePrincipal == "Sim") && (jsonTelefoneArray[i].sequencialTelefone !== sequencial)) {
-                    achouTelefonePrincipal = true;
-                    break;
-                }
-            }
-
-            if (tell !== "") {
-                debugger
-                if ((jsonTelefoneArray[i].telefone === tell) && (jsonTelefoneArray[i].sequencialTelefone !== sequencial)) {
-                    achouTelefone = true;
-                    break;
-                }
-            }
-        }
-
-        if (achouTelefonePrincipal === true) {
-            smartAlert("Erro", "Já existe o Telefone Principal na lista.", "error");
-            clearFormTelefone();
-            return false;
-
-        }
-
-        if (achouTelefone === true) {
-            smartAlert("Erro", "Já existe o Telefone na lista.", "error");
-            clearFormTelefone();
-            return false;
-
-        }
-
-        return true;
     }
 
     function fillTableTelefone() {
@@ -822,8 +966,11 @@ include("inc/scripts.php");
                 row.append($('<td class="text-nowrap">' + jsonTelefoneArray[i].telefonePrincipal + '</td>'));
                 row.append($('<td class="text-nowrap">' + jsonTelefoneArray[i].telefoneWhatsapp + '</td>'));
 
-
             }
+
+
+
+
         }
     }
 
@@ -874,22 +1021,34 @@ include("inc/scripts.php");
     }
 
     function carregaTelefone(sequencialTel) {
+        debugger
+
         var arr = jQuery.grep(jsonTelefoneArray, function(item, i) {
             return (item.sequencialTel === sequencialTel);
         });
 
-        clearFormTelefone();
 
+        clearFormTelefone();
         if (arr.length > 0) {
             var item = arr[0];
+            $("#sequencialTel").val(item.sequencialTel);
             $("#telefoneId").val(item.telefoneId);
+            $("#telefone").val(item.telefone);
+
         }
     }
 
+    function clearFormTelefone() {
+        $("#sequencialTel").val("");
+        $("#telefoneId").val("");
+        $("#telefone").val("");
+        return true;
+    }
 
-
+    //TABELA DE EMAIL
     function validEmail(email) {
-        return /^[\w+.]+@\w+\.\w{2,}(?:\.\w{2})?$/.test(email)
+        var email = $("#email").val();
+        return /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(email)
     }
 
     function validaEmail() {
@@ -945,13 +1104,13 @@ include("inc/scripts.php");
         return true;
     }
 
-
     function addEmail() {
         var item = $("#formEmail").toObject({
             mode: 'combine',
             skipEmpty: false,
             nodeCallback: processDataTel
         });
+        validEmail();
 
         item["descricaoPrincipal"] = item["emailPrincipal"] ? "Sim" : "Não"
 
@@ -988,9 +1147,9 @@ include("inc/scripts.php");
         $("#jsonEmail").val(JSON.stringify(jsonEmailArray));
         fillTableEmail();
         // clearFormTelefone();
+        clearFormEmail();
 
     }
-
 
     function fillTableEmail() {
         $("#tableEmail tbody").empty();
@@ -1000,7 +1159,7 @@ include("inc/scripts.php");
                 $("#tableEmail tbody").append(row);
                 row.append($('<td><label class="checkbox"><input type="checkbox" name="checkbox" value="' + jsonEmailArray[i].sequencialEmail + '"><i></i></label></td>'));
                 row.append($('<td class="text-nowrap" onclick="carregaEmail(' + jsonEmailArray[i].sequencialEmail + ');">' + jsonEmailArray[i].email + '</td>'));
-                row.append($('<td class="text-nowrap">' + jsonEmailArray[i].descricaoPrincipal + '</td>'));
+                row.append($('<td class="text-nowrap">' + (jsonEmailArray[i].emailPrincipal == 1 ? "Sim" : "Não") + '</td>'));
 
             }
         }
@@ -1052,16 +1211,32 @@ include("inc/scripts.php");
             smartAlert("Erro", "Selecione pelo menos 1 telefone para excluir.", "error");
     }
 
-    function carregaTelefone(sequencialTel) {
-        var arr = jQuery.grep(jsonTelefoneArray, function(item, i) {
-            return (item.sequencialTel === sequencialTel);
+    function carregaEmail(sequencialEmail) {
+        debugger
+
+        var arr = jQuery.grep(jsonEmailArray, function(item, i) {
+            return (item.sequencialEmail === sequencialEmail);
         });
 
-        clearFormTelefone();
 
+
+        clearFormEmail();
         if (arr.length > 0) {
             var item = arr[0];
-            $("#telefoneId").val(item.telefoneId);
+            $("#sequencialEmail").val(item.sequencialEmail);
+            $("#emailId").val(item.emailId);
+            $("#email").val(item.email);
         }
     }
+
+    function clearFormEmail() {
+        $("#sequencialEmail").val("");
+        $("#emailId").val("");
+        $("#email").val("");
+        return true;
+    }
+
+    // function clearFormEmail() {
+    //     $("#email").val('');
+    // }
 </script>

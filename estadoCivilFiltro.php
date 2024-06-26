@@ -81,9 +81,9 @@ include("inc/nav.php");
                                                     <fieldset>
                                                         <div class="row">
                                                             <section class="col col-3">
-                                                                <label class="label">Descrição</label>
+                                                                <label class="label">Estado Civil</label>
                                                                 <label class="input"><i class="icon-prepend fa fa-user"></i>
-                                                                    <input id="descricao" maxlength="50" name="descricao" type="text" value="">
+                                                                    <input id="estadoCivil" maxlength="50" name="estadoCivil" type="text" value="">
                                                                 </label>
                                                             </section>
                                                             <section class="col col-2">
@@ -173,11 +173,11 @@ include("inc/scripts.php");
     });
 
     function listarFiltro() {
-        var descricao = $('#descricao').val();
+        var descricao = $('#estadoCivil').val();
         var ativo = $('#ativo').val();
     
 
-        $('#resultadoBusca').load('generoFiltroListagem.php?', {
+        $('#resultadoBusca').load('estadoCivilFiltroListagem.php?', {
             descricaoFiltro: descricao,
             ativoFiltro: ativo
         });

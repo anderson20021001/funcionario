@@ -1,10 +1,10 @@
-function gravaUsuario(id, ativo, nome, cpf,rg, dataNascimento, genero, estadoCivil, jsonTelefoneArray, jsonEmailArray, cep, logradouro, complemento, numero, uf, bairro, cidade, ibge) {
+function gravaUsuario(id, ativo, nome, cpf,rg, dataNascimento, genero, estadoCivil, jsonTelefoneArray, jsonEmailArray, cep, logradouro, complemento, numero, uf, bairro, cidade, ibge, emprego, pis) {
     $.ajax({
         url: 'js/sqlscopeFuncionarioCadastro.php',
         dataType: 'html', //tipo do retorno
         type: 'post', //metodo de envio
         data: {funcao: "grava", id:id, ativo:ativo, nome:nome, cpf:cpf, rg:rg, dataNascimento:dataNascimento, genero:genero, estadoCivil:estadoCivil, jsonTelefoneArray:jsonTelefoneArray, jsonEmailArray,
-             cep:cep, logradouro:logradouro, complemento:complemento, numero:numero, uf:uf, bairro:bairro, cidade:cidade, ibge:ibge}, //valores enviados ao script     
+             cep:cep, logradouro:logradouro, complemento:complemento, numero:numero, uf:uf, bairro:bairro, cidade:cidade, ibge:ibge, emprego:emprego, pis:pis}, //valores enviados ao script     
         beforeSend: function () {
             //função chamada antes de realizar o ajax
         },
@@ -18,7 +18,7 @@ function gravaUsuario(id, ativo, nome, cpf,rg, dataNascimento, genero, estadoCiv
                 if (mensagem !== "") {
                     smartAlert("Atenção", mensagem, "error");
                 } else {
-                    smartAlert("Atenção", "Operação não realizada - entre em contato com a GIR!", "error");
+                    smartAlert("Atenção", "Operação não realizada - entre em contato com o suporte!", "error");
                 }
 
                 return '';
@@ -61,7 +61,7 @@ function verificaCpf(cpf) {
                 }
                 
             } else {
-                smartAlert("Sucesso", mensagem, "success");
+                 smartAlert("Sucesso", "CPF VÁLIDO", "success");
             
             }
         },
@@ -143,6 +143,16 @@ function recuperaUsuario(id) {
                 var estadoCivil = piece[7];
                 var jsonTelefone = piece[8];
                 var jsonEmail = piece[9];
+                var cep = piece[10]
+                var logradouro = piece[11]
+                var complemento = piece[12]
+                var numero = piece[13]
+                var uf = piece[14]
+                var bairro = piece[15]
+                var cidade = piece[16]
+                var ibge = piece[17]
+                
+           
            
                
                 $("#codigo").val(codigo);
@@ -151,11 +161,24 @@ function recuperaUsuario(id) {
                 $("#cpf").val(cpf);
                 $("#rg").val(rg);
                 $("#dataNascimento").val(dataNascimento);
-                calcularIdade()
+                // calcularIdade()
                 $("#genero").val(genero);
                 $("#estadoCivil").val(estadoCivil);
                 $("#jsonTelefone").val(jsonTelefone);
                 $("#jsonEmail").val(jsonEmail);
+                $("#cep").val(cep);
+                $("#logradouro").val(logradouro);
+                $("#complemento").val(complemento);
+                $("#numero").val(numero);
+                $("#uf").val(uf);
+                $("#bairro").val(bairro);
+                $("#cidade").val(cidade);
+                $("#ibge").val(ibge);
+
+
+
+
+
                 if (ativo === 1) {
                     $('#ativo').prop('checked', true);
                 } else {
