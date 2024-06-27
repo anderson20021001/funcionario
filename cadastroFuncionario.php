@@ -144,6 +144,7 @@ include("inc/nav.php");
                                                                 <label class="label" for="genero">Gênero</label>
                                                                 <label class="select">
                                                                     <select id="genero" class="required" name="genero">
+                                                                        <option hidden selected value=""> Selecione </option>
                                                                         <?php
                                                                         $reposit = new reposit();
                                                                         $sql = "SELECT codigo, descricao FROM dbo.genero";
@@ -161,7 +162,7 @@ include("inc/nav.php");
                                                                 <label class="label" for="estadoCivil">Estado Civil</label>
                                                                 <label class="select">
                                                                     <select id="estadoCivil" class="required" name="estadoCivil">
-                                                                        <option></option>
+                                                                        <option hidden selected value=""> Selecione </option>
                                                                         <?php
                                                                         $reposit = new reposit();
                                                                         $sql = "SELECT codigo, estadoCivil FROM dbo.estadoCivil";
@@ -183,6 +184,7 @@ include("inc/nav.php");
                                                                         <option hidden selected value=""> Selecione </option>
                                                                         <option value="1">Sim</option>
                                                                         <option value="0">Não</option>
+                                                                        
                                                                         ?>
                                                                     </select><i></i>
                                                                 </label>
@@ -191,7 +193,7 @@ include("inc/nav.php");
                                                             <section class="col col-2">
                                                                 <label class="label">Pis</label>
                                                                 <label class="input">
-                                                                    <input id="pis" name="pis" class="required" type="text" onpaste="return false" ondrop="return" value="" hidden>
+                                                                    <input id="pis" name="pis" class="required" type="text" onpaste="return false" ondrop="return" value="">
                                                                 </label>
                                                             </section>
                                                         </div>
@@ -340,7 +342,7 @@ include("inc/nav.php");
                                                             <section class="col col-4">
                                                                 <label class="label">Logradouro</label>
                                                                 <label class="input">
-                                                                    <input id="logradouro" maxlength="255" name="logradouro"  type="text" value="" class="required">
+                                                                    <input id="logradouro" maxlength="255" name="logradouro" type="text" value="" class="required">
                                                                 </label>
                                                             </section>
                                                             <section class="col col-4">
@@ -358,13 +360,13 @@ include("inc/nav.php");
                                                             <section class="col col-2">
                                                                 <label class="label">UF</label>
                                                                 <label class="input">
-                                                                    <input type="text" id="uf" name="uf" class="required" >
+                                                                    <input type="text" id="uf" name="uf" class="required">
                                                                 </label>
                                                             </section>
                                                             <section class="col col-4">
                                                                 <label class="label" for="idade">Bairro</label>
                                                                 <label class="input">
-                                                                    <input type="text" id="bairro" name="bairro" class="required" >
+                                                                    <input type="text" id="bairro" name="bairro" class="required">
                                                                 </label>
                                                             </section>
 
@@ -374,16 +376,6 @@ include("inc/nav.php");
                                                                     <input type="text" id="cidade" name="cidade" class="required">
                                                                 </label>
                                                             </section>
-
-                                                            <section class="col col-3">
-                                                                <label class="label" for="idade">IBGE</label>
-                                                                <label class="input">
-                                                                    <input type="text" id="ibge" name="ibge" class="required">
-                                                                </label>
-                                                            </section>
-
-                                                           
-
                                                         </div>
 
                                                 </div>
@@ -563,10 +555,6 @@ include("inc/scripts.php");
             verificarRG();
         });
 
-        $("#nome").on("change", function() {
-            verificarNome();
-        });
-
         $("#btnAddTelefone").on("click", function() {
             if (validaTelefone() === true) {
                 validEmail(email);
@@ -600,7 +588,7 @@ include("inc/scripts.php");
 
         $(function() {
             $('#nome').on('keypress', function(e) {
-                $(this).val($(this).val().replace(/[0-9]+/g, ''))
+                $(this).val($(this).val().replace(/[0-9]+/g, ' '))
                 if (e.keyCode >= 48 && e.keyCode <= 57) {
                     e.preventDefault();
                 }
@@ -608,9 +596,13 @@ include("inc/scripts.php");
 
             document.getElementById("nome").onkeypress = function(e) {
                 var chr = String.fromCharCode(e.which);
-                if ("qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM".indexOf(chr) < 0)
-                    return false;
+                // Permitir letras (maiúsculas e minúsculas) e espaço
+                if (!/^[A-Za-z\s]*$/.test(chr)) {
+                    e.preventDefault(); // Impede a inserção do caractere
+                }
             };
+
+
             document.getElementById("complemento").onkeypress = function(e) {
                 var chr = String.fromCharCode(e.which);
                 if ("qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM".indexOf(chr) < 0)
@@ -618,15 +610,21 @@ include("inc/scripts.php");
             };
         });
 
-        $('#nome').on("change", campo => {
+        $('#nome').on("focusout", campo => {
             if (["1", "2", "3", "4", "5", "6", "7", "8", "9"].find(valor => valor == campo.currentTarget.value ? true : false)) {
                 smartAlert("Atenção", "No puede digitar", "error");
                 $('#nome').val('');
+            } else {
+                $('#nome').val((campo.currentTarget.value).trim());
             }
 
         });
 
-        $('#emprego').on("change", campo => +campo.currentTarget.value ? $('#pis').addClass("readonly") : $('#pis').removeClass("readonly"))
+
+
+
+
+        $('#emprego').on("change", campo => +campo.currentTarget.value ? $('#pis').addClass("readonly").attr("disabled", true) : $('#pis').removeClass("readonly"))
 
         var SPMaskBehavior = function(val) {
                 return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00000';
@@ -661,7 +659,7 @@ include("inc/scripts.php");
                     $("#bairro").val("...");
                     $("#cidade").val("...");
                     $("#uf").val("...");
-                    $("#ibge").val("...");
+
 
                     //Consulta o webservice viacep.com.br/
                     $.getJSON("https://viacep.com.br/ws/" + cep + "/json/?callback=?", function(dados) {
@@ -672,7 +670,6 @@ include("inc/scripts.php");
                             $("#bairro").val(dados.bairro);
                             $("#cidade").val(dados.localidade);
                             $("#uf").val(dados.uf);
-                            $("#ibge").val(dados.ibge);
                         } //end if.
                         else {
                             //CEP pesquisado não foi encontrado.
@@ -696,9 +693,6 @@ include("inc/scripts.php");
         carregaPagina();
     });
 
-    function validaPis() {
-
-    }
 
     function carregaPagina() {
         var urlx = window.document.URL.toString();
@@ -749,56 +743,55 @@ include("inc/scripts.php");
         var uf = $("#uf").val();
         var bairro = $("#bairro").val();
         var cidade = $("#cidade").val();
-        var ibge = $("#ibge").val();
         var emprego = $("#emprego").val();
         var pis = $("#pis").val();
 
         if (nome === "") {
             smartAlert("Atenção", "Informe o nome !", "error");
             $("#nome").focus();
-            return;
+            return false;
         }
 
         if (cpf === "") {
             smartAlert("Atenção", "Informe o cpf !", "error");
             $("#cpf").focus();
-            return;
+            return false;
         }
         if (rg === "") {
             smartAlert("Atenção", "Informe o rg !", "error");
             $("#rg").focus();
-            return;
+            return false;
         }
 
         if (dataNascimento === "") {
             smartAlert("Atenção", "Informe a data de nascimento !", "error");
             $("#dataNascimento").focus();
-            return;
+            return false;
         }
         if (genero === "") {
             smartAlert("Atenção", "Informe o gênero !", "error");
             $("#genero").focus();
-            return;
+            return false;
         }
         if (estadoCivil === "") {
             smartAlert("Atenção", "Informe o estado civil !", "error");
             $("#estadoCivil").focus();
-            return;
+            return false;
         }
         if (cep === "") {
             smartAlert("Atenção", "Informe o cep !", "error");
             $("#cep").focus();
-            return;
+            return false;
         }
         if (complemento === "") {
             smartAlert("Atenção", "Informe o complemento !", "error");
             $("#complemento").focus();
-            return;
+            return false;
         }
         if (numero === "") {
             smartAlert("Atenção", "Informe o estado civil !", "error");
             $("#numero").focus();
-            return;
+            return false;
         }
 
         if (emprego === "") {
@@ -812,7 +805,7 @@ include("inc/scripts.php");
             $("#pis").focus();
             return;
         }
-        gravaUsuario(id, ativo, nome, cpf, rg, dataNascimento, genero, estadoCivil, jsonTelefoneArray, jsonEmailArray, cep, logradouro, complemento, numero, uf, bairro, cidade, ibge, emprego, pis);
+        gravaUsuario(id, ativo, nome, cpf, rg, dataNascimento, genero, estadoCivil, jsonTelefoneArray, jsonEmailArray, cep, logradouro, complemento, numero, uf, bairro, cidade, emprego, pis);
     }
 
     function verificarCpf() {
@@ -952,7 +945,7 @@ include("inc/scripts.php");
             }
 
             if (tell !== "") {
-                debugger
+
                 if ((jsonTelefoneArray[i].telefone === tell) && (jsonTelefoneArray[i].sequencialTel !== sequencial)) {
                     achouTelefone = true;
                     break;
@@ -967,18 +960,25 @@ include("inc/scripts.php");
 
         }
 
-        // if (achouTelefone === true) {
-        //     smartAlert("Erro", "Já existe o Telefone na lista.", "error");
+        // if (jsonEmailArray[i].telefone === telefone ) {
+        //     smartAlert("Erro", "Já existe o Email na lista.", "error");
         //     clearFormTelefone();
         //     return false;
 
         // }
 
+        if (achouTelefone === true) {
+            smartAlert("Erro", "Já existe o Telefone na lista.", "error");
+            clearFormTelefone();
+            return false;
+
+        }
+
         return true;
     }
 
     function addTelefone() {
-        debugger
+
         var item = $("#formTelefone").toObject({
             mode: 'combine',
             skipEmpty: false,
@@ -1092,7 +1092,7 @@ include("inc/scripts.php");
     }
 
     function carregaTelefone(sequencialTel) {
-        debugger
+
 
         var arr = jQuery.grep(jsonTelefoneArray, function(item, i) {
             return (item.sequencialTel === sequencialTel);
@@ -1150,7 +1150,7 @@ include("inc/scripts.php");
             }
 
             if (email !== "") {
-                debugger
+
                 if ((jsonEmailArray[i].email === email) && (jsonEmailArray[i].sequencialEmail !== sequencial)) {
                     achouEmail = true;
                     break;
@@ -1171,6 +1171,8 @@ include("inc/scripts.php");
             return false;
 
         }
+
+
 
         return true;
     }
@@ -1283,7 +1285,7 @@ include("inc/scripts.php");
     }
 
     function carregaEmail(sequencialEmail) {
-        debugger
+
 
         var arr = jQuery.grep(jsonEmailArray, function(item, i) {
             return (item.sequencialEmail === sequencialEmail);

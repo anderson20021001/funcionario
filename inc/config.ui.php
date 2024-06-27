@@ -58,8 +58,6 @@ if ($row = $result[0]) {
 
 $page_nav = array("home" => array("title" => "Home", "icon" => "fa-home", "url" => APP_URL . "/index.php"));
 
-
-
 // Configurações 
 
 $condicaoConfiguracoesOK = (in_array('USUARIO_ACESSAR', $arrayPermissao, true));

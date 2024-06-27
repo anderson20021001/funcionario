@@ -67,7 +67,6 @@ function grava()
     $uf = $utils->formatarString($_POST['uf']);
     $bairro = $utils->formatarString($_POST['bairro']);
     $cidade = $utils->formatarString($_POST['cidade']);
-    $ibge = $_POST['ibge'];
     $emprego = $_POST['emprego'];
     $pis = $utils->formatarString($_POST['pis']);
 
@@ -166,7 +165,6 @@ function grava()
      $uf,
      $bairro,
      $cidade,
-     $ibge,
      $emprego,
      $pis";
 
@@ -226,7 +224,7 @@ function recupera()
 
     $id = (int) $_POST["id"];
 
-    $sql = " SELECT codigo, ativo, nome, cpf, dataNascimento, rg,  genero, estadoCivil, cep, logradouro, complemento, numero, uf, bairro, cidade
+    $sql = " SELECT codigo, ativo, nome, cpf, dataNascimento, rg,  genero, estadoCivil, cep, logradouro, complemento, numero, uf, bairro, cidade, primeiroEmprego, pis
              FROM dbo.funcionarioCadastro WHERE (0 = 0) and codigo = $id";
 
 
@@ -251,6 +249,9 @@ function recupera()
         $uf = $row['uf'];
         $bairro = $row['bairro'];
         $cidade = $row['cidade'];
+        $primeiroEmprego = $row['primeiroEmprego'];
+        $pis = $row['pis'];
+
     }
 
     $sql = "SELECT  codigo, telefone, principal, whatsapp FROM dbo.telefone WHERE codigoTel = $id";

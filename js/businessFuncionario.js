@@ -1,10 +1,10 @@
-function gravaUsuario(id, ativo, nome, cpf,rg, dataNascimento, genero, estadoCivil, jsonTelefoneArray, jsonEmailArray, cep, logradouro, complemento, numero, uf, bairro, cidade, ibge, emprego, pis) {
+function gravaUsuario(id, ativo, nome, cpf,rg, dataNascimento, genero, estadoCivil, jsonTelefoneArray, jsonEmailArray, cep, logradouro, complemento, numero, uf, bairro, cidade, emprego, pis) {
     $.ajax({
         url: 'js/sqlscopeFuncionarioCadastro.php',
         dataType: 'html', //tipo do retorno
         type: 'post', //metodo de envio
         data: {funcao: "grava", id:id, ativo:ativo, nome:nome, cpf:cpf, rg:rg, dataNascimento:dataNascimento, genero:genero, estadoCivil:estadoCivil, jsonTelefoneArray:jsonTelefoneArray, jsonEmailArray,
-             cep:cep, logradouro:logradouro, complemento:complemento, numero:numero, uf:uf, bairro:bairro, cidade:cidade, ibge:ibge, emprego:emprego, pis:pis}, //valores enviados ao script     
+             cep:cep, logradouro:logradouro, complemento:complemento, numero:numero, uf:uf, bairro:bairro, cidade:cidade, emprego:emprego, pis:pis}, //valores enviados ao script     
         beforeSend: function () {
             //função chamada antes de realizar o ajax
         },
@@ -150,7 +150,9 @@ function recuperaUsuario(id) {
                 var uf = piece[14]
                 var bairro = piece[15]
                 var cidade = piece[16]
-                var ibge = piece[17]
+                var emprego = piece[17]
+                var pis = piece[18]
+                
                 
            
            
@@ -173,7 +175,8 @@ function recuperaUsuario(id) {
                 $("#uf").val(uf);
                 $("#bairro").val(bairro);
                 $("#cidade").val(cidade);
-                $("#ibge").val(ibge);
+                $("#emprego").val(emprego);
+                $("#pis").val(pis);
 
 
 
