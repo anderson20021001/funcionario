@@ -83,8 +83,8 @@ function recupera()
 
     $id = (int) $_POST["id"];
 
-    $sql = " SELECT codigo, ativo, nome, cpf, rg, dataNascimento
-             FROM dbo.funcionarioCadastro WHERE (0 = 0) and codigo = $id";
+    $sql = " SELECT codigo, ativo, estadoCivil
+             FROM dbo.estadoCivil WHERE (0 = 0) and codigo = $id";
 
     $reposit = new reposit();
     $result = $reposit->RunQuery($sql);
@@ -93,19 +93,13 @@ function recupera()
     if ($row = $result[0]) {
         $codigo = +$row['codigo'];
         $ativo = $row['ativo'];
-        $nome = $row['nome'];
-        $cpf = $row['cpf'];
-        $rg = $row['rg'];
-        $dataNascimento = $row['dataNascimento'];
-    
+        $estadoCivil = $row['estadoCivil'];
+      
     }
 
     $out =   $codigo . "^" .
         $ativo . "^" .
-        $nome . "^" .
-        $cpf . "^" .
-        $rg . "^" .
-        $dataNascimento;
+        $estadoCivil;
 
     if ($out == "") {
         echo "failed#";
@@ -129,9 +123,10 @@ function excluir()
     //     return;
     // }
 
+
     session_start();
 
-    $result = $reposit->update('dbo.funcionarioCadastro' . '|' . 'ativo = 0' . '|' . 'codigo =' . $id);
+    $result = $reposit->update('dbo.estadoCivil' . '|' . 'ativo = 0' . '|' . 'codigo =' . $id);
     $reposit = new reposit();
 
     if ($result < 1) {

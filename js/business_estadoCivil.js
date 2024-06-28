@@ -70,9 +70,9 @@ function verificaCpf(cpf) {
     });
 }
 
-function recuperaUsuario(id) {
+function recuperaEstadoCivil(id) {
     $.ajax({
-        url: 'js/sqlscopeFuncionarioCadastro.php', //caminho do arquivo a ser executado
+        url: 'js/sqlscope_estadoCivil.php', //caminho do arquivo a ser executado
         dataType: 'html', //tipo do retorno
         type: 'post', //metodo de envio
         data: {funcao: 'recupera', id: id}, //valores enviados ao script     
@@ -94,16 +94,13 @@ function recuperaUsuario(id) {
                 piece = out.split("^");
                 var codigo = +piece[0];
                 var ativo = piece[1];
-                var nome = piece[2];
-                var cpf = piece[3];
-                var dataNascimento = piece[4];
+                var estadoCivil = piece[2];
+               
     
                
                 $("#codigo").val(codigo);
                 $("#ativo").val(ativo);
-                $("#nome").val(nome);
-                $("#cpf").val(cpf);
-                $("#dataNascimento").val(dataNascimento);
+                $("#estadoCivil").val(estadoCivil);
                 if (ativo === 1) {
                     $('#ativo').prop('checked', true);
                 } else {
@@ -122,7 +119,7 @@ function recuperaUsuario(id) {
 
 function excluirUsuario(id) {
     $.ajax({
-        url: 'js/sqlscopeFuncionarioCadastro.php', //caminho do arquivo a ser executado
+        url: 'js/sqlscope_estadoCivil.php', //caminho do arquivo a ser executado
         dataType: 'html', //tipo do retorno
         type: 'post', //metodo de envio
         data: {funcao: 'excluir', id: id}, //valores enviados ao script     

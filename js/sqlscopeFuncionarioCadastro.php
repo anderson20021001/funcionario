@@ -330,7 +330,16 @@ function recupera()
         $genero . "^" .
         $estadoCivil  . "^" .
         $jsonTelefone . "^" .
-        $jsonEmail;
+        $jsonEmail . "^" .
+        $cep . "^" .
+        $logradouro . "^" .
+        $complemento . "^" .
+        $numero . "^" .
+        $uf . "^" .
+        $bairro . "^" .
+        $cidade . "^" .
+        $primeiroEmprego . "^" .
+        $pis;
 
     if ($out == "") {
         echo "failed#";

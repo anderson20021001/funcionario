@@ -25,7 +25,7 @@ include "js/repositorio.php";
                  $descricao = $descricao;
                 if ($_POST["descricaoFiltro"] != "") {
                     $descricaoFiltro = $_POST["descricaoFiltro"];
-                    $where = $where . " AND (descricao like '%' + " . "replace('" . $descricaoFiltro . "',' ','%') + " . "'%')";
+                    $where = $where . " AND (estadoCivil like '%' + " . "replace('" . $descricaoFiltro . "',' ','%') + " . "'%')";
                 }
 
 

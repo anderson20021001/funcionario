@@ -127,6 +127,7 @@ function recuperaUsuario(id) {
                 
                 data = data.replace(/failed/g, '');
                 var piece = data.split("#");
+                
 
                 
 

@@ -3,7 +3,7 @@
 require_once("inc/init.php");
 
 //require UI configuration (nav, ribbon, etc.)
-//require_once("inc/config.ui.php");
+require_once("inc/config.ui.php");
 
 //colocar o tratamento de permissão sempre abaixo de require_once("inc/config.ui.php");
 $condicaoAcessarOK = true;
@@ -42,7 +42,7 @@ include("inc/header.php");
 
 //include left panel (navigation)
 //follow the tree in inc/config.ui.php
-$page_nav["configuracao"]["sub"]["genero"]["active"] = true;
+$page_nav["tabelaBasica"]["sub"]["tabelaBasica"]["active"] = true;
 
 include("inc/nav.php");
 ?>
@@ -52,8 +52,7 @@ include("inc/nav.php");
     <?php
     //configure ribbon (breadcrumbs) array("name"=>"url"), leave url empty if no url
     //$breadcrumbs["New Crumb"] => "http://url.com"
-    $breadcrumbs["Configurações"] = "";
-    $breadcrumbs["Cadastro"] = "";
+    $breadcrumbs["Filtro"] = "";
     include("inc/ribbon.php");
     ?>
 
@@ -376,6 +375,13 @@ include("inc/scripts.php");
         });
     });
 
+    document.getElementById("descricao").onkeypress = function(e) {
+        var chr = String.fromCharCode(e.which);
+        if ("qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM-".indexOf(chr) < 0)
+            return false;
+    } 
+
+
     function carregaPagina() {
         var urlx = window.document.URL.toString();
         var params = urlx.split("?");
@@ -384,7 +390,7 @@ include("inc/scripts.php");
             var idx = id.split("=");
             var idd = idx[1];
             if (idd !== "") {
-                recuperaGenero(idd);
+                recupera(idd);
             }
         }
         $("#nome").focus();
@@ -416,7 +422,13 @@ include("inc/scripts.php");
         if (descricao === "") {
             smartAlert("Atenção", "Informe o Gênero !", "error");
             $("#descricao").focus();
-            return;
+            return false;
+
+        }
+
+        if (estadoCivil.length === 0 || !estadoCivil.trim()) {
+            (estadoCivi).focus();
+          return false
         }
  
         gravaGenero(codigo, ativo, descricao);

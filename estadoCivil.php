@@ -3,7 +3,7 @@
 require_once("inc/init.php");
 
 //require UI configuration (nav, ribbon, etc.)
-//require_once("inc/config.ui.php");
+require_once("inc/config.ui.php");
 
 //colocar o tratamento de permissão sempre abaixo de require_once("inc/config.ui.php");
 $condicaoAcessarOK = true;
@@ -30,7 +30,7 @@ if ($condicaoExcluirOK === false) {
   YOU CAN SET CONFIGURATION VARIABLES HERE BEFORE IT GOES TO NAV, RIBBON, ETC.
   E.G. $page_title = "Custom Title" */
 
-$page_title = "Gênero";
+$page_title = "Estado Cívil";
 
 /* ---------------- END PHP Custom Scripts ------------- */
 
@@ -42,7 +42,7 @@ include("inc/header.php");
 
 //include left panel (navigation)
 //follow the tree in inc/config.ui.php
-$page_nav["configuracao"]["sub"]["genero"]["active"] = true;
+$page_nav["tabelaBasica"]["sub"]["tabelaBasica"]["active"] = true;
 
 include("inc/nav.php");
 ?>
@@ -52,8 +52,7 @@ include("inc/nav.php");
     <?php
     //configure ribbon (breadcrumbs) array("name"=>"url"), leave url empty if no url
     //$breadcrumbs["New Crumb"] => "http://url.com"
-    $breadcrumbs["Configurações"] = "";
-    $breadcrumbs["Cadastro"] = "";
+    $breadcrumbs["filtro"] = "";
     include("inc/ribbon.php");
     ?>
 
@@ -106,10 +105,10 @@ include("inc/nav.php");
                                                             <section class="col col-4">
                                                                 <label class="label">Estado Civil</label>
                                                                 <label class="input"><i class=""></i>
-                                                                    <input id="estadoCivil" maxlength="255" name="estadoCivil" class="required"  type="text" value="">
+                                                                    <input id="estadoCivil" maxlength="255" name="estadoCivil" class="required" type="text" value="">
                                                                 </label>
                                                             </section>
-                                                         </div>
+                                                        </div>
                                                     </fieldset>
                                                 </div>
                                             </div>
@@ -153,7 +152,7 @@ include("inc/nav.php");
 
     </div>
     <!-- END MAIN CONTENT -->
-    
+
 
 </div>
 <!-- END MAIN PANEL -->
@@ -199,180 +198,186 @@ include("inc/scripts.php");
 
 
 <script language="JavaScript" type="text/javascript">
- 
+    jQuery.validator.addMethod(
+        "senhaRequerida",
+        function(value, element, params) {
+            var senha = $("#senha").val();
+            var codigo = +$("#codigo").val();
+            var senhaConfirma = $("#senhaConfirma").val();
 
-        jQuery.validator.addMethod(
-            "senhaRequerida",
-            function(value, element, params) {
-                var senha = $("#senha").val();
-                var codigo = +$("#codigo").val();
-                var senhaConfirma = $("#senhaConfirma").val();
-
-                if (codigo === 0) {
-                    if (senha === "") {
-                        return false;
-                    }
-                } else {
-                    if ((senha === "") & (senhaConfirma !== "")) {
-                        return false;
-                    }
+            if (codigo === 0) {
+                if (senha === "") {
+                    return false;
                 }
-
-                return true;
-            }, ''
-        );
-
-        jQuery.validator.addMethod(
-            "confirmaSenhaRequerida",
-            function(value, element, params) {
-                var senha = $("#senha").val();
-                var senhaConfirma = $("#senhaConfirma").val();
-                var codigo = +$("#codigo").val();
-
-                if (codigo === 0) {
-                    if (senhaConfirma === "") {
-                        return false;
-                    }
-                } else {
-                    if ((senha !== "") & (senhaConfirma === "")) {
-                        return false;
-                    }
-                }
-
-                return true;
-            }, ''
-        );
-
-        jQuery.validator.addMethod(
-            "confirmaSenhaequalto",
-            function(value, element, params) {
-                var senha = $("#senha").val();
-                var senhaConfirma = $("#senhaConfirma").val();
-
-                if ((senha !== "") | (senhaConfirma !== "")) {
-                    if (senha !== senhaConfirma) {
-                        return false;
-                    }
-                }
-                return true;
-            }, ''
-        );
-
-        $('#formUsuario').validate({
-            // Rules for form validation
-            rules: {
-                'login': {
-                    required: true,
-                    maxlength: 35
-                },
-                'senha': {
-                    senhaRequerida: true,
-                    minlength: 7,
-                    maxlength: 20
-                },
-                'senhaConfirma': {
-                    confirmaSenhaRequerida: true,
-                    confirmaSenhaequalto: true
-                }
-            },
-
-
-            // Messages for form validation
-            messages: {
-                'login': {
-                    required: 'Informe o Login.',
-                    maxlength: 'Digite no máximo de 35 caracteres.',
-                    minlength: 'Digite no mínimo 7 caracteres'
-                },
-                'senha': {
-                    maxlength: 'Digite no máximo de 20 caracteres.',
-                    minlength: 'Digite no mínimo 7 caracteres',
-                    senharequerida: 'Informe a senha.'
-                },
-                'senhaConfirma': {
-                    confirmacaosenharequerida: 'Informe a senha mais uma vez.',
-                    confirmacaosenhaequalto: 'Informe a mesma senha digitada no campo senha.'
-                }
-            },
-
-            // Do not change code below
-            errorPlacement: function(error, element) {
-                error.insertAfter(element.parent());
-                //$("#accordionCadastro").click();
-                $("#accordionCadastro").removeClass("collapsed");
-            },
-            highlight: function(element) {
-                //$(element).parent().addClass('error');
-            },
-            unhighlight: function(element) {
-                //$(element).parent().removeClass('error');
-            }
-        });
-
-        carregaPagina();
-
-        $.widget("ui.dialog", $.extend({}, $.ui.dialog.prototype, {
-            _title: function(title) {
-                if (!this.options.title) {
-                    title.html("&#160;");
-                } else {
-                    title.html(this.options.title);
+            } else {
+                if ((senha === "") & (senhaConfirma !== "")) {
+                    return false;
                 }
             }
-        }));
 
-        $('#dlgSimpleExcluir').dialog({
-            autoOpen: false,
-            width: 400,
-            resizable: false,
-            modal: true,
-            title: "<div class='widget-header'><h4><i class='fa fa-warning'></i> Atenção</h4></div>",
-            buttons: [{
-                html: "Excluir registro",
-                "class": "btn btn-success",
-                click: function() {
-                    $(this).dialog("close");
-                    excluir();
+            return true;
+        }, ''
+    );
+
+    jQuery.validator.addMethod(
+        "confirmaSenhaRequerida",
+        function(value, element, params) {
+            var senha = $("#senha").val();
+            var senhaConfirma = $("#senhaConfirma").val();
+            var codigo = +$("#codigo").val();
+
+            if (codigo === 0) {
+                if (senhaConfirma === "") {
+                    return false;
                 }
-            }, {
-                html: "<i class='fa fa-times'></i>&nbsp; Cancelar",
-                "class": "btn btn-default",
-                click: function() {
-                    $(this).dialog("close");
+            } else {
+                if ((senha !== "") & (senhaConfirma === "")) {
+                    return false;
                 }
-            }]
-        });
-
-        $("#btnExcluir").on("click", function() {
-            var id = +$("#codigo").val();
-
-            if (id === 0) {
-                smartAlert("Atenção", "Selecione um registro para excluir !", "error");
-                $("#nome").focus();
-                return;
             }
 
-            if (id !== 0) {
-                $('#dlgSimpleExcluir').dialog('open');
+            return true;
+        }, ''
+    );
+
+    jQuery.validator.addMethod(
+        "confirmaSenhaequalto",
+        function(value, element, params) {
+            var senha = $("#senha").val();
+            var senhaConfirma = $("#senhaConfirma").val();
+
+            if ((senha !== "") | (senhaConfirma !== "")) {
+                if (senha !== senhaConfirma) {
+                    return false;
+                }
             }
-        });
+            return true;
+        }, ''
+    );
 
-        $("#btnNovo").on("click", function() {
-            novo();
-        });
+    $('#formUsuario').validate({
+        // Rules for form validation
+        rules: {
+            'login': {
+                required: true,
+                maxlength: 35
+            },
+            'senha': {
+                senhaRequerida: true,
+                minlength: 7,
+                maxlength: 20
+            },
+            'senhaConfirma': {
+                confirmaSenhaRequerida: true,
+                confirmaSenhaequalto: true
+            }
+        },
 
-        $("#btnGravar").on("click", function() {
-            gravarEstadoCivilPessoa();
-        });
 
-        $("#btnVoltar").on("click", function() {
-            voltar();
-        });
+        // Messages for form validation
+        messages: {
+            'login': {
+                required: 'Informe o Login.',
+                maxlength: 'Digite no máximo de 35 caracteres.',
+                minlength: 'Digite no mínimo 7 caracteres'
+            },
+            'senha': {
+                maxlength: 'Digite no máximo de 20 caracteres.',
+                minlength: 'Digite no mínimo 7 caracteres',
+                senharequerida: 'Informe a senha.'
+            },
+            'senhaConfirma': {
+                confirmacaosenharequerida: 'Informe a senha mais uma vez.',
+                confirmacaosenhaequalto: 'Informe a mesma senha digitada no campo senha.'
+            }
+        },
 
-        $("#descricao").on("change", function() {
-            verificarGenero();
-        });
-    
+        // Do not change code below
+        errorPlacement: function(error, element) {
+            error.insertAfter(element.parent());
+            //$("#accordionCadastro").click();
+            $("#accordionCadastro").removeClass("collapsed");
+        },
+        highlight: function(element) {
+            //$(element).parent().addClass('error');
+        },
+        unhighlight: function(element) {
+            //$(element).parent().removeClass('error');
+        }
+    });
+
+    carregaPagina();
+
+    $.widget("ui.dialog", $.extend({}, $.ui.dialog.prototype, {
+        _title: function(title) {
+            if (!this.options.title) {
+                title.html("&#160;");
+            } else {
+                title.html(this.options.title);
+            }
+        }
+    }));
+
+    $('#dlgSimpleExcluir').dialog({
+        autoOpen: false,
+        width: 400,
+        resizable: false,
+        modal: true,
+        title: "<div class='widget-header'><h4><i class='fa fa-warning'></i> Atenção</h4></div>",
+        buttons: [{
+            html: "Excluir registro",
+            "class": "btn btn-success",
+            click: function() {
+                $(this).dialog("close");
+                excluir();
+            }
+        }, {
+            html: "<i class='fa fa-times'></i>&nbsp; Cancelar",
+            "class": "btn btn-default",
+            click: function() {
+                $(this).dialog("close");
+            }
+        }]
+    });
+
+    $("#btnExcluir").on("click", function() {
+        var id = +$("#codigo").val();
+
+        if (id === 0) {
+            smartAlert("Atenção", "Selecione um registro para excluir !", "error");
+            $("#nome").focus();
+            return;
+        }
+
+        if (id !== 0) {
+            $('#dlgSimpleExcluir').dialog('open');
+        }
+    });
+
+    $("#btnNovo").on("click", function() {
+        novo();
+    });
+
+    $("#btnGravar").on("click", function() {
+        gravarEstadoCivilPessoa();
+    });
+
+    $("#btnVoltar").on("click", function() {
+        voltar();
+    });
+
+    $("#descricao").on("change", function() {
+        verificarGenero();
+    });
+
+    document.getElementById("estadoCivil").onkeypress = function(e) {
+        var chr = String.fromCharCode(e.which);
+        if ("qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM-".indexOf(chr) < 0)
+            return false;
+    } 
+
+
+
     function carregaPagina() {
         var urlx = window.document.URL.toString();
         var params = urlx.split("?");
@@ -381,14 +386,14 @@ include("inc/scripts.php");
             var idx = id.split("=");
             var idd = idx[1];
             if (idd !== "") {
-                recuperaGenero(idd);
+                recuperaEstadoCivil(idd);
             }
         }
         $("#nome").focus();
     }
 
     function novo() {
-        $(location).attr('href', 'cadastroFuncionario.php');
+        $(location).attr('href', 'estadoCivil.php');
     }
 
     function voltar() {
@@ -402,88 +407,90 @@ include("inc/scripts.php");
             smartAlert("Atenção", "Selecione um registro para excluir!", "error");
             return;
         }
-        excluirGenero(id);
+        excluirEstadoCivil(id);
     }
 
     function gravarEstadoCivilPessoa() {
         var codigo = +($("#codigo").val());
         var ativo = $('#ativo').val();
-        var estadoCivil= $("#estadoCivil").val();
+        var estadoCivil = $("#estadoCivil").val();
 
         if (estadoCivil === "") {
             smartAlert("Atenção", "Informe o Estado Civil !", "error");
             $("#estadoCivil").focus();
-            return;
+            return false
         }
- 
+
+
+        
+
         gravaEstadoCivilPessoa(codigo, ativo, estadoCivil);
     }
 
 
-    function verificarCpf(){
+    function verificarCpf() {
         var cpf = $("#cpf").val();
         verificaCpf(cpf)
-        
+
     }
 
-    function verificarGenero(){
+    function verificarGenero() {
         var descricao = $("#descricao").val();
         verificaGenero(descricao)
-        
+
     }
 
-   
-// function limparCampoData() {
-//     document.getElementById('dataNascimento').value = ""; // Limpa o valor do campo de entrada de data
-// }
 
-// $('#dataNascimento').on('change', function(){
-//     if (validadeData()) {
-//     }
-// });
-        function calcularIdade() {
-            var dataNasc = document.getElementById('dataNascimento').value;
-            if (dataNasc) {
-                var hoje = new Date();
-                var nasc = new Date(dataNasc);
-                var idade = hoje.getFullYear() - nasc.getFullYear();
-                var m = hoje.getMonth() - nasc.getMonth();
-                if (m < 0 || (m === 0 && hoje.getDate() < nasc.getDate())) {
-                    idade--;
-                }
-                // document.getElementById('idade').value = idade;
-                $('#idade').val(idade);
-            } else {
-                alert('Por favor, insira uma data de nascimento válida.');
+    // function limparCampoData() {
+    //     document.getElementById('dataNascimento').value = ""; // Limpa o valor do campo de entrada de data
+    // }
+
+    // $('#dataNascimento').on('change', function(){
+    //     if (validadeData()) {
+    //     }
+    // });
+    function calcularIdade() {
+        var dataNasc = document.getElementById('dataNascimento').value;
+        if (dataNasc) {
+            var hoje = new Date();
+            var nasc = new Date(dataNasc);
+            var idade = hoje.getFullYear() - nasc.getFullYear();
+            var m = hoje.getMonth() - nasc.getMonth();
+            if (m < 0 || (m === 0 && hoje.getDate() < nasc.getDate())) {
+                idade--;
             }
+            // document.getElementById('idade').value = idade;
+            $('#idade').val(idade);
+        } else {
+            alert('Por favor, insira uma data de nascimento válida.');
         }
-       
-        // Adiciona o evento de clique ao documento inteiro
-        // document.addEventListener('focusout', calcularIdade);
-        $('#dataNascimento').on('change', function(){calcularIdade()});
-
-
-        function verificaIdade() {
-    var idadeCalcule = document.getElementById('idade').value;
-
-    if (idadeCalcule < 14 || idadeCalcule > 120) {
-        limparCampoData();
-        alert("Por favor, digite uma idade válida entre 14 e 120 anos.");
-        return false; // Retorna false para indicar que a validação falhou
     }
-    
-    return true; // Retorna true se a validação for bem-sucedida
-}
 
-function limparCampoData() {
-    document.getElementById('dataNascimento').value = ""; // Limpa o valor do campo de entrada de data
-}
-
-// Chama a função verificaIdade() quando o campo de data de nascimento é alterado
-$('#dataNascimento').on('change', function() {
-    verificaIdade();
-});
+    // Adiciona o evento de clique ao documento inteiro
+    // document.addEventListener('focusout', calcularIdade);
+    $('#dataNascimento').on('change', function() {
+        calcularIdade()
+    });
 
 
+    function verificaIdade() {
+        var idadeCalcule = document.getElementById('idade').value;
 
+        if (idadeCalcule < 14 || idadeCalcule > 120) {
+            limparCampoData();
+            alert("Por favor, digite uma idade válida entre 14 e 120 anos.");
+            return false; // Retorna false para indicar que a validação falhou
+        }
+
+        return true; // Retorna true se a validação for bem-sucedida
+    }
+
+    function limparCampoData() {
+        document.getElementById('dataNascimento').value = ""; // Limpa o valor do campo de entrada de data
+    }
+
+    // Chama a função verificaIdade() quando o campo de data de nascimento é alterado
+    $('#dataNascimento').on('change', function() {
+        verificaIdade();
+    });
 </script>

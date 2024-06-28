@@ -21,7 +21,7 @@ include "js/repositorio.php";
                 //     $nomeFiltro = $_GET["nomeFiltro"];
                 //     $where = $where . " AND (USU.[login] like '%' + " . "replace('" . $nomeFiltro . "',' ','%') + " . "'%')";
                 // }
-
+    
                  $descricao = $descricao;
                 if ($_POST["descricaoFiltro"] != "") {
                     $descricaoFiltro = $_POST["descricaoFiltro"];

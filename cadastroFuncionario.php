@@ -42,7 +42,7 @@ include("inc/header.php");
 
 //include left panel (navigation)
 //follow the tree in inc/config.ui.php
-$page_nav["Configuração"]["sub"]["funcionario"]["active"] = true;
+$page_nav["cadastro"]["sub"]["cadastro"]["active"] = true;
 
 include("inc/nav.php");
 ?>
@@ -52,7 +52,6 @@ include("inc/nav.php");
     <?php
     //configure ribbon (breadcrumbs) array("name"=>"url"), leave url empty if no url
     //$breadcrumbs["New Crumb"] => "http://url.com"
-    $breadcrumbs["Configurações"] = "";
     $breadcrumbs["Cadastro"] = "";
     include("inc/ribbon.php");
     ?>
@@ -147,11 +146,12 @@ include("inc/nav.php");
                                                                         <option hidden selected value=""> Selecione </option>
                                                                         <?php
                                                                         $reposit = new reposit();
-                                                                        $sql = "SELECT codigo, descricao FROM dbo.genero";
+                                                                        $sql = "SELECT codigo, descricao, ativo FROM dbo.genero where ativo = 1";
                                                                         $result = $reposit->RunQuery($sql);
                                                                         foreach ($result as $row) {
                                                                             $codigo = +$row['codigo'];
                                                                             $descricao = $row['descricao'];
+
                                                                             echo '<option value=' . $codigo . '>' . $descricao . '</option>';
                                                                         }
                                                                         ?>
@@ -165,7 +165,7 @@ include("inc/nav.php");
                                                                         <option hidden selected value=""> Selecione </option>
                                                                         <?php
                                                                         $reposit = new reposit();
-                                                                        $sql = "SELECT codigo, estadoCivil FROM dbo.estadoCivil";
+                                                                        $sql = "SELECT codigo, estadoCivil, ativo FROM dbo.estadoCivil where ativo = 1";
                                                                         $result = $reposit->RunQuery($sql);
                                                                         foreach ($result as $row) {
                                                                             $codigo = +$row['codigo'];
@@ -184,7 +184,7 @@ include("inc/nav.php");
                                                                         <option hidden selected value=""> Selecione </option>
                                                                         <option value="1">Sim</option>
                                                                         <option value="0">Não</option>
-                                                                        
+
                                                                         ?>
                                                                     </select><i></i>
                                                                 </label>
@@ -273,7 +273,7 @@ include("inc/nav.php");
                                                         <div id="formEmail" class="col-12 required">
                                                             <input id="emailId" name="emailId" type="hidden" value="">
                                                             <input id="descricaoEmailPrincipal" name="descricaoEmailPrincipal" type="hidden" value="">
-                                                            <input id="sequencialEmail" name="sequencialEmaifl" type="hidden" value="">
+                                                            <input id="sequencialEmail" name="sequencialEmail" type="hidden" value="">
                                                             <div class="row">
                                                                 <section class="col col-6">
                                                                     <label class="label">Email</label>
@@ -354,7 +354,7 @@ include("inc/nav.php");
                                                             <section class="col col-1">
                                                                 <label class="label">Número</label>
                                                                 <label class="input">
-                                                                    <input id="numero" name="numero" type="Number" onpaste="return false" ondrop="return false" value="" class="required">
+                                                                    <input id="numero" name="numero" type="text" maxlength="7" pattern="[0-9]+$" onpaste="return false" ondrop="return false" value="" class="required">
                                                                 </label>
                                                             </section>
                                                             <section class="col col-2">
@@ -594,6 +594,9 @@ include("inc/scripts.php");
                 }
             });
 
+
+
+
             document.getElementById("nome").onkeypress = function(e) {
                 var chr = String.fromCharCode(e.which);
                 // Permitir letras (maiúsculas e minúsculas) e espaço
@@ -602,13 +605,45 @@ include("inc/scripts.php");
                 }
             };
 
+            document.getElementById("numero").onkeypress = function(e) {
+                var chr = String.fromCharCode(e.which);
+                if ("1234567890".indexOf(chr) < 0)
+                    return false;
+            };
 
-            document.getElementById("complemento").onkeypress = function(e) {
+            document.getElementById("uf").onkeypress = function(e) {
                 var chr = String.fromCharCode(e.which);
                 if ("qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM".indexOf(chr) < 0)
                     return false;
             };
+
+            document.getElementById("cidade").onkeypress = function(e) {
+                var chr = String.fromCharCode(e.which);
+                if ("qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM".indexOf(chr) < 0)
+                    return false;
+            };
+
+            document.getElementById("bairro").onkeypress = function(e) {
+                var chr = String.fromCharCode(e.which);
+                if ("qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM".indexOf(chr) < 0)
+                    return false;
+            };
+
+            document.getElementById("logradouro").onkeypress = function(e) {
+                var chr = String.fromCharCode(e.which);
+                if ("qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM ".indexOf(chr) < 0)
+                    return false;
+            };
+
+
+            document.getElementById("complemento").onkeypress = function(e) {
+                var chr = String.fromCharCode(e.which);
+                if ("1234567890qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM& ".indexOf(chr) < 0)
+                    return false;
+            };
         });
+
+
 
         $('#nome').on("focusout", campo => {
             if (["1", "2", "3", "4", "5", "6", "7", "8", "9"].find(valor => valor == campo.currentTarget.value ? true : false)) {
@@ -619,6 +654,7 @@ include("inc/scripts.php");
             }
 
         });
+
 
 
 
