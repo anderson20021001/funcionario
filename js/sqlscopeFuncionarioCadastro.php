@@ -60,6 +60,7 @@ function grava()
     $estadoCivil = $_POST['estadoCivil'];
     $telefone = $_POST['jsonTelefoneArray'];
     $email = $_POST['jsonEmailArray'];
+    $dependente = $_POST['jsonDependenteArray'];
     $cep = $utils->formatarString($_POST['cep']);
     $logradouro = $utils->formatarString($_POST['logradouro']);
     $complemento = $utils->formatarString($_POST['complemento']);
@@ -145,6 +146,40 @@ function grava()
         return;
     }
     $xmlEmail = "'" . $xmlEmail . "'";
+
+
+    $nomeXml = "ArrayOfFilepondAta";;
+    $nomeTabela = "dependente";
+    if (sizeof($dependente) > 0) {
+        $xmlDependente = '<?xml version="1.0"?>';
+        $xmlDependente = $xmlDependente . '<' . $nomeXml . ' xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">';
+        foreach ($email as $chave) {
+            $xmlDependente = $xmlDependente . "<" . $nomeTabela . ">";
+            foreach ($chave as $campo => $valor) {
+                if ($campo == "emailPrincipal") {
+                    if ($valor == "true")
+                        $valor = 1;
+                    else
+                        $valor = 0;
+                }
+
+                $xmlDependente = $xmlDependente . "<" . $campo . ">" . $valor . "</" . $campo . ">";
+            }
+            $xmlDependente = $xmlDependente . "</" . $nomeTabela . ">";
+        }
+        $xmlDependente = $xmlDependente . "</" . $nomeXml . ">";
+    } else {
+        $xmlDependente = '<?xml version="1.0"?>';
+        $xmlDependente = $xmlDependente . '<' . $nomeXml . ' xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">';
+        $xmlDependente = $xmlDependente . "</" . $nomeXml . ">";
+    }
+    $xml = simplexml_load_string($xmlDependente);
+    if ($xml === false) {
+        $mensagem = "Erro na criação do XML de Telefone";
+        echo "failed#" . $mensagem . ' ';
+        return;
+    }
+    $xmlDependente = "'" . $xmlDependente . "'";
 
 
     $sql = "dbo.funcionario_Atualiza

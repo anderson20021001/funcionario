@@ -143,6 +143,7 @@ $page_nav['tabelaBasica']['sub'] = array();
 
 $page_nav['tabelaBasica']['sub'] += array("genero" => array("title" => "Gênero", "url" => APP_URL . "/generoFiltro.php"));
 $page_nav['tabelaBasica']['sub'] += array("estadoCivil" => array("title" => "Estado Cívil", "url" => APP_URL . "/estadoCivilFiltro.php"));
+$page_nav['tabelaBasica']['sub'] += array("dependente" => array("title" => "Dependente", "url" => APP_URL . "/dependenteFiltro.php"));
 
 $condicaoOperacaoOk = true;
 

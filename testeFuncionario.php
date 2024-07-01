@@ -42,7 +42,7 @@ include("inc/header.php");
 
 //include left panel (navigation)
 //follow the tree in inc/config.ui.php
-$page_nav["Configuração"]["sub"]["funcionario"]["active"] = true;
+$page_nav["cadastro"]["sub"]["cadastro"]["active"] = true;
 
 include("inc/nav.php");
 ?>
@@ -52,7 +52,6 @@ include("inc/nav.php");
     <?php
     //configure ribbon (breadcrumbs) array("name"=>"url"), leave url empty if no url
     //$breadcrumbs["New Crumb"] => "http://url.com"
-    $breadcrumbs["Configurações"] = "";
     $breadcrumbs["Cadastro"] = "";
     include("inc/ribbon.php");
     ?>
@@ -131,38 +130,7 @@ include("inc/nav.php");
                                                                 <label class="label" for="dataNascimento">Data de Nascimento</label>
                                                                 <label class="input">
                                                                     <i class="icon-append fa fa-calendar"></i>
-                                                                    <input id="dataNascimento" name="dataNascimento" data-dateformat="dd/mm/yy" placeholder="dd/mm/aaaa" type="text" class="required datepicker " value="">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                                                                    <input id="dataNascimento" name="dataNascimento" data-dateformat="dd/mm/yy" placeholder="dd/mm/aaaa" type="text" onpaste="return false" ondrop="return false" class="required datepicker" value="">
                                                                 </label>
                                                             </section>
                                                             <section class="col col-1">
@@ -175,13 +143,15 @@ include("inc/nav.php");
                                                                 <label class="label" for="genero">Gênero</label>
                                                                 <label class="select">
                                                                     <select id="genero" class="required" name="genero">
+                                                                        <option hidden selected value=""> Selecione </option>
                                                                         <?php
                                                                         $reposit = new reposit();
-                                                                        $sql = "SELECT codigo, descricao FROM dbo.genero";
+                                                                        $sql = "SELECT codigo, descricao, ativo FROM dbo.genero where ativo = 1";
                                                                         $result = $reposit->RunQuery($sql);
                                                                         foreach ($result as $row) {
                                                                             $codigo = +$row['codigo'];
                                                                             $descricao = $row['descricao'];
+
                                                                             echo '<option value=' . $codigo . '>' . $descricao . '</option>';
                                                                         }
                                                                         ?>
@@ -192,10 +162,10 @@ include("inc/nav.php");
                                                                 <label class="label" for="estadoCivil">Estado Civil</label>
                                                                 <label class="select">
                                                                     <select id="estadoCivil" class="required" name="estadoCivil">
-                                                                        <option></option>
+                                                                        <option hidden selected value=""> Selecione </option>
                                                                         <?php
                                                                         $reposit = new reposit();
-                                                                        $sql = "SELECT codigo, estadoCivil FROM dbo.estadoCivil";
+                                                                        $sql = "SELECT codigo, estadoCivil, ativo FROM dbo.estadoCivil where ativo = 1";
                                                                         $result = $reposit->RunQuery($sql);
                                                                         foreach ($result as $row) {
                                                                             $codigo = +$row['codigo'];
@@ -207,9 +177,25 @@ include("inc/nav.php");
                                                                 </label>
                                                             </section>
 
-                                                          
+                                                            <section class="col col-3 col-auto" required>
+                                                                <label class="label" for="emprego">Primeiro Emprego</label>
+                                                                <label class="select">
+                                                                    <select id="emprego" class="required" name="emprego">
+                                                                        <option hidden selected value=""> Selecione </option>
+                                                                        <option value="1">Sim</option>
+                                                                        <option value="0">Não</option>
 
-                                                          
+                                                                        ?>
+                                                                    </select><i></i>
+                                                                </label>
+                                                            </section>
+
+                                                            <section class="col col-2">
+                                                                <label class="label">Pis</label>
+                                                                <label class="input">
+                                                                    <input id="pis" name="pis" class="required" type="text" onpaste="return false" ondrop="return" value="">
+                                                                </label>
+                                                            </section>
                                                         </div>
                                                     </fieldset>
                                                 </div>
@@ -331,8 +317,169 @@ include("inc/nav.php");
                                             </div>
                                         </div>
                                         <!-- Accordion para Endereço -->
-                                                
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseEndereco" class="" id="accordionEndereco">
+                                                        <i class="fa fa-lg fa-angle-down pull-right"></i>
+                                                        <i class="fa fa-lg fa-angle-up pull-right"></i>
+                                                        Endereço
+                                                    </a>
+                                                </h4>
                                             </div>
+                                            <div id="collapseEndereco" class="panel-collapse collapse">
+                                                <div class="panel-body no-padding">
+                                                    <fieldset>
+                                                        <div class="row">
+                                                            <section class="col col-2 ">
+                                                                <label class="label">CEP</label>
+                                                                <label class="input">
+                                                                    <input id="cep" name="cep" type="text" onpaste="return false" ondrop="return false" class="required">
+                                                                </label>
+                                                            </section>
+                                                        </div>
+                                                        <div class="row">
+                                                            <section class="col col-4">
+                                                                <label class="label">Logradouro</label>
+                                                                <label class="input">
+                                                                    <input id="logradouro" maxlength="255" name="logradouro" type="text" value="" class="required">
+                                                                </label>
+                                                            </section>
+                                                            <section class="col col-4">
+                                                                <label class="label">Complemento</label>
+                                                                <label class="input">
+                                                                    <input id="complemento" name="complemento" onpaste="return false" ondrop="return false" type="text" class="required" value="">
+                                                                </label>
+                                                            </section>
+                                                            <section class="col col-1">
+                                                                <label class="label">Número</label>
+                                                                <label class="input">
+                                                                    <input id="numero" name="numero" type="text" maxlength="7" pattern="[0-9]+$" onpaste="return false" ondrop="return false" value="" class="required">
+                                                                </label>
+                                                            </section>
+                                                            <section class="col col-2">
+                                                                <label class="label">UF</label>
+                                                                <label class="input">
+                                                                    <input type="text" id="uf" name="uf" class="required">
+                                                                </label>
+                                                            </section>
+                                                            <section class="col col-4">
+                                                                <label class="label" for="idade">Bairro</label>
+                                                                <label class="input">
+                                                                    <input type="text" id="bairro" name="bairro" class="required">
+                                                                </label>
+                                                            </section>
+
+                                                            <section class="col col-4">
+                                                                <label class="label" for="idade">Cidade</label>
+                                                                <label class="input">
+                                                                    <input type="text" id="cidade" name="cidade" class="required">
+                                                                </label>
+                                                            </section>
+                                                        </div>
+                                                    </fieldset>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseDependente" class="" id="accordionDependente">
+                                                        <i class="fa fa-lg fa-angle-down pull-right"></i>
+                                                        <i class="fa fa-lg fa-angle-up pull-right"></i>
+                                                        Dependentes
+                                                    </a>
+                                                </h4>
+                                            </div>
+                                            <input id="jsonDependente" name="jsonDependente" type="hidden" value="[]">
+                                            <div id="formDependente" class="col-12 required">
+                                                <input id="dependenteId" name="dependenteId" type="hidden" value="">
+                                                <input id="sequencialDependente" name="sequencialDependente" type="hidden" value="">
+                                                <div id="collapseDependente" class="panel-collapse collapse">
+                                                    <div class="panel-body no-padding">
+                                                        <fieldset>
+                                                            <div class="row">
+                                                                <section class="col col-3 ">
+                                                                    <label class="label">Nome</label>
+                                                                    <label class="input">
+                                                                        <input id="nomeDependente" name="nomeDependente" type="text" onpaste="return false" ondrop="return false" class="required">
+                                                                    </label>
+                                                                </section>
+
+
+                                                                <section class="col col-2">
+                                                                    <label class="label">CPF</label>
+                                                                    <label class="input">
+                                                                        <input id="cpfDependente" maxlength="255" name="cpfDependente" type="text" value="" class="required">
+                                                                    </label>
+                                                                </section>
+                                                                <section class="col col-2">
+                                                                    <label class="label">Data de Nascimento</label>
+                                                                    <label class="input">
+                                                                        <i class="icon-append fa fa-calendar"></i>
+                                                                        <input id="dataNascimentoDependente" name="dataNascimentoDependente" data-dateformat="dd/mm/yy" placeholder="dd/mm/aaaa" type="text" onpaste="return false" ondrop="return false" class="required datepicker" value="">
+                                                                    </label>
+                                                                </section>
+                                                                <section class="col col-2 col-auto" required>
+                                                                <label class="label" for="dependente">Dependentes</label>
+                                                                <label class="select">
+                                                                    <select id="tipoDependente" class="required" name="tipoDependente">
+                                                                        <option hidden selected value=""> Selecione </option>
+                                                                        <?php
+                                                                        $reposit = new reposit();
+                                                                        $sql = "SELECT codigo, dependente, ativo FROM dbo.dependente where ativo = 1";
+                                                                        $result = $reposit->RunQuery($sql);
+                                                                        foreach ($result as $row) {
+                                                                            $codigo = +$row['codigo'];
+                                                                            $dependente = $row['dependente'];
+                                                                            echo '<option value=' . $codigo . '>' . $dependente. '</option>';
+                                                                        }
+                                                                        ?>
+                                                                    </select><i></i>
+                                                                </label>
+                                                            </section>
+                                                                <section class="col col-2">
+                                                                    <label class="label">&nbsp;</label>
+                                                                    <button id="btnAddDependente" type="button" class="btn btn-primary">
+                                                                        <i class="fa fa-plus"></i>
+                                                                    </button>
+                                                                    <button id="btnExcluirDependente" type="button" class="btn btn-danger">
+                                                                        <i class="fa fa-minus"></i>
+                                                                    </button>
+                                                                </section>
+
+
+                                                                <fieldset class="col col-12">
+
+
+                                                                    <div class="table-responsive" style="min-height: 115px; width: 95%; border: 1px solid #ddd; margin-bottom: 13px; overflow-x: auto;">
+                                                                        <table id="tableDependente" class="table table-bordered table-striped table-condensed table-hover dataTable">
+                                                                            <thead>
+                                                                                <tr role="row">
+                                                                                    <th>Código</th>
+                                                                                    <th class="text-left" style="min-width: 500%;">Nome</th>
+                                                                                    <th class="text-left">CPF</th>
+                                                                                    <th class="text-left">Data de Nascimento</th>
+                                                                                    <th class="text-left">Tipo de Dependente</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+                                                            </div>
+                                                        </fieldset>
+
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+
                                             <footer>
                                                 <button type="button" id="btnExcluir" class="btn btn-danger" aria-hidden="true" title="Excluir" style="display:<?php echo $esconderBtnExcluir ?>">
                                                     <span class="fa fa-trash"></span>
@@ -421,10 +568,14 @@ include("inc/scripts.php");
 
         jsonEmailArray = JSON.parse($("#jsonEmail").val());
         jsonTelefoneArray = JSON.parse($("#jsonTelefone").val());
+        jsonDependenteArray = JSON.parse($("#jsonDependente").val());
         $("#cpf").mask("999.999.999-99");
+        $("#cpfDependente").mask("999.999.999-99");
         $("#rg").mask("99.999.999-9");
         $("#dataNascimento").mask('99/99/9999');
-        $("#cep").mask("99999999");
+        $("#dataNascimentoDependente").mask('99/99/9999');
+        $("#cep").mask("99999-999");
+        $("#pis").mask("999.99999.99-9");
 
         $.widget("ui.dialog", $.extend({}, $.ui.dialog.prototype, {
             _title: function(title) {
@@ -460,9 +611,28 @@ include("inc/scripts.php");
 
         $("#dataNascimento").on("change", function() {
             var dataNascimento = $("#dataNascimento").val();
+            if (dataNascimento.length < 10) {
+
+                $("#idade").val("");
+                $("#dataNascimento").val("");
+            }
+
             if (validarData(dataNascimento) == false) {
                 smartAlert("Atenção", "Data Inválida!", "error");
                 $("#idade").val("");
+                $("#dataNascimento").val("");
+            }
+        });
+
+        $("#dataNascimentoDependente").on("change", function() {
+            var dataNascimentoDependente = $("#dataNascimentoDependente").val();
+            if (dataNascimentoDependente.length < 10) {
+
+                $("#dataNascimentoDependente").val("");
+            }
+
+            if (validarDataDependente(dataNascimentoDependente) == false) {
+                smartAlert("Atenção", "Data Inválida!", "error");
                 $("#dataNascimento").val("");
             }
         });
@@ -501,10 +671,6 @@ include("inc/scripts.php");
             verificarRG();
         });
 
-        $("#nome").on("change", function() {
-            verificarNome();
-        });
-
         $("#btnAddTelefone").on("click", function() {
             if (validaTelefone() === true) {
                 validEmail(email);
@@ -522,14 +688,25 @@ include("inc/scripts.php");
                     clearFormEmail()
                 }
             } else {
-                smartAlert("Atenção", "VASCO", "error");
+                smartAlert("Atenção", "Email incorreto", "error");
                 clearFormEmail()
                 return false;
+            }
+        });
+        $("#btnAddDependente").on("click", function() {
+            if (validaDependente() === true) {
+                addDependente();
+            } else {
+                clearFormDependente()
             }
         });
 
         $("#btnExcluirTelefone").on("click", function() {
             excluirContatoTelefone()
+        });
+
+        $("#btnExcluirDependente").on("click", function() {
+            excluirContatoDependente()
         });
 
         $("#btnExcluirEmail").on("click", function() {
@@ -538,29 +715,86 @@ include("inc/scripts.php");
 
         $(function() {
             $('#nome').on('keypress', function(e) {
-                $(this).val($(this).val().replace(/[0-9]+/g, ''))
+                $(this).val($(this).val().replace(/[0-9]+/g, ' '))
                 if (e.keyCode >= 48 && e.keyCode <= 57) {
                     e.preventDefault();
                 }
             });
 
+
+
+
             document.getElementById("nome").onkeypress = function(e) {
+                var chr = String.fromCharCode(e.which);
+                // Permitir letras (maiúsculas e minúsculas) e espaço
+                if (!/^[A-Za-z\s]*$/.test(chr)) {
+                    e.preventDefault(); // Impede a inserção do caractere
+                }
+            };
+            document.getElementById("nomeDependente").onkeypress = function(e) {
+                var chr = String.fromCharCode(e.which);
+                // Permitir letras (maiúsculas e minúsculas) e espaço
+                if (!/^[A-Za-z\s]*$/.test(chr)) {
+                    e.preventDefault(); // Impede a inserção do caractere
+                }
+            };
+
+            document.getElementById("numero").onkeypress = function(e) {
+                var chr = String.fromCharCode(e.which);
+                if ("1234567890".indexOf(chr) < 0)
+                    return false;
+            };
+
+            document.getElementById("uf").onkeypress = function(e) {
                 var chr = String.fromCharCode(e.which);
                 if ("qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM".indexOf(chr) < 0)
                     return false;
             };
+
+            document.getElementById("cidade").onkeypress = function(e) {
+                var chr = String.fromCharCode(e.which);
+                if ("qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM".indexOf(chr) < 0)
+                    return false;
+            };
+
+            document.getElementById("bairro").onkeypress = function(e) {
+                var chr = String.fromCharCode(e.which);
+                if ("qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM".indexOf(chr) < 0)
+                    return false;
+            };
+
+            document.getElementById("logradouro").onkeypress = function(e) {
+                var chr = String.fromCharCode(e.which);
+                if ("qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM ".indexOf(chr) < 0)
+                    return false;
+            };
+
+
+            document.getElementById("complemento").onkeypress = function(e) {
+                var chr = String.fromCharCode(e.which);
+                if ("1234567890qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM& ".indexOf(chr) < 0)
+                    return false;
+            };
         });
 
-        $('#nome').change(function validar() {
-            var textoValida = $('#nome').val();
 
-            if (textoValida == "1" || textoValida == "2" || textoValida == "3" || textoValida == "4" || textoValida == "5" || textoValida == "6" || textoValida == "7" || textoValida == "8" || textoValida == "9") {
 
+        $('#nome').on("focusout", campo => {
+            if (["1", "2", "3", "4", "5", "6", "7", "8", "9"].find(valor => valor == campo.currentTarget.value ? true : false)) {
                 smartAlert("Atenção", "No puede digitar", "error");
-                document.getElementById('nome').value = "";
+                $('#nome').val('');
+            } else {
+                $('#nome').val((campo.currentTarget.value).trim());
             }
 
         });
+
+
+
+
+
+
+        $('#emprego').on("change", campo => +campo.currentTarget.value ? $('#pis').addClass("readonly").attr("disabled", true) : $('#pis').removeClass("readonly"))
 
         var SPMaskBehavior = function(val) {
                 return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00000';
@@ -595,7 +829,7 @@ include("inc/scripts.php");
                     $("#bairro").val("...");
                     $("#cidade").val("...");
                     $("#uf").val("...");
-                    $("#ibge").val("...");
+
 
                     //Consulta o webservice viacep.com.br/
                     $.getJSON("https://viacep.com.br/ws/" + cep + "/json/?callback=?", function(dados) {
@@ -606,7 +840,6 @@ include("inc/scripts.php");
                             $("#bairro").val(dados.bairro);
                             $("#cidade").val(dados.localidade);
                             $("#uf").val(dados.uf);
-                            $("#ibge").val(dados.ibge);
                         } //end if.
                         else {
                             //CEP pesquisado não foi encontrado.
@@ -629,6 +862,7 @@ include("inc/scripts.php");
 
         carregaPagina();
     });
+
 
     function carregaPagina() {
         var urlx = window.document.URL.toString();
@@ -654,13 +888,6 @@ include("inc/scripts.php");
     }
 
     function excluir() {
-
-
-
-
-
-
-        
         var id = +$("#codigo").val();
 
         if (id === 0) {
@@ -686,56 +913,69 @@ include("inc/scripts.php");
         var uf = $("#uf").val();
         var bairro = $("#bairro").val();
         var cidade = $("#cidade").val();
-        var ibge = $("#ibge").val();
+        var emprego = $("#emprego").val();
+        var pis = $("#pis").val();
 
         if (nome === "") {
             smartAlert("Atenção", "Informe o nome !", "error");
             $("#nome").focus();
-            return;
+            return false;
         }
 
         if (cpf === "") {
             smartAlert("Atenção", "Informe o cpf !", "error");
             $("#cpf").focus();
-            return;
+            return false;
         }
         if (rg === "") {
             smartAlert("Atenção", "Informe o rg !", "error");
             $("#rg").focus();
-            return;
+            return false;
         }
 
         if (dataNascimento === "") {
             smartAlert("Atenção", "Informe a data de nascimento !", "error");
             $("#dataNascimento").focus();
-            return;
+            return false;
         }
         if (genero === "") {
             smartAlert("Atenção", "Informe o gênero !", "error");
             $("#genero").focus();
-            return;
+            return false;
         }
         if (estadoCivil === "") {
             smartAlert("Atenção", "Informe o estado civil !", "error");
             $("#estadoCivil").focus();
-            return;
+            return false;
         }
         if (cep === "") {
             smartAlert("Atenção", "Informe o cep !", "error");
             $("#cep").focus();
-            return;
+            return false;
         }
         if (complemento === "") {
             smartAlert("Atenção", "Informe o complemento !", "error");
             $("#complemento").focus();
-            return;
+            return false;
         }
         if (numero === "") {
             smartAlert("Atenção", "Informe o estado civil !", "error");
             $("#numero").focus();
+            return false;
+        }
+
+        if (emprego === "") {
+            smartAlert("Atenção", "Informe se é o primeiro emprego !", "error");
+            $("#emprego").focus();
             return;
         }
-        gravaUsuario(id, ativo, nome, cpf, rg, dataNascimento, genero, estadoCivil, jsonTelefoneArray, jsonEmailArray, cep, logradouro, complemento, numero, uf, bairro, cidade, ibge);
+
+        if (pis === "") {
+            smartAlert("Atenção", "Informe o pis caso tenha trabalhado !", "error");
+            $("#pis").focus();
+            return;
+        }
+        gravaUsuario(id, ativo, nome, cpf, rg, dataNascimento, genero, estadoCivil, jsonTelefoneArray, jsonEmailArray, jsonDependenteArray, cep, logradouro, complemento, numero, uf, bairro, cidade, emprego, pis);
     }
 
     function verificarCpf() {
@@ -831,6 +1071,41 @@ include("inc/scripts.php");
 
         if (hoje) return false;
     }
+    function validarDataDependente() {
+        var data = $("#dataNascimentoDependente").val();
+        data = data.replace(" /g, /");
+        var data_array = data.split("/"); //responsável por quebrar a data em array
+
+        //Inserir formato DD/MM/YYYY
+        if (data_array[0].length != 4) {
+            data = data_array[2] + "-" + data_array[1] + "-" + data_array[0];
+        }
+
+        //Calculo da idade referente a Data de Nascimento
+        var hoje = new Date();
+        var nasc = new Date(data);
+        var idade = hoje.getFullYear() - nasc.getFullYear();
+        var m = hoje.getMonth() - nasc.getMonth();
+        if (m < 0 || (m === 0 && hoje.getDate() < nasc.getDate())) idade--;
+
+        // if (idade <= 18) {
+        //     // alert("Usuários com menos de 18 anos não podem ser cadastrados.");
+        //     $("#idade").val(idade)
+        //     $("#btnGravar").prop('disabled', false);
+        //     return false;
+        // }
+
+        if (idade >= 14 && idade <= 150) {
+            // smartAlert("Sucesso","Data permitida.", "success")
+            $("#idade").val(idade)
+            $("#btnGravar").prop('disabled', false);
+            return;
+        }
+
+        //Idade superior a 50 não altera o cadastro
+
+        if (hoje) return false;
+    }
 
     //TABELA DE TELEFONEf
 
@@ -839,13 +1114,19 @@ include("inc/scripts.php");
         var achouTelefonePrincipal = false;
         let tell = $('#telefone').val();
         let tellChecked = $('#telefonePrincipal').is(':checked');
-        let sequencial = +$('#sequencialTelefone').val();
+        let sequencial = +$('#sequencialTel').val();
 
 
         if ($('#telefonePrincipal').is(':checked')) {
             telefonePrincipal = true;
         } else {
             telefonePrincipal = false;
+        }
+
+        if ($('#telefoneWhatsapp').is(':checked')) {
+            telefoneWhatsapp = true;
+        } else {
+            telefoneWhatsapp = false;
         }
 
         if (tell === '') {
@@ -861,16 +1142,16 @@ include("inc/scripts.php");
 
 
         for (i = jsonTelefoneArray.length - 1; i >= 0; i--) {
-            if (telefonePrincipal == true) {
-                if ((jsonTelefoneArray[i].telefonePrincipal == "Sim") && (jsonTelefoneArray[i].sequencialTelefone !== sequencial)) {
+            if (telefonePrincipal) {
+                if (jsonTelefoneArray[i].telefonePrincipal && (jsonTelefoneArray[i].sequencialTel !== sequencial)) {
                     achouTelefonePrincipal = true;
                     break;
                 }
             }
 
             if (tell !== "") {
-                debugger
-                if ((jsonTelefoneArray[i].telefone === tell) && (jsonTelefoneArray[i].sequencialTelefone !== sequencial)) {
+
+                if ((jsonTelefoneArray[i].telefone === tell) && (jsonTelefoneArray[i].sequencialTel !== sequencial)) {
                     achouTelefone = true;
                     break;
                 }
@@ -884,6 +1165,13 @@ include("inc/scripts.php");
 
         }
 
+        // if (jsonEmailArray[i].telefone === telefone ) {
+        //     smartAlert("Erro", "Já existe o Email na lista.", "error");
+        //     clearFormTelefone();
+        //     return false;
+
+        // }
+
         if (achouTelefone === true) {
             smartAlert("Erro", "Já existe o Telefone na lista.", "error");
             clearFormTelefone();
@@ -895,28 +1183,16 @@ include("inc/scripts.php");
     }
 
     function addTelefone() {
-        debugger
+
         var item = $("#formTelefone").toObject({
             mode: 'combine',
             skipEmpty: false,
             nodeCallback: processDataTel
         });
 
-
-
         item["descricaoPrincipal"] = item["telefonePrincipal"] ? "Sim" : "Não"
 
-        if (item["descricaoPrincipal"] === "Sim") {
-            item["telefonePrincipal"] = "Sim";
-        } else {
-            item["telefonePrincipal"] = "Não";
-        }
-
-        if (item["telefoneWhatsapp"] === false) {
-            item["telefoneWhatsapp"] = "Não";
-        } else {
-            item["telefoneWhatsapp"] = "Sim";
-        }
+        item["descricaoWhatsApp"] = item["telefoneWhatsapp"] ? "Sim" : "Não"
 
 
         if (item["sequencialTel"] === '') {
@@ -963,8 +1239,8 @@ include("inc/scripts.php");
                 $("#tableTelefone tbody").append(row);
                 row.append($('<td><label class="checkbox"><input type="checkbox" name="checkbox" value="' + jsonTelefoneArray[i].sequencialTel + '"><i></i></label></td>'));
                 row.append($('<td class="text-nowrap" onclick="carregaTelefone(' + jsonTelefoneArray[i].sequencialTel + ');">' + jsonTelefoneArray[i].telefone + '</td>'));
-                row.append($('<td class="text-nowrap">' + jsonTelefoneArray[i].telefonePrincipal + '</td>'));
-                row.append($('<td class="text-nowrap">' + jsonTelefoneArray[i].telefoneWhatsapp + '</td>'));
+                row.append($('<td class="text-nowrap">' + jsonTelefoneArray[i].descricaoPrincipal + '</td>'));
+                row.append($('<td class="text-nowrap">' + jsonTelefoneArray[i].descricaoWhatsApp + '</td>'));
 
             }
 
@@ -1021,7 +1297,7 @@ include("inc/scripts.php");
     }
 
     function carregaTelefone(sequencialTel) {
-        debugger
+
 
         var arr = jQuery.grep(jsonTelefoneArray, function(item, i) {
             return (item.sequencialTel === sequencialTel);
@@ -1054,7 +1330,7 @@ include("inc/scripts.php");
     function validaEmail() {
         var achouEmail = false;
         var achouEmailPrincipal = false;
-        let emaill = $('#email').val();
+        let email = $('#email').val();
         let emailChecked = $('#emailPrincipal').is(':checked');
         let sequencial = +$('#sequencialEmail').val();
 
@@ -1065,22 +1341,22 @@ include("inc/scripts.php");
             descricaoPrincipal = "Não";
         }
 
-        if (emaill === '') {
+        if (email === '') {
             smartAlert("Erro", "Informe o Email ", "error");
             return false;
         }
 
         for (i = jsonEmailArray.length - 1; i >= 0; i--) {
-            if (emailPrincipal == true) {
-                if (jsonEmailArray[i].descricaoPrincipal && (jsonEmailArray[i].sequencialEmail !== sequencial)) {
+            if (emailPrincipal) {
+                if (jsonEmailArray[i].emailPrincipal && jsonEmailArray[i].sequencialEmail !== sequencial) {
                     achouEmailPrincipal = true;
                     break;
                 }
             }
 
-            if (emaill !== "") {
-                debugger
-                if ((jsonEmailArray[i].email === emaill) && (jsonEmailArray[i].sequencialEmail !== sequencial)) {
+            if (email !== "") {
+
+                if ((jsonEmailArray[i].email === email) && (jsonEmailArray[i].sequencialEmail !== sequencial)) {
                     achouEmail = true;
                     break;
                 }
@@ -1100,6 +1376,8 @@ include("inc/scripts.php");
             return false;
 
         }
+
+
 
         return true;
     }
@@ -1212,7 +1490,7 @@ include("inc/scripts.php");
     }
 
     function carregaEmail(sequencialEmail) {
-        debugger
+
 
         var arr = jQuery.grep(jsonEmailArray, function(item, i) {
             return (item.sequencialEmail === sequencialEmail);
@@ -1239,4 +1517,208 @@ include("inc/scripts.php");
     // function clearFormEmail() {
     //     $("#email").val('');
     // }
+
+    function validaDependente() {
+        let cpfDependente = $('#cpfDependente').val();
+        let nomeDependente = $('#nomeDependente').val()
+        let dataNascimentoDependente = $('#dataNascimentoDependente').val();
+        let tipoDependente = $('#tipoDependente').val();
+        let achouCpf = false;
+
+
+
+
+
+        if (cpfDependente === '') {
+            smartAlert("Erro", "Informe o CPF ", "error");
+            return false;
+        }
+
+        if (cpfDependente.length < 14) {
+            smartAlert("Erro", "Informe o CPF corretamente ", "error");
+            return false;
+        }
+
+        if (nomeDependente === '') {
+            smartAlert("Erro", "Informe o Nome ", "error");
+            return false;
+        }
+        if (dataNascimentoDependente === '') {
+            smartAlert("Erro", "Informe a data ", "error");
+            return false;
+        }
+        if (tipoDependente === '') {
+            smartAlert("Erro", "Informe o tipo dependente ", "error");
+            return false;
+        }
+
+
+
+
+
+        for (i = jsonDependenteArray.length - 1; i >= 0; i--) {
+            if (cpfDependente) {
+                if ((jsonDependenteArray[i].sequencialDependente !== sequencialDependente)) {
+                    achouCpf = true;
+                    break;
+                }
+            }
+
+            if (cpfDependente !== "") {
+
+                if ((jsonDependenteArray[i].cpfDependente === cpfDependente) && (jsonDependenteArray[i].sequencialDependente !== sequencial)) {
+                    achouCpf = true;
+                    break;
+                }
+            }
+        }
+
+        if (achouCpf === true) {
+            smartAlert("Erro", "Já existe o cpf na lista.", "error");
+            clearFormDependente();
+            return false;
+
+        }
+
+        return true;
+    }
+
+    function addDependente() {
+
+        var item = $("#formDependente").toObject({
+            mode: 'combine',
+            skipEmpty: false,
+            nodeCallback: processDataTel
+        });
+
+
+
+
+        if (item["sequencialDependente"] === '') {
+            if (jsonDependenteArray.length === 0) {
+                item["sequencialDependente"] = 1;
+            } else {
+                item["sequencialDependente"] = Math.max.apply(Math, jsonDependenteArray.map(function(o) {
+                    return o.sequencialDependente;
+                })) + 1;
+            }
+            item["dependenteId"] = 0;
+        } else {
+            item["sequencialDependente"] = +item["sequencialDependente"];
+        }
+
+        if (!validaDependente()) {
+            return false;
+        }
+
+        var index = -1;
+        $.each(jsonDependenteArray, function(i, obj) {
+            if (+$('#sequencialDependente').val() === obj.sequencialDependente) {
+                index = i;
+                return false;
+            }
+        });
+
+        if (index >= 0)
+            jsonDependenteArray.splice(index, 1, item);
+        else
+            jsonDependenteArray.push(item);
+
+        $("#jsonDependenteArray").val(JSON.stringify(jsonDependenteArray));
+        fillTableDependente();
+        clearFormTelefone();
+
+    }
+
+    function fillTableDependente() {
+        $("#tableDependente tbody").empty();
+        for (var i = 0; i < jsonDependenteArray.length; i++) {
+            if (jsonDependenteArray[i].cpfDependente !== null && jsonDependenteArray[i].cpfDependente != '') {
+            
+                var row = $('<tr />');
+                $("#tableDependente tbody").append(row);
+                row.append($('<td><label class="checkbox"><input type="checkbox" name="checkbox" value="' + jsonDependenteArray[i].sequencialDependente + '"><i></i></label></td>'));
+                row.append($('<td class="text-nowrap" onclick="carregaTelefone(' + jsonDependenteArray[i].sequencialDependente + ');">' + jsonDependenteArray[i].nomeDependente + '</td>'));
+                row.append($('<td class="text-nowrap">' + jsonDependenteArray[i].cpfDependente + '</td>'));
+                row.append($('<td class="text-nowrap">' + jsonDependenteArray[i].dataNascimentoDependente + '</td>'));
+                row.append($('<td class="text-nowrap">' + jsonDependenteArray[i].tipoDependente + '</td>'));
+
+            }
+
+
+
+
+        }
+    }
+
+    function processDataTel(node) {
+        var fieldId = node.getAttribute ? node.getAttribute('id') : '';
+        var fieldName = node.getAttribute ? node.getAttribute('name') : '';
+
+        if (fieldName !== '' && (fieldId === "telefone")) {
+            var valorTel = $("#telefone").val();
+            if (valorTel !== '') {
+                fieldName = "telefone";
+            }
+            return {
+                name: fieldName,
+                value: valorTel
+            };
+        }
+        if (fieldName !== '' && (fieldId === "telefonePrincipal")) {
+            var telefonePrincipal = 0;
+            if ($("#telefonePrincipal").is(':checked') === true) {
+                telefonePrincipal = 1;
+            }
+            return {
+                name: fieldName,
+                value: telefonePrincipal
+            };
+        }
+
+        return false;
+    }
+
+    function excluirContatoDependente() {
+        var arrSequencial = [];
+        $('#tableDependente input[type=checkbox]:checked').each(function() {
+            arrSequencial.push(parseInt($(this).val()));
+        });
+        if (arrSequencial.length > 0) {
+            for (i = jsonDependenteArray.length - 1; i >= 0; i--) {
+                var obj = jsonDependenteArray[i];
+                if (jQuery.inArray(obj.sequencialDependente, arrSequencial) > -1) {
+                    jsonDependenteArray.splice(i, 1);
+                }
+            }
+            $("#jsonDependente").val(JSON.stringify(jsonDependenteArray));
+            fillTableDependente();
+        } else
+            smartAlert("Erro", "Selecione pelo menos 1 telefone para excluir.", "error");
+    }
+
+    function carregaDependente(sequencialDependente) {
+
+
+        var arr = jQuery.grep(jsonDependenteArray, function(item, i) {
+            return (item.sequencialTel === sequencialTel);
+        });
+
+
+        clearFormDependente();
+        if (arr.length > 0) {
+            var item = arr[0];
+            $("#sequencialTel").val(item.sequencialTel);
+            $("#telefoneId").val(item.telefoneId);
+            $("#telefone").val(item.telefone);
+
+        }
+    }
+
+    function clearFormDependente() {
+        $("#sequencialTel").val("");
+        $("#telefoneId").val("");
+        $("#telefone").val("");
+        return true;
+    }
 </script>

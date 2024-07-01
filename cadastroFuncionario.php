@@ -380,6 +380,86 @@ include("inc/nav.php");
 
                                                 </div>
                                             </div>
+                                            
+                                            </div>
+                                            <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseDependente" class="" id="accordionDependente">
+                                                        <i class="fa fa-lg fa-angle-down pull-right"></i>
+                                                        <i class="fa fa-lg fa-angle-up pull-right"></i>
+                                                        Dependentes
+                                                    </a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapseDependente" class="panel-collapse collapse">
+                                                <div class="panel-body no-padding">
+                                                    <fieldset>
+                                                        <div class="row">
+                                                            <section class="col col-3 ">
+                                                                <label class="label">Nome</label>
+                                                                <label class="input">
+                                                                    <input id="nomeDependente" name="nomeDependente" type="text" onpaste="return false" ondrop="return false" class="required">
+                                                                </label>
+                                                            </section>
+                                                        
+                                                        
+                                                            <section class="col col-2">
+                                                                <label class="label">CPF</label>
+                                                                <label class="input">
+                                                                    <input id="cpfDependente" maxlength="255" name="cpfDependente" type="text" value="" class="required">
+                                                                </label>
+                                                            </section>
+                                                            <section class="col col-2">
+                                                                <label class="label">Data de Nascimento</label>
+                                                                <label class="input">
+                                                                    <i class="icon-append fa fa-calendar"></i>
+                                                                    <input id="dataNascimentoDependente" name="dataNascimentoDependente" data-dateformat="dd/mm/yy" placeholder="dd/mm/aaaa" type="text" onpaste="return false" ondrop="return false" class="required datepicker" value="">
+                                                                </label>
+                                                            </section>
+                                                            <section class="col col-2">
+                                                                <label class="label">Tipo Dependente</label>
+                                                                <label class="input">
+                                                                    <input id="tipoDependente" name="tipoDependente" type="text"  onpaste="return false" ondrop="return false" value="" class="required">
+                                                                </label>
+                                                            </section>
+                                                            <section class="col col-2">
+                                                                    <label class="label">&nbsp;</label>
+                                                                    <button id="btnAddTelefone" type="button" class="btn btn-primary">
+                                                                        <i class="fa fa-plus"></i>
+                                                                    </button>
+                                                                    <button id="btnExcluirTelefone" type="button" class="btn btn-danger">
+                                                                        <i class="fa fa-minus"></i>
+                                                                    </button>
+                                                                </section>
+                                                            
+                                                            <fieldset class="col col-12">
+
+                                                            <div class="table-responsive" style="min-height: 125px; width: 100%; border: 1px solid #ddd; margin-bottom: 13px; overflow-x: auto;">
+                                                                <table id="tableTelefone" class="table table-bordered table-striped table-condensed table-hover dataTable">
+                                                                    <thead>
+                                                                        <tr role="row">
+                                                                            <th class="text-left">Código</th>
+                                                                            <th class="text-left" style="min-width: 500%;">Nome</th>
+                                                                            <th class="text-left">CPF</th>
+                                                                            <th class="text-left">Data de Nascimento</th>
+                                                                            <th class="text-left">Tipo Dependente</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                            </fieldset>
+                                                        </div>
+                                                            </div>
+                                                           
+                                                        </div>
+                                                        </div>
+                                                        </div>
+                                            
+                                            
+                                            
                                             <footer>
                                                 <button type="button" id="btnExcluir" class="btn btn-danger" aria-hidden="true" title="Excluir" style="display:<?php echo $esconderBtnExcluir ?>">
                                                     <span class="fa fa-trash"></span>
@@ -469,6 +549,7 @@ include("inc/scripts.php");
         jsonEmailArray = JSON.parse($("#jsonEmail").val());
         jsonTelefoneArray = JSON.parse($("#jsonTelefone").val());
         $("#cpf").mask("999.999.999-99");
+        $("#cpfDependente").mask("999.999.999-99");
         $("#rg").mask("99.999.999-9");
         $("#dataNascimento").mask('99/99/9999');
         $("#cep").mask("99999-999");
@@ -598,6 +679,13 @@ include("inc/scripts.php");
 
 
             document.getElementById("nome").onkeypress = function(e) {
+                var chr = String.fromCharCode(e.which);
+                // Permitir letras (maiúsculas e minúsculas) e espaço
+                if (!/^[A-Za-z\s]*$/.test(chr)) {
+                    e.preventDefault(); // Impede a inserção do caractere
+                }
+            };
+             document.getElementById("nomeDependente").onkeypress = function(e) {
                 var chr = String.fromCharCode(e.which);
                 // Permitir letras (maiúsculas e minúsculas) e espaço
                 if (!/^[A-Za-z\s]*$/.test(chr)) {

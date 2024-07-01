@@ -3,7 +3,7 @@
 require_once("inc/init.php");
 
 //require UI configuration (nav, ribbon, etc.)
-//require_once("inc/config.ui.php");
+require_once("inc/config.ui.php");
 
 //colocar o tratamento de permissão sempre abaixo de require_once("inc/config.ui.php");
 $condicaoAcessarOK = true;
@@ -30,7 +30,7 @@ if ($condicaoExcluirOK === false) {
   YOU CAN SET CONFIGURATION VARIABLES HERE BEFORE IT GOES TO NAV, RIBBON, ETC.
   E.G. $page_title = "Custom Title" */
 
-$page_title = "Gênero";
+$page_title = "Dependente";
 
 /* ---------------- END PHP Custom Scripts ------------- */
 
@@ -42,7 +42,7 @@ include("inc/header.php");
 
 //include left panel (navigation)
 //follow the tree in inc/config.ui.php
-$page_nav["configuracao"]["sub"]["genero"]["active"] = true;
+$page_nav["tabelaBasica"]["sub"]["dependente"]["active"] = true;
 
 include("inc/nav.php");
 ?>
@@ -52,8 +52,7 @@ include("inc/nav.php");
     <?php
     //configure ribbon (breadcrumbs) array("name"=>"url"), leave url empty if no url
     //$breadcrumbs["New Crumb"] => "http://url.com"
-    $breadcrumbs["Configurações"] = "";
-    $breadcrumbs["Cadastro"] = "";
+    $breadcrumbs["filtro"] = "";
     include("inc/ribbon.php");
     ?>
 
