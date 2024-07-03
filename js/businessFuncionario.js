@@ -3,7 +3,7 @@ function gravaUsuario(id, ativo, nome, cpf,rg, dataNascimento, genero, estadoCiv
         url: 'js/sqlscopeFuncionarioCadastro.php',
         dataType: 'html', //tipo do retorno
         type: 'post', //metodo de envio
-        data: {funcao: "grava", id:id, ativo:ativo, nome:nome, cpf:cpf, rg:rg, dataNascimento:dataNascimento, genero:genero, estadoCivil:estadoCivil, jsonTelefoneArray:jsonTelefoneArray, jsonEmailArray, jsonDependenteArray,
+        data: {funcao: "grava", id:id, ativo:ativo, nome:nome, cpf:cpf, rg:rg, dataNascimento:dataNascimento, genero:genero, estadoCivil:estadoCivil, jsonTelefoneArray:jsonTelefoneArray, jsonEmailArray:jsonEmailArray, jsonDependenteArray:jsonDependenteArray,
              cep:cep, logradouro:logradouro, complemento:complemento, numero:numero, uf:uf, bairro:bairro, cidade:cidade, emprego:emprego, pis:pis}, //valores enviados ao script     
         beforeSend: function () {
             //função chamada antes de realizar o ajax
@@ -192,6 +192,7 @@ function recuperaUsuario(id) {
                 
                 jsonTelefoneArray = JSON.parse($("#jsonTelefone").val());
                 jsonEmailArray = JSON.parse($("#jsonEmail").val());
+                jsonDependenteArray = JSON.parse($("#jsonDependente").val());
                 fillTableTelefone();
                 fillTableEmail();  
                

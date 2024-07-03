@@ -794,7 +794,7 @@ include("inc/scripts.php");
 
 
 
-        $('#emprego').on("change", campo => +campo.currentTarget.value ? $('#pis').addClass("readonly").attr("disabled", true) : $('#pis').removeClass("readonly"))
+        $('#emprego').on("change", campo => +campo.currentTarget.value ? $('#pis').addClass("readonly").attr("disabled", true) : $('#pis').removeClass("readonly").attr("disabled", false))
 
         var SPMaskBehavior = function(val) {
                 return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00000';

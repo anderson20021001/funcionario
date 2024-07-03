@@ -114,7 +114,7 @@ function grava()
     $xmlTelefone = "'" . $xmlTelefone . "'";
 
 
-    $nomeXml = "ArrayOfFilepondAta";;
+    $nomeXml = "ArrayOfEmail";
     $nomeTabela = "email";
     if (sizeof($email) > 0) {
         $xmlEmail = '<?xml version="1.0"?>';
@@ -147,21 +147,15 @@ function grava()
     }
     $xmlEmail = "'" . $xmlEmail . "'";
 
-
-    $nomeXml = "ArrayOfFilepondAta";;
+    $nomeXml = "ArrayOfDependente";
     $nomeTabela = "dependente";
     if (sizeof($dependente) > 0) {
         $xmlDependente = '<?xml version="1.0"?>';
         $xmlDependente = $xmlDependente . '<' . $nomeXml . ' xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">';
-        foreach ($email as $chave) {
+        foreach ($dependente as $chave) {
             $xmlDependente = $xmlDependente . "<" . $nomeTabela . ">";
             foreach ($chave as $campo => $valor) {
-                if ($campo == "emailPrincipal") {
-                    if ($valor == "true")
-                        $valor = 1;
-                    else
-                        $valor = 0;
-                }
+                
 
                 $xmlDependente = $xmlDependente . "<" . $campo . ">" . $valor . "</" . $campo . ">";
             }
@@ -182,6 +176,7 @@ function grava()
     $xmlDependente = "'" . $xmlDependente . "'";
 
 
+
     $sql = "dbo.funcionario_Atualiza
      $id,
      $ativo,
@@ -193,6 +188,7 @@ function grava()
      $estadoCivil,
      $xmlTelefone,
      $xmlEmail,
+     $xmlDependente,
      $cep,
      $logradouro,
      $complemento,
