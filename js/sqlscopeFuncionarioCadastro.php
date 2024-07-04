@@ -351,6 +351,28 @@ function recupera()
     $jsonEmail = json_encode($arrayEmail);
 
 
+    $sql = "SELECT  codigo, nomeDependente, cpfDependente, dataNascimentoDependente, tipoDependente FROM dbo.funcionarioDependente WHERE codigoDependente = $id";
+    $reposit = new reposit();
+    $result = $reposit->RunQuery($sql);
+
+    $arrayDependente = [];
+
+    foreach ($result as $index => $item) {
+        $sequencialDependente = $index + 1;
+
+        array_push($arrayDependente, [
+            'codigo' => $item['codigo'],
+            'nomeDependente' => $item['nomeDependente'],
+            'cpfDependente' => $item['cpfDependente'],
+            'dataNascimentoDependente' => $item['dataNascimentoDependente'],
+            'tipoDependente' => $item['tipoDependente'],
+            'sequencialDependente' => $sequencialDependente
+        ]);
+    }
+
+    $jsonDependente = json_encode($arrayDependente);
+
+
 
     $out =   $codigo . "^" .
         $ativo . "^" .
@@ -362,6 +384,7 @@ function recupera()
         $estadoCivil  . "^" .
         $jsonTelefone . "^" .
         $jsonEmail . "^" .
+        $jsonDependente . "^" .
         $cep . "^" .
         $logradouro . "^" .
         $complemento . "^" .
@@ -377,10 +400,14 @@ function recupera()
         return;
     }
 
-    echo "sucess#" . $out . "#" . $jsonTelefone . "^" .  
-    $jsonEmail;
+    echo "sucess#" . $out . "#" . $jsonTelefone . "^" .
+    $jsonEmail . "^" .
+    $jsonDependente;
     
     return;
+
+    
+
 }
 
 function excluir()

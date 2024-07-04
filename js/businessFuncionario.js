@@ -127,13 +127,10 @@ function recuperaUsuario(id) {
                 
                 data = data.replace(/failed/g, '');
                 var piece = data.split("#");
-                
-
-                
-
                 var mensagem = piece[0];
                 var out = piece[1];
                 piece = out.split("^");
+
                 var codigo = +piece[0];
                 var ativo = piece[1];
                 var nome = piece[2];
@@ -144,20 +141,17 @@ function recuperaUsuario(id) {
                 var estadoCivil = piece[7];
                 var jsonTelefone = piece[8];
                 var jsonEmail = piece[9];
-                var cep = piece[10]
-                var logradouro = piece[11]
-                var complemento = piece[12]
-                var numero = piece[13]
-                var uf = piece[14]
-                var bairro = piece[15]
-                var cidade = piece[16]
-                var emprego = piece[17]
-                var pis = piece[18]
+                var jsonDependente = piece[10];
+                var cep = piece[11];
+                var logradouro = piece[12];
+                var complemento = piece[13];
+                var numero = piece[14];
+                var uf = piece[15];
+                var bairro = piece[16];
+                var cidade = piece[17];
+                var emprego = piece[18];
+                var pis = piece[19];
                 
-                
-           
-           
-               
                 $("#codigo").val(codigo);
                 $("#ativo").val(ativo);
                 $("#nome").val(nome);
@@ -169,6 +163,7 @@ function recuperaUsuario(id) {
                 $("#estadoCivil").val(estadoCivil);
                 $("#jsonTelefone").val(jsonTelefone);
                 $("#jsonEmail").val(jsonEmail);
+                $("#jsonDependente").val(jsonDependente);
                 $("#cep").val(cep);
                 $("#logradouro").val(logradouro);
                 $("#complemento").val(complemento);
@@ -179,22 +174,18 @@ function recuperaUsuario(id) {
                 $("#emprego").val(emprego);
                 $("#pis").val(pis);
 
-
-
-
-
                 if (ativo === 1) {
                     $('#ativo').prop('checked', true);
                 } else {
                     $('#ativo').prop('checked', false);
                 }
-
-                
+ 
                 jsonTelefoneArray = JSON.parse($("#jsonTelefone").val());
                 jsonEmailArray = JSON.parse($("#jsonEmail").val());
                 jsonDependenteArray = JSON.parse($("#jsonDependente").val());
                 fillTableTelefone();
-                fillTableEmail();  
+                fillTableEmail(); 
+                fillTableDependente(); 
                
                 return;
             }
