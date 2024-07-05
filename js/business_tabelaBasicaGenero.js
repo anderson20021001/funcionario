@@ -48,6 +48,7 @@ function verificaGenero(descricao) {
         },
         success: function (data, textStatus) {
             var piece = data.split("#");
+            
         var mensagem = piece[1];
             if (data.indexOf('failed') > -1) {
                 var piece = data.split("#");

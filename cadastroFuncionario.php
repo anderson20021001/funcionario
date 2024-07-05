@@ -110,7 +110,7 @@ include("inc/nav.php");
                                                             <section class="col col-2">
                                                                 <label class="label">CPF</label>
                                                                 <label class="input">
-                                                                    <input id="cpf" maxlength="14" name="cpf" type="text" onpaste="return false" ondrop="return false" class="required" value="" placeholder="xxx.xxx.xxx-xx">
+                                                                    <input id="cpf" maxlength="14" name="cpf" type="text" ondrop="return false" class="required" value="" placeholder="xxx.xxx.xxx-xx">
                                                                 </label>
                                                             </section>
                                                             <section class="col col-2">
@@ -668,7 +668,11 @@ include("inc/scripts.php");
 
         $("#cpf").on("change", function() {
             verificarCpf();
-            verificarCpfDependente();
+            // verificarCpfDependente();
+        });
+
+        $("#cpfDependente").on("change", function() {
+            validarCPFDependente();
         });
 
         $("#rg").on("change", function() {
@@ -926,63 +930,73 @@ include("inc/scripts.php");
             return false;
         }
 
-        if (cpf === "") {
+        if (cpf == "") {
             smartAlert("Atenção", "Informe o cpf !", "error");
             $("#cpf").focus();
             return false;
         }
-        if (rg === "") {
+        if (rg == "") {
             smartAlert("Atenção", "Informe o rg !", "error");
             $("#rg").focus();
             return false;
         }
 
-        if (dataNascimento === "") {
+        if (dataNascimento == "") {
             smartAlert("Atenção", "Informe a data de nascimento !", "error");
             $("#dataNascimento").focus();
             return false;
         }
-        if (genero === "") {
+        if (genero == "") {
             smartAlert("Atenção", "Informe o gênero !", "error");
             $("#genero").focus();
             return false;
         }
-        if (estadoCivil === "") {
+        if (estadoCivil == "") {
             smartAlert("Atenção", "Informe o estado civil !", "error");
             $("#estadoCivil").focus();
             return false;
         }
-        if (cep === "") {
+
+        if (jsonEmailArray.email ===
+         "[]") {
+            smartAlert("Atenção", "Informe o email !", "error");
+            return false;
+        }
+
+        if (jsonEmailArray.email == []) {
+            smartAlert("Atenção", "Informe o email !", "error");
+            return false;
+        }
+
+        if (cep == "") {
             smartAlert("Atenção", "Informe o cep !", "error");
             $("#cep").focus();
             return false;
         }
-        if (complemento === "") {
+        if (complemento == "") {
             smartAlert("Atenção", "Informe o complemento !", "error");
             $("#complemento").focus();
             return false;
         }
-        if (numero === "") {
+        if (numero == "") {
             smartAlert("Atenção", "Informe o estado civil !", "error");
             $("#numero").focus();
             return false;
         }
 
-        if (emprego === "") {
+        if (emprego == "") {
             smartAlert("Atenção", "Informe se é o primeiro emprego !", "error");
             $("#emprego").focus();
             return;
         }
 
-        if (pis === "") {
+        if (pis == "") {
             smartAlert("Atenção", "Informe o pis caso tenha trabalhado !", "error");
             $("#pis").focus();
             return;
         }
         gravaUsuario(id, ativo, nome, cpf, rg, dataNascimento, genero, estadoCivil, jsonTelefoneArray, jsonEmailArray, jsonDependenteArray, cep, logradouro, complemento, numero, uf, bairro, cidade, emprego, pis);
     }
-
-
 
     function verificarCpf() {
 
@@ -1010,30 +1024,10 @@ include("inc/scripts.php");
         }
     }
 
-    function verificarCpfDependente() {
+    function validarCPFDependente(cpfDependente) {
 
-
-        var cpf = $("#cpfDependente").val();
-
-        if (cpf == '000.000.000-00' ||
-            cpf == '111.111.111-11' ||
-            cpf == '..-' ||
-            cpf == '222.222.222-22' ||
-            cpf == '333.333.333-33' ||
-            cpf == '444.444.444-44' ||
-            cpf == '555.555.555-55' ||
-            cpf == '666.666.666-66' ||
-            cpf == '777.777.777-77' ||
-            cpf == '888.888.888-88' ||
-            cpf == '999.999.999-99' ||
-            cpf == '' || cpf.length != 14) {
-            smartAlert("Atenção", "CPF INVÁLIDO", "Error");
-            apagarCpf();
-            $("#cpf").focus();
-            return false;
-        } else {
-            verificaCpf(cpf);
-        }
+        cpf = $("#cpfDependente").val();
+        validaCPFDependente(cpf);
     }
 
     function apagarCpf() {
@@ -1360,6 +1354,7 @@ include("inc/scripts.php");
         return /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(email)
     }
 
+
     function validaEmail() {
         var achouEmail = false;
         var achouEmailPrincipal = false;
@@ -1660,7 +1655,7 @@ include("inc/scripts.php");
 
         $("#jsonDependenteArray").val(JSON.stringify(jsonDependenteArray));
 
-       
+
 
         fillTableDependente();
         clearFormTelefone();
@@ -1671,7 +1666,7 @@ include("inc/scripts.php");
         $("#tableDependente tbody").empty();
         for (var i = 0; i < jsonDependenteArray.length; i++) {
             if (jsonDependenteArray[i].cpfDependente !== null && jsonDependenteArray[i].cpfDependente != '') {
-                var dependente = $("#tipoDependente option:selected").val();
+                var dependente = $("#tipoDependente option[value = '" + jsonDependenteArray[i].tipoDependente + "']").text();
                 var row = $('<tr />');
                 $("#tableDependente tbody").append(row);
                 row.append($('<td><label class="checkbox"><input type="checkbox" name="checkbox" value="' + jsonDependenteArray[i].sequencialDependente + '"><i></i></label></td>'));

@@ -390,7 +390,7 @@ include("inc/scripts.php");
             var idx = id.split("=");
             var idd = idx[1];
             if (idd !== "") {
-                recupera(idd);
+                recuperaGenero(idd);
             }
         }
         $("#nome").focus();
@@ -432,6 +432,10 @@ include("inc/scripts.php");
         }
  
         gravaGenero(codigo, ativo, descricao);
+    }
+
+    function verificarGenero(){
+        var valid = $("#descricao").val();
     }
 
 

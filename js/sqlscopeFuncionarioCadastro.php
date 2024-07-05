@@ -28,9 +28,12 @@ if ($funcao == 'gravarNovaSenha') {
 if ($funcao == 'verificaCpf') {
     call_user_func($funcao);
 }
+if ($funcao == 'validarCPFDependente') {
+    call_user_func($funcao);
+}
 
 if ($funcao == 'verificaRG') {
-       call_user_func($funcao);
+    call_user_func($funcao);
 }
 // 
 // return;
@@ -155,7 +158,7 @@ function grava()
         foreach ($dependente as $chave) {
             $xmlDependente = $xmlDependente . "<" . $nomeTabela . ">";
             foreach ($chave as $campo => $valor) {
-                
+
 
                 $xmlDependente = $xmlDependente . "<" . $campo . ">" . $valor . "</" . $campo . ">";
             }
@@ -264,8 +267,7 @@ function recupera()
 
     $out = "";
     if ($row = $result[0]) {
-        $codigo = +
-        $row['codigo'];
+        $codigo = +$row['codigo'];
         $ativo = $row['ativo'];
         $nome = $row['nome'];
         $cpf = $row['cpf'];
@@ -282,7 +284,6 @@ function recupera()
         $cidade = $row['cidade'];
         $primeiroEmprego = $row['primeiroEmprego'];
         $pis = $row['pis'];
-
     }
 
     $sql = "SELECT  codigo, telefone, principal, whatsapp FROM dbo.telefone WHERE codigoTel = $id";
@@ -367,6 +368,7 @@ function recupera()
             'dataNascimentoDependente' => $item['dataNascimentoDependente'],
             'tipoDependente' => $item['tipoDependente'],
             'sequencialDependente' => $sequencialDependente
+
         ]);
     }
 
@@ -401,13 +403,10 @@ function recupera()
     }
 
     echo "sucess#" . $out . "#" . $jsonTelefone . "^" .
-    $jsonEmail . "^" .
-    $jsonDependente;
-    
+        $jsonEmail . "^" .
+        $jsonDependente;
+
     return;
-
-    
-
 }
 
 function excluir()
@@ -458,10 +457,59 @@ function verificaCpf()
 
     $ret = 'sucess#Pode Cadastrar cpf';
     if (count($result) > 0) {
-        $ret = 'failed#cpf ja cadastrado';
+        $ret = 'failed# CPF JÁ CADASTRADO';
     }
     echo $ret;
     return;
+}
+
+function validarCPFDependente()
+{
+
+    // Extrai somente os números
+    $cpf = $_POST["cpf"];
+    $cpf = preg_replace('/[^0-9]/is', '', $cpf);
+
+    // Verifica se foi informado todos os digitos corretamente
+    if (strlen($cpf) != 11) {
+        return false;
+    }
+
+    // Verifica se foi informada uma sequência de digitos repetidos. Ex: 111.111.111-11
+    if (preg_match('/(\d)\1{10}/', $cpf)) {
+        return false;
+    }
+
+    // Faz o calculo para validar o CPF
+    for ($t = 9; $t < 11; $t++) {
+        for ($d = 0, $c = 0; $c < $t; $c++) {
+            $d += $cpf[$c] * (($t + 1) - $c);
+        }
+        $d = ((10 * $d) % 11) % 10;
+        if ($cpf[$c] != $d) {
+            echo "failed";
+            return false;
+        }
+    }
+
+    $cpf = "'" . $_POST["cpfDependente"] . "'";
+
+    $sql = " SELECT cpfDependente FROM dbo.funcionarioDependente WHERE cpfDependente = $cpf ";
+    //achou 
+    $reposit = new reposit();
+    $result = $reposit->RunQuery($sql);
+
+    ////! ANTES É NEGAÇÃO
+    if (!$result) {
+        echo  "success";
+        return true;
+    } else {
+        $mensagem = "CPF já registrado!";
+        echo "failed#" . $mensagem . ' ';
+    }
+
+    echo "success";
+    return true;
 }
 
 function verificaRG()

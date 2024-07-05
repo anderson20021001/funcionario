@@ -117,7 +117,7 @@ function recuperaEstadoCivil(id) {
     return;
 }
 
-function excluirUsuario(id) {
+function excluirEstadoCivil(id) {
     $.ajax({
         url: 'js/sqlscope_estadoCivil.php', //caminho do arquivo a ser executado
         dataType: 'html', //tipo do retorno

@@ -1,10 +1,12 @@
-function gravaUsuario(id, ativo, nome, cpf,rg, dataNascimento, genero, estadoCivil, jsonTelefoneArray, jsonEmailArray, jsonDependenteArray, cep, logradouro, complemento, numero, uf, bairro, cidade, emprego, pis) {
+function gravaUsuario(id, ativo, nome, cpf, rg, dataNascimento, genero, estadoCivil, jsonTelefoneArray, jsonEmailArray, jsonDependenteArray, cep, logradouro, complemento, numero, uf, bairro, cidade, emprego, pis) {
     $.ajax({
         url: 'js/sqlscopeFuncionarioCadastro.php',
         dataType: 'html', //tipo do retorno
         type: 'post', //metodo de envio
-        data: {funcao: "grava", id:id, ativo:ativo, nome:nome, cpf:cpf, rg:rg, dataNascimento:dataNascimento, genero:genero, estadoCivil:estadoCivil, jsonTelefoneArray:jsonTelefoneArray, jsonEmailArray:jsonEmailArray, jsonDependenteArray:jsonDependenteArray,
-             cep:cep, logradouro:logradouro, complemento:complemento, numero:numero, uf:uf, bairro:bairro, cidade:cidade, emprego:emprego, pis:pis}, //valores enviados ao script     
+        data: {
+            funcao: "grava", id: id, ativo: ativo, nome: nome, cpf: cpf, rg: rg, dataNascimento: dataNascimento, genero: genero, estadoCivil: estadoCivil, jsonTelefoneArray: jsonTelefoneArray, jsonEmailArray: jsonEmailArray, jsonDependenteArray: jsonDependenteArray,
+            cep: cep, logradouro: logradouro, complemento: complemento, numero: numero, uf: uf, bairro: bairro, cidade: cidade, emprego: emprego, pis: pis
+        }, //valores enviados ao script     
         beforeSend: function () {
             //função chamada antes de realizar o ajax
         },
@@ -24,7 +26,7 @@ function gravaUsuario(id, ativo, nome, cpf,rg, dataNascimento, genero, estadoCiv
                 return '';
             } else {
                 smartAlert("Sucesso", "Operação realizada com sucesso!", "success");
-                setInterval(function(){voltar()}, 1500);
+                setInterval(function () { voltar() }, 1500);
             }
             //retorno dos dados
         },
@@ -40,7 +42,7 @@ function verificaCpf(cpf) {
         url: 'js/sqlscopeFuncionarioCadastro.php', //caminho do arquivo a ser executado
         dataType: 'html', //tipo do retorno
         type: 'post', //metodo de envio
-        data: {funcao: 'verificaCpf', cpf: cpf}, //valores enviados ao script     
+        data: { funcao: 'verificaCpf', cpf: cpf }, //valores enviados ao script     
         beforeSend: function () {
             //função chamada antes de realizar o ajax
         },
@@ -49,7 +51,7 @@ function verificaCpf(cpf) {
         },
         success: function (data, textStatus) {
             var piece = data.split("#");
-        var mensagem = piece[1];
+            var mensagem = piece[1];
             if (data.indexOf('failed') > -1) {
                 var piece = data.split("#");
                 var mensagem = piece[1];
@@ -59,14 +61,35 @@ function verificaCpf(cpf) {
                 } else {
                     smartAlert("Atenção", "Operação não realizada - entre em contato com a GIR!", "error");
                 }
-                
+
             } else {
-                 smartAlert("Sucesso", "CPF VÁLIDO", "success");
-            
+                smartAlert("Sucesso", "CPF VÁLIDO", "success");
+
             }
         },
         error: function (xhr, er) {
             //tratamento de erro
+        }
+    });
+}
+
+
+function validaCPFDependente(cpf) {
+    $.ajax({
+        url: 'js/sqlscopeFuncionarioCadastro.php',
+        type: 'post',
+        dataType: "html",
+        data: { funcao: "validarCPFDependente", cpf: cpf },
+        success: function (data, textStatus) {
+            if (data.trim() === 'success') {
+             // smartAlert("Sucesso", "Operação realizada com sucesso!", "success");
+            } else {
+                smartAlert("Atenção", "CPF do Dependente inválido!!!", "error");
+                document.getElementById('cpfDependente').value = "";
+                return false;
+            }
+        }, error: function (xhr, er) {
+            console.log(xhr, er);
         }
     });
 }
@@ -76,7 +99,7 @@ function verificaRG(rg) {
         url: 'js/sqlscopeFuncionarioCadastro.php', //caminho do arquivo a ser executado
         dataType: 'html', //tipo do retorno
         type: 'post', //metodo de envio
-        data: {funcao: 'verificaRG', rg: rg}, //valores enviados ao script     
+        data: { funcao: 'verificaRG', rg: rg }, //valores enviados ao script     
         beforeSend: function () {
             //função chamada antes de realizar o ajax
         },
@@ -85,7 +108,7 @@ function verificaRG(rg) {
         },
         success: function (data, textStatus) {
             var piece = data.split("#");
-        var mensagem = piece[1];
+            var mensagem = piece[1];
             if (data.indexOf('failed') > -1) {
                 var piece = data.split("#");
                 var mensagem = piece[1];
@@ -95,10 +118,10 @@ function verificaRG(rg) {
                 } else {
                     smartAlert("Atenção", "Operação não realizada - entre em contato com a GIR!", "error");
                 }
-                
+
             } else {
                 smartAlert("Sucesso", mensagem, "success");
-            
+
             }
         },
         error: function (xhr, er) {
@@ -113,7 +136,7 @@ function recuperaUsuario(id) {
         url: 'js/sqlscopeFuncionarioCadastro.php', //caminho do arquivo a ser executado
         dataType: 'html', //tipo do retorno
         type: 'post', //metodo de envio
-        data: {funcao: 'recupera', id: id}, //valores enviados ao script     
+        data: { funcao: 'recupera', id: id }, //valores enviados ao script     
         beforeSend: function () {
             //função chamada antes de realizar o ajax
         },
@@ -124,7 +147,7 @@ function recuperaUsuario(id) {
             if (data.indexOf('failed') > -1) {
                 return;
             } else {
-                
+
                 data = data.replace(/failed/g, '');
                 var piece = data.split("#");
                 var mensagem = piece[0];
@@ -151,7 +174,7 @@ function recuperaUsuario(id) {
                 var cidade = piece[17];
                 var emprego = piece[18];
                 var pis = piece[19];
-                
+
                 $("#codigo").val(codigo);
                 $("#ativo").val(ativo);
                 $("#nome").val(nome);
@@ -179,18 +202,18 @@ function recuperaUsuario(id) {
                 } else {
                     $('#ativo').prop('checked', false);
                 }
- 
+
                 jsonTelefoneArray = JSON.parse($("#jsonTelefone").val());
                 jsonEmailArray = JSON.parse($("#jsonEmail").val());
                 jsonDependenteArray = JSON.parse($("#jsonDependente").val());
                 fillTableTelefone();
-                fillTableEmail(); 
-                fillTableDependente(); 
-               
+                fillTableEmail();
+                fillTableDependente();
+
                 return;
             }
-                
-                
+
+
         },
         error: function (xhr, er) {
             //tratamento de erro
@@ -205,7 +228,7 @@ function excluirUsuario(id) {
         url: 'js/sqlscopeFuncionarioCadastro.php', //caminho do arquivo a ser executado
         dataType: 'html', //tipo do retorno
         type: 'post', //metodo de envio
-        data: {funcao: 'excluir', id: id}, //valores enviados ao script     
+        data: { funcao: 'excluir', id: id }, //valores enviados ao script     
         beforeSend: function () {
             //função chamada antes de realizar o ajax
         },
@@ -236,33 +259,32 @@ function excluirUsuario(id) {
 
 function recuperaDadosUsuario(callback) {
     $.ajax({
-      url: 'js/sqlscopeUsuario.php', //caminho do arquivo a ser executado
-      dataType: 'html', //tipo do retorno
-      type: 'post', //metodo de envio
-      data: { funcao: 'recuperarDadosUsuario'}, //valores enviados ao script
-  
-      success: function (data) {
-        callback(data)
-      },
+        url: 'js/sqlscopeUsuario.php', //caminho do arquivo a ser executado
+        dataType: 'html', //tipo do retorno
+        type: 'post', //metodo de envio
+        data: { funcao: 'recuperarDadosUsuario' }, //valores enviados ao script
+
+        success: function (data) {
+            callback(data)
+        },
     })
-  
+
     return
-  }
+}
 
 
-  function gravaNovaSenha(senha, senhaConfirma,callback) {
+function gravaNovaSenha(senha, senhaConfirma, callback) {
     $.ajax({
-      url: 'js/sqlscopeUsuario.php',
-      dataType: 'html', //tipo do retorno
-      type: 'post', //metodo de envio
-      data: {
-        funcao: 'gravarNovaSenha',
-        senha: senha,
-        senhaConfirma: senhaConfirma,
-      }, //valores enviados ao script
-      success: function (data) {
-        callback(data)
-      },
+        url: 'js/sqlscopeUsuario.php',
+        dataType: 'html', //tipo do retorno
+        type: 'post', //metodo de envio
+        data: {
+            funcao: 'gravarNovaSenha',
+            senha: senha,
+            senhaConfirma: senhaConfirma,
+        }, //valores enviados ao script
+        success: function (data) {
+            callback(data)
+        },
     })
-  }
-  
+}
