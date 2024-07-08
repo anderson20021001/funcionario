@@ -105,10 +105,10 @@ include("inc/nav.php");
                                                             <section class="col col-3">
                                                                 <label class="label">Descrição</label>
                                                                 <label class="input"><i class=""></i>
-                                                                    <input id="dependente" maxlength="255" name="dependente" class="required"  type="text" value="">
+                                                                    <input id="dependente" maxlength="255" name="dependente" onpaste="return false" ondrop="return false" class="required" type="text" value="">
                                                                 </label>
                                                             </section>
-                                                         </div>
+                                                        </div>
                                                     </fieldset>
                                                 </div>
                                             </div>
@@ -131,7 +131,7 @@ include("inc/nav.php");
                                                 </div>
                                             </div>
                                         </div>
-                                        <button type="submited" id="btnGravar" class="btn btn-success" aria-hidden="true" title="Gravar" style="display:<?php echo $esconderBtnGravar ?>">
+                                        <button type="button" id="btnGravar" class="btn btn-success" aria-hidden="true" title="Gravar" style="display:<?php echo $esconderBtnGravar ?>">
                                             <span class="fa fa-floppy-o"></span>
                                         </button>
                                         <button type="button" id="btnNovo" class="btn btn-primary" aria-hidden="true" title="Novo" style="display:<?php echo $esconderBtnGravar ?>">
@@ -152,7 +152,7 @@ include("inc/nav.php");
 
     </div>
     <!-- END MAIN CONTENT -->
-    
+
 
 </div>
 <!-- END MAIN PANEL -->
@@ -364,6 +364,7 @@ include("inc/scripts.php");
 
         $("#btnGravar").on("click", function() {
             gravarDependente();
+            verificarDependente();
         });
 
         $("#btnVoltar").on("click", function() {
@@ -372,8 +373,27 @@ include("inc/scripts.php");
 
         $("#dependente").on("change", function() {
             verificarDependente();
+            voltar();
         });
     });
+
+
+    $('#dependente').on("focusout", campo => {
+        if (["1", "2", "3", "4", "5", "6", "7", "8", "9"].find(valor => valor == campo.currentTarget.value ? true : false)) {
+            smartAlert("Atenção", "No puede digitar", "error");
+            $('#dependente').val('');
+        } else {
+            $('#dependente').val((campo.currentTarget.value).trim());
+        }
+
+    });
+
+    document.getElementById("dependente").onkeypress = function(e) {
+        var chr = String.fromCharCode(e.which);
+        if ("qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM-()óô ".indexOf(chr) < 0)
+            return false;
+    }
+
 
     function carregaPagina() {
         var urlx = window.document.URL.toString();
@@ -407,91 +427,128 @@ include("inc/scripts.php");
         excluirDependente(id);
     }
 
+
+    function verificarDependente() {
+        var descricao = $("#dependente").val();
+        verificaDependente(descricao)
+
+        return false;
+       
+    }
+
     function gravarDependente() {
+        
         var codigo = +($("#codigo").val());
         var ativo = $('#ativo').val();
-        var dependente= $("#dependente").val();
+        var dependente = $("#dependente").val();
 
-        if (dependente === "") {
+        if (dependente == "") {
             smartAlert("Atenção", "Informe o Dependente !", "error");
             $("#dependente").focus();
-            return;
+            return false
         }
- 
+
+        // if (descricao.length === 0 || descricao.trim()) {
+        //     (descricao).focus();
+        //     return false
+        // }
         gravaDependente(codigo, ativo, dependente);
     }
 
-    function verificarDependente(){
-        var descricao = $("#descricao").val();
-        verificaGenero(descricao)
-        
-    }
+    // ------------------------------------------------------------------------
+
+    // function verificarDependente() {
+    //     var descricao = $("#descricao").val();
+    //     verificaDependente(descricao)
+    //     // $("#descricao").val("");
+    //     return false
+
+    // }
+
+    // function gravarGenero() {
+
+    //     var codigo = +($("#codigo").val());
+    //     var ativo = $('#ativo').val();
+    //     var dependente = $("#dependente").val();
+
+    //     if (dependente === "") {
+    //         smartAlert("Atenção", "Informe o Gênero !", "error");
+    //         $("#dependente").focus();
+    //         return false;
+
+    //     }
+
+    //     if (dependente.length === 0 || dependente.trim()) {
+    //         (dependente).focus();
+    //         return false
+    //     }
+
+    //     gravaDependente(codigo, ativo, dependente);
+    // }
+
 
 
     // function verificarCpf(){
     //     var cpf = $("#cpf").val();
     //     verificaCpf(cpf)
-        
+
     // }
 
     // function verificarGenero(){
     //     var descricao = $("#descricao").val();
     //     verificaGenero(descricao)
-        
+
     // }
 
-   
-// function limparCampoData() {
-//     document.getElementById('dataNascimento').value = ""; // Limpa o valor do campo de entrada de data
-// }
 
-// $('#dataNascimento').on('change', function(){
-//     if (validadeData()) {
-//     }
-// });
-        // function calcularIdade() {
-        //     var dataNasc = document.getElementById('dataNascimento').value;
-        //     if (dataNasc) {
-        //         var hoje = new Date();
-        //         var nasc = new Date(dataNasc);
-        //         var idade = hoje.getFullYear() - nasc.getFullYear();
-        //         var m = hoje.getMonth() - nasc.getMonth();
-        //         if (m < 0 || (m === 0 && hoje.getDate() < nasc.getDate())) {
-        //             idade--;
-        //         }
-        //         // document.getElementById('idade').value = idade;
-        //         $('#idade').val(idade);
-        //     } else {
-        //         alert('Por favor, insira uma data de nascimento válida.');
-        //     }
-        // }
-       
-        // Adiciona o evento de clique ao documento inteiro
-        // document.addEventListener('focusout', calcularIdade);
-        // $('#dataNascimento').on('change', function(){calcularIdade()});
+    // function limparCampoData() {
+    //     document.getElementById('dataNascimento').value = ""; // Limpa o valor do campo de entrada de data
+    // }
 
+    // $('#dataNascimento').on('change', function(){
+    //     if (validadeData()) {
+    //     }
+    // });
+    // function calcularIdade() {
+    //     var dataNasc = document.getElementById('dataNascimento').value;
+    //     if (dataNasc) {
+    //         var hoje = new Date();
+    //         var nasc = new Date(dataNasc);
+    //         var idade = hoje.getFullYear() - nasc.getFullYear();
+    //         var m = hoje.getMonth() - nasc.getMonth();
+    //         if (m < 0 || (m === 0 && hoje.getDate() < nasc.getDate())) {
+    //             idade--;
+    //         }
+    //         // document.getElementById('idade').value = idade;
+    //         $('#idade').val(idade);
+    //     } else {
+    //         alert('Por favor, insira uma data de nascimento válida.');
+    //     }
+    // }
 
-//         function verificaIdade() {
-//     var idadeCalcule = document.getElementById('idade').value;
-
-//     if (idadeCalcule < 14 || idadeCalcule > 120) {
-//         limparCampoData();
-//         alert("Por favor, digite uma idade válida entre 14 e 120 anos.");
-//         return false; // Retorna false para indicar que a validação falhou
-//     }
-    
-//     return true; // Retorna true se a validação for bem-sucedida
-// }
-
-// function limparCampoData() {
-//     document.getElementById('dataNascimento').value = ""; // Limpa o valor do campo de entrada de data
-// }
-
-// Chama a função verificaIdade() quando o campo de data de nascimento é alterado
-// $('#dataNascimento').on('change', function() {
-//     verificaIdade();
-// });
+    // Adiciona o evento de clique ao documento inteiro
+    // document.addEventListener('focusout', calcularIdade);
+    // $('#dataNascimento').on('change', function(){calcularIdade()});
 
 
+    //         function verificaIdade() {
+    //     var idadeCalcule = document.getElementById('idade').value;
 
+    //     if (idadeCalcule < 14 || idadeCalcule > 120) {
+    //         limparCampoData();
+    //         alert("Por favor, digite uma idade válida entre 14 e 120 anos.");
+    //         return false; // Retorna false para indicar que a validação falhou
+    //     }
+
+    //     return true; // Retorna true se a validação for bem-sucedida
+    // }
+
+    // function limparCampoData() {
+    //     document.getElementById('dataNascimento').value = ""; // Limpa o valor do campo de entrada de data
+    // }
+
+    // Chama a função verificaIdade() quando o campo de data de nascimento é alterado
+    // $('#dataNascimento').on('change', function() {
+    //     verificaIdade();
+    // });
 </script>

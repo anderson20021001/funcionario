@@ -42,7 +42,7 @@ include("inc/header.php");
 
 //include left panel (navigation)
 //follow the tree in inc/config.ui.php
-$page_nav["tabelaBasica"]["sub"]["tabelaBasica"]["active"] = true;
+$page_nav["tabelaBasica"]["sub"]["genero"]["active"] = true;
 
 include("inc/nav.php");
 ?>
@@ -105,10 +105,10 @@ include("inc/nav.php");
                                                             <section class="col col-4">
                                                                 <label class="label">Descrição</label>
                                                                 <label class="input"><i class=""></i>
-                                                                    <input id="descricao" maxlength="255" name="descricao" class="required"  type="text" value="">
+                                                                    <input id="descricao" maxlength="255" name="descricao" class="required" type="text" value="">
                                                                 </label>
                                                             </section>
-                                                         </div>
+                                                        </div>
                                                     </fieldset>
                                                 </div>
                                             </div>
@@ -131,7 +131,7 @@ include("inc/nav.php");
                                                 </div>
                                             </div>
                                         </div>
-                                        <button type="submited" id="btnGravar" class="btn btn-success" aria-hidden="true" title="Gravar" style="display:<?php echo $esconderBtnGravar ?>">
+                                        <button type="button" id="btnGravar" class="btn btn-success" aria-hidden="true" title="Gravar" style="display:<?php echo $esconderBtnGravar ?>">
                                             <span class="fa fa-floppy-o"></span>
                                         </button>
                                         <button type="button" id="btnNovo" class="btn btn-primary" aria-hidden="true" title="Novo" style="display:<?php echo $esconderBtnGravar ?>">
@@ -152,7 +152,7 @@ include("inc/nav.php");
 
     </div>
     <!-- END MAIN CONTENT -->
-    
+
 
 </div>
 <!-- END MAIN PANEL -->
@@ -363,6 +363,7 @@ include("inc/scripts.php");
         });
 
         $("#btnGravar").on("click", function() {
+            
             gravarGenero();
         });
 
@@ -375,11 +376,22 @@ include("inc/scripts.php");
         });
     });
 
+
+    $('#descricao').on("focusout", campo => {
+        if (["1", "2", "3", "4", "5", "6", "7", "8", "9"].find(valor => valor == campo.currentTarget.value ? true : false)) {
+            smartAlert("Atenção", "No puede digitar", "error");
+            $('#descricao').val('');
+        } else {
+            $('#descricao').val((campo.currentTarget.value).trim());
+        }
+
+    });
+
     document.getElementById("descricao").onkeypress = function(e) {
         var chr = String.fromCharCode(e.which);
-        if ("qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM-".indexOf(chr) < 0)
+        if ("qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM- ".indexOf(chr) < 0)
             return false;
-    } 
+    }
 
 
     function carregaPagina() {
@@ -414,10 +426,18 @@ include("inc/scripts.php");
         excluirGenero(id);
     }
 
+    function verificarGenero() {
+        var descricao = $("#descricao").val();
+        verificaGenero(descricao)
+        // $("#descricao").val("");
+        return false
+
+    }
+
     function gravarGenero() {
         var codigo = +($("#codigo").val());
         var ativo = $('#ativo').val();
-        var descricao= $("#descricao").val();
+        var descricao = $("#descricao").val();
 
         if (descricao === "") {
             smartAlert("Atenção", "Informe o Gênero !", "error");
@@ -426,83 +446,76 @@ include("inc/scripts.php");
 
         }
 
-        if (estadoCivil.length === 0 || !estadoCivil.trim()) {
-            (estadoCivi).focus();
-          return false
+        if (descricao.length === 0 || descricao.trim()) {
+            $("#descricao").focus();
+            return
         }
- 
+
         gravaGenero(codigo, ativo, descricao);
     }
 
-    function verificarGenero(){
-        var valid = $("#descricao").val();
-    }
 
 
-    function verificarCpf(){
-        var cpf = $("#cpf").val();
-        verificaCpf(cpf)
-        
-    }
 
-    function verificarGenero(){
-        var descricao = $("#descricao").val();
-        verificaGenero(descricao)
-        
-    }
+    // function verificarCpf(){
+    //     var cpf = $("#cpf").val();
+    //     verificaCpf(cpf)
 
-   
-// function limparCampoData() {
-//     document.getElementById('dataNascimento').value = ""; // Limpa o valor do campo de entrada de data
-// }
+    // }
 
-// $('#dataNascimento').on('change', function(){
-//     if (validadeData()) {
-//     }
-// });
-        function calcularIdade() {
-            var dataNasc = document.getElementById('dataNascimento').value;
-            if (dataNasc) {
-                var hoje = new Date();
-                var nasc = new Date(dataNasc);
-                var idade = hoje.getFullYear() - nasc.getFullYear();
-                var m = hoje.getMonth() - nasc.getMonth();
-                if (m < 0 || (m === 0 && hoje.getDate() < nasc.getDate())) {
-                    idade--;
-                }
-                // document.getElementById('idade').value = idade;
-                $('#idade').val(idade);
-            } else {
-                alert('Por favor, insira uma data de nascimento válida.');
+
+
+
+    // function limparCampoData() {
+    //     document.getElementById('dataNascimento').value = ""; // Limpa o valor do campo de entrada de data
+    // }
+
+    // $('#dataNascimento').on('change', function(){
+    //     if (validadeData()) {
+    //     }
+    // });
+    function calcularIdade() {
+        var dataNasc = document.getElementById('dataNascimento').value;
+        if (dataNasc) {
+            var hoje = new Date();
+            var nasc = new Date(dataNasc);
+            var idade = hoje.getFullYear() - nasc.getFullYear();
+            var m = hoje.getMonth() - nasc.getMonth();
+            if (m < 0 || (m === 0 && hoje.getDate() < nasc.getDate())) {
+                idade--;
             }
+            // document.getElementById('idade').value = idade;
+            $('#idade').val(idade);
+        } else {
+            alert('Por favor, insira uma data de nascimento válida.');
         }
-       
-        // Adiciona o evento de clique ao documento inteiro
-        // document.addEventListener('focusout', calcularIdade);
-        $('#dataNascimento').on('change', function(){calcularIdade()});
-
-
-        function verificaIdade() {
-    var idadeCalcule = document.getElementById('idade').value;
-
-    if (idadeCalcule < 14 || idadeCalcule > 120) {
-        limparCampoData();
-        alert("Por favor, digite uma idade válida entre 14 e 120 anos.");
-        return false; // Retorna false para indicar que a validação falhou
     }
-    
-    return true; // Retorna true se a validação for bem-sucedida
-}
 
-function limparCampoData() {
-    document.getElementById('dataNascimento').value = ""; // Limpa o valor do campo de entrada de data
-}
-
-// Chama a função verificaIdade() quando o campo de data de nascimento é alterado
-$('#dataNascimento').on('change', function() {
-    verificaIdade();
-});
+    // Adiciona o evento de clique ao documento inteiro
+    // document.addEventListener('focusout', calcularIdade);
+    $('#dataNascimento').on('change', function() {
+        calcularIdade()
+    });
 
 
+    function verificaIdade() {
+        var idadeCalcule = document.getElementById('idade').value;
 
+        if (idadeCalcule < 14 || idadeCalcule > 120) {
+            limparCampoData();
+            alert("Por favor, digite uma idade válida entre 14 e 120 anos.");
+            return false; // Retorna false para indicar que a validação falhou
+        }
+
+        return true; // Retorna true se a validação for bem-sucedida
+    }
+
+    function limparCampoData() {
+        document.getElementById('dataNascimento').value = ""; // Limpa o valor do campo de entrada de data
+    }
+
+    // Chama a função verificaIdade() quando o campo de data de nascimento é alterado
+    $('#dataNascimento').on('change', function() {
+        verificaIdade();
+    });
 </script>

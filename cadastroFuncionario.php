@@ -183,9 +183,7 @@ include("inc/nav.php");
                                                                     <select id="emprego" class="required" name="emprego">
                                                                         <option hidden selected value=""> Selecione </option>
                                                                         <option value="1">Sim</option>
-                                                                        <option value="0">Não</option>
-
-                                                                        ?>
+                                                                        <option value="0">Não</option>                                                                        
                                                                     </select><i></i>
                                                                 </label>
                                                             </section>
@@ -453,10 +451,7 @@ include("inc/nav.php");
                                                                     </button>
                                                                 </section>
 
-
                                                                 <fieldset class="col col-12">
-
-
                                                                     <div class="table-responsive" style="min-height: 115px; width: 95%; border: 1px solid #ddd; margin-bottom: 13px; overflow-x: auto;">
                                                                         <table id="tableDependente" class="table table-bordered table-striped table-condensed table-hover dataTable">
                                                                             <thead>
@@ -474,15 +469,9 @@ include("inc/nav.php");
                                                                     </div>
                                                             </div>
                                                     </fieldset>
-
-
-
                                                 </div>
                                             </div>
                                         </div>
-
-
-
                                         <footer>
                                             <button type="button" id="btnExcluir" class="btn btn-danger" aria-hidden="true" title="Excluir" style="display:<?php echo $esconderBtnExcluir ?>">
                                                 <span class="fa fa-trash"></span>
@@ -500,7 +489,7 @@ include("inc/nav.php");
                                                     </div>
                                                 </div>
                                             </div>
-                                            <button type="submited" id="btnGravar" class="btn btn-success" aria-hidden="true" title="Gravar" style="display:<?php echo $esconderBtnGravar ?>">
+                                            <button type="button" id="btnGravar" class="btn btn-success" aria-hidden="true" title="Gravar" style="display:<?php echo $esconderBtnGravar ?>">
                                                 <span class="fa fa-floppy-o"></span>
                                             </button>
                                             <button type="button" id="btnNovo" class="btn btn-primary" aria-hidden="true" title="Novo" style="display:<?php echo $esconderBtnGravar ?>">
@@ -572,6 +561,7 @@ include("inc/scripts.php");
         jsonEmailArray = JSON.parse($("#jsonEmail").val());
         jsonTelefoneArray = JSON.parse($("#jsonTelefone").val());
         jsonDependenteArray = JSON.parse($("#jsonDependente").val());
+
         $("#cpf").mask("999.999.999-99");
         $("#cpfDependente").mask("999.999.999-99");
         $("#rg").mask("99.999.999-9");
@@ -668,11 +658,14 @@ include("inc/scripts.php");
 
         $("#cpf").on("change", function() {
             verificarCpf();
-            // verificarCpfDependente();
         });
 
         $("#cpfDependente").on("change", function() {
             validarCPFDependente();
+        });
+
+        $("#dataNascimento").on("change", function() {
+            validaDataInversa(dataNascimento);
         });
 
         $("#rg").on("change", function() {
@@ -701,6 +694,7 @@ include("inc/scripts.php");
                 return false;
             }
         });
+
         $("#btnAddDependente").on("click", function() {
             if (validaDependente() === true) {
                 addDependente();
@@ -728,9 +722,6 @@ include("inc/scripts.php");
                     e.preventDefault();
                 }
             });
-
-
-
 
             document.getElementById("nome").onkeypress = function(e) {
                 var chr = String.fromCharCode(e.which);
@@ -785,8 +776,6 @@ include("inc/scripts.php");
             };
         });
 
-
-
         $('#nome').on("focusout", campo => {
             if (["1", "2", "3", "4", "5", "6", "7", "8", "9"].find(valor => valor == campo.currentTarget.value ? true : false)) {
                 smartAlert("Atenção", "No puede digitar", "error");
@@ -796,11 +785,6 @@ include("inc/scripts.php");
             }
 
         });
-
-
-
-
-
 
         $('#emprego').on("change", campo => +campo.currentTarget.value ? $('#pis').addClass("readonly").attr("disabled", true) : $('#pis').removeClass("readonly").attr("disabled", false))
 
@@ -871,7 +855,6 @@ include("inc/scripts.php");
         carregaPagina();
     });
 
-
     function carregaPagina() {
         var urlx = window.document.URL.toString();
         var params = urlx.split("?");
@@ -881,7 +864,7 @@ include("inc/scripts.php");
             var idd = idx[1];
             if (idd !== "") {
                 recuperaUsuario(idd);
-
+                validaDataInversa();
             }
         }
         $("#nome").focus();
@@ -906,7 +889,7 @@ include("inc/scripts.php");
     }
 
     function gravar() {
-        var id = +($("#codigo").val());
+        var id = +$("#codigo").val();
         var ativo = $('#ativo').val();
         var nome = $("#nome").val();
         var cpf = $("#cpf").val();
@@ -923,8 +906,9 @@ include("inc/scripts.php");
         var cidade = $("#cidade").val();
         var emprego = $("#emprego").val();
         var pis = $("#pis").val();
+        var jsonTelefoneArray = $("#jsonTelefone").val();
 
-        if (nome === "") {
+        if (nome == "") {
             smartAlert("Atenção", "Informe o nome !", "error");
             $("#nome").focus();
             return false;
@@ -957,14 +941,8 @@ include("inc/scripts.php");
             return false;
         }
 
-        if (jsonEmailArray.email ===
-         "[]") {
-            smartAlert("Atenção", "Informe o email !", "error");
-            return false;
-        }
-
-        if (jsonEmailArray.email == []) {
-            smartAlert("Atenção", "Informe o email !", "error");
+        if (jsonTelefoneArray == "[]" || jsonEmailArray.email == "[]") {
+            smartAlert("Atenção", "Informe pelo menos uma forma de contato !", "error");
             return false;
         }
 
@@ -987,19 +965,19 @@ include("inc/scripts.php");
         if (emprego == "") {
             smartAlert("Atenção", "Informe se é o primeiro emprego !", "error");
             $("#emprego").focus();
-            return;
+            return false;
         }
 
         if (pis == "") {
             smartAlert("Atenção", "Informe o pis caso tenha trabalhado !", "error");
             $("#pis").focus();
-            return;
+            return false;
         }
+
         gravaUsuario(id, ativo, nome, cpf, rg, dataNascimento, genero, estadoCivil, jsonTelefoneArray, jsonEmailArray, jsonDependenteArray, cep, logradouro, complemento, numero, uf, bairro, cidade, emprego, pis);
     }
 
     function verificarCpf() {
-
 
         var cpf = $("#cpf").val();
 
@@ -1028,6 +1006,11 @@ include("inc/scripts.php");
 
         cpf = $("#cpfDependente").val();
         validaCPFDependente(cpf);
+    }
+
+    function validarDataInversa(dataNascimento) {
+        dataNascimento = $("#dataNascimento").val();
+        validaDataInversa(dataNascimento);
     }
 
     function apagarCpf() {
@@ -1135,7 +1118,6 @@ include("inc/scripts.php");
     }
 
     //TABELA DE TELEFONEf
-
     function validaTelefone() {
         var achouTelefone = false;
         var achouTelefonePrincipal = false;
@@ -1354,7 +1336,6 @@ include("inc/scripts.php");
         return /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(email)
     }
 
-
     function validaEmail() {
         var achouEmail = false;
         var achouEmailPrincipal = false;
@@ -1541,10 +1522,6 @@ include("inc/scripts.php");
         $("#email").val("");
         return true;
     }
-
-    // function clearFormEmail() {
-    //     $("#email").val('');
-    // }
 
     function validaDependente() {
         let cpfDependente = $('#cpfDependente').val();

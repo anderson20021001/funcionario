@@ -24,7 +24,7 @@ if ($funcao == 'recuperarDadosUsuario') {
 if ($funcao == 'gravarNovaSenha') {
     call_user_func($funcao);
 }
-if ($funcao == 'verificaCpf') {
+if ($funcao == 'verificaDependente') {
     call_user_func($funcao);
 }
 // 
@@ -184,6 +184,32 @@ function verificaRG(){
     $ret = 'sucess#Pode Cadastrar rg';
     if (count($result)>0) {
         $ret = 'failed#rg ja cadastrado';
+    }
+    echo $ret;
+    return;
+}
+
+function verificaDependente(){
+    if ((empty($_POST['codigo'])) || (!isset($_POST['codigo'])) || (is_null($_POST['codigo']))) {
+        $id = 0;
+    } else {
+        $id = $_POST["codigo"];
+    }
+
+
+    $reposit = new reposit();
+    $utils = new comum();
+
+    $descricao = $utils->formatarString($_POST['descricao']);
+
+    $sql = "SELECT dependente from dbo.dependente where dependente = $descricao";
+
+    $reposit = new reposit();
+    $result = $reposit->RunQuery($sql);
+
+    $ret = 'sucess#Pode Cadastrar gênero';
+    if (count($result)>0) {
+        $ret = 'failed#Dependente já cadastrado';
     }
     echo $ret;
     return;

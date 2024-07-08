@@ -35,6 +35,12 @@ if ($funcao == 'validarCPFDependente') {
 if ($funcao == 'verificaRG') {
     call_user_func($funcao);
 }
+
+if ($funcao == 'validaDataInversa') {
+    call_user_func($funcao);
+}
+
+
 // 
 // return;
 
@@ -271,7 +277,7 @@ function recupera()
         $ativo = $row['ativo'];
         $nome = $row['nome'];
         $cpf = $row['cpf'];
-        $dataNascimento = $row['dataNascimento'];
+        $dataNascimento = validaDataInversa($row['dataNascimento']);
         $rg = $row['rg'];
         $genero = $row['genero'];
         $estadoCivil = $row['estadoCivil'];
@@ -365,7 +371,7 @@ function recupera()
             'codigo' => $item['codigo'],
             'nomeDependente' => $item['nomeDependente'],
             'cpfDependente' => $item['cpfDependente'],
-            'dataNascimentoDependente' => $item['dataNascimentoDependente'],
+            'dataNascimentoDependente' => validaDataInversaDependente($item['dataNascimentoDependente']),
             'tipoDependente' => $item['tipoDependente'],
             'sequencialDependente' => $sequencialDependente
 
@@ -408,6 +414,25 @@ function recupera()
 
     return;
 }
+
+function validaDataInversa($dataNascimento)
+{
+    $campo = explode("-", $dataNascimento);
+    $diaCampo = explode(" ", $campo[2]);
+    $anoCampo = explode(" ", $campo[0]);
+    $campo = $diaCampo[0] . "/" . $campo[1] . "/" . $campo[0];
+    return $campo;
+}
+
+function validaDataInversaDependente($dataNascimentoDependente)
+{
+    $campo = explode("-", $dataNascimentoDependente);
+    $diaCampo = explode(" ", $campo[2]);
+    $anoCampo = explode(" ", $campo[0]);
+    $campo = $diaCampo[0] . "/" . $campo[1] . "/" . $campo[0];
+    return $campo;
+}
+
 
 function excluir()
 {
@@ -511,6 +536,7 @@ function validarCPFDependente()
     echo "success";
     return true;
 }
+
 
 function verificaRG()
 {

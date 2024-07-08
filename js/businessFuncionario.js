@@ -82,7 +82,7 @@ function validaCPFDependente(cpf) {
         data: { funcao: "validarCPFDependente", cpf: cpf },
         success: function (data, textStatus) {
             if (data.trim() === 'success') {
-             // smartAlert("Sucesso", "Operação realizada com sucesso!", "success");
+                // smartAlert("Sucesso", "Operação realizada com sucesso!", "success");
             } else {
                 smartAlert("Atenção", "CPF do Dependente inválido!!!", "error");
                 document.getElementById('cpfDependente').value = "";
@@ -209,6 +209,7 @@ function recuperaUsuario(id) {
                 fillTableTelefone();
                 fillTableEmail();
                 fillTableDependente();
+                validaDataInversa();
 
                 return;
             }
@@ -221,6 +222,41 @@ function recuperaUsuario(id) {
     });
 
     return;
+}
+function validaDataInversa(dataNascimento) {
+    $.ajax({
+        url: 'js/sqlscopeFuncionarioCadastro.php', //caminho do arquivo a ser executado
+        dataType: 'html', //tipo do retorno
+        type: 'post', //metodo de envio
+        data: { funcao: 'validaDataInversa', dataNascimento: dataNascimento }, //valores enviados ao script     
+        beforeSend: function () {
+            //função chamada antes de realizar o ajax
+        },
+        complete: function () {
+            //função executada depois de terminar o ajax
+        },
+        success: function (data, textStatus) {
+            var piece = data.split("#");
+            var mensagem = piece[1];
+            if (data.indexOf('failed') > -1) {
+                var piece = data.split("#");
+                var mensagem = piece[1];
+
+                if (mensagem !== "") {
+                    smartAlert("Atenção", mensagem, "error");
+                } else {
+                    smartAlert("Atenção", "Operação não realizada - entre em contato com a GIR!", "error");
+                }
+
+            } else {
+                smartAlert("Sucesso", mensagem, "success");
+
+            }
+        },
+        error: function (xhr, er) {
+            //tratamento de erro
+        }
+    });
 }
 
 function excluirUsuario(id) {

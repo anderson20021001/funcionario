@@ -42,7 +42,7 @@ include("inc/header.php");
 
 //include left panel (navigation)
 //follow the tree in inc/config.ui.php
-$page_nav["tabelaBasica"]["sub"]["tabelaBasica"]["active"] = true;
+$page_nav["tabelaBasica"]["sub"]["estadoCivil"]["active"] = true;
 
 include("inc/nav.php");
 ?>
@@ -131,7 +131,7 @@ include("inc/nav.php");
                                                 </div>
                                             </div>
                                         </div>
-                                        <button type="submited" id="btnGravar" class="btn btn-success" aria-hidden="true" title="Gravar" style="display:<?php echo $esconderBtnGravar ?>">
+                                        <button type="button" id="btnGravar" class="btn btn-success" aria-hidden="true" title="Gravar" style="display:<?php echo $esconderBtnGravar ?>">
                                             <span class="fa fa-floppy-o"></span>
                                         </button>
                                         <button type="button" id="btnNovo" class="btn btn-primary" aria-hidden="true" title="Novo" style="display:<?php echo $esconderBtnGravar ?>">
@@ -370,11 +370,21 @@ include("inc/scripts.php");
         verificarGenero();
     });
 
+    $('#estadoCivil').on("focusout", campo => {
+        if (["1", "2", "3", "4", "5", "6", "7", "8", "9"].find(valor => valor == campo.currentTarget.value ? true : false)) {
+            smartAlert("Atenção", "No puede digitar", "error");
+            $('#estadoCivil').val('');
+        } else {
+            $('#estadoCivil').val((campo.currentTarget.value).trim());
+        }
+
+    });
+    
     document.getElementById("estadoCivil").onkeypress = function(e) {
         var chr = String.fromCharCode(e.which);
-        if ("qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM-".indexOf(chr) < 0)
+        if ("qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM- ".indexOf(chr) < 0)
             return false;
-    } 
+    }
 
 
 
@@ -415,14 +425,14 @@ include("inc/scripts.php");
         var ativo = $('#ativo').val();
         var estadoCivil = $("#estadoCivil").val();
 
-        if (estadoCivil === "") {
-            smartAlert("Atenção", "Informe o Estado Civil !", "error");
+        if (estadoCivil == "") {
+            smartAlert("Atenção", "Informe o Estado Cívil !", "error");
             $("#estadoCivil").focus();
-            return false
+            return false;
         }
 
 
-        
+
 
         gravaEstadoCivilPessoa(codigo, ativo, estadoCivil);
     }
