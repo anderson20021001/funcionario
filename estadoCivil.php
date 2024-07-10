@@ -102,7 +102,7 @@ include("inc/nav.php");
                                                         <div class="row">
                                                         </div>
                                                         <div class="row">
-                                                            <section class="col col-4">
+                                                            <section class="col col-2">
                                                                 <label class="label">Estado Civil</label>
                                                                 <label class="input"><i class=""></i>
                                                                     <input id="estadoCivil" maxlength="255" name="estadoCivil" class="required" type="text" value="">
@@ -359,15 +359,20 @@ include("inc/scripts.php");
     });
 
     $("#btnGravar").on("click", function() {
-        gravarEstadoCivilPessoa();
+        verificarEstadoCivil();
+        document.getElementById("btnGravar").disabled = true;
+        setTimeout(function() {
+            document.getElementById("btnGravar").disabled = false;
+            gravarEstadoCivilPessoa();
+        }, 550)
     });
 
     $("#btnVoltar").on("click", function() {
         voltar();
     });
 
-    $("#descricao").on("change", function() {
-        verificarGenero();
+    $("#estadoCivil").on("change", function() {
+        verificarEstadoCivil();
     });
 
     $('#estadoCivil').on("focusout", campo => {
@@ -375,11 +380,11 @@ include("inc/scripts.php");
             smartAlert("Atenção", "No puede digitar", "error");
             $('#estadoCivil').val('');
         } else {
-            $('#estadoCivil').val((campo.currentTarget.value).trim());
+            $('#estadoCivil').val((campo.currentTarget.value).replace(/( )+/g, " ")());
         }
 
     });
-    
+
     document.getElementById("estadoCivil").onkeypress = function(e) {
         var chr = String.fromCharCode(e.which);
         if ("qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM- ".indexOf(chr) < 0)
@@ -420,6 +425,13 @@ include("inc/scripts.php");
         excluirEstadoCivil(id);
     }
 
+    function verificarEstadoCivil(estadoCivil) {
+        var estadoCivil = $("#estadoCivil").val();
+        verificaEstadoCivil(estadoCivil)
+
+    }
+
+
     function gravarEstadoCivilPessoa() {
         var codigo = +($("#codigo").val());
         var ativo = $('#ativo').val();
@@ -438,17 +450,12 @@ include("inc/scripts.php");
     }
 
 
-    function verificarCpf() {
-        var cpf = $("#cpf").val();
-        verificaCpf(cpf)
+    // function verificarCpf() {
+    //     var cpf = $("#cpf").val();
+    //     verificaCpf(cpf)
 
-    }
+    // }
 
-    function verificarGenero() {
-        var descricao = $("#descricao").val();
-        verificaGenero(descricao)
-
-    }
 
 
     // function limparCampoData() {
@@ -459,48 +466,48 @@ include("inc/scripts.php");
     //     if (validadeData()) {
     //     }
     // });
-    function calcularIdade() {
-        var dataNasc = document.getElementById('dataNascimento').value;
-        if (dataNasc) {
-            var hoje = new Date();
-            var nasc = new Date(dataNasc);
-            var idade = hoje.getFullYear() - nasc.getFullYear();
-            var m = hoje.getMonth() - nasc.getMonth();
-            if (m < 0 || (m === 0 && hoje.getDate() < nasc.getDate())) {
-                idade--;
-            }
-            // document.getElementById('idade').value = idade;
-            $('#idade').val(idade);
-        } else {
-            alert('Por favor, insira uma data de nascimento válida.');
-        }
-    }
+    // function calcularIdade() {
+    //     var dataNasc = document.getElementById('dataNascimento').value;
+    //     if (dataNasc) {
+    //         var hoje = new Date();
+    //         var nasc = new Date(dataNasc);
+    //         var idade = hoje.getFullYear() - nasc.getFullYear();
+    //         var m = hoje.getMonth() - nasc.getMonth();
+    //         if (m < 0 || (m === 0 && hoje.getDate() < nasc.getDate())) {
+    //             idade--;
+    //         }
+    //         // document.getElementById('idade').value = idade;
+    //         $('#idade').val(idade);
+    //     } else {
+    //         alert('Por favor, insira uma data de nascimento válida.');
+    //     }
+    // }
 
-    // Adiciona o evento de clique ao documento inteiro
-    // document.addEventListener('focusout', calcularIdade);
-    $('#dataNascimento').on('change', function() {
-        calcularIdade()
-    });
+    // // Adiciona o evento de clique ao documento inteiro
+    // // document.addEventListener('focusout', calcularIdade);
+    // $('#dataNascimento').on('change', function() {
+    //     calcularIdade()
+    // });
 
 
-    function verificaIdade() {
-        var idadeCalcule = document.getElementById('idade').value;
+    // function verificaIdade() {
+    //     var idadeCalcule = document.getElementById('idade').value;
 
-        if (idadeCalcule < 14 || idadeCalcule > 120) {
-            limparCampoData();
-            alert("Por favor, digite uma idade válida entre 14 e 120 anos.");
-            return false; // Retorna false para indicar que a validação falhou
-        }
+    //     if (idadeCalcule < 14 || idadeCalcule > 120) {
+    //         limparCampoData();
+    //         alert("Por favor, digite uma idade válida entre 14 e 120 anos.");
+    //         return false; // Retorna false para indicar que a validação falhou
+    //     }
 
-        return true; // Retorna true se a validação for bem-sucedida
-    }
+    //     return true; // Retorna true se a validação for bem-sucedida
+    // }
 
-    function limparCampoData() {
-        document.getElementById('dataNascimento').value = ""; // Limpa o valor do campo de entrada de data
-    }
+    // function limparCampoData() {
+    //     document.getElementById('dataNascimento').value = ""; // Limpa o valor do campo de entrada de data
+    // }
 
-    // Chama a função verificaIdade() quando o campo de data de nascimento é alterado
-    $('#dataNascimento').on('change', function() {
-        verificaIdade();
-    });
+    // // Chama a função verificaIdade() quando o campo de data de nascimento é alterado
+    // $('#dataNascimento').on('change', function() {
+    //     verificaIdade();
+    // });
 </script>

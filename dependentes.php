@@ -65,7 +65,7 @@ include("inc/nav.php");
                     <div class="jarviswidget" id="wid-id-1" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-sortable="false">
                         <header>
                             <span class="widget-icon"><i class="fa fa-cog"></i></span>
-                            <h2>Estado Civil</h2>
+                            <h2>Dependente</h2>
                         </header>
                         <div>
                             <div class="widget-body no-padding">
@@ -102,7 +102,7 @@ include("inc/nav.php");
                                                         <div class="row">
                                                         </div>
                                                         <div class="row">
-                                                            <section class="col col-3">
+                                                            <section class="col col-2">
                                                                 <label class="label">Descrição</label>
                                                                 <label class="input"><i class=""></i>
                                                                     <input id="dependente" maxlength="255" name="dependente" onpaste="return false" ondrop="return false" class="required" type="text" value="">
@@ -363,8 +363,13 @@ include("inc/scripts.php");
         });
 
         $("#btnGravar").on("click", function() {
-            gravarDependente();
             verificarDependente();
+            document.getElementById("btnGravar").disabled = true;
+            setTimeout(function() {
+                document.getElementById("btnGravar").disabled = false
+                    gravarDependente();
+            }, 550)
+            // gravarDependente();
         });
 
         $("#btnVoltar").on("click", function() {
@@ -373,7 +378,7 @@ include("inc/scripts.php");
 
         $("#dependente").on("change", function() {
             verificarDependente();
-            voltar();
+            // voltar();
         });
     });
 
@@ -383,7 +388,7 @@ include("inc/scripts.php");
             smartAlert("Atenção", "No puede digitar", "error");
             $('#dependente').val('');
         } else {
-            $('#dependente').val((campo.currentTarget.value).trim());
+            $('#dependente').val((campo.currentTarget.value).replace(/( )+/g, " "));
         }
 
     });
@@ -410,11 +415,12 @@ include("inc/scripts.php");
     }
 
     function novo() {
-        $(location).attr('href', 'cadastroFuncionario.php');
+        $(location).attr('href', 'dependentes.php');
     }
 
     function voltar() {
-        $(location).attr('href', 'cadastroFuncionario.php');
+
+        $(location).attr('href', 'dependenteFiltro.php');
     }
 
     function excluir() {
@@ -429,10 +435,9 @@ include("inc/scripts.php");
 
 
     function verificarDependente() {
-        var descricao = $("#dependente").val();
-        verificaDependente(descricao)
 
-        return false;
+        var descricao = $("#dependente").val();
+        verificaDependente(descricao);
        
     }
 

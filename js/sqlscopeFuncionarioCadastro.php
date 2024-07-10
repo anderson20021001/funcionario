@@ -28,7 +28,7 @@ if ($funcao == 'gravarNovaSenha') {
 if ($funcao == 'verificaCpf') {
     call_user_func($funcao);
 }
-if ($funcao == 'validarCPFDependente') {
+if ($funcao == 'validaCPFDependente') {
     call_user_func($funcao);
 }
 
@@ -183,8 +183,6 @@ function grava()
         return;
     }
     $xmlDependente = "'" . $xmlDependente . "'";
-
-
 
     $sql = "dbo.funcionario_Atualiza
      $id,
@@ -463,35 +461,6 @@ function excluir()
 
 function verificaCpf()
 {
-    if ((empty($_POST['cpf'])) || (!isset($_POST['cpf'])) || (is_null($_POST['cpf']))) {
-        $id = 0;
-    } else {
-        $id = $_POST["cpf"];
-    }
-
-
-    $reposit = new reposit();
-    $utils = new comum();
-
-    $cpf = $utils->formatarString($_POST['cpf']);
-
-    $sql = "SELECT cpf from dbo.funcionarioCadastro where cpf = $cpf";
-
-    $reposit = new reposit();
-    $result = $reposit->RunQuery($sql);
-
-    $ret = 'sucess#Pode Cadastrar cpf';
-    if (count($result) > 0) {
-        $ret = 'failed# CPF JÁ CADASTRADO';
-    }
-    echo $ret;
-    return;
-}
-
-function validarCPFDependente()
-{
-
-    // Extrai somente os números
     $cpf = $_POST["cpf"];
     $cpf = preg_replace('/[^0-9]/is', '', $cpf);
 
@@ -512,6 +481,55 @@ function validarCPFDependente()
         }
         $d = ((10 * $d) % 11) % 10;
         if ($cpf[$c] != $d) {
+            echo "failed";
+            return false;
+        }
+    }
+
+    $cpf = "'" . $_POST["cpf"] . "'";
+
+    $sql = " SELECT cpf FROM dbo.funcionarioCadastro WHERE cpf = $cpf ";
+    //achou 
+    $reposit = new reposit();
+    $result = $reposit->RunQuery($sql);
+
+    ////! ANTES É NEGAÇÃO
+    if (!$result) {
+        echo  "success";
+        return true;
+    } else {
+        $mensagem = "CPF já registrado!";
+        echo "failed#" . $mensagem . ' ';
+    }
+
+    echo "success";
+    return true;
+}
+
+function validaCPFDependente()
+{
+
+    // Extrai somente os números
+    $cpfDependente = $_POST["cpf"];
+    $cpfPessoaDependente = preg_replace('/[^0-9]/is', '', $cpfDependente);
+
+    // Verifica se foi informado todos os digitos corretamente
+    if (strlen($cpfPessoaDependente) != 11) {
+        return false;
+    }
+
+    // Verifica se foi informada uma sequência de digitos repetidos. Ex: 111.111.111-11
+    if (preg_match('/(\d)\1{10}/', $cpfPessoaDependente)) {
+        return false;
+    }
+
+    // Faz o calculo para validar o CPF
+    for ($t = 9; $t < 11; $t++) {
+        for ($d = 0, $c = 0; $c < $t; $c++) {
+            $d += $cpfPessoaDependente[$c] * (($t + 1) - $c);
+        }
+        $d = ((10 * $d) % 11) % 10;
+        if ($cpfPessoaDependente[$c] != $d) {
             echo "failed";
             return false;
         }

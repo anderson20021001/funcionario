@@ -183,7 +183,7 @@ include("inc/nav.php");
                                                                     <select id="emprego" class="required" name="emprego">
                                                                         <option hidden selected value=""> Selecione </option>
                                                                         <option value="1">Sim</option>
-                                                                        <option value="0">Não</option>                                                                        
+                                                                        <option value="0">Não</option>
                                                                     </select><i></i>
                                                                 </label>
                                                             </section>
@@ -768,6 +768,24 @@ include("inc/scripts.php");
                     return false;
             };
 
+            document.getElementById("rg").onkeypress = function(e) {
+                var chr = String.fromCharCode(e.which);
+                if ("1234567890".indexOf(chr) < 0)
+                    return false;
+            };
+
+            document.getElementById("cpf").onkeypress = function(e) {
+                var chr = String.fromCharCode(e.which);
+                if ("1234567890".indexOf(chr) < 0)
+                    return false;
+            };
+
+            document.getElementById("pis").onkeypress = function(e) {
+                var chr = String.fromCharCode(e.which);
+                if ("1234567890".indexOf(chr) < 0)
+                    return false;
+            };
+
 
             document.getElementById("complemento").onkeypress = function(e) {
                 var chr = String.fromCharCode(e.which);
@@ -776,17 +794,20 @@ include("inc/scripts.php");
             };
         });
 
+
         $('#nome').on("focusout", campo => {
             if (["1", "2", "3", "4", "5", "6", "7", "8", "9"].find(valor => valor == campo.currentTarget.value ? true : false)) {
                 smartAlert("Atenção", "No puede digitar", "error");
                 $('#nome').val('');
             } else {
-                $('#nome').val((campo.currentTarget.value).trim());
+                $('#nome').val((campo.currentTarget.value).replace(/( )+/g, " "));
             }
 
         });
+        // var str = "Esta        string       tem    alguns espaços     desnecessários!";
+        // console.log(str); // "Esta string tem alguns espaços desnecessários!"
 
-        $('#emprego').on("change", campo => +campo.currentTarget.value ? $('#pis').addClass("readonly").attr("disabled", true) : $('#pis').removeClass("readonly").attr("disabled", false))
+        $('#emprego').on("change", campo => +campo.currentTarget.value ? $('#pis').addClass("readonly").attr("disabled", true).val("") : $('#pis').removeClass("readonly").attr("disabled", false))
 
         var SPMaskBehavior = function(val) {
                 return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00000';
@@ -906,7 +927,7 @@ include("inc/scripts.php");
         var cidade = $("#cidade").val();
         var emprego = $("#emprego").val();
         var pis = $("#pis").val();
-        var jsonTelefoneArray = $("#jsonTelefone").val();
+        // var jsonTelefoneArray = $("#jsonTelefone").val();
 
         if (nome == "") {
             smartAlert("Atenção", "Informe o nome !", "error");

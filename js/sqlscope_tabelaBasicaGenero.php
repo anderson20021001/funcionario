@@ -38,7 +38,7 @@ if ($funcao == 'verificaGenero') {
 
 function gravaGenero()
 {
-
+    
     if ((empty($_POST['id'])) || (!isset($_POST['id'])) || (is_null($_POST['id']))) {
         $id = 0;
     } else {
@@ -198,6 +198,7 @@ function verificaGenero(){
     $ret = 'sucess#Pode Cadastrar gênero';
     if (count($result)>0) {
         $ret = 'failed#Gênero já cadastrado';
+        
     }
     echo $ret;
     return;

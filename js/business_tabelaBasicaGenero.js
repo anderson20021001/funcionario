@@ -39,7 +39,7 @@ function verificaGenero(descricao) {
         url: 'js/sqlscope_tabelaBasicaGenero.php', //caminho do arquivo a ser executado
         dataType: 'html', //tipo do retorno
         type: 'post', //metodo de envio
-        data: {funcao: 'verificaGenero', descricao:descricao}, //valores enviados ao script     
+        data: {funcao: 'verificaGenero', descricao: descricao}, //valores enviados ao script     
         beforeSend: function () {
             //função chamada antes de realizar o ajax
         },
@@ -47,22 +47,20 @@ function verificaGenero(descricao) {
             //função executada depois de terminar o ajax
         },
         success: function (data, textStatus) {
-            var piece = data.split("#");
-            
-        var mensagem = piece[1];
             if (data.indexOf('failed') > -1) {
                 var piece = data.split("#");
                 var mensagem = piece[1];
 
                 if (mensagem !== "") {
                     smartAlert("Atenção", mensagem, "error");
+                    $("#descricao").val("");
                 } else {
                     smartAlert("Atenção", "Operação não realizada - entre em contato com a GIR!", "error");
                 }
                 
             } else {
-                smartAlert("Sucesso", mensagem, "success");
-            
+                // smartAlert("Sucesso", "Gênero válido!", "success");
+                
             }
         },
         error: function (xhr, er) {

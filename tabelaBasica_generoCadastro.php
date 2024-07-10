@@ -102,7 +102,7 @@ include("inc/nav.php");
                                                         <div class="row">
                                                         </div>
                                                         <div class="row">
-                                                            <section class="col col-4">
+                                                            <section class="col col-2">
                                                                 <label class="label">Descrição</label>
                                                                 <label class="input"><i class=""></i>
                                                                     <input id="descricao" maxlength="255" name="descricao" class="required" type="text" value="">
@@ -363,8 +363,12 @@ include("inc/scripts.php");
         });
 
         $("#btnGravar").on("click", function() {
-            
-            gravarGenero();
+            verificarGenero();
+            document.getElementById("btnGravar").disabled = true;
+            setTimeout(function() {
+                document.getElementById("btnGravar").disabled = false
+                gravarGenero();
+            }, 550)
         });
 
         $("#btnVoltar").on("click", function() {
@@ -382,7 +386,7 @@ include("inc/scripts.php");
             smartAlert("Atenção", "No puede digitar", "error");
             $('#descricao').val('');
         } else {
-            $('#descricao').val((campo.currentTarget.value).trim());
+            $('#descricao').val((campo.currentTarget.value).replace(/( )+/g, " "));
         }
 
     });
@@ -426,12 +430,10 @@ include("inc/scripts.php");
         excluirGenero(id);
     }
 
-    function verificarGenero() {
-        var descricao = $("#descricao").val();
-        verificaGenero(descricao)
-        // $("#descricao").val("");
-        return false
+    function verificarGenero(genero) {
 
+        genero = $("#descricao").val();
+        verificaGenero(genero);
     }
 
     function gravarGenero() {
@@ -446,10 +448,10 @@ include("inc/scripts.php");
 
         }
 
-        if (descricao.length === 0 || descricao.trim()) {
-            $("#descricao").focus();
-            return
-        }
+        // if (descricao.length === 0 || descricao.trim()) {
+        //     $("#descricao").focus();
+        //     return
+        // }
 
         gravaGenero(codigo, ativo, descricao);
     }

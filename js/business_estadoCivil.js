@@ -34,12 +34,12 @@ function gravaEstadoCivilPessoa(codigo, ativo, estadoCivil) {
     return '';
 
 }
-function verificaCpf(cpf) {
+function verificaEstadoCivil(estadoCivil) {
     $.ajax({
-        url: 'js/sqlscopeFuncionarioCadastro.php', //caminho do arquivo a ser executado
+        url: 'js/sqlscope_estadoCivil.php', //caminho do arquivo a ser executado
         dataType: 'html', //tipo do retorno
         type: 'post', //metodo de envio
-        data: {funcao: 'verificaCpf', cpf: cpf}, //valores enviados ao script     
+        data: {funcao: 'verificaEstadoCivil', estadoCivil: estadoCivil}, //valores enviados ao script     
         beforeSend: function () {
             //função chamada antes de realizar o ajax
         },
@@ -47,21 +47,20 @@ function verificaCpf(cpf) {
             //função executada depois de terminar o ajax
         },
         success: function (data, textStatus) {
-            var piece = data.split("#");
-        var mensagem = piece[1];
             if (data.indexOf('failed') > -1) {
                 var piece = data.split("#");
                 var mensagem = piece[1];
 
                 if (mensagem !== "") {
                     smartAlert("Atenção", mensagem, "error");
+                    $("#estadoCivil").val("");
                 } else {
                     smartAlert("Atenção", "Operação não realizada - entre em contato com a GIR!", "error");
                 }
                 
             } else {
-                smartAlert("Sucesso", mensagem, "success");
-            
+                // smartAlert("Sucesso", "Gênero válido!", "success");
+                
             }
         },
         error: function (xhr, er) {
@@ -69,6 +68,7 @@ function verificaCpf(cpf) {
         }
     });
 }
+
 
 function recuperaEstadoCivil(id) {
     $.ajax({

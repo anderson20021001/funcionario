@@ -84,26 +84,26 @@ include("inc/nav.php");
                                                             <section class="col col-3">
                                                                 <label class="label">Nome</label>
                                                                 <label class="input"><i class="icon-prepend fa fa-user"></i>
-                                                                    <input id="nome" maxlength="50" name="nome" type="text" value="">
+                                                                    <input id="nome" maxlength="50" name="nome" type="text" value="" onpaste="return false" ondrop="return false">
                                                                 </label>
                                                             </section>
                                                             <section class="col col-3">
                                                                 <label class="label">CPF</label>
                                                                 <label class="input"><i class="icon-prepend fa fa-address-card"></i>
-                                                                    <input id="cpf" maxlength="50" name="cpf" type="text" value="">
+                                                                    <input id="cpf" maxlength="50" name="cpf" type="text" value="" onpaste="return false" ondrop="return false">
                                                                 </label>
                                                             </section>
                                                             <section class="col col-2">
                                                                 <label class="label">Data de Nascimento - Início</label>
                                                                 <label class="input"><i class=" icon-prepend fa fa-calendar"></i>
-                                                                    <input id="dataNascimento" maxlength="50" name="dataNascimento" type="text" class="datepicker" value="">
+                                                                    <input id="dataNascimento" maxlength="50" name="dataNascimento" type="text" class="datepicker" value="" onpaste="return false" ondrop="return false">
                                                                 </label>
                                                             </section>
 
                                                             <section class="col col-2">
                                                                 <label class="label">Data de Nascimento - Fim </label>
                                                                 <label class="input"><i class=" icon-prepend fa fa-calendar"></i>
-                                                                    <input id="dataFim" maxlength="50" name="dataFim" type="text" value="">
+                                                                    <input id="dataFim" maxlength="50" name="dataFim" type="text" value="" onpaste="return false" ondrop="return false">
                                                                 </label>
                                                             </section>
 

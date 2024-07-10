@@ -27,6 +27,12 @@ if ($funcao == 'gravarNovaSenha') {
 if ($funcao == 'verificaCpf') {
     call_user_func($funcao);
 }
+
+if ($funcao == 'verificaEstadoCivil') {
+    call_user_func($funcao);
+}
+
+
 // 
 // return;
 
@@ -185,6 +191,33 @@ function verificaRG(){
     $ret = 'sucess#Pode Cadastrar rg';
     if (count($result)>0) {
         $ret = 'failed#rg ja cadastrado';
+    }
+    echo $ret;
+    return;
+}
+
+function verificaEstadoCivil(){
+    if ((empty($_POST['codigo'])) || (!isset($_POST['codigo'])) || (is_null($_POST['codigo']))) {
+        $id = 0;
+    } else {
+        $id = $_POST["codigo"];
+    }
+
+
+    $reposit = new reposit();
+    $utils = new comum();
+
+    $estadoCivil = $utils->formatarString($_POST['estadoCivil']);
+
+    $sql = "SELECT estadoCivil from dbo.estadoCivil where estadoCivil = $estadoCivil";
+
+    $reposit = new reposit();
+    $result = $reposit->RunQuery($sql);
+
+    $ret = 'sucess#Pode Cadastrar Estado Civil';
+    if (count($result)>0) {
+        $ret = 'failed#Estado Cívil já cadastrado';
+        
     }
     echo $ret;
     return;

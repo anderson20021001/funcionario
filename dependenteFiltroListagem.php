@@ -13,7 +13,7 @@ include "js/repositorio.php";
             </thead>
             <tbody>
                 <?php
-                $dependente = "";
+                $descricaoFiltro = "";
                 $where = " WHERE (0 = 0)";
 
                 // $nomeFiltro = "$nome";
@@ -21,11 +21,11 @@ include "js/repositorio.php";
                 //     $nomeFiltro = $_GET["nomeFiltro"];
                 //     $where = $where . " AND (USU.[login] like '%' + " . "replace('" . $nomeFiltro . "',' ','%') + " . "'%')";
                 // }
-
-                 $dependente = $dependente;
+                
+                $descricao = $descricao;
                 if ($_POST["descricaoFiltro"] != "") {
                     $descricaoFiltro = $_POST["descricaoFiltro"];
-                    $where = $where . " AND (descricao like '%' + " . "replace('" . $descricaoFiltro . "',' ','%') + " . "'%')";
+                    $where = $where . " AND (dependente like '%' + " . "replace('" . $descricaoFiltro . "',' ','%') + " . "'%')";
                 }
 
 

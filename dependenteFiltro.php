@@ -81,7 +81,7 @@ include("inc/nav.php");
                                                     <fieldset>
                                                         <div class="row">
                                                             <section class="col col-3">
-                                                                <label class="label">Dependentes</label>
+                                                                <label class="label">Descrição</label>
                                                                 <label class="input"><i class="icon-prepend fa fa-user"></i>
                                                                     <input id="dependente" maxlength="50" name="dependente" type="text" value="">
                                                                 </label>
@@ -173,12 +173,12 @@ include("inc/scripts.php");
     });
 
     function listarFiltro() {
-        var dependente = $('#dependente').val();
+        var descricao = $('#dependente').val();
         var ativo = $('#ativo').val();
     
 
         $('#resultadoBusca').load('dependenteFiltroListagem.php?', {
-            dependenteFiltro: dependente,
+            descricaoFiltro: descricao,
             ativoFiltro: ativo
         });
     }
