@@ -162,7 +162,14 @@ include("inc/scripts.php");
 <script src="<?php echo ASSETS_URL; ?>/js/plugin/fullcalendar/locale-all.js"></script>
 
 
+
+
 <script>
+    document.getElementById("estadoCivil").onkeypress = function(e) {
+        var chr = String.fromCharCode(e.which);
+        if ("qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM".indexOf(chr) < 0)
+            return false;
+    };
     $(document).ready(function() {
         $('#btnSearch').on("click", function() {
             listarFiltro();
@@ -175,7 +182,7 @@ include("inc/scripts.php");
     function listarFiltro() {
         var descricao = $('#estadoCivil').val();
         var ativo = $('#ativo').val();
-    
+
 
         $('#resultadoBusca').load('estadoCivilFiltroListagem.php?', {
             descricaoFiltro: descricao,

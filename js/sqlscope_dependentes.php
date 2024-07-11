@@ -107,6 +107,7 @@ function recuperaDependente()
     }
 
     echo "sucess#" . $out;
+    verificaDependente();
     return;
 }
 

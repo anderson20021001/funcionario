@@ -6,7 +6,6 @@ include "js/repositorio.php";
         <table id="tableSearchResult" class="table table-bordered table-striped table-condensed table-hover dataTable">
             <thead>
                 <tr role="row">
-                    <th class="text-left" style="min-width:20px;">Codigo</th>
                     <th class="text-left" style="min-width:20px;">Dependentes</th>
                     <th class="text-left" style="min-width:25px;">Ativo</th>
                 </tr>
@@ -14,7 +13,7 @@ include "js/repositorio.php";
             <tbody>
                 <?php
                 $descricaoFiltro = "";
-                $where = " WHERE (0 = 0)";
+                $where = " WHERE (0 = 0) order by dependente asc";
 
                 // $nomeFiltro = "$nome";
                 // if ($_GET["nomeFiltro"] != "") {
@@ -45,6 +44,8 @@ include "js/repositorio.php";
 
                 $sql = " select codigo, dependente, ativo from dbo.dependente";
 
+
+
                 $sql = $sql . $where;
                 $reposit = new reposit();
                 $result = $reposit->RunQuery($sql);
@@ -60,8 +61,7 @@ include "js/repositorio.php";
                     }
 
                     echo '<tr >';
-                    echo '<td class="text-left"><a href="dependentes.php?id=' . $codigo . '">' . $codigo . '</a></td>';
-                    echo '<td class="text-left">' . $dependente . '</td>';
+                    echo '<td class="text-left"><a href="dependentes.php?id=' . $codigo . '">' . $dependente . '</a></td>';
                     echo '<td class="text-left">' . $descricaoAtivo . '</td>';
                 }
                 ?>

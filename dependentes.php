@@ -395,7 +395,7 @@ include("inc/scripts.php");
 
     document.getElementById("dependente").onkeypress = function(e) {
         var chr = String.fromCharCode(e.which);
-        if ("qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM-()óô ".indexOf(chr) < 0)
+        if ("qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM-()óôíáé ".indexOf(chr) < 0)
             return false;
     }
 

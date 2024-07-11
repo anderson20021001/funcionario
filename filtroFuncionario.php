@@ -90,7 +90,7 @@ include("inc/nav.php");
                                                             <section class="col col-3">
                                                                 <label class="label">CPF</label>
                                                                 <label class="input"><i class="icon-prepend fa fa-address-card"></i>
-                                                                    <input id="cpf" maxlength="50" name="cpf" type="text" value="" onpaste="return false" ondrop="return false">
+                                                                    <input id="cpf" maxlength="50" name="cpf" type="text" value=""  ondrop="return false">
                                                                 </label>
                                                             </section>
                                                             <section class="col col-2">

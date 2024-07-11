@@ -6,7 +6,7 @@ include "js/repositorio.php";
         <table id="tableSearchResult" class="table table-bordered table-striped table-condensed table-hover dataTable">
             <thead>
                 <tr role="row">
-                    <th class="text-left" style="min-width:20px;">Codigo</th>
+                    <!-- <th class="text-left" style="min-width:20px;">Codigo</th> -->
                     <th class="text-left" style="min-width:20px;">Nome</th>
                     <th class="text-left" style="min-width:20px;">Data de Nascimento</th>
                     <th class="text-left" style="min-width:25px;">Cpf</th>
@@ -94,8 +94,8 @@ include "js/repositorio.php";
                     };
 
                     echo '<tr >';
-                    echo '<td class="text-left"><a href="cadastroFuncionario.php?id=' . $codigo . '">' . $codigo . '</a></td>';
-                    echo '<td class="text-left">' . $nome . '</td>';
+                    // echo '<td class="text-left"><a href="cadastroFuncionario.php?id=' . $codigo . '">' . $codigo . '</a></td>';
+                    echo '<td class="text-left"><a href="cadastroFuncionario.php?id=' . $codigo . '">' . $nome . '</a></td>';
                     echo '<td class="text-left">' . $dataNascimento . '</td>';
                     echo '<td class="text-left">' . $cpf . '</td>';
                     echo '<td class="text-left">' . $descricaoAtivo . '</td>';

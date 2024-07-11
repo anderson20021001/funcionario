@@ -105,7 +105,7 @@ include("inc/nav.php");
                                                             <section class="col col-2">
                                                                 <label class="label">Estado Civil</label>
                                                                 <label class="input"><i class=""></i>
-                                                                    <input id="estadoCivil" maxlength="255" name="estadoCivil" class="required" type="text" value="">
+                                                                    <input id="estadoCivil" maxlength="255" name="estadoCivil" class="required" type="text" onpaste="return false" ondrop="return false" value="">
                                                                 </label>
                                                             </section>
                                                         </div>
@@ -437,7 +437,7 @@ include("inc/scripts.php");
         var ativo = $('#ativo').val();
         var estadoCivil = $("#estadoCivil").val();
 
-        if (estadoCivil == "") {
+        if (estadoCivil == "" || estadoCivil == " ") {
             smartAlert("Atenção", "Informe o Estado Cívil !", "error");
             $("#estadoCivil").focus();
             return false;

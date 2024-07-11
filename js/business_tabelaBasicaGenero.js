@@ -212,7 +212,7 @@ function excluirGenero(id) {
                 novo();
             } else {
                 smartAlert("Sucesso", "Operação realizada com sucesso!", "success");
-                novo();
+                voltar();
             }
         },
         error: function (xhr, er) {

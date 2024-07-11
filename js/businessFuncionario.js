@@ -201,7 +201,7 @@ function recuperaUsuario(id) {
                 $("#cpf").val(cpf);
                 $("#rg").val(rg);
                 $("#dataNascimento").val(dataNascimento);
-                // calcularIdade()
+                defineIdade();
                 $("#genero").val(genero);
                 $("#estadoCivil").val(estadoCivil);
                 $("#jsonTelefone").val(jsonTelefone);
