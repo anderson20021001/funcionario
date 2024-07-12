@@ -1,10 +1,10 @@
-function gravaUsuario(id, ativo, nome, cpf, rg, dataNascimento, genero, estadoCivil, jsonTelefoneArray, jsonEmailArray, jsonDependenteArray, cep, logradouro, complemento, numero, uf, bairro, cidade, emprego, pis) {
+function gravaUsuario(codigo, ativo, nome, cpf, rg, dataNascimento, genero, estadoCivil, jsonTelefoneArray, jsonEmailArray, jsonDependenteArray, cep, logradouro, complemento, numero, uf, bairro, cidade, emprego, pis) {
     $.ajax({
         url: 'js/sqlscopeFuncionarioCadastro.php',
         dataType: 'html', //tipo do retorno
         type: 'post', //metodo de envio
         data: {
-            funcao: "grava", id: id, ativo: ativo, nome: nome, cpf: cpf, rg: rg, dataNascimento: dataNascimento, genero: genero, estadoCivil: estadoCivil, jsonTelefoneArray: jsonTelefoneArray, jsonEmailArray: jsonEmailArray, jsonDependenteArray: jsonDependenteArray,
+            funcao: "grava", codigo: codigo, ativo: ativo, nome: nome, cpf: cpf, rg: rg, dataNascimento: dataNascimento, genero: genero, estadoCivil: estadoCivil, jsonTelefoneArray: jsonTelefoneArray, jsonEmailArray: jsonEmailArray, jsonDependenteArray: jsonDependenteArray,
             cep: cep, logradouro: logradouro, complemento: complemento, numero: numero, uf: uf, bairro: bairro, cidade: cidade, emprego: emprego, pis: pis
         }, //valores enviados ao script     
         beforeSend: function () {
@@ -151,7 +151,6 @@ function verificaRG(rg) {
 }
 
 function recuperaUsuario(id) {
-    debugger
     $.ajax({
         url: 'js/sqlscopeFuncionarioCadastro.php', //caminho do arquivo a ser executado
         dataType: 'html', //tipo do retorno

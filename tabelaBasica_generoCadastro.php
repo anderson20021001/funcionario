@@ -363,7 +363,7 @@ include("inc/scripts.php");
         });
 
         $("#btnGravar").on("click", function() {
-            verificarGenero();
+           
             document.getElementById("btnGravar").disabled = true;
             setTimeout(function() {
                 document.getElementById("btnGravar").disabled = false
@@ -383,7 +383,7 @@ include("inc/scripts.php");
 
     $('#descricao').on("focusout", campo => {
         if (["1", "2", "3", "4", "5", "6", "7", "8", "9", " "].find(valor => valor == campo.currentTarget.value ? true : false)) {
-            smartAlert("Atenção", "No puede digitar", "error");
+            smartAlert("Atenção", "Corrigir Campo", "error");
             $('#descricao').val('');
         } else {
             $('#descricao').val((campo.currentTarget.value).replace(/( )+/g, " "));

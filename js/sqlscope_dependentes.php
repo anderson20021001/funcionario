@@ -33,10 +33,10 @@ if ($funcao == 'verificaDependente') {
 function gravaDependente()
 {
 
-    if ((empty($_POST['id'])) || (!isset($_POST['id'])) || (is_null($_POST['id']))) {
-        $id = 0;
+    if ((empty($_POST['codigo'])) || (!isset($_POST['codigo'])) || (is_null($_POST['codigo']))) {
+        $codigo = 0;
     } else {
-        $id = (int) $_POST["id"];
+        $id = (int) $_POST["codigo"];
     }
 
     if ((empty($_POST['ativo'])) || (!isset($_POST['ativo'])) || (is_null($_POST['ativo']))) {
@@ -55,7 +55,7 @@ function gravaDependente()
 
 
     $sql = "dbo.dependente_Atualiza
-     $id,
+     $codigo,
      $ativo,
      $dependente";
 
@@ -107,7 +107,7 @@ function recuperaDependente()
     }
 
     echo "sucess#" . $out;
-    verificaDependente();
+    
     return;
 }
 
@@ -203,15 +203,19 @@ function verificaDependente(){
 
     $descricao = $utils->formatarString($_POST['descricao']);
 
-    $sql = "SELECT dependente from dbo.dependente where dependente = $descricao";
+    $sql = "SELECT dependente from dbo.dependente where codigo != $id and dependente = $descricao";
 
     $reposit = new reposit();
     $result = $reposit->RunQuery($sql);
 
-    $ret = 'sucess#Pode Cadastrar gênero';
-    if (count($result)>0) {
-        $ret = 'failed#Dependente já cadastrado';
+    if (!$result) {
+        echo  "success";
+        return true;
+    } else {
+        $mensagem = "Informe o Dependente corretamente, pode estar cadastrado ou a forma digitada esteja errada!";
+        echo "failed#" . $mensagem . ' ';
     }
-    echo $ret;
+
     return;
+
 }

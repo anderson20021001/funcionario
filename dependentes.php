@@ -363,12 +363,12 @@ include("inc/scripts.php");
         });
 
         $("#btnGravar").on("click", function() {
-            verificarDependente();
+            // verificarDependente();
             document.getElementById("btnGravar").disabled = true;
             setTimeout(function() {
                 document.getElementById("btnGravar").disabled = false
                     gravarDependente();
-            }, 550)
+            }, 500)
             // gravarDependente();
         });
 

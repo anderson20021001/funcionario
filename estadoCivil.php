@@ -359,7 +359,7 @@ include("inc/scripts.php");
     });
 
     $("#btnGravar").on("click", function() {
-        verificarEstadoCivil();
+        // verificarEstadoCivil();
         document.getElementById("btnGravar").disabled = true;
         setTimeout(function() {
             document.getElementById("btnGravar").disabled = false;
@@ -437,7 +437,7 @@ include("inc/scripts.php");
         var ativo = $('#ativo').val();
         var estadoCivil = $("#estadoCivil").val();
 
-        if (estadoCivil == "" || estadoCivil == " ") {
+        if (estadoCivil == "") {
             smartAlert("Atenção", "Informe o Estado Cívil !", "error");
             $("#estadoCivil").focus();
             return false;

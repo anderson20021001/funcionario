@@ -42,7 +42,7 @@ include "js/repositorio.php";
                 }
 
 
-                $sql = " select codigo, dependente, ativo from dbo.dependente";
+                $sql = " SELECT codigo, dependente, ativo FROM dbo.dependente";
 
 
 

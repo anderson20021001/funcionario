@@ -23,7 +23,7 @@ function gravaDependente(codigo, ativo, dependente) {
                 return '';
             } else {
                 smartAlert("Sucesso", "Operação realizada com sucesso!", "success");
-                 setInterval(function(){novo()}, 1500);
+                 setInterval(function(){voltar()}, 1500);
             }
             //retorno dos dados
         },

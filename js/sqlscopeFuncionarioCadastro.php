@@ -47,10 +47,10 @@ if ($funcao == 'validaDataInversa') {
 function grava()
 {
 
-    if ((empty($_POST['id'])) || (!isset($_POST['id'])) || (is_null($_POST['id']))) {
-        $id = 0;
+    if ((empty($_POST['codigo'])) || (!isset($_POST['codigo'])) || (is_null($_POST['codigo']))) {
+        $codigo = 0;
     } else {
-        $id = (int) $_POST["id"];
+        $codigo = (int) $_POST["codigo"];
     }
 
     if ((empty($_POST['ativo'])) || (!isset($_POST['ativo'])) || (is_null($_POST['ativo']))) {
@@ -60,6 +60,7 @@ function grava()
     }
     $reposit = new reposit();
     $utils = new comum();
+
 
     $nome = $utils->formatarString($_POST['nome']);
     $cpf = $utils->formatarString($_POST['cpf']);
@@ -185,7 +186,7 @@ function grava()
     $xmlDependente = "'" . $xmlDependente . "'";
 
     $sql = "dbo.funcionario_Atualiza
-     $id,
+     $codigo,
      $ativo,
      $nome,
      $cpf,

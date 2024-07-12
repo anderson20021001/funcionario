@@ -39,10 +39,10 @@ if ($funcao == 'verificaEstadoCivil') {
 function gravaEstadoCivilPessoa()
 {
 
-    if ((empty($_POST['id'])) || (!isset($_POST['id'])) || (is_null($_POST['id']))) {
-        $id = 0;
+    if ((empty($_POST['codigo'])) || (!isset($_POST['codigo'])) || (is_null($_POST['codigo']))) {
+        $codigo = 0;
     } else {
-        $id = (int) $_POST["id"];
+        $id = (int) $_POST["codigo"];
     }
 
     if ((empty($_POST['ativo'])) || (!isset($_POST['ativo'])) || (is_null($_POST['ativo']))) {
@@ -208,17 +208,20 @@ function verificaEstadoCivil(){
     $utils = new comum();
 
     $estadoCivil = $utils->formatarString($_POST['estadoCivil']);
+    
 
-    $sql = "SELECT estadoCivil from dbo.estadoCivil where estadoCivil = $estadoCivil";
+    $sql = "SELECT estadoCivil from dbo.estadoCivil where estadoCivil = $estadoCivil AND codigo != $id";
 
     $reposit = new reposit();
     $result = $reposit->RunQuery($sql);
 
-    $ret = 'sucess#Pode Cadastrar Estado Civil';
-    if (count($result)>0) {
-        $ret = 'failed#Estado Cívil já cadastrado';
-        
+    if (!$result) {
+        echo  "success";
+        return true;
+    } else {
+        $mensagem = "Informe o Estado Cívil corretamente, pode estar cadastrado ou a forma digitada esteja errada!";
+        echo "failed#" . $mensagem . ' ';
     }
-    echo $ret;
+
     return;
 }

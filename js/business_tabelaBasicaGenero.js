@@ -59,7 +59,7 @@ function verificaGenero(descricao) {
                 }
                 
             } else {
-                // smartAlert("Sucesso", "Gênero válido!", "success");
+                //  smartAlert("Sucesso", "Gênero válido!", "success");
                 
             }
         },

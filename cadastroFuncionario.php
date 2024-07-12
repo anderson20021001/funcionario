@@ -917,7 +917,7 @@ include("inc/scripts.php");
     }
 
     function gravar() {
-        var id = +$("#codigo").val();
+        var codigo = +$("#codigo").val();
         var ativo = $('#ativo').val();
         var nome = $("#nome").val();
         var cpf = $("#cpf").val();
@@ -1003,7 +1003,7 @@ include("inc/scripts.php");
             return false;
         }
 
-        gravaUsuario(id, ativo, nome, cpf, rg, dataNascimento, genero, estadoCivil, jsonTelefoneArray, jsonEmailArray, jsonDependenteArray, cep, logradouro, complemento, numero, uf, bairro, cidade, emprego, pis);
+        gravaUsuario(codigo, ativo, nome, cpf, rg, dataNascimento, genero, estadoCivil, jsonTelefoneArray, jsonEmailArray, jsonDependenteArray, cep, logradouro, complemento, numero, uf, bairro, cidade, emprego, pis);
     }
 
     function verificarCpf() {

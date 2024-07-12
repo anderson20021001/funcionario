@@ -61,6 +61,13 @@ include "js/repositorio.php";
                     $where = $where . " AND dataNascimento <= '$dataFimFiltro'";;
                 }
 
+                $dataFimFiltro = $dataNascimento;
+                if ($_POST["dataFimFiltro"] != "") {
+                    $dataNascimentoFiltro = $_POST["dataNascimentoFiltro"];
+                    $dataFimFiltro = $_POST["dataFimFiltro"];
+                    $where = $where . " AND dataNascimento between '$dataFimFiltro'";;
+                }
+
 
                 $ativoFiltro = $ativo;
                 if ($_POST["ativoFiltro"] != "") {
