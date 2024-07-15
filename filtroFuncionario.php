@@ -96,14 +96,14 @@ include("inc/nav.php");
                                                             <section class="col col-2">
                                                                 <label class="label">Data de Nascimento - Início</label>
                                                                 <label class="input"><i class=" icon-prepend fa fa-calendar"></i>
-                                                                    <input id="dataNascimento" maxlength="50" name="dataNascimento" type="text" class="datepicker" value="" onpaste="return false" ondrop="return false">
+                                                                    <input id="dataNascimentoInicio" maxlength="50" name="dataNascimentoInicio" type="text" class="datepicker" value="" onpaste="return false" ondrop="return false">
                                                                 </label>
                                                             </section>
 
                                                             <section class="col col-2">
                                                                 <label class="label">Data de Nascimento - Fim </label>
                                                                 <label class="input"><i class=" icon-prepend fa fa-calendar"></i>
-                                                                    <input id="dataFim" maxlength="50" name="dataFim" type="text" value="" onpaste="return false" ondrop="return false">
+                                                                    <input id="dataNascimentoFim" maxlength="50" name="dataNascimentoFim" type="text" value="" onpaste="return false" ondrop="return false">
                                                                 </label>
                                                             </section>
 
@@ -192,25 +192,25 @@ include("inc/scripts.php");
             novo();
         });
 
-        $("#dataNascimento").mask('99/99/9999')
-        $("#dataFim").mask('99/99/9999')
+        $("#dataNascimentoInicio").mask('99/99/9999')
+        $("#dataNascimentoFim").mask('99/99/9999')
         $("#cpf").mask("999.999.999-99");
     });
     
 
     function listarFiltro() {
         var nome = $('#nome').val();
-        var dataNascimento = $('#dataNascimento').val();
-        var dataFim = $('#dataFim').val();
+        var dataNascimentoInicio = $('#dataNascimentoInicio').val();
+        var dataNascimentoFim = $('#dataNascimentoFim').val();       
         var cpf = $('#cpf').val();
         var ativo = $('#ativo').val();
 
         $('#resultadoBusca').load('exemploFiltroListagem.php?', {
-            nomeFiltro: nome,
-            dataNascimentoFiltro: dataNascimento,
-            dataFimFiltro: dataFim,
-            cpfFiltro: cpf,
-            ativoFiltro: ativo
+            nome: nome,
+            dataNascimentoInicio: dataNascimentoInicio,
+            dataNascimentoFim: dataNascimentoFim,
+            cpf: cpf,
+            ativo: ativo
         });
     }
 

@@ -92,14 +92,14 @@ function grava()
             $xmlTelefone = $xmlTelefone . "<" . $nomeTabela . ">";
             foreach ($chave as $campo => $valor) {
                 if ($campo == "telefonePrincipal") {
-                    if ($valor == "Sim")
+                    if ($valor == "1")
                         $valor = 1;
                     else
                         $valor = 0;
                 }
 
                 if ($campo == "telefoneWhatsapp") {
-                    if ($valor == "Sim")
+                    if ($valor == "true")
                         $valor = 1;
                     else
                         $valor = 0;
@@ -159,7 +159,7 @@ function grava()
 
     $nomeXml = "ArrayOfDependente";
     $nomeTabela = "dependente";
-    if (sizeof($dependente) > 0) {
+    if ($dependente) {
         $xmlDependente = '<?xml version="1.0"?>';
         $xmlDependente = $xmlDependente . '<' . $nomeXml . ' xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">';
         foreach ($dependente as $chave) {
@@ -538,7 +538,7 @@ function validaCPFDependente()
 
     $cpf = "'" . $_POST["cpfDependente"] . "'";
 
-    $sql = " SELECT cpfDependente FROM dbo.funcionarioDependente WHERE cpfDependente = $cpf ";
+    $sql = " SELECT cpfDependente FROM dbo.funcionarioDependente WHERE cpfDependente = $cpfDependente ";
     //achou 
     $reposit = new reposit();
     $result = $reposit->RunQuery($sql);

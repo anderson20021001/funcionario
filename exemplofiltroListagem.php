@@ -15,64 +15,75 @@ include "js/repositorio.php";
             </thead>
             <tbody>
                 <?php
-                $nomeFiltro = "";
+
                 $where = " WHERE (0 = 0)";
 
-                // $nomeFiltro = "$nome";
-                // if ($_GET["nomeFiltro"] != "") {
-                //     $nomeFiltro = $_GET["nomeFiltro"];
-                //     $where = $where . " AND (USU.[login] like '%' + " . "replace('" . $nomeFiltro . "',' ','%') + " . "'%')";
+                $nome = $_POST['nome'];
+                $dataNascimentoInicio = $_POST['dataNascimentoInicio'];
+                $dataNascimentoFim = $_POST['dataNascimentoFim'];
+                $cpf = $_POST['cpf'];
+                $ativo = $_POST['ativo'];
+
+                if ($nome != "") {
+                    $where = $where . " AND (nome like '%' + " . "replace('" . $nome . "',' ','%') + " . "'%')";
+                }
+
+                if ($cpf != "") {
+                    $where = $where . " AND cpf = '$cpf'";
+                }
+
+                if ($dataNascimentoInicio != "" && $dataNascimentoFim != "") {
+                    if ($dataNascimentoInicio) {
+                        $dataNascimentoInicio = explode(" ", $dataNascimentoInicio);
+                        $data = explode("/", $dataNascimentoInicio[0]);
+                        $dataNascimentoInicio = ($data[2] . "-" . $data[1] . "-" . $data[0]);
+                    };
+                    if ($dataNascimentoFim) {
+                        $dataNascimentoFim = explode(" ", $dataNascimentoFim);
+                        $data = explode("/", $dataNascimentoFim[0]);
+                        $dataNascimentoFim = ($data[2] . "-" . $data[1] . "-" . $data[0]);
+                    };
+                    $where = $where . " AND dataNascimento BETWEEN '$dataNascimentoInicio' AND '$dataNascimentoFim' ";
+                }
+
+
+
+                // if ($dataNascimentoInicio != "" && $dataNascimentoFim == "") {
+                //     $where = $where . " AND dataNascimento  >= $dataNascimentoInicio ";
                 // }
 
-                 $nomeFiltro = $nome;
-                if ($_POST["nomeFiltro"] != "") {
-                    $nomeFiltro = $_POST["nomeFiltro"];
-                    $where = $where . " AND (nome like '%' + " . "replace('" . $nomeFiltro . "',' ','%') + " . "'%')";
-                }
-
-
-                // $cpfFiltro = $cpf;
-                // if ($_POST["cpf"] != "") {
-                //     $cpfFiltro = $_POST["cpfFiltro"];
-                //     $where = $where . " AND (nome like '%' + " . "replace('" . $cpfFiltro . "',' ','%') + " . "'%')";
+                // if ($dataNascimentoInicio == "" && $dataNascimentoFim != "") {
+                //     $where = $where . " AND dataNascimento  <= $dataNascimentoFim ";
                 // }
 
-                 $cpfFiltro = $cpf;
-                if ($_POST["cpfFiltro"] != "") {
-                    $cpfFiltro = $_POST["cpfFiltro"];
-                    $where = $where . " AND cpf = '$cpfFiltro'";
-                }
-
-                $dataNascimentoFiltro = $dataNascimento;
-                if ($_POST["dataNascimentoFiltro"] != "") {
-                    $dataNascimentoFiltro = $_POST["dataNascimentoFiltro"];
-                    $where = $where . " AND dataNascimento >= '$dataNascimentoFiltro'";;
-                }
-
-                $dataNascimentoFiltro = $dataNascimento;
-                if ($_POST["dataNascimentoFiltro"] != "") {
-                    $dataNascimentoFiltro = $_POST["dataNascimentoFiltro"];
-                    $where = $where . " AND dataNascimento >= '$dataNascimentoFiltro'";;
-                }
-
-                $dataFimFiltro = $dataNascimento;
-                if ($_POST["dataFimFiltro"] != "") {
-                    $dataFimFiltro = $_POST["dataFimFiltro"];
-                    $where = $where . " AND dataNascimento <= '$dataFimFiltro'";;
-                }
-
-                $dataFimFiltro = $dataNascimento;
-                if ($_POST["dataFimFiltro"] != "") {
-                    $dataNascimentoFiltro = $_POST["dataNascimentoFiltro"];
-                    $dataFimFiltro = $_POST["dataFimFiltro"];
-                    $where = $where . " AND dataNascimento between '$dataFimFiltro'";;
-                }
 
 
-                $ativoFiltro = $ativo;
-                if ($_POST["ativoFiltro"] != "") {
-                    $ativoFiltro = $_POST["ativoFiltro"];
-                    $where = $where . " AND ativo = '$ativoFiltro'";;
+
+
+                // $dataNascimentoFiltro = $dataNascimento;
+                // if ($_POST["dataNascimentoFiltro"] != "") {
+                //     $dataNascimentoFiltro = $_POST["dataNascimentoFiltro"];
+                //     $where = $where . " AND dataNascimento >= '$dataNascimentoFiltro'";;
+                // }
+
+                // $dataFimFiltro = $dataFim;
+                // if ($_POST["dataFimFiltro"] != "") {
+                //     $dataFimFiltro = $_POST["dataFimFiltro"];
+                //     $where = $where . " AND dataNascimento <= '$dataFimFiltro'";;
+                // }
+
+                // $dataFimFiltro = $dataFim;
+                // if ($_POST["dataFimFiltro"] != "") {
+                //     $dataNascimentoFiltro = $_POST["dataNascimentoFiltro"];
+                //     $dataFimFiltro = $_POST["dataFimFiltro"];
+                //     $where = $where . " AND dataNascimento between '$dataFimFiltro'";;
+                // }
+
+
+                $ativo = $ativo;
+                if ($_POST["ativo"] != "") {
+                    $ativo = $_POST["ativo"];
+                    $where = $where . " AND ativo = '$ativo'";;
                 }
 
 
@@ -82,10 +93,10 @@ include "js/repositorio.php";
                 $reposit = new reposit();
                 $result = $reposit->RunQuery($sql);
 
-                foreach($result as $row) {
+                foreach ($result as $row) {
                     $codigo = (int) $row['codigo'];
                     $nome =  $row['nome'];
-                    $ativo = (int )$row['ativo'];
+                    $ativo = (int)$row['ativo'];
                     $cpf =   $row['cpf'];
                     $dataNascimento = $row['dataNascimento'];
                     if ($ativo == 1) {
@@ -93,11 +104,11 @@ include "js/repositorio.php";
                     } else {
                         $descricaoAtivo = "Não";
                     }
-                   
+
                     if ($dataNascimento) {
                         $dataNascimento = explode(" ", $dataNascimento);
                         $data = explode("-", $dataNascimento[0]);
-                        $dataNascimento = ($data[2]. "/". $data[1]. "/". $data[0]);
+                        $dataNascimento = ($data[2] . "/" . $data[1] . "/" . $data[0]);
                     };
 
                     echo '<tr >';
@@ -134,9 +145,10 @@ include "js/repositorio.php";
 
         /* TABLETOOLS */
         $('#tableSearchResult').dataTable({
-            // Tabletools options: 
+
+            // Tabletools options:
             //   https://datatables.net/extensions/tabletools/button_options
-            "sDom": "<'dt-toolbar'<'col-xs-12 col-sm-6'f><'col-sm-6 col-xs-6 hidden-xs'T>r>" +
+            "sDom": "<'dt-toolbar'<'col-xs-12 col-sm-6'f><'col-sm-6 col-xs-6 hidden-xs'B'l'C>r>" +
                 "t" +
                 "<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'i><'col-sm-6 col-xs-12'p>>",
             "oLanguage": {
@@ -144,7 +156,8 @@ include "js/repositorio.php";
                 "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
                 "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
                 "sInfoFiltered": "(Filtrados de _MAX_ registros)",
-                "sLengthMenu": "_MENU_ Resultados por página",
+                //"sLengthMenu": "_MENU_ Resultados por página",
+                "sLengthMenu": "_MENU_",
                 "sInfoPostFix": "",
                 "sInfoThousands": ".",
                 "sLoadingRecords": "Carregando...",
@@ -161,21 +174,22 @@ include "js/repositorio.php";
                     "sSortDescending": ": Ordenar colunas de forma descendente"
                 }
             },
-            "oTableTools": {
-                "aButtons": ["copy", "csv", "xls", {
-                        "sExtends": "pdf",
-                        "sTitle": "SmartAdmin_PDF",
-                        "sPdfMessage": "SmartAdmin PDF Export",
-                        "sPdfSize": "letter"
-                    },
-                    {
-                        "sExtends": "print",
-                        "sMessage": "Generated by SmartAdmin <i>(press Esc to close)</i>"
-                    }
-                ],
-                "sSwfPath": "js/plugin/datatables/swf/copy_csv_xls_pdf.swf"
-            },
+            "aaSorting": [],
+            "buttons": [
+                //{extend: 'copy', className: 'btn btn-default'},
+                //{extend: 'csv', className: 'btn btn-default'},
+                {
+                    extend: 'excel',
+                    className: 'btn btn-default'
+                },
+                {
+                    extend: 'pdf',
+                    className: 'btn btn-default'
+                },
+                //{extend: 'print', className: 'btn btn-default'}
+            ],
             "autoWidth": true,
+
             "preDrawCallback": function() {
                 // Initialize the responsive datatables helper once.
                 if (!responsiveHelper_datatable_tabletools) {
@@ -187,8 +201,7 @@ include "js/repositorio.php";
             },
             "drawCallback": function(oSettings) {
                 responsiveHelper_datatable_tabletools.respond();
-            }
+            },
         });
-
     });
 </script>
