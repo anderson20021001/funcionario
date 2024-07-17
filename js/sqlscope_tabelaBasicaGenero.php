@@ -42,7 +42,7 @@ function gravaGenero()
     if ((empty($_POST['codigo'])) || (!isset($_POST['codigo'])) || (is_null($_POST['codigo']))) {
         $codigo = 0;
     } else {
-        $id = (int) $_POST["codigo"];
+        $codigo = (int) $_POST["codigo"];
     }
 
     $reposit = new reposit();
@@ -52,7 +52,7 @@ function gravaGenero()
 
 
     $sql = "dbo.genero_Atualiza
-    $id,
+    $codigo,
     $ativo,
     $descricao";
 

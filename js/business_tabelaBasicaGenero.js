@@ -17,7 +17,7 @@ function gravaGenero(codigo, ativo, descricao) {
                 if (mensagem !== "") {
                     smartAlert("Atenção", mensagem, "error");
                 } else {
-                    smartAlert("Atenção", "Operação não realizada - entre em contato com a GIR!", "error");
+                    smartAlert("Atenção", "Operação não realizada", "error");
                 }
 
                 return '';

@@ -405,7 +405,7 @@ include("inc/nav.php");
                                                                 <section class="col col-3 ">
                                                                     <label class="label">Nome</label>
                                                                     <label class="input">
-                                                                        <input id="nomeDependente" name="nomeDependente" type="text" onpaste="return false" ondrop="return false" class="required">
+                                                                        <input id="nomeDependente" name="nomeDependente" type="text" onpaste="return false" ondrop="return false">
                                                                     </label>
                                                                 </section>
 
@@ -413,20 +413,20 @@ include("inc/nav.php");
                                                                 <section class="col col-2">
                                                                     <label class="label">CPF</label>
                                                                     <label class="input">
-                                                                        <input id="cpfDependente" maxlength="255" name="cpfDependente" type="text" value="" class="required">
+                                                                        <input id="cpfDependente" maxlength="255" name="cpfDependente" type="text" value="">
                                                                     </label>
                                                                 </section>
                                                                 <section class="col col-2">
                                                                     <label class="label">Data de Nascimento</label>
                                                                     <label class="input">
                                                                         <i class="icon-append fa fa-calendar"></i>
-                                                                        <input id="dataNascimentoDependente" name="dataNascimentoDependente" data-dateformat="dd/mm/yy" placeholder="dd/mm/aaaa" type="text" onpaste="return false" ondrop="return false" class="required datepicker" value="">
+                                                                        <input id="dataNascimentoDependente" name="dataNascimentoDependente" data-dateformat="dd/mm/yy" placeholder="dd/mm/aaaa" type="text" onpaste="return false" ondrop="return false" class="datepicker" value="">
                                                                     </label>
                                                                 </section>
                                                                 <section class="col col-2 col-auto" required>
                                                                     <label class="label" for="dependente">Dependentes</label>
                                                                     <label class="select">
-                                                                        <select id="tipoDependente" class="required" name="tipoDependente">
+                                                                        <select id="tipoDependente" name="tipoDependente">
                                                                             <!-- <option hidden selected value=""> Selecione </option> -->
                                                                             <option value=""> </option>
                                                                             <?php
@@ -675,10 +675,11 @@ include("inc/scripts.php");
 
         $("#btnAddTelefone").on("click", function() {
             if (validaTelefone() === true) {
-                validEmail(email);
+                // validEmail(email);
                 addTelefone();
+                clearFormTelefone();
             } else {
-                clearFormTelefone()
+                clearFormTelefone();
             }
         });
 
@@ -686,11 +687,12 @@ include("inc/scripts.php");
             if (validEmail()) {
                 if (validaEmail() === true) {
                     addEmail();
+                    
                 } else {
                     clearFormEmail()
                 }
             } else {
-                smartAlert("Atenção", "Email incorreto", "error");
+                smartAlert("Atenção", "Email inválido", "error");
                 clearFormEmail()
                 return false;
             }
@@ -1032,8 +1034,14 @@ include("inc/scripts.php");
     }
 
     function validarCPFDependente(cpfDependente) {
-
+        cpfFuncionario = $("#cpf").val();
         cpf = $("#cpfDependente").val();
+
+        if(cpfFuncionario == cpf){
+            smartAlert("Atenção", "cpf do dependente igual ao do funcionario", "error")
+            apagarCpfDependente();
+            return false
+        }
         validaCPFDependente(cpf);
     }
 
@@ -1044,6 +1052,10 @@ include("inc/scripts.php");
 
     function apagarCpf() {
         document.getElementById('cpf').value = "";
+    }
+
+    function apagarCpfDependente() {
+        document.getElementById('cpfDependente').value = "";
     }
 
     function verificarRG() {
@@ -1132,9 +1144,8 @@ include("inc/scripts.php");
         //Calculo da idade referente a Data de Nascimento
         var hoje = new Date();
         var nasc = new Date(data);
-        var idade = hoje.getFullYear() - nasc.getFullYear();
         var m = hoje.getMonth() - nasc.getMonth();
-        if (m < 0 || (m === 0 && hoje.getDate() < nasc.getDate())) idade--;
+        if (m < 0 || (m === 0 && hoje.getDate() < nasc.getDate() ));
 
         // if (idade <= 18) {
         //     // alert("Usuários com menos de 18 anos não podem ser cadastrados.");
@@ -1143,16 +1154,16 @@ include("inc/scripts.php");
         //     return false;
         // }
 
-        if (idade >= 14 && idade <= 150) {
-            // smartAlert("Sucesso","Data permitida.", "success")
-            $("#idade").val(idade)
-            $("#btnGravar").prop('disabled', false);
-            return;
-        }
+        // if (idade >= 14 && idade <= 150) {
+        //     // smartAlert("Sucesso","Data permitida.", "success")
+        //     $("#idade").val(idade)
+        //     $("#btnGravar").prop('disabled', false);
+        //     return;
+        // }
 
         //Idade superior a 50 não altera o cadastro
 
-        if (hoje) return false;
+       
     }
 
     //TABELA DE TELEFONEf
@@ -1357,6 +1368,8 @@ include("inc/scripts.php");
             $("#sequencialTel").val(item.sequencialTel);
             $("#telefoneId").val(item.telefoneId);
             $("#telefone").val(item.telefone);
+            $("#telefonePrincipal").prop('checked', true);
+            $("#telefoneWhatsapp").prop('checked', true);
 
         }
     }
@@ -1365,6 +1378,8 @@ include("inc/scripts.php");
         $("#sequencialTel").val("");
         $("#telefoneId").val("");
         $("#telefone").val("");
+        $("#telefonePrincipal").prop('checked', false);
+        $("#telefoneWhatsapp").prop('checked', false);
         return true;
     }
 
@@ -1504,14 +1519,14 @@ include("inc/scripts.php");
                 value: valorTel
             };
         }
-        if (fieldName !== '' && (fieldId === "telefonePrincipal")) {
+        if (fieldName !== '' && (fieldId === "emailPrincipal")) {
             var telefonePrincipal = 0;
-            if ($("#telefonePrincipal").is(':checked') === true) {
-                telefonePrincipal = 1;
+            if ($("#emailPrincipal").is(':checked') === true) {
+                emailPrincipal = 1;
             }
             return {
                 name: fieldName,
-                value: telefonePrincipal
+                value: emailPrincipal
             };
         }
 
@@ -1551,6 +1566,7 @@ include("inc/scripts.php");
             $("#sequencialEmail").val(item.sequencialEmail);
             $("#emailId").val(item.emailId);
             $("#email").val(item.email);
+            $("#emailPrincipal").prop('checked', true);
         }
     }
 
@@ -1558,6 +1574,7 @@ include("inc/scripts.php");
         $("#sequencialEmail").val("");
         $("#emailId").val("");
         $("#email").val("");
+        $("#emailPrincipal").prop('checked', false);
         return true;
     }
 
@@ -1702,10 +1719,10 @@ include("inc/scripts.php");
         var fieldId = node.getAttribute ? node.getAttribute('id') : '';
         var fieldName = node.getAttribute ? node.getAttribute('name') : '';
 
-        if (fieldName !== '' && (fieldId === "telefone")) {
-            var valorTel = $("#telefone").val();
+        if (fieldName !== '' && (fieldId === "dependente")) {
+            var valorTel = $("#dependente").val();
             if (valorTel !== '') {
-                fieldName = "telefone";
+                fieldName = "dependente";
             }
             return {
                 name: fieldName,

@@ -61,7 +61,7 @@ function gravaEstadoCivilPessoa()
 
 
     $sql = "dbo.estadoCivil_Atualiza
-     $id,
+     $codigo,
      $ativo,
      $estadoCivil";
 

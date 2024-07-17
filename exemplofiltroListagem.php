@@ -32,6 +32,12 @@ include "js/repositorio.php";
                     $where = $where . " AND cpf = '$cpf'";
                 }
 
+                
+                if ($dataNascimentoInicio != "") {
+                    $where = $where . " AND dataNascimento  = '$dataNascimentoInicio' OR dataNascimento BETWEEN '$dataNascimentoInicio' AND '$dataNascimentoFim' ";
+                }
+
+
                 if ($dataNascimentoInicio != "" && $dataNascimentoFim != "") {
                     if ($dataNascimentoInicio) {
                         $dataNascimentoInicio = explode(" ", $dataNascimentoInicio);
@@ -47,10 +53,6 @@ include "js/repositorio.php";
                 }
 
 
-
-                // if ($dataNascimentoInicio != "" && $dataNascimentoFim == "") {
-                //     $where = $where . " AND dataNascimento  >= $dataNascimentoInicio ";
-                // }
 
                 // if ($dataNascimentoInicio == "" && $dataNascimentoFim != "") {
                 //     $where = $where . " AND dataNascimento  <= $dataNascimentoFim ";
