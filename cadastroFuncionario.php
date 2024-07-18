@@ -70,7 +70,7 @@ include("inc/nav.php");
                         </header>
                         <div>
                             <div class="widget-body no-padding">
-                                <form class="smart-form client-form" id="formUsuario">
+                                <form class="smart-form client-form" id="formUsuario" autocomplete="new-password">
                                     <div class="panel-group smart-accordion-default" id="accordion">
                                         <div class="panel panel-default">
                                             <div class="panel-heading">
@@ -104,21 +104,22 @@ include("inc/nav.php");
                                                             <section class="col col-2">
                                                                 <label class="label">Nome</label>
                                                                 <label class="input"><i class="icon-prepend fa fa-user"></i>
-                                                                    <input id="nome" name="nome" pattern="[a-zA]" class="required" onpaste="return false" ondrop="return false" type="text" value="">
+                                                                    <input id="nome" name="nome" pattern="[a-zA]" class="required" onpaste="return false" ondrop="return false" type="text" autocomplete="new-password" maxlength="50" value="">
                                                                 </label>
                                                             </section>
                                                             <section class="col col-2">
                                                                 <label class="label">CPF</label>
                                                                 <label class="input">
-                                                                    <input id="cpf" maxlength="14" name="cpf" type="text" ondrop="return false" class="required" value="" placeholder="xxx.xxx.xxx-xx">
+                                                                    <input id="cpf" maxlength="14" name="cpf" type="text" ondrop="return false" class="required" value="" placeholder="xxx.xxx.xxx-xx" autocomplete="new-password">
                                                                 </label>
                                                             </section>
                                                             <section class="col col-2">
                                                                 <label class="label">RG</label>
                                                                 <label class="input">
-                                                                    <input id="rg" maxlength="12" name="rg" type="text" class="required" onpaste="return false" ondrop="return false" value="" placeholder="xx.xxx.xxx-x">
+                                                                    <input id="rg" maxlength="12" name="rg" type="text" class="required" onpaste="return false" ondrop="return false" value="" placeholder="xx.xxx.xxx-x" autocomplete="new-password">
                                                                 </label>
                                                             </section>
+
                                                             <!-- <section class="col col-2">
                                                             <label class="label"> Data de Nascimento</label>
                                                             <label class="input">                                                                
@@ -126,11 +127,12 @@ include("inc/nav.php");
                                                                 <input id="dataNascimento" name="dataNascimento" type="text" class="datepicker">
                                                                 </label>
                                                             </section> -->
+
                                                             <section class="col col-2">
                                                                 <label class="label" for="dataNascimento">Data de Nascimento</label>
                                                                 <label class="input">
                                                                     <i class="icon-append fa fa-calendar"></i>
-                                                                    <input id="dataNascimento" name="dataNascimento" data-dateformat="dd/mm/yy" placeholder="dd/mm/aaaa" type="text" onpaste="return false" ondrop="return false" class="required datepicker" value="">
+                                                                    <input id="dataNascimento" name="dataNascimento" data-dateformat="dd/mm/yy" placeholder="dd/mm/aaaa" type="text" onpaste="return false" ondrop="return false" class="required datepicker text-center" autocomplete="new-password" value="">
                                                                 </label>
                                                             </section>
                                                             <section class="col col-1">
@@ -191,7 +193,7 @@ include("inc/nav.php");
                                                             <section class="col col-2">
                                                                 <label class="label">Pis</label>
                                                                 <label class="input">
-                                                                    <input id="pis" name="pis" class="required" type="text" onpaste="return false" ondrop="return" value="">
+                                                                    <input id="pis" name="pis" class="required" type="text" onpaste="return false" ondrop="return" autocomplete="new-password" placeholder="999.99999.99-9" value="">
                                                                 </label>
                                                             </section>
                                                         </div>
@@ -223,7 +225,7 @@ include("inc/nav.php");
                                                                 <section class="col col-4">
                                                                     <label class="label">Telefone</label>
                                                                     <label class="input"><i class="icon-prepend fa fa-phone"></i>
-                                                                        <input id="telefone" name="telefone" class="required" type="tel" onpaste="return false" ondrop="return false" class="form-control" value="">
+                                                                        <input id="telefone" name="telefone" class="required" type="tel" onpaste="return false" ondrop="return false" class="form-control" value="" autocomplete="new-password">
                                                                     </label>
                                                                 </section>
                                                                 <section class="col col-2">
@@ -276,7 +278,7 @@ include("inc/nav.php");
                                                                 <section class="col col-6">
                                                                     <label class="label">Email</label>
                                                                     <label class="input"><i class="icon-prepend fa fa-envelope"></i>
-                                                                        <input id="email" name="email" class="required" type="text" onpaste="return false" ondrop="return false" class="form-control" value="">
+                                                                        <input id="email" name="email" class="required" type="text" onpaste="return false" ondrop="return false" class="form-control" value="" autocomplete="new-password">
                                                                     </label>
                                                                 </section>
                                                                 <section class="col col-2">
@@ -332,7 +334,7 @@ include("inc/nav.php");
                                                             <section class="col col-2 ">
                                                                 <label class="label">CEP</label>
                                                                 <label class="input">
-                                                                    <input id="cep" name="cep" type="text" onpaste="return false" ondrop="return false" class="required">
+                                                                    <input id="cep" name="cep" type="text" onpaste="return false" ondrop="return false" class="required" autocomplete="new-password">
                                                                 </label>
                                                             </section>
                                                         </div>
@@ -340,38 +342,38 @@ include("inc/nav.php");
                                                             <section class="col col-4">
                                                                 <label class="label">Logradouro</label>
                                                                 <label class="input">
-                                                                    <input id="logradouro" maxlength="255" name="logradouro" type="text" value="" onpaste="return false" ondrop="return false" class="required">
+                                                                    <input id="logradouro" maxlength="255" name="logradouro" type="text" value="" onpaste="return false" ondrop="return false" class="required" autocomplete="new-password">
                                                                 </label>
                                                             </section>
                                                             <section class="col col-4">
                                                                 <label class="label">Complemento</label>
                                                                 <label class="input">
-                                                                    <input id="complemento" name="complemento" type="text" class="required" value="">
+                                                                    <input id="complemento" name="complemento" type="text" value="" autocomplete="new-password">
                                                                 </label>
                                                             </section>
                                                             <section class="col col-1">
                                                                 <label class="label">Número</label>
                                                                 <label class="input">
-                                                                    <input id="numero" name="numero" type="text" maxlength="7" pattern="[0-9]+$" onpaste="return false" ondrop="return false" value="" class="required">
+                                                                    <input id="numero" name="numero" type="text" maxlength="7" pattern="[0-9]+$" onpaste="return false" ondrop="return false" value="" autocomplete="new-password">
                                                                 </label>
                                                             </section>
                                                             <section class="col col-2">
                                                                 <label class="label">UF</label>
                                                                 <label class="input">
-                                                                    <input type="text" id="uf" name="uf" onpaste="return false" ondrop="return false" class="required">
+                                                                    <input type="text" id="uf" name="uf" onpaste="return false" ondrop="return false" class="required" autocomplete="new-password">
                                                                 </label>
                                                             </section>
                                                             <section class="col col-4">
                                                                 <label class="label" for="idade">Bairro</label>
                                                                 <label class="input">
-                                                                    <input type="text" id="bairro" name="bairro" class="required">
+                                                                    <input type="text" id="bairro" name="bairro" class="required" autocomplete="new-password">
                                                                 </label>
                                                             </section>
 
                                                             <section class="col col-4">
                                                                 <label class="label" for="idade">Cidade</label>
                                                                 <label class="input">
-                                                                    <input type="text" id="cidade" name="cidade" class="required">
+                                                                    <input type="text" id="cidade" name="cidade" class="required" autocomplete="new-password">
                                                                 </label>
                                                             </section>
                                                         </div>
@@ -405,7 +407,7 @@ include("inc/nav.php");
                                                                 <section class="col col-3 ">
                                                                     <label class="label">Nome</label>
                                                                     <label class="input">
-                                                                        <input id="nomeDependente" name="nomeDependente" type="text" onpaste="return false" ondrop="return false">
+                                                                        <input id="nomeDependente" name="nomeDependente" type="text" onpaste="return false" ondrop="return false" autocomplete="new-password">
                                                                     </label>
                                                                 </section>
 
@@ -413,14 +415,14 @@ include("inc/nav.php");
                                                                 <section class="col col-2">
                                                                     <label class="label">CPF</label>
                                                                     <label class="input">
-                                                                        <input id="cpfDependente" maxlength="255" name="cpfDependente" type="text" value="">
+                                                                        <input id="cpfDependente" maxlength="255" name="cpfDependente" type="text" value="" autocomplete="new-password">
                                                                     </label>
                                                                 </section>
                                                                 <section class="col col-2">
                                                                     <label class="label">Data de Nascimento</label>
                                                                     <label class="input">
                                                                         <i class="icon-append fa fa-calendar"></i>
-                                                                        <input id="dataNascimentoDependente" name="dataNascimentoDependente" data-dateformat="dd/mm/yy" placeholder="dd/mm/aaaa" type="text" onpaste="return false" ondrop="return false" class="datepicker" value="">
+                                                                        <input id="dataNascimentoDependente" name="dataNascimentoDependente" data-dateformat="dd/mm/yy" placeholder="dd/mm/aaaa" type="text" onpaste="return false" ondrop="return false" class="datepicker text-center" value="" autocomplete="new-password">
                                                                     </label>
                                                                 </section>
                                                                 <section class="col col-2 col-auto" required>
@@ -626,7 +628,7 @@ include("inc/scripts.php");
             }
 
             if (validarDataDependente(dataNascimentoDependente) == false) {
-                smartAlert("Atenção", "Data Inválida!", "error");
+                smartAlert("Atenção", "Data anterior a 1900 ou superior a data atual não é permitido!", "error");
                 $("#dataNascimentoDependente").val("");
             }
         });
@@ -674,6 +676,7 @@ include("inc/scripts.php");
         });
 
         $("#btnAddTelefone").on("click", function() {
+
             if (validaTelefone() === true) {
                 // validEmail(email);
                 addTelefone();
@@ -687,7 +690,7 @@ include("inc/scripts.php");
             if (validEmail()) {
                 if (validaEmail() === true) {
                     addEmail();
-                    
+
                 } else {
                     clearFormEmail()
                 }
@@ -699,6 +702,7 @@ include("inc/scripts.php");
         });
 
         $("#btnAddDependente").on("click", function() {
+
             if (validaDependente() === true) {
                 addDependente();
             } else {
@@ -726,19 +730,24 @@ include("inc/scripts.php");
                 }
             });
 
-            document.getElementById("nome").onkeypress = function(e) {
-                var chr = String.fromCharCode(e.which);
-                // Permitir letras (maiúsculas e minúsculas) e espaço
-                if (!/^[A-Za-z\s]*$/.test(chr)) {
-                    e.preventDefault(); // Impede a inserção do caractere
-                }
-            };
+            // document.getElementById("nome").onkeypress = function(e) {
+            //     var chr = String.fromCharCode(e.which);
+            //     // Permitir letras (maiúsculas e minúsculas) e espaço
+            //     if (!/^[A-Za-z\s]*$/.test(chr)) {
+            //         e.preventDefault(); // Impede a inserção do caractere
+            //     }
+            // };
             document.getElementById("nomeDependente").onkeypress = function(e) {
                 var chr = String.fromCharCode(e.which);
                 // Permitir letras (maiúsculas e minúsculas) e espaço
                 if (!/^[A-Za-z\s]*$/.test(chr)) {
                     e.preventDefault(); // Impede a inserção do caractere
                 }
+            };
+            document.getElementById("nome").onkeypress = function(e) {
+                var chr = String.fromCharCode(e.which);
+                if ("qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM éáíóô".indexOf(chr) < 0)
+                    return false;
             };
 
             document.getElementById("numero").onkeypress = function(e) {
@@ -841,10 +850,10 @@ include("inc/scripts.php");
                 if (validacep.test(cep)) {
 
                     //Preenche os campos com "..." enquanto consulta webservice.
-                    $("#rua").val("...");
-                    $("#bairro").val("...");
-                    $("#cidade").val("...");
-                    $("#uf").val("...");
+                    $("#logradouro").val("");
+                    $("#bairro").val("");
+                    $("#cidade").val("");
+                    $("#uf").val("");
 
 
                     //Consulta o webservice viacep.com.br/
@@ -893,7 +902,7 @@ include("inc/scripts.php");
             if (idd !== "") {
                 recuperaUsuario(idd);
                 validaDataInversa();
-                
+
             }
         }
         $("#nome").focus();
@@ -1037,8 +1046,8 @@ include("inc/scripts.php");
         cpfFuncionario = $("#cpf").val();
         cpf = $("#cpfDependente").val();
 
-        if(cpfFuncionario == cpf){
-            smartAlert("Atenção", "cpf do dependente igual ao do funcionario", "error")
+        if (cpfFuncionario == cpf) {
+            smartAlert("Atenção", "Cpf não pode ser igual ao do funcionário", "error")
             apagarCpfDependente();
             return false
         }
@@ -1145,7 +1154,9 @@ include("inc/scripts.php");
         var hoje = new Date();
         var nasc = new Date(data);
         var m = hoje.getMonth() - nasc.getMonth();
-        if (m < 0 || (m === 0 && hoje.getDate() < nasc.getDate() ));
+        if (m < 0 || (m === 0 && nasc > hoje)) {
+            return false;
+        }
 
         // if (idade <= 18) {
         //     // alert("Usuários com menos de 18 anos não podem ser cadastrados.");
@@ -1163,7 +1174,7 @@ include("inc/scripts.php");
 
         //Idade superior a 50 não altera o cadastro
 
-       
+
     }
 
     //TABELA DE TELEFONEf
@@ -1284,8 +1295,13 @@ include("inc/scripts.php");
             jsonTelefoneArray.push(item);
 
         $("#jsonTelefone").val(JSON.stringify(jsonTelefoneArray));
-        fillTableTelefone();
-        clearFormTelefone();
+
+        if (validarCPFDependente == false) {
+            fillTableTelefone();
+            clearFormTelefone();
+
+            return false
+        }
 
     }
 
@@ -1368,9 +1384,24 @@ include("inc/scripts.php");
             $("#sequencialTel").val(item.sequencialTel);
             $("#telefoneId").val(item.telefoneId);
             $("#telefone").val(item.telefone);
-            $("#telefonePrincipal").prop('checked', true);
-            $("#telefoneWhatsapp").prop('checked', true);
+            if (telefonePrincipal == true && telefoneWhatsapp == true) {
+                $("#telefonePrincipal").prop('checked', true);
+                $("#telefoneWhatsapp").prop('checked', true);
+            }
+            if (telefonePrincipal == false && telefoneWhatsapp == true) {
+                $("#telefonePrincipal").prop('checked', false);
+                $("#telefoneWhatsapp").prop('checked', true);
+            }
 
+            if (telefonePrincipal == true && telefoneWhatsapp == false) {
+                $("#telefonePrincipal").prop('checked', true);
+                $("#telefoneWhatsapp").prop('checked', false);
+            }
+
+            if (telefonePrincipal == false && telefoneWhatsapp == false) {
+                $("#telefonePrincipal").prop('checked', false);
+                $("#telefoneWhatsapp").prop('checked', false);
+            }
         }
     }
 
@@ -1566,7 +1597,15 @@ include("inc/scripts.php");
             $("#sequencialEmail").val(item.sequencialEmail);
             $("#emailId").val(item.emailId);
             $("#email").val(item.email);
-            $("#emailPrincipal").prop('checked', true);
+            if (emailPrincipal == false) {
+                $("#emailPrincipal").prop('checked', false);
+            } else {
+                $("#emailPrincipal").prop('checked', true);
+            }
+            // if (emailPrincipal == false){
+            //     $("#emailPrincipal").prop('checked', false);
+            // }
+
         }
     }
 

@@ -91,7 +91,7 @@ include "js/repositorio.php";
 
                 $sql = " select codigo, nome, ativo, cpf, dataNascimento from dbo.funcionarioCadastro";
 
-                $sql = $sql . $where;
+                $sql = $sql . $where . "ORDER BY dataNascimento DESC";
                 $reposit = new reposit();
                 $result = $reposit->RunQuery($sql);
 

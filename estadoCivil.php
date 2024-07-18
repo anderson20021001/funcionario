@@ -364,7 +364,8 @@ include("inc/scripts.php");
         setTimeout(function() {
             document.getElementById("btnGravar").disabled = false;
             gravarEstadoCivilPessoa();
-        }, 550)
+            
+        }, )
     });
 
     $("#btnVoltar").on("click", function() {
@@ -390,6 +391,10 @@ include("inc/scripts.php");
         if ("qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM- ".indexOf(chr) < 0)
             return false;
     }
+
+    function desabilitaBotao(){
+     document.getElementById("btnGravar").disabled = true;
+}
 
 
 
@@ -445,7 +450,7 @@ include("inc/scripts.php");
 
 
 
-
+        desabilitaBotao();
         gravaEstadoCivilPessoa(codigo, ativo, estadoCivil);
     }
 

@@ -83,7 +83,7 @@ include("inc/nav.php");
                                                             <section class="col col-3">
                                                                 <label class="label">Descrição</label>
                                                                 <label class="input">
-                                                                    <input id="estadoCivil" maxlength="50" name="estadoCivil" onpaste="return false" ondrop="return false" type="text" value="">
+                                                                    <input id="estadoCivil" maxlength="50" name="estadoCivil" onpaste="return false" ondrop="return false" type="text" value="" autocomplete="new-password">
                                                                 </label>
                                                             </section>
                                                             <section class="col col-2">
@@ -93,6 +93,7 @@ include("inc/nav.php");
                                                                         
                                                                         <option value="1">Sim</option>
                                                                         <option value="0">Não</option>
+                                                                        <option value=""></option>
                                                                     </select>
                                                                     <i></i>
                                                                 </label>

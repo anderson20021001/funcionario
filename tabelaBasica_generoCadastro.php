@@ -105,7 +105,7 @@ include("inc/nav.php");
                                                             <section class="col col-2">
                                                                 <label class="label">Descrição</label>
                                                                 <label class="input"><i class=""></i>
-                                                                    <input id="descricao" maxlength="255" name="descricao" class="required" type="text" value="">
+                                                                    <input id="descricao" maxlength="255" name="descricao" class="required" type="text" value="" autocomplete="new-password">
                                                                 </label>
                                                             </section>
                                                         </div>
@@ -368,6 +368,7 @@ include("inc/scripts.php");
             setTimeout(function() {
                 document.getElementById("btnGravar").disabled = false
                 gravarGenero();
+                
             }, 550)
         });
 
@@ -393,10 +394,13 @@ include("inc/scripts.php");
 
     document.getElementById("descricao").onkeypress = function(e) {
         var chr = String.fromCharCode(e.which);
-        if ("qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM- ".indexOf(chr) < 0)
+        if ("qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM-éáóúíô ".indexOf(chr) < 0)
             return false;
     }
 
+    function desabilitaBotao(){
+     document.getElementById("btnGravar").disabled = true;
+}
 
     function carregaPagina() {
         var urlx = window.document.URL.toString();
@@ -452,7 +456,7 @@ include("inc/scripts.php");
         //     $("#descricao").focus();
         //     return
         // }
-
+        desabilitaBotao();
         gravaGenero(codigo, ativo, descricao);
     }
 </script>

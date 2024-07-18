@@ -15,6 +15,7 @@ function gravaGenero(codigo, ativo, descricao) {
                 var piece = data.split("#");
                 var mensagem = piece[1];
                 if (mensagem !== "") {
+                    disabled();
                     smartAlert("Atenção", mensagem, "error");
                 } else {
                     smartAlert("Atenção", "Operação não realizada", "error");

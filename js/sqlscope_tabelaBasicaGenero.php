@@ -54,7 +54,7 @@ function gravaGenero()
     $sql = "dbo.genero_Atualiza
     $codigo,
     $ativo,
-    $descricao";
+    '$descricao'";
 
    $reposit = new reposit();
    $result = $reposit->Execprocedure($sql);

@@ -368,6 +368,7 @@ include("inc/scripts.php");
             setTimeout(function() {
                 document.getElementById("btnGravar").disabled = false
                     gravarDependente();
+                    
             }, 500)
             // gravarDependente();
         });
@@ -398,6 +399,11 @@ include("inc/scripts.php");
         if ("qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM-()óôíáé ".indexOf(chr) < 0)
             return false;
     }
+
+    function desabilitaBotao(){
+     document.getElementById("btnGravar").disabled = true;
+}
+
 
 
     function carregaPagina() {
@@ -457,6 +463,7 @@ include("inc/scripts.php");
         //     (descricao).focus();
         //     return false
         // }
+        desabilitaBotao();
         gravaDependente(codigo, ativo, dependente);
     }
 

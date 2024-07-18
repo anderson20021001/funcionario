@@ -77,6 +77,7 @@ include("inc/nav.php");
                                                     </a>
                                                 </h4>
                                             </div>
+                                            
                                             <div id="collapseFiltro" class="panel-collapse collapse in">
                                                 <div class="panel-body no-padding">
                                                     <fieldset>
@@ -84,26 +85,28 @@ include("inc/nav.php");
                                                             <section class="col col-3">
                                                                 <label class="label">Nome</label>
                                                                 <label class="input"><i class="icon-prepend fa fa-user"></i>
-                                                                    <input id="nome" maxlength="50" name="nome" type="text" value="" onpaste="return false" ondrop="return false">
+                                                                    <input id="nome" maxlength="50" name="nome" type="text" value="" onpaste="return false" ondrop="return false" autocomplete="new-password">
                                                                 </label>
                                                             </section>
                                                             <section class="col col-3">
                                                                 <label class="label">CPF</label>
                                                                 <label class="input"><i class="icon-prepend fa fa-address-card"></i>
-                                                                    <input id="cpf" maxlength="50" name="cpf" type="text" value=""  ondrop="return false">
+                                                                    <input id="cpf" maxlength="50" name="cpf" type="text" value=""  ondrop="return false" autocomplete="new-password">
                                                                 </label>
                                                             </section>
                                                             <section class="col col-2">
                                                                 <label class="label">Data de Nascimento - Início</label>
-                                                                <label class="input"><i class=" icon-prepend fa fa-calendar"></i>
-                                                                    <input id="dataNascimentoInicio" maxlength="50" name="dataNascimentoInicio" type="text" class="datepicker" value="" onpaste="return false" ondrop="return false">
+                                                                <label class="input">
+                                                                <input id="dataNascimentoInicio" name="dataNascimentoInicio" data-dateformat="dd/mm/yy" placeholder="dd/mm/aaaa" type="text" onpaste="return false" ondrop="return false" class="datepicker text-center" autocomplete="new-password" value="">
+                                                                    <i class=" icon-prepend fa fa-calendar"></i>
                                                                 </label>
                                                             </section>
 
                                                             <section class="col col-2">
                                                                 <label class="label">Data de Nascimento - Fim </label>
-                                                                <label class="input"><i class=" icon-prepend fa fa-calendar"></i>
-                                                                    <input id="dataNascimentoFim" maxlength="50" name="dataNascimentoFim" type="text" value="" onpaste="return false" ondrop="return false">
+                                                                <label class="input">
+                                                                <input id="dataNascimentoFim" name="dataNascimentoFim" data-dateformat="dd/mm/yy" placeholder="dd/mm/aaaa" type="text" onpaste="return false" ondrop="return false" class="datepicker text-center" autocomplete="new-password" value="">
+                                                                    <i class=" icon-prepend fa fa-calendar"></i>
                                                                 </label>
                                                             </section>
 
@@ -114,6 +117,7 @@ include("inc/nav.php");
                                                                        
                                                                         <option value="1">Sim</option>
                                                                         <option value="0">Não</option>
+                                                                        <option value=""></option>
                                                                     </select>
                                                                     <i></i>
                                                                 </label>

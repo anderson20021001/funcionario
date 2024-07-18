@@ -93,6 +93,7 @@ include("inc/nav.php");
                                                                         
                                                                         <option value="1">Sim</option>
                                                                         <option value="0">Não</option>
+                                                                        <option value=""></option>
                                                                     </select>
                                                                     <i></i>
                                                                 </label>

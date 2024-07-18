@@ -83,7 +83,7 @@ include("inc/nav.php");
                                                             <section class="col col-3">
                                                                 <label class="label">Descrição</label>
                                                                 <label class="input"><i class="icon-prepend fa fa-user"></i>
-                                                                    <input id="dependente" maxlength="50" name="dependente" type="text" value="">
+                                                                    <input id="dependente" maxlength="50" name="dependente" type="text" value="" autocomplete="new-password">
                                                                 </label>
                                                             </section>
                                                             <section class="col col-2">
@@ -92,6 +92,7 @@ include("inc/nav.php");
                                                                     <select id="ativo" name="ativo">
                                                                         <option value="1">Sim</option>
                                                                         <option value="0">Não</option>
+                                                                        <option value=""></option>
                                                                     </select>
                                                                     <i></i>
                                                                 </label>
