@@ -41,7 +41,7 @@ if ($funcao == 'validaDataInversa') {
 }
 
 
-// 
+
 // return;
 
 function grava()
@@ -60,6 +60,8 @@ function grava()
     }
     $reposit = new reposit();
     $utils = new comum();
+
+    $ativo = 1;
 
 
     $nome = $utils->formatarString($_POST['nome']);

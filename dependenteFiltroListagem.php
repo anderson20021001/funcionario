@@ -13,7 +13,7 @@ include "js/repositorio.php";
             <tbody>
                 <?php
                 $descricaoFiltro = "";
-                $where = " WHERE (0 = 0) order by dependente asc";
+                $where = " WHERE (0 = 0)";
 
                 // $nomeFiltro = "$nome";
                 // if ($_GET["nomeFiltro"] != "") {
@@ -46,7 +46,7 @@ include "js/repositorio.php";
 
 
 
-                $sql = $sql . $where;
+                $sql = $sql . $where . "ORDER BY dependente DESC";
                 $reposit = new reposit();
                 $result = $reposit->RunQuery($sql);
 

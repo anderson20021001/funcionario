@@ -140,7 +140,7 @@ function verificaRG(rg) {
                 }
 
             } else {
-                smartAlert("Sucesso", mensagem, "success");
+                
 
             }
         },
@@ -303,7 +303,7 @@ function excluirUsuario(id) {
                 novo();
             } else {
                 smartAlert("Sucesso", "Operação realizada com sucesso!", "success");
-                novo();
+                setInterval(function () { voltar() }, 1500);;
             }
         },
         error: function (xhr, er) {

@@ -42,7 +42,7 @@ function gravaEstadoCivilPessoa()
     if ((empty($_POST['codigo'])) || (!isset($_POST['codigo'])) || (is_null($_POST['codigo']))) {
         $codigo = 0;
     } else {
-        $id = (int) $_POST["codigo"];
+        $codigo = (int) $_POST["codigo"];
     }
 
     if ((empty($_POST['ativo'])) || (!isset($_POST['ativo'])) || (is_null($_POST['ativo']))) {
