@@ -464,6 +464,7 @@ function excluir()
 
 function verificaCpf()
 {
+    $ativo = $_POST["ativo"];
     $cpf = $_POST["cpf"];
     $cpf = preg_replace('/[^0-9]/is', '', $cpf);
 
@@ -484,14 +485,15 @@ function verificaCpf()
         }
         $d = ((10 * $d) % 11) % 10;
         if ($cpf[$c] != $d) {
-            echo "failed";
+            $mensagem = "CPF INVÁLIDO!";
+            echo "failed#" . $mensagem . ' ';
             return false;
         }
     }
 
     $cpf = "'" . $_POST["cpf"] . "'";
 
-    $sql = " SELECT cpf FROM dbo.funcionarioCadastro WHERE cpf = $cpf ";
+    $sql = " SELECT cpf FROM dbo.funcionarioCadastro WHERE cpf = $cpf and ativo = 1 ";
     //achou 
     $reposit = new reposit();
     $result = $reposit->RunQuery($sql);
@@ -505,7 +507,7 @@ function verificaCpf()
         echo "failed#" . $mensagem . ' ';
     }
 
-    echo "success";
+
     return true;
 }
 
@@ -533,14 +535,15 @@ function validaCPFDependente()
         }
         $d = ((10 * $d) % 11) % 10;
         if ($cpfPessoaDependente[$c] != $d) {
-            echo "failed";
+            $mensagem = "CPF DEPENDENTE INVÁLIDO!";
+            echo "failed#" . $mensagem . ' ';
             return false;
         }
     }
 
     $cpf = "'" . $_POST["cpfDependente"] . "'";
 
-    $sql = " SELECT cpfDependente FROM dbo.funcionarioDependente WHERE cpfDependente = $cpfDependente ";
+    $sql = " SELECT cpfDependente FROM dbo.funcionarioDependente WHERE cpfDependente = '$cpfDependente'";
     //achou 
     $reposit = new reposit();
     $result = $reposit->RunQuery($sql);
@@ -554,7 +557,7 @@ function validaCPFDependente()
         echo "failed#" . $mensagem . ' ';
     }
 
-    echo "success";
+
     return true;
 }
 
@@ -580,7 +583,7 @@ function verificaRG()
 
     $ret = 'sucess#Pode Cadastrar RG';
     if (count($result) > 0) {
-        $ret = 'failed#rg ja cadastrado';
+        $ret = 'failed#RG já cadastrado.';
     }
     echo $ret;
     return;

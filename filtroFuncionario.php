@@ -132,6 +132,10 @@ include("inc/nav.php");
                                                     <button id="btnSearch" type="button" class="btn btn-primary pull-right" title="Buscar">
                                                         <span class="fa fa-search"></span>
                                                     </button>
+
+                                                    <button id="btnGerarPdf" type="button" class="btn btn-primary pull-right" title="GerarPdf">
+                                                        <span class="fa fa-file-pdf-o"></span>
+                                                    </button>
                                                     <?php if ($condicaoGravarOK) { ?>
                                                         <button id="btnNovo" type="button" class="btn btn-primary pull-left" title="Novo">
                                                             <span class="fa fa-file"></span>
@@ -196,6 +200,11 @@ include("inc/scripts.php");
             novo();
         });
 
+        $('#btnGerarPdf').on("click", function() {
+            gerar();
+        });
+
+
         $("#dataNascimentoInicio").mask('99/99/9999')
         $("#dataNascimentoFim").mask('99/99/9999')
         $("#cpf").mask("999.999.999-99");
@@ -221,4 +230,9 @@ include("inc/scripts.php");
     function novo() {
         $(location).attr('href', 'cadastroFuncionario.php');
     }
+
+    function gerar() {
+        $(location).attr('href', 'relatorio.php');
+    }
+
 </script>

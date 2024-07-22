@@ -193,7 +193,7 @@ include("inc/nav.php");
                                                             <section class="col col-2">
                                                                 <label class="label">Pis</label>
                                                                 <label class="input">
-                                                                    <input id="pis" name="pis" class="required" type="text" onpaste="return false" ondrop="return" autocomplete="new-password" placeholder="999.99999.99-9" value="">
+                                                                    <input id="pis" name="pis" class="required" type="text" onpaste="return false" ondrop="return" autocomplete="new-password" value="">
                                                                 </label>
                                                             </section>
                                                         </div>
@@ -354,7 +354,7 @@ include("inc/nav.php");
                                                             <section class="col col-1">
                                                                 <label class="label">Número</label>
                                                                 <label class="input">
-                                                                    <input id="numero" name="numero" type="text" maxlength="7" pattern="[0-9]+$" onpaste="return false"  class="required" ondrop="return false" value="" autocomplete="new-password">
+                                                                    <input id="numero" name="numero" type="text" maxlength="7" pattern="[0-9]+$" onpaste="return false" class="required" ondrop="return false" value="" autocomplete="new-password">
                                                                 </label>
                                                             </section>
                                                             <section class="col col-2">
@@ -673,6 +673,7 @@ include("inc/scripts.php");
 
         $("#rg").on("change", function() {
             verificarRG();
+            apagarRg();
         });
 
         $("#btnAddTelefone").on("click", function() {
@@ -681,8 +682,6 @@ include("inc/scripts.php");
                 // validEmail(email);
                 addTelefone();
                 clearFormTelefone();
-            } else {
-                clearFormTelefone();
             }
         });
 
@@ -690,9 +689,6 @@ include("inc/scripts.php");
             if (validEmail()) {
                 if (validaEmail() === true) {
                     addEmail();
-
-                } else {
-                    clearFormEmail()
                 }
             } else {
                 smartAlert("Atenção", "Email inválido", "error");
@@ -730,13 +726,6 @@ include("inc/scripts.php");
                 }
             });
 
-            // document.getElementById("nome").onkeypress = function(e) {
-            //     var chr = String.fromCharCode(e.which);
-            //     // Permitir letras (maiúsculas e minúsculas) e espaço
-            //     if (!/^[A-Za-z\s]*$/.test(chr)) {
-            //         e.preventDefault(); // Impede a inserção do caractere
-            //     }
-            // };
             document.getElementById("nomeDependente").onkeypress = function(e) {
                 var chr = String.fromCharCode(e.which);
                 // Permitir letras (maiúsculas e minúsculas) e espaço
@@ -954,6 +943,7 @@ include("inc/scripts.php");
         var telefone = $("#jsonTelefone").val();
         var email = $("#jsonEmail").val();
 
+
         if (nome == "") {
             smartAlert("Atenção", "Informe o nome !", "error");
             $("#nome").focus();
@@ -987,9 +977,24 @@ include("inc/scripts.php");
             return false;
         }
 
-        if (telefone == "[]" || email == "[]") {
-            smartAlert("Atenção", "Informe a forma de contato !", "error");
+        if (telefone == "[]") {
+            smartAlert("Atenção", "Informe um telefone principal para contato !", "error");
             $("#telefone").focus();
+            return false;
+        }
+
+        if (verificaTelefone() == false) {
+            smartAlert("Atenção", "Informe pelo menos um Telefone Principal", "error");
+            return;
+        }
+
+        if (verificaEmail() == false) {
+            smartAlert("Atenção", "Informe pelo menos um Email Principal", "error");
+            return;
+        }
+
+        if (email == "[]") {
+            smartAlert("Atenção", "Informe o email !", "error");
             $("#email").focus();
             return false;
         }
@@ -1005,8 +1010,6 @@ include("inc/scripts.php");
             $("#cep").focus();
             return false;
         }
-    
-      
 
         if (emprego == "") {
             smartAlert("Atenção", "Informe se é o primeiro emprego !", "error");
@@ -1014,9 +1017,46 @@ include("inc/scripts.php");
             return false;
         }
 
-
         desabilitaBotao();
         gravaUsuario(codigo, ativo, nome, cpf, rg, dataNascimento, genero, estadoCivil, jsonTelefoneArray, jsonEmailArray, jsonDependenteArray, cep, logradouro, complemento, numero, uf, bairro, cidade, emprego, pis);
+    }
+
+    function verificaTelefone() {
+        jsonTelefoneArray = JSON.parse($("#jsonTelefone").val());
+        var achouTelefonePrincipal = "";
+
+        for (i = jsonTelefoneArray.length - 1; i >= 0; i--) {
+
+            if ((jsonTelefoneArray[i].telefonePrincipal == 1)) {
+                achouTelefonePrincipal = true;
+                break;
+            }
+        }
+
+        if (achouTelefonePrincipal === true) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function verificaEmail() {
+        jsonEmailArray = JSON.parse($("#jsonEmail").val());
+        var achouEmailPrincipal = "";
+
+        for (i = jsonEmailArray.length - 1; i >= 0; i--) {
+
+            if ((jsonEmailArray[i].emailPrincipal == 1)) {
+                achouEmailPrincipal = true;
+                break;
+            }
+        }
+
+        if (achouEmailPrincipal === true) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     function desabilitaBotao() {
@@ -1024,7 +1064,7 @@ include("inc/scripts.php");
     }
 
     function verificarCpf() {
-
+        var ativo = $("#ativo").val();
         var cpf = $("#cpf").val();
 
         if (cpf == '000.000.000-00' ||
@@ -1044,7 +1084,7 @@ include("inc/scripts.php");
             $("#cpf").focus();
             return false;
         } else {
-            verificaCpf(cpf);
+            verificaCpf(ativo, cpf);
         }
     }
 
@@ -1097,8 +1137,6 @@ include("inc/scripts.php");
         function apagarRg() {
             document.getElementById('rg').value = "";
         }
-
-
     }
 
     function validarData() {
@@ -1133,7 +1171,7 @@ include("inc/scripts.php");
         //     return;
         // }
         if (idade < 0) {
-            smartAlert("Atenção","Não é possível cadatrar uma data além da atual", "error");
+            smartAlert("Atenção", "Não é possível cadatrar uma data além da atual", "error");
             $("#idade").val("");
             $("#dataNascimento").val("");
             return;
@@ -1173,51 +1211,38 @@ include("inc/scripts.php");
         //Calculo da idade referente a Data de Nascimento
         var hoje = new Date();
         var nasc = new Date(data);
-        var anoNasc = nasc.getFullYear();
-        var anoAtual = hoje.getFullYear();
-        var mesNasc = nasc.getMonth() + 1;
-        var mesAtual = hoje.getMonth() + 1;
+        var idade = hoje.getFullYear() - nasc.getFullYear();
         var m = hoje.getMonth() - nasc.getMonth();
-        
-        if(anoNasc > anoAtual || mesNasc > 12 || mesNasc > mesAtual  ){
-            smartAlert("Atenção", "ERROU FEIO VÉIO", "error");
-            return;
+        if (m < 0 || (m === 0 && hoje.getDate() < nasc.getDate()+1)) idade--;
+
+        if (idade < 0) {
+            // alert("Usuários com menos de 18 anos não podem ser cadastrados.");
+            $("#btnGravar").prop('disabled', false);
+            return false;
         }
 
-        // if (idade < 0) {
-        //     smartAlert("Atenção","Não é possível cadatrar uma data além da atual", "error");
-        //     $("#idade").val("");
-        //     $("#dataNascimento").val("");
-        //     return;
-        // }
-
-        // if (idade >= 14 && idade <= 150) {
-        //     // smartAlert("Sucesso","Data permitida.", "success")
-        //     $("#idade").val(idade);
-        //     $("#btnGravar").prop('disabled', false);
-        //     return;
-        // }
+        if (nasc.getFullYear < 1900) {
+            // alert("Usuários com menos de 18 anos não podem ser cadastrados.");
+            $("#btnGravar").prop('disabled', false);
+            return false;
+        }
 
 
-        // if (idade <= 18) {
-        //     // alert("Usuários com menos de 18 anos não podem ser cadastrados.");
-        //     $("#idade").val(idade)
-        //     $("#btnGravar").prop('disabled', false);
-        //     return false;
-        // }
 
-        // if (idade >= 14 && idade <= 150) {
-        //     // smartAlert("Sucesso","Data permitida.", "success")
-        //     $("#idade").val(idade)
-        //     $("#btnGravar").prop('disabled', false);
-        //     return;
-        // }
+        if (idade >= 0 && idade <= 135) {
+            // smartAlert("Sucesso","Data permitida.", "success")
+            $("#btnGravar").prop('disabled', false);
+            return;
 
-        //Idade superior a 50 não altera o cadastro
+            //Idade superior a 50 não altera o cadastro
 
-
+            // if (hoje) return false;
+        }
+        else{
+            return false;
+  
+        }
     }
-
     //TABELA DE TELEFONEf
     function validaTelefone() {
         var achouTelefone = false;
@@ -1270,17 +1295,9 @@ include("inc/scripts.php");
 
         if (achouTelefonePrincipal === true) {
             smartAlert("Erro", "Já existe o Telefone Principal na lista.", "error");
-            clearFormTelefone();
             return false;
 
         }
-
-        // if (jsonEmailArray[i].telefone === telefone ) {
-        //     smartAlert("Erro", "Já existe o Email na lista.", "error");
-        //     clearFormTelefone();
-        //     return false;
-
-        // }
 
         if (achouTelefone === true) {
             smartAlert("Erro", "Já existe o Telefone na lista.", "error");
@@ -1337,16 +1354,8 @@ include("inc/scripts.php");
 
         $("#jsonTelefone").val(JSON.stringify(jsonTelefoneArray));
 
-
         fillTableTelefone();
         clearFormTelefone();
-
-        // if (validarCPFDependente == false) {
-
-
-        //     return false
-        // }
-
     }
 
     function fillTableTelefone() {
@@ -1562,6 +1571,7 @@ include("inc/scripts.php");
         $("#jsonEmail").val(JSON.stringify(jsonEmailArray));
         fillTableEmail();
         // clearFormTelefone();
+
         clearFormEmail();
 
     }

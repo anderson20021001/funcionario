@@ -81,10 +81,12 @@ function validaCPFDependente(cpf) {
         dataType: "html",
         data: { funcao: "validaCPFDependente", cpf: cpf },
         success: function (data, textStatus) {
+            var piece = data.split("#");
+            var mensagem = piece[1];
             if (data.trim() === 'success') {
                 // smartAlert("Sucesso", "Operação realizada com sucesso!", "success");
             } else {
-                smartAlert("Atenção", "CPF do Dependente inválido!!!", "error");
+                smartAlert("Atenção", mensagem , "error");
                 document.getElementById('cpfDependente').value = "";
                 return false;
             }
@@ -94,17 +96,20 @@ function validaCPFDependente(cpf) {
     });
 }
 
-function verificaCpf(cpf) {
+function verificaCpf(ativo, cpf) {
     $.ajax({
         url: 'js/sqlscopeFuncionarioCadastro.php',
         type: 'post',
         dataType: "html",
-        data: { funcao: "verificaCpf", cpf: cpf },
+        data: { funcao: "verificaCpf", cpf: cpf, ativo:ativo },
+        
         success: function (data, textStatus) {
+            var piece = data.split("#");
+            var mensagem = piece[1];
             if (data.trim() === 'success') {
                 // smartAlert("Sucesso", "Operação realizada com sucesso!", "success");
             } else {
-                smartAlert("Atenção", "CPF do Funcionário inválido!!!", "error");
+                smartAlert("Atenção", mensagem, "error");
                 document.getElementById('cpf').value = "";
                 return false;
             }
@@ -135,6 +140,7 @@ function verificaRG(rg) {
 
                 if (mensagem !== "") {
                     smartAlert("Atenção", mensagem, "error");
+                    $("#rg").val("");
                 } else {
                     smartAlert("Atenção", "Operação não realizada - entre em contato com a GIR!", "error");
                 }
@@ -220,6 +226,10 @@ function recuperaUsuario(id) {
                     $('#ativo').prop('checked', true);
                 } else {
                     $('#ativo').prop('checked', false);
+                }
+
+                if(emprego == "1"){
+                    $("#pis").addClass("readonly").attr("disabled", true).val("");
                 }
 
                 jsonTelefoneArray = JSON.parse($("#jsonTelefone").val());
