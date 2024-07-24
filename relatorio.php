@@ -1,5 +1,8 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Cell\AddressHelper;
+use PhpOffice\PhpSpreadsheet\Worksheet\Row;
+
 include "repositorio.php";
 require_once("inc/init.php");
 require_once("inc/config.ui.php");
@@ -12,6 +15,18 @@ include "js/girComum.php";
 session_start();
 $utils = new comum();
 
+
+// $sql = "SELECT   nome, cpf, dataNascimento, ativo FROM dbo.funcionarioCadastro WHERE codigo = 59";
+// $reposit = new reposit();
+// $result = $reposit->RunQuery($sql);
+
+
+$nome = ($utils->formatarString($_GET['nome']));
+$cpf = ($utils->formatarString($_GET['cpf']));
+$dataNascimento = ($utils->formataDataSql($_GET['dataNascimento']));
+$ativo = $_GET['ativo'];
+
+
 $reposit = new reposit();
 
 class PDF extends FPDF
@@ -19,8 +34,8 @@ class PDF extends FPDF
     function Header()
     {
         $this->SetXY(190, 5);
-        $this->SetFont('Arial', 'B', 8); #Seta a Fonte
-        $this->Image('img\ntlLogoMarcaDagua.png', 45, 90, 120, 120); #logo da empresa
+        $this->SetFont('Arial', 'B', 5); #Seta a Fonte
+        // $this->Image('img\ntlLogoMarcaDagua.png', 45, 90, 120, 120); #logo da empresa
         // $this->Image('img\logoNtlPdf.png', 126, 11, 69, 28);
         $this->Ln(20); #Quebra de Linhas
 
@@ -36,13 +51,24 @@ $pdf->SetMargins(5, 10, 5); #Seta a Margin Esquerda com 20 milímetro, superrior
 $pdf->SetDisplayMode('default', 'continuous'); #Digo que o PDF abrirá em tamanho PADRÃO e as páginas na exibição serão contínuas
 
 
+$sql = "SELECT nome, cpf, dataNascimento, ativo
+    FROM funcionarioCadastro ";
+$reposit = new reposit();
+$resultParamentro = $reposit->RunQuery($sql);
+$rowParamentro = $resultParamentro[0];
+$linkName = $rowParamentro['linkUpload'];
+
+$l = 13;
+$margem = 5;
 
 $pdf->AddPage();
+$y = 65;
+
 $pdf->SetFont('Arial', '', 15);
 $pdf->SetXY(98, 25);
-$pdf->Cell(20, 5, iconv('UTF-8', 'windows-1252', "Lançamento Horário Contingência"), 0, 0, "C", 0);
+$pdf->Cell(20, 5, iconv('UTF-8', 'windows-1252', "Funcionário"), 0, 0, "C", 0);
 
-$pdf->line(5, 34, 205, 34);
+$pdf->line(10, 34, 205, 34);
 
 
 $pdf->SetXY(5, 40);
@@ -50,118 +76,185 @@ $pdf->SetFont('Arial', 'B', 9);
 $pdf->Cell(20, 5, iconv('UTF-8', 'windows-1252', " "), 0, 0, "L", 0);
 
 $pdf->SetXY(5, 46);
-$pdf->Cell(20, 5, iconv('UTF-8', 'windows-1252', "Data : " . " "), 0, 0, "L", 0);
+$pdf->Cell(20, 5, iconv('UTF-8', 'windows-1252', " " . " "), 0, 0, "L", 0);
 
 $pdf->SetFillColor(238, 238, 238);
 $pdf->SetFont('Arial', 'B', 8);
 
-$pdf->SetY(55);
-$pdf->Cell(40, 10, iconv('UTF-8', 'windows-1252', "FUNCIONÁRIO"), 1, 0, "C", 1);
 
-$pdf->SetX(45);
-$pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', "ENTRADA"), 1, 0, "C", 1);
+$pdf->SetY(65);
+$pdf->Cell(75, 10, iconv('UTF-8', 'windows-1252', "NOME"), 1, 0, "C", 1);
 
-$pdf->SetX(60);
-$pdf->Cell(30, 5, iconv('UTF-8', 'windows-1252', "1° PAUSA"), 1, 0, "C", 1);
+// $pdf->SetY(55);
+// $pdf->Cell(75, 10, iconv('UTF-8', 'windows-1252', $nomeFuncionario), 1, 0, "C", 2);
 
-$pdf->SetXY(60, 60);
-$pdf->Cell(15, 5, iconv('UTF-8', 'windows-1252', "INÍCIO"), 1, 0, "C", 1);
 
-$pdf->SetX(75);
-$pdf->Cell(15, 5, iconv('UTF-8', 'windows-1252', "FIM"), 1, 0, "C", 1);
+$pdf->SetX(80);
+$pdf->Cell(40, 10, iconv('UTF-8', 'windows-1252', "CPF"), 1, 0, "C", 1);
 
-$pdf->SetXY(90, 55);
-$pdf->Cell(30, 5, iconv('UTF-8', 'windows-1252', "INTERVALO"), 1, 0, "C", 1);
+// $pdf->SetXY(90, 60);
+// $pdf->Cell(15, 5, iconv('UTF-8', 'windows-1252', "INÍCIO"), 1, 0, "C", 1);
 
-$pdf->SetXY(90, 60);
-$pdf->Cell(15, 5, iconv('UTF-8', 'windows-1252', "INÍCIO"), 1, 0, "C", 1);
+// $pdf->SetX(105);
+// $pdf->Cell(15, 5, iconv('UTF-8', 'windows-1252', "FIM"), 1, 0, "C", 1);
 
-$pdf->SetX(105);
-$pdf->Cell(15, 5, iconv('UTF-8', 'windows-1252', "FIM"), 1, 0, "C", 1);
+$pdf->SetXY(120, 65);
+$pdf->Cell(45, 10, iconv('UTF-8', 'windows-1252', "DATA DE NASCIMENTO"), 1, 0, "C", 1);
 
-$pdf->SetXY(120, 55);
-$pdf->Cell(30, 5, iconv('UTF-8', 'windows-1252', "2° PAUSA"), 1, 0, "C", 1);
+// $pdf->SetXY(120, 60);
+// $pdf->Cell(15, 5, iconv('UTF-8', 'windows-1252', "INÍCIO"), 1, 0, "C", 1);
 
-$pdf->SetXY(120, 60);
-$pdf->Cell(15, 5, iconv('UTF-8', 'windows-1252', "INÍCIO"), 1, 0, "C", 1);
+// $pdf->SetX(135);
+// $pdf->Cell(15, 5, iconv('UTF-8', 'windows-1252', "FIM"), 1, 0, "C", 1);
 
-$pdf->SetX(135);
-$pdf->Cell(15, 5, iconv('UTF-8', 'windows-1252', "FIM"), 1, 0, "C", 1);
-
-$pdf->SetXY(150, 55);
-$pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', "SAÍDA"), 1, 0, "C", 1);
+// $pdf->SetXY(150, 55);
+// $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', "SAÍDA"), 1, 0, "C", 1);
 
 $pdf->SetX(165);
-$pdf->Cell(40, 10, iconv('UTF-8', 'windows-1252', "ASSINATURA"), 1, 0, "C", 1);
-
-$y = 65;
-
-$pdf->SetXY(5, $y);
-$pdf->Cell(40, 10, iconv('UTF-8', 'windows-1252', ''), 1, 0, "L", 0);
-
-$pdf->SetXY(45, $y);
-$pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
-
-$pdf->SetXY(60, $y);
-$pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ''), 1, 0, "C", 0);
-
-$pdf->SetXY(75, $y);
-$pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ''), 1, 0, "C", 0);
-
-$pdf->SetXY(90, $y);
-$pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
-
-$pdf->SetXY(105, $y);
-$pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
-
-$pdf->SetXY(120, $y);
-$pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ''), 1, 0, "C", 0);
-
-$pdf->SetXY(135, $y);
-$pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ''), 1, 0, "C", 0);
-
-$pdf->SetXY(150, $y);
-$pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
-
-$pdf->SetXY(165, $y);
-$pdf->Cell(40, 10, iconv('UTF-8', 'windows-1252', ''), 1, 0, "C", 0);
+$pdf->Cell(20, 10, iconv('UTF-8', 'windows-1252', "ATIVO"), 1, 0, "C", 1);
 
 $y += 10;
 
 $pdf->SetXY(5, $y);
-$pdf->Cell(40, 10, iconv('UTF-8', 'windows-1252', ''), 1, 0, "L", 0);
+$pdf->Cell(75, 10, iconv('UTF-8', 'windows-1252', ''), 1, 0, "L", 0);
 
-$pdf->SetXY(45, $y);
-$pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
+// $pdf->SetXY(45, $y);
+// $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
 
-$pdf->SetXY(60, $y);
-$pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ''), 1, 0, "C", 0);
+// $pdf->SetXY(60, $y);
+// $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ''), 1, 0, "C", 0);
 
-$pdf->SetXY(75, $y);
-$pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ''), 1, 0, "C", 0);
+$pdf->SetXY(80, $y);
+$pdf->Cell(40, 10, iconv('UTF-8', 'windows-1252', ''), 1, 0, "C", 0);
 
-$pdf->SetXY(90, $y);
-$pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
+// $pdf->SetXY(90, $y);
+// $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
 
-$pdf->SetXY(105, $y);
-$pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
+// $pdf->SetXY(105, $y);
+// $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
 
 $pdf->SetXY(120, $y);
-$pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ''), 1, 0, "C", 0);
+$pdf->Cell(45, 10, iconv('UTF-8', 'windows-1252', ''), 1, 0, "C", 0);
 
-$pdf->SetXY(135, $y);
-$pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ''), 1, 0, "C", 0);
+// $pdf->SetXY(135, $y);
+// $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ''), 1, 0, "C", 0);
 
-$pdf->SetXY(150, $y);
-$pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
+// $pdf->SetXY(150, $y);
+// $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
 
 $pdf->SetXY(165, $y);
-$pdf->Cell(40, 10, iconv('UTF-8', 'windows-1252', ''), 1, 0, "C", 0);
+$pdf->Cell(20, 10, iconv('UTF-8', 'windows-1252', ''), 1, 0, "C", 0);
+// }
+foreach ($resultParamentro as $rowParamentro) {
+    if ($l < 245) {
+
+        $l = 13;
+        $pdf->Line(5, 5, 205, 5); //primeira linha
+        $pdf->Line(5, 12, 205, 12);
+        $pdf->setY(9);
+        $pdf->SetFont($tipoDeFonte, $fontWeight, $tamanhoFonte);
+        $pdf->setX(92);
+        $pdf->Cell(20, -1, iconv('UTF-8', 'windows-1252', 'RELATÓRIO FUNCIONÁRIOS'), 0, 0, "C", 0);
+        $pdf->SetFont($tipoDeFonte, '', 10);
+        $pdf->Line(5, 5, 5, 292); //BOX PARA SEPARAR CADA SETOR (linha lateral, comprimento)
+        $pdf->Line(205, 5, 205, 292);
+        $pdf->Line(5, 292, 205, 292);
+    }
+
+
+    $nomeFuncionario = $rowParamentro['nome'];
+    $cpfFuncionario = $rowParamentro['cpf'];
+    $dataNascimentoFuncionario = $rowParamentro['dataNascimento'];
+    $ativoFuncionario = $rowParamentro['ativo'];
+
+    if ($ativoFuncionario == 1) {
+        $ativoFuncionario = 'Sim';
+    } else {
+        $ativoFuncionario = 'Não';
+    }
+
+
+    // $sqlProjeto = "SELECT P.descricao FROM Ntl.projeto P where P.codigo = $projeto";
+    // $resultProjeto = $reposit->RunQuery($sqlProjeto);
+
+    // $sqlDepartamento = "SELECT D.descricao FROM Ntl.departamento D where D.codigo = $departamento";
+    // $resultDepartamento = $reposit->RunQuery($sqlDepartamento);
+
+    // $sql = "SELECT DISTINCT F.nome as 'nomeFuncionario'
+    //                   FROM Ntl.funcionario F
+    //                   INNER JOIN Ntl.beneficioProjeto BP ON BP.funcionario = F.codigo
+    //                   INNER JOIN Ntl.projeto P ON P.codigo = BP.projeto
+    //                   LEFT JOIN Ntl.departamentoResponsavel DR ON DR.departamento = BP.departamento
+    //                   LEFT JOIN Ntl.projetoResponsavel PR ON PR.projeto = P.codigo
+    //                   LEFT JOIN Ntl.departamento D ON D.codigo = BP.departamento
+    //                   LEFT JOIN Funcionario.folhaPontoMensal PM ON PM.funcionario = F.codigo
+    // 				  LEFT JOIN Funcionario.folhaPontoMensalDetalheDiario DD ON DD.folhaPontoMensal = PM.codigo";
+
+    // $where = " WHERE BP.ativo = 1 AND (BP.dataDemissaoFuncionario IS NULL OR BP.dataDemissaoFuncionario <= GETDATE()) AND BP.registraPonto = 1 
+    //                AND DR.responsavelDepartamentoLogin = $login AND PM.mesAno = $data AND DD.dia = $dia";
+    // $orderBy = " ORDER BY F.nome ASC";
+    // if ($departamento) {
+    //     $where = $where . " AND (D.codigo = $departamento)";
+    // }
+    // if ($projeto) {
+    //     $where = $where . " AND (P.codigo = $projeto)";
+    // }
+    // $sql .= $where . $orderBy;
+    // $result = $reposit->RunQuery($sql);
+
+
+    // $pdf->AddPage();
+
+    
+
+    
+    $pdf->SetXY(5, $y);
+    $pdf->Cell(75, 5, iconv('UTF-8', 'windows-1252',  $nomeFuncionario), 1, 0, "C", 0);
+
+    // ....
+
+    // $pdf->SetXY(45, $y);
+    // $pdf->Cell(190, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
+
+    // $pdf->SetXY(60, $y);
+    // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ''), 1, 0, "C", 0);
+
+    $pdf->SetXY(80, $y);
+    $pdf->Cell(40, 5, iconv('UTF-8', 'windows-1252', $cpfFuncionario), 1, 0, "C", 0);
+
+    // $pdf->SetXY(90, $y);
+    // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
+
+    // $pdf->SetXY(105, $y);
+    // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
+
+    $pdf->SetXY(120, $y);
+    $pdf->Cell(45, 5, iconv('UTF-8', 'windows-1252', $dataNascimentoFuncionario,), 1, 0, "C", 0);
+
+    // $pdf->SetXY(135, $y);
+    // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ''), 1, 0, "C", 0);
+
+    // $pdf->SetXY(150, $y);
+    // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
+
+    $pdf->SetXY(165, $y);
+    $pdf->Cell(20, 5, iconv('UTF-8', 'windows-1252', $ativoFuncionario), 1, 0, "C", 0);
+
+
+    $y += 5;
+    // if ( $y >=300){
+    //     $pdf->AddPage();
+    // }
+}
+
+
+
+
 
 $y += 10;
 
 $pdf->SetXY(5, $y);
-$pdf->Cell(65, 10, iconv('UTF-8', 'windows-1252', "DATA : ___/___/___"), 0, 0, "L", 0);
+$pdf->Cell(65, 10, iconv('UTF-8', 'windows-1252', " "), 0, 0, "L", 0);
 
 $y += 20;
 $pdf->line(75, $y, 145, $y);
@@ -169,5 +262,7 @@ $pdf->line(75, $y, 145, $y);
 
 $pdf->SetXY(75, $y);
 $pdf->Cell(65, 10, iconv('UTF-8', 'windows-1252', " "), 0, 0, "C", 0);
+
+
 
 $pdf->Output('', "lancamentoHorarioContingencia_" . " " . ".pdf", '');
