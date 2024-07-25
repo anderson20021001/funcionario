@@ -11,7 +11,7 @@ include "js/repositorio.php";
                     <th class="text-left" style="min-width:20px;">Data de Nascimento</th>
                     <th class="text-left" style="min-width:25px;">Cpf</th>
                     <th class="text-left" style="min-width:25px;">Ativo</th>
-                    <th class="text-left" style="min-width:25px;">Gerar PDF</th>
+                    <th class="text-center" style="min-width:25px;">Gerar PDF</th>
                 </tr>
             </thead>
             <tbody>
@@ -33,7 +33,7 @@ include "js/repositorio.php";
                     $where = $where . " AND cpf = '$cpf'";
                 }
 
-                
+
                 if ($dataNascimentoInicio != "") {
                     $where = $where . " AND dataNascimento  = '$dataNascimentoInicio' OR dataNascimento BETWEEN '$dataNascimentoInicio' AND '$dataNascimentoFim' ";
                 }
@@ -120,7 +120,7 @@ include "js/repositorio.php";
                     echo '<td class="text-left">' . $dataNascimento . '</td>';
                     echo '<td class="text-left">' . $cpf . '</td>';
                     echo '<td class="text-left">' . $descricaoAtivo . '</td>';
-                    echo '<td class="text-left"> ' . 'Gerar PDF' . '  <span class="fa fa-file"> </span></td>';
+                    echo '<td class="text-center"> ' . '' . '  <a href="relatorioFuncionario.php?codigo=' . $codigo . '"><span class="btn btn-primary pull-left fa fa-file text-center "> </span> </td>';
                     echo '</tr >';
                 }
                 ?>
@@ -135,6 +135,23 @@ include "js/repositorio.php";
 <script src="js/plugin/datatables/dataTables.bootstrap.min.js"></script>
 <script src="js/plugin/datatable-responsive/datatables.responsive.min.js"></script>
 <script>
+   
+
+    // function abreviar(nome) {
+    //     const [nome, ...sobrenomes] = str.split(' ');
+
+    //     const abreviaturas = sobrenomes.reduce((arr, str) => {
+    //         const letraGrande = str.match(/[A-ZÖÄÅÀÁÂÃÌÍÒÓÉÊÚ]/);
+    //         if (!letraGrande) return arr;
+    //         return arr.concat(`${letraGrande[0]}.`);
+    //     }, []);
+
+    //     return [nome, ...abreviaturas].join(' ');
+    // }
+
+    // testes.forEach((teste, i) => {
+    //     console.log(i, '>', abreviar(teste));
+    // });
     $(document).ready(function() {
 
         var responsiveHelper_dt_basic = undefined;

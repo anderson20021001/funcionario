@@ -231,7 +231,9 @@ function recuperaUsuario(id) {
                 if(emprego == "1"){
                     $("#pis").addClass("readonly").attr("disabled", true).val("");
                 }
-
+                $("#btnGerar").removeClass("hidden");
+                $("#btnExcluir").removeClass("hidden");
+                btnExcluir
                 jsonTelefoneArray = JSON.parse($("#jsonTelefone").val());
                 jsonEmailArray = JSON.parse($("#jsonEmail").val());
                 jsonDependenteArray = JSON.parse($("#jsonDependente").val());

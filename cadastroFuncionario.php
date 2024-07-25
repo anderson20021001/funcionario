@@ -476,7 +476,7 @@ include("inc/nav.php");
                                             </div>
                                         </div>
                                         <footer>
-                                            <button type="button" id="btnExcluir" class="btn btn-danger" aria-hidden="true" title="Excluir" style="display:<?php echo $esconderBtnExcluir ?>">
+                                            <button type="button" id="btnExcluir" class="btn btn-danger hidden" aria-hidden="true" title="Excluir" style="display:<?php echo $esconderBtnExcluir ?>">
                                                 <span class="fa fa-trash"></span>
                                             </button>
                                             <div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-dialog-buttons ui-draggable" tabindex="-1" role="dialog" aria-describedby="dlgSimpleExcluir" aria-labelledby="ui-id-1" style="height: auto; width: 600px; top: 220px; left: 262px; display: none;">
@@ -484,7 +484,7 @@ include("inc/nav.php");
                                                     <span id="ui-id-2" class="ui-dialog-title">
                                                     </span>
                                                 </div>
-                                                <div id="dlgSimpleExcluir" class="ui-dialog-content ui-widget-content" style="width: auto; min-height: 0px; max-height: none; height: auto;">
+                                                <div id="dlgSimpleExcluir" class="ui-dialog-content ui-widget-content " style="width: auto; min-height: 0px; max-height: none; height: auto;">
                                                     <p>CONFIRMA A EXCLUSÃO ? </p>
                                                 </div>
                                                 <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
@@ -498,9 +498,13 @@ include("inc/nav.php");
                                             <button type="button" id="btnNovo" class="btn btn-primary" aria-hidden="true" title="Novo" style="display:<?php echo $esconderBtnGravar ?>">
                                                 <span class="fa fa-file-o"></span>
                                             </button>
+                                            <button type="button" id="btnGerar" class="btn btn-warning hidden" aria-hidden="true" title="Gerar" style="display:<?php echo $esconderBtnGerar ?>">
+                                                <span class="pull-left fa fa-file"> Relatório Contato </span>
+                                            </button>
                                             <button type="button" id="btnVoltar" class="btn btn-default" aria-hidden="true" title="Voltar">
                                                 <span class="fa fa-backward "></span>
                                             </button>
+
                                         </footer>
                                 </form>
                             </div>
@@ -649,6 +653,9 @@ include("inc/scripts.php");
 
         $("#btnNovo").on("click", function() {
             novo();
+        });
+        $("#btnGerar").on("click", function() {
+            gerarPdf();
         });
 
         $("#btnGravar").on("click", function() {
@@ -885,6 +892,10 @@ include("inc/scripts.php");
 
     function limpa_formulário_cep() {
         $("#cep").val()
+    }
+
+    function gerarPdf() {
+        $(location).attr('href', 'relatorioFuncionario.php?codigo=  .$codigo.')
     }
 
     function carregaPagina() {
@@ -1213,7 +1224,7 @@ include("inc/scripts.php");
         var nasc = new Date(data);
         var idade = hoje.getFullYear() - nasc.getFullYear();
         var m = hoje.getMonth() - nasc.getMonth();
-        if (m < 0 || (m === 0 && hoje.getDate() < nasc.getDate()+1)) idade--;
+        if (m < 0 || (m === 0 && hoje.getDate() < nasc.getDate() + 1)) idade--;
 
         if (idade < 0) {
             // alert("Usuários com menos de 18 anos não podem ser cadastrados.");
@@ -1237,10 +1248,9 @@ include("inc/scripts.php");
             //Idade superior a 50 não altera o cadastro
 
             // if (hoje) return false;
-        }
-        else{
+        } else {
             return false;
-  
+
         }
     }
     //TABELA DE TELEFONEf

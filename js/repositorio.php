@@ -305,7 +305,6 @@ class reposit
             return 0;
         }
     }
-
     // Retorna todas as colunas de acordo com uma condição
     function SelectCondJoin($config)
     {

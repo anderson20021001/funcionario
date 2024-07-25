@@ -47,7 +47,7 @@ include("inc/nav.php");
     //configure ribbon (breadcrumbs) array("name"=>"url"), leave url empty if no url
     //$breadcrumbs["New Crumb"] => "http://url.com"
     $breadcrumbs["Filtro"] = "";
-    
+
     include("inc/ribbon.php");
     ?>
 
@@ -77,7 +77,7 @@ include("inc/nav.php");
                                                     </a>
                                                 </h4>
                                             </div>
-                                            
+
                                             <div id="collapseFiltro" class="panel-collapse collapse in">
                                                 <div class="panel-body no-padding">
                                                     <fieldset>
@@ -91,13 +91,13 @@ include("inc/nav.php");
                                                             <section class="col col-3">
                                                                 <label class="label">CPF</label>
                                                                 <label class="input"><i class="icon-prepend fa fa-address-card"></i>
-                                                                    <input id="cpf" maxlength="50" name="cpf" type="text" value=""  ondrop="return false" autocomplete="new-password">
+                                                                    <input id="cpf" maxlength="50" name="cpf" type="text" value="" ondrop="return false" autocomplete="new-password">
                                                                 </label>
                                                             </section>
                                                             <section class="col col-2">
                                                                 <label class="label">Data de Nascimento - Início</label>
                                                                 <label class="input">
-                                                                <input id="dataNascimentoInicio" name="dataNascimentoInicio" data-dateformat="dd/mm/yy" placeholder="dd/mm/aaaa" type="text" onpaste="return false" ondrop="return false" class="datepicker text-center" autocomplete="new-password" value="">
+                                                                    <input id="dataNascimentoInicio" name="dataNascimentoInicio" data-dateformat="dd/mm/yy" placeholder="dd/mm/aaaa" type="text" onpaste="return false" ondrop="return false" class="datepicker text-center" autocomplete="new-password" value="">
                                                                     <i class=" icon-prepend fa fa-calendar"></i>
                                                                 </label>
                                                             </section>
@@ -105,7 +105,7 @@ include("inc/nav.php");
                                                             <section class="col col-2">
                                                                 <label class="label">Data de Nascimento - Fim </label>
                                                                 <label class="input">
-                                                                <input id="dataNascimentoFim" name="dataNascimentoFim" data-dateformat="dd/mm/yy" placeholder="dd/mm/aaaa" type="text" onpaste="return false" ondrop="return false" class="datepicker text-center" autocomplete="new-password" value="">
+                                                                    <input id="dataNascimentoFim" name="dataNascimentoFim" data-dateformat="dd/mm/yy" placeholder="dd/mm/aaaa" type="text" onpaste="return false" ondrop="return false" class="datepicker text-center" autocomplete="new-password" value="">
                                                                     <i class=" icon-prepend fa fa-calendar"></i>
                                                                 </label>
                                                             </section>
@@ -114,7 +114,7 @@ include("inc/nav.php");
                                                                 <label class="label">Ativo</label>
                                                                 <label class="select">
                                                                     <select id="ativo" name="ativo">
-                                                                       
+
                                                                         <option value="1">Sim</option>
                                                                         <option value="0">Não</option>
                                                                         <option value=""></option>
@@ -188,7 +188,7 @@ include("inc/scripts.php");
 <script src="<?php echo ASSETS_URL; ?>/js/plugin/moment/moment.min.js"></script>
 <!--<script src="/js/plugin/fullcalendar/jquery.fullcalendar.min.js"></script>-->
 <script src="<?php echo ASSETS_URL; ?>/js/plugin/fullcalendar/fullcalendar.js"></script>
-<script src="<?php echo ASSETS_URL; ?>/js/plugin/fullcalendar/locale-all.js"></script>
+ <script src="<?php echo ASSETS_URL; ?>/js/plugin/fullcalendar/locale-all.js"></script>
 
 
 <script>
@@ -209,12 +209,29 @@ include("inc/scripts.php");
         $("#dataNascimentoFim").mask('99/99/9999')
         $("#cpf").mask("999.999.999-99");
     });
-    
+
+
+    // function abreviar(nome) {
+    //     const [nome, ...sobrenomes] = str.split(' ');
+
+    //     const abreviaturas = sobrenomes.reduce((arr, str) => {
+    //         const letraGrande = str.match(/[A-ZÖÄÅÀÁÂÃÌÍÒÓÉÊÚ]/);
+    //         if (!letraGrande) return arr;
+    //         return arr.concat(`${letraGrande[0]}.`);
+    //     }, []);
+
+    //     return [nome, ...abreviaturas].join(' ');
+    // }
+
+    // testes.forEach((teste, i) => {
+    //     return (i, '>', abreviar(nome));
+    // });
+
 
     function listarFiltro() {
         var nome = $('#nome').val();
         var dataNascimentoInicio = $('#dataNascimentoInicio').val();
-        var dataNascimentoFim = $('#dataNascimentoFim').val();       
+        var dataNascimentoFim = $('#dataNascimentoFim').val();
         var cpf = $('#cpf').val();
         var ativo = $('#ativo').val();
 
@@ -227,6 +244,7 @@ include("inc/scripts.php");
         });
     }
 
+
     function novo() {
         $(location).attr('href', 'cadastroFuncionario.php');
     }
@@ -234,5 +252,4 @@ include("inc/scripts.php");
     function gerar() {
         $(location).attr('href', 'relatorio.php');
     }
-
 </script>
