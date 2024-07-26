@@ -64,7 +64,11 @@ function gravaEstadoCivilPessoa()
      $codigo,
      $ativo,
      $estadoCivil";
-
+    if($estadoCivil == "''"){
+        $ret = 'failed#';
+        echo $ret;
+        return;
+    }
     $reposit = new reposit();
     $result = $reposit->Execprocedure($sql);
 

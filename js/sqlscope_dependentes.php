@@ -203,7 +203,7 @@ function verificaDependente(){
 
     $descricao = $utils->formatarString($_POST['descricao']);
 
-    $sql = "SELECT dependente from dbo.dependente where codigo != $id and dependente = $descricao";
+    $sql = "SELECT dependente from dbo.dependente where dependente = $descricao and codigo != $id";
 
     $reposit = new reposit();
     $result = $reposit->RunQuery($sql);

@@ -120,7 +120,7 @@ include "js/repositorio.php";
                     echo '<td class="text-left">' . $dataNascimento . '</td>';
                     echo '<td class="text-left">' . $cpf . '</td>';
                     echo '<td class="text-left">' . $descricaoAtivo . '</td>';
-                    echo '<td class="text-center"> ' . '' . '  <a href="relatorioFuncionario.php?codigo=' . $codigo . '"><span class="btn btn-primary pull-left fa fa-file text-center "> </span> </td>';
+                    echo '<td class="text-center"> ' . '' . '  <a href="relatorioFuncionario.php?codigo=' . $codigo . '"><span class="btn btn-primary fa fa-file text-center "> </span> </td>';
                     echo '</tr >';
                 }
                 ?>

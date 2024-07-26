@@ -56,6 +56,12 @@ function gravaGenero()
     $ativo,
     '$descricao'";
 
+    if($descricao == "''"){
+        $ret = 'failed#';
+        echo $ret;
+        return;
+    }
+
    $reposit = new reposit();
    $result = $reposit->Execprocedure($sql);
 

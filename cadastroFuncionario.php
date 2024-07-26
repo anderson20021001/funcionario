@@ -116,7 +116,7 @@ include("inc/nav.php");
                                                             <section class="col col-2">
                                                                 <label class="label">RG</label>
                                                                 <label class="input">
-                                                                    <input id="rg" maxlength="12" name="rg" type="text" class="required" onpaste="return false" ondrop="return false" value="" placeholder="xx.xxx.xxx-x" autocomplete="new-password">
+                                                                    <input id="rg" maxlength="12" name="rg" type="text" class="required"  ondrop="return false" value="" placeholder="xx.xxx.xxx-x" autocomplete="new-password">
                                                                 </label>
                                                             </section>
 
@@ -334,7 +334,7 @@ include("inc/nav.php");
                                                             <section class="col col-2 ">
                                                                 <label class="label">CEP</label>
                                                                 <label class="input">
-                                                                    <input id="cep" name="cep" type="text" onpaste="return false" ondrop="return false" class="required" autocomplete="new-password">
+                                                                    <input id="cep" name="cep" type="text"  ondrop="return false" class="required" autocomplete="new-password">
                                                                 </label>
                                                             </section>
                                                         </div>
@@ -668,6 +668,8 @@ include("inc/scripts.php");
 
         $("#cpf").on("change", function() {
             verificarCpf();
+            validarCPFIguais();
+           
         });
 
         $("#cpfDependente").on("change", function() {
@@ -772,7 +774,13 @@ include("inc/scripts.php");
 
             document.getElementById("logradouro").onkeypress = function(e) {
                 var chr = String.fromCharCode(e.which);
-                if ("qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM ".indexOf(chr) < 0)
+                if ("qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM".indexOf(chr) < 0)
+                    return false;
+            };
+
+            document.getElementById("telefone").onkeypress = function(e) {
+                var chr = String.fromCharCode(e.which);
+                if ("123456789".indexOf(chr) < 0)
                     return false;
             };
 
@@ -794,10 +802,15 @@ include("inc/scripts.php");
                     return false;
             };
 
+            document.getElementById("cep").onkeypress = function(e) {
+                var chr = String.fromCharCode(e.which);
+                if ("1234567890".indexOf(chr) < 0)
+                    return false;
+            };
 
             document.getElementById("complemento").onkeypress = function(e) {
                 var chr = String.fromCharCode(e.which);
-                if ("1234567890qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM& ".indexOf(chr) < 0)
+                if ("1234567890qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM&' ".indexOf(chr) < 0)
                     return false;
             };
 
@@ -895,7 +908,8 @@ include("inc/scripts.php");
     }
 
     function gerarPdf() {
-        $(location).attr('href', 'relatorioFuncionario.php?codigo=  .$codigo.')
+        var codigo = $("#codigo").val();
+        $(location).attr('href', 'relatorioContato.php?codigo=' +codigo);
     }
 
     function carregaPagina() {
@@ -1075,6 +1089,8 @@ include("inc/scripts.php");
     }
 
     function verificarCpf() {
+     
+
         var ativo = $("#ativo").val();
         var cpf = $("#cpf").val();
 
@@ -1096,6 +1112,19 @@ include("inc/scripts.php");
             return false;
         } else {
             verificaCpf(ativo, cpf);
+        }
+        // validarCPFDependente()
+    }
+
+
+    function validarCPFIguais(cpf) {
+        cpfFuncionario = $("#cpf").val();
+        cpf = $("#cpfDependente").val();
+
+        if (cpfFuncionario == cpf) {
+            smartAlert("Atenção", "CPF NÃO PODEM SER iguais", "error")
+            apagarCpf();
+            return false
         }
     }
 

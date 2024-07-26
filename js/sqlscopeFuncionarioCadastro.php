@@ -466,6 +466,7 @@ function verificaCpf()
 {
     $ativo = $_POST["ativo"];
     $cpf = $_POST["cpf"];
+    $codigo = $_POST["codigo"];
     $cpf = preg_replace('/[^0-9]/is', '', $cpf);
 
     // Verifica se foi informado todos os digitos corretamente
@@ -493,7 +494,7 @@ function verificaCpf()
 
     $cpf = "'" . $_POST["cpf"] . "'";
 
-    $sql = " SELECT cpf FROM dbo.funcionarioCadastro WHERE cpf = $cpf and ativo = 1 ";
+    $sql = " SELECT cpf FROM dbo.funcionarioCadastro WHERE cpf = $cpf and ativo = 1 and codigo = $codigo";
     //achou 
     $reposit = new reposit();
     $result = $reposit->RunQuery($sql);
@@ -571,12 +572,14 @@ function verificaRG()
     }
 
 
+
     $reposit = new reposit();
     $utils = new comum();
 
+    $codigo = ($_POST['codigo']);
     $rg = $utils->formatarString($_POST['rg']);
 
-    $sql = "SELECT rg from dbo.funcionarioCadastro where rg = $rg";
+    $sql = "SELECT rg from dbo.funcionarioCadastro where rg = $rg and codigo = $codigo";
 
     $reposit = new reposit();
     $result = $reposit->RunQuery($sql);

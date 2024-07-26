@@ -168,10 +168,11 @@ function recuperaGenero(id) {
                 var descricao = piece[1];
                 var ativo = piece[2];
     
-               
+                $("#btnExcluir").removeClass("hidden");
                 $("#codigo").val(codigo);
                 $("#descricao").val(descricao);
                 $("#ativo").val(ativo);
+                
                 if (ativo === 1) {
                     $('#ativo').prop('checked', true);
                 } else {

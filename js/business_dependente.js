@@ -96,7 +96,7 @@ function recuperaDependente(id) {
                 var ativo = piece[1];
                 var dependente = piece[2];
     
-               
+                $("#btnExcluir").removeClass("hidden");
                 $("#codigo").val(codigo);
                 $("#ativo").val(ativo);
                 $("#dependente").val(dependente);

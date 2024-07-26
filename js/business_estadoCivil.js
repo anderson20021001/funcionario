@@ -17,7 +17,7 @@ function gravaEstadoCivilPessoa(codigo, ativo, estadoCivil) {
                 if (mensagem !== "") {
                     smartAlert("Atenção", mensagem, "error");
                 } else {
-                    smartAlert("Atenção", "Operação não realizada - entre em contato com a GIR!", "error");
+                    
                 }
 
                 return '';
@@ -55,7 +55,7 @@ function verificaEstadoCivil(estadoCivil) {
                     smartAlert("Atenção", mensagem, "error");
                     $("#estadoCivil").val("");
                 } else {
-                    smartAlert("Atenção", "Operação não realizada - entre em contato com a GIR!", "error");
+                    
                 }
                 
             } else {
@@ -97,7 +97,7 @@ function recuperaEstadoCivil(id) {
                 var estadoCivil = piece[2];
                
     
-               
+                $("#btnExcluir").removeClass("hidden");
                 $("#codigo").val(codigo);
                 $("#ativo").val(ativo);
                 $("#estadoCivil").val(estadoCivil);
