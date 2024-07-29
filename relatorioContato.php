@@ -53,7 +53,7 @@ $pdf->SetDisplayMode('default', 'continuous'); #Digo que o PDF abrirá em tamanh
 
 $codigo = $_GET['codigo'];
 $sql = "SELECT FC.codigo, FC.nome, FC.cpf, FC.ativo, T.telefone as telefoneFuncionario, E.email as emailFuncionario FROM dbo.funcionarioCadastro FC
-LEFT JOIN dbo.telefone T ON T.codigo = FC.codigo
+LEFT JOIN dbo.telefone T ON T.codigoTel = FC.codigo
 LEFT JOIN dbo.email E ON E.codigoEmail = FC.codigo
 where FC.codigo = $codigo";
 $reposit = new reposit();
@@ -68,7 +68,7 @@ $l = 13;
 $margem = 5;
 
 
-$y = 34;
+$y = 32.5;
 
 $pdf->SetFont('Arial', '', 15);
 $pdf->SetXY(98, 25);
@@ -84,21 +84,21 @@ $pdf->Cell(20, 5, iconv('UTF-8', 'windows-1252', " "), 0, 0, "L", 0);
 $pdf->SetXY(5, 46);
 $pdf->Cell(20, 5, iconv('UTF-8', 'windows-1252', " " . " "), 0, 0, "L", 0);
 
-$pdf->SetFillColor(238, 238, 238);
-$pdf->SetFont('Arial', 'B', 8);
+// $pdf->SetFillColor(238, 238, 238);
+// $pdf->SetFont('Arial', 'B', 8);
 
 
-$pdf->SetY(34);
+$pdf->SetY(40);
 $pdf->SetX(5);
-$pdf->Cell(55, 10, iconv('UTF-8', 'windows-1252', "NOME"), 1, 0, "L", 1);
+$pdf->Cell(55, 10, iconv('UTF-8', 'windows-1252', "NOME:"), 0, 0, "L", 0);
 
 // $pdf->SetY(55);
 // $pdf->Cell(75, 10, iconv('UTF-8', 'windows-1252', $nomeFuncionario), 1, 0, "C", 2);
 
 
-$pdf->SetX(60);
+$pdf->SetXY(5, 45);
 // $pdf->SetX(5);
-$pdf->Cell(40, 10, iconv('UTF-8', 'windows-1252', "CPF"), 1, 0, "C", 1);
+$pdf->Cell(40, 10, iconv('UTF-8', 'windows-1252', "CPF:"), 0, 0, "L", 0);
 
 // $pdf->SetXY(90, 60);
 // $pdf->Cell(15, 5, iconv('UTF-8', 'windows-1252', "INÍCIO"), 1, 0, "C", 1);
@@ -106,34 +106,34 @@ $pdf->Cell(40, 10, iconv('UTF-8', 'windows-1252', "CPF"), 1, 0, "C", 1);
 // $pdf->SetX(105);
 // $pdf->Cell(15, 5, iconv('UTF-8', 'windows-1252', "FIM"), 1, 0, "C", 1);
 
-$pdf->SetXY(98, 34);
-$pdf->Cell(35, 10, iconv('UTF-8', 'windows-1252', "TELEFONE"), 1, 0, "C", 1);
+$pdf->SetXY(10, 77.5);
+$pdf->Cell(60, 10, iconv('UTF-8', 'windows-1252', "TELEFONE"), 1, 0, "C",0);
 
-// $pdf->SetXY(120, 60);
-// $pdf->Cell(15, 5, iconv('UTF-8', 'windows-1252', "INÍCIO"), 1, 0, "C", 1);
+// $pdf->SetXY(10, 90);
+// $pdf->Cell(30, 5, iconv('UTF-8', 'windows-1252', "PRINCÍPAL"), 1, 0, "C", 0);
 
-// $pdf->SetX(135);
-// $pdf->Cell(15, 5, iconv('UTF-8', 'windows-1252', "FIM"), 1, 0, "C", 1);
-
-// $pdf->SetXY(150, 55);
-// $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', "SAÍDA"), 1, 0, "C", 1);
-
-$pdf->SetXY(132, 34);
-$pdf->Cell(55, 10, iconv('UTF-8', 'windows-1252', "EMAIL"), 1, 0, "C", 1);
-
-// $pdf->SetXY(120, 60);
-// $pdf->Cell(15, 5, iconv('UTF-8', 'windows-1252', "INÍCIO"), 1, 0, "C", 1);
-
-// $pdf->SetX(135);
-// $pdf->Cell(15, 5, iconv('UTF-8', 'windows-1252', "FIM"), 1, 0, "C", 1);
+// $pdf->SetX(40);
+// $pdf->Cell(30, 5, iconv('UTF-8', 'windows-1252', "WHATSAPP"), 1, 0, "C", 0);
 
 // $pdf->SetXY(150, 55);
 // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', "SAÍDA"), 1, 0, "C", 1);
 
-$pdf->SetX(187);
-$pdf->Cell(18, 10, iconv('UTF-8', 'windows-1252', "ATIVO"), 1, 0, "C", 1);
+$pdf->SetXY(150, 77.5);
+$pdf->Cell(50, 10, iconv('UTF-8', 'windows-1252', "EMAIL"), 1, 0, "C",0);
 
-$y += 10;
+// $pdf->SetXY(150, 90);
+// $pdf->Cell(25, 5, iconv('UTF-8', 'windows-1252', "PRINCÍPAL"), 1, 0, "C", 0);
+
+// $pdf->SetX(175);
+// $pdf->Cell(25, 5, iconv('UTF-8', 'windows-1252', "WHATSAPP"), 1, 0, "C", 0);
+
+// $pdf->SetXY(150, 55);
+// $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', "SAÍDA"), 1, 0, "C", 1);
+
+$pdf->SetXY(165,40.5);
+$pdf->Cell(18, 10, iconv('UTF-8', 'windows-1252', "ATIVO:"), 0, 0, "L", 0);
+
+$y += 55;
 
 // $pdf->SetXY(5, $y);
 // $pdf->Cell(75, 10, iconv('UTF-8', 'windows-1252', ''), 1, 0, "L", 0);
@@ -182,17 +182,17 @@ foreach ($resultParamentro as $rowParamentro) {
     }
 
 
-    // $nomeFuncionario = mb_strimwidth(trim($rowParamentro['nome']), 0, 29, "...");
-    $partesNomes = explode(' ', $nomeFuncionario);
-    $primeiroNome = $partesNomes[0];
-    $ultimoSobrenome = $partesNomes[count($partesNomes) - 1];
-    // Abrevia os nomes do meio
-    $nomesDoMeioAbreviados = '';
-    for ($i = 1; $i < count($partesNomes) - 1; $i++) {
-        $nomesDoMeioAbreviados .= substr($partesNomes[$i], 0, 1) . '. ';
-    }
-    $nomeCompletoFuncionario = $primeiroNome . ' ' . $nomesDoMeioAbreviados . $ultimoSobrenome;
-    // Concatena o primeiro nome, os nomes do meio abreviados e o último sobrenome
+     $nomeFuncionario = mb_strimwidth(trim($rowParamentro['nome']), 0, 29, "...");
+    // $partesNomes = explode(' ', $nomeFuncionario);
+    // $primeiroNome = $partesNomes[0];
+    // $ultimoSobrenome = $partesNomes[count($partesNomes) - 1];
+    // // Abrevia os nomes do meio
+    // $nomesDoMeioAbreviados = '';
+    // for ($i = 1; $i < count($partesNomes) - 1; $i++) {
+    //     $nomesDoMeioAbreviados .= substr($partesNomes[$i], 0, 1) . '. ';
+    // }
+    // $nomeCompletoFuncionario = $primeiroNome . ' ' . $nomesDoMeioAbreviados . $ultimoSobrenome;
+    // // Concatena o primeiro nome, os nomes do meio abreviados e o último sobrenome
     $cpfFuncionario = $rowParamentro['cpf'];
 
     // $dataNascimento = ($utils->formataDataSql($_GET['dataNascimento']));
@@ -278,36 +278,28 @@ foreach ($resultParamentro as $rowParamentro) {
 
 
 
-    $pdf->SetXY(5, $y);
-    $pdf->Cell(55, 5, iconv('UTF-8', 'windows-1252',  $nomeFuncionario), 1, 0, "L", 0);
+   
 
-    // ....
-
-    // $pdf->SetXY(45, $y);
-    // $pdf->Cell(190, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
-
-    // $pdf->SetXY(60, $y);
-    // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ''), 1, 0, "C", 0);
-
-    $pdf->SetXY(60, $y);
-    $pdf->Cell(38, 5, iconv('UTF-8', 'windows-1252', $cpfFuncionario), 1, 0, "C", 0);
-
-    // $pdf->SetXY(90, $y);
-    // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
-
-    // $pdf->SetXY(105, $y);
-    // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
-
-    $pdf->SetXY(98, $y);
-    $pdf->Cell(34, 5, iconv('UTF-8', 'windows-1252', $telefone,), 1, 0, "C", 0);
+    $pdf->SetXY(10, $y);
+    $pdf->Cell(60, 5, iconv('UTF-8', 'windows-1252', $telefone,), 1, 0, "C", 0);
 
     // $pdf->SetXY(135, $y);
     // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ''), 1, 0, "C", 0);
 
     // $pdf->SetXY(150, $y);
     // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
-    $pdf->SetXY(132, $y);
-    $pdf->Cell(55, 5, iconv('UTF-8', 'windows-1252', $email), 1, 0, "L", 0);
+
+    // $pdf->SetXY(10,  $y);
+    // $pdf->Cell(30, 5, iconv('UTF-8', 'windows-1252', $telefoneWhatsapp,), 1, 0, "C", 0);
+
+    // $pdf->SetXY(135, $y);
+    // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ''), 1, 0, "C", 0);
+
+    // $pdf->SetXY(150, $y);
+    // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
+
+    $pdf->SetXY(150,  $y);
+    $pdf->Cell(50, 5, iconv('UTF-8', 'windows-1252', $email), 1, 0, "L", 0);
 
     // $pdf->SetXY(90, $y);
     // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
@@ -315,19 +307,39 @@ foreach ($resultParamentro as $rowParamentro) {
     // $pdf->SetXY(105, $y);
     // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
 
-    $pdf->SetXY(187, $y);
-    $pdf->Cell(18, 5, iconv('UTF-8', 'windows-1252', $ativoFuncionario), 1, 0, "C", 0);
+  
 
 
     $y += 5;
-    if ($y > 270) {
-        $pdf->AddPage();
-        $y = 12;
-    }
+    // if ($y > 270) {
+    //     $pdf->AddPage();
+    //     $y = 12;
+    // }
     // $pdf->Line(5, $l, 205, $l); //linha divisória
     // // $contador = 0;
 }
 
+$pdf->SetXY(17, 42.5);
+$pdf->Cell(55, 5, iconv('UTF-8', 'windows-1252',  $nomeFuncionario), 0, 0, "L", 0);
+
+// ....
+
+// $pdf->SetXY(45, $y);
+// $pdf->Cell(190, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
+
+// $pdf->SetXY(60, $y);
+// $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ''), 1, 0, "C", 0);
+
+$pdf->SetXY(8, 47.5);
+$pdf->Cell(38, 5, iconv('UTF-8', 'windows-1252', $cpfFuncionario), 0, 0, "C", 0);
+
+// $pdf->SetXY(90, $y);
+// $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
+
+// $pdf->SetXY(105, $y);
+// $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
+$pdf->SetXY(174, 42.8);
+$pdf->Cell(18, 5, iconv('UTF-8', 'windows-1252', $ativoFuncionario), 0, 0, "C", 0);
 
 
 

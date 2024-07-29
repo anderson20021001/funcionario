@@ -104,7 +104,7 @@ include("inc/nav.php");
                                                             <section class="col col-3">
                                                                 <label class="label">Nome</label>
                                                                 <label class="input"><i class="icon-prepend fa fa-user"></i>
-                                                                    <input id="nome" name="nome" pattern="[a-zA]" class="required" onpaste="return false" ondrop="return false" type="text" autocomplete="new-password" maxlength="50" value="">
+                                                                    <input id="nome" name="nome" pattern="[a-zA]" class="required"  ondrop="return false" type="text" autocomplete="new-password" maxlength="50" value="">
                                                                 </label>
                                                             </section>
                                                             <section class="col col-2">
@@ -132,7 +132,7 @@ include("inc/nav.php");
                                                                 <label class="label" for="dataNascimento">Data de Nascimento</label>
                                                                 <label class="input">
                                                                     <i class="icon-append fa fa-calendar"></i>
-                                                                    <input id="dataNascimento" name="dataNascimento" data-dateformat="dd/mm/yy" placeholder="dd/mm/aaaa" type="text" onpaste="return false" ondrop="return false" class="required datepicker text-center" autocomplete="new-password" value="">
+                                                                    <input id="dataNascimento" name="dataNascimento" data-dateformat="dd/mm/yy" placeholder="dd/mm/aaaa" type="text" ondrop="return false" class="required datepicker text-center" autocomplete="new-password" value="">
                                                                 </label>
                                                             </section>
                                                             <section class="col col-1">
@@ -225,7 +225,7 @@ include("inc/nav.php");
                                                                 <section class="col col-4">
                                                                     <label class="label">Telefone</label>
                                                                     <label class="input"><i class="icon-prepend fa fa-phone"></i>
-                                                                        <input id="telefone" name="telefone" class="required" type="tel" onpaste="return false" ondrop="return false" class="form-control" value="" autocomplete="new-password">
+                                                                        <input id="telefone" name="telefone" class="required" type="tel" ondrop="return false" class="form-control" value="" autocomplete="new-password">
                                                                     </label>
                                                                 </section>
                                                                 <section class="col col-2">
@@ -278,7 +278,7 @@ include("inc/nav.php");
                                                                 <section class="col col-6">
                                                                     <label class="label">Email</label>
                                                                     <label class="input"><i class="icon-prepend fa fa-envelope"></i>
-                                                                        <input id="email" name="email" class="required" type="text" onpaste="return false" ondrop="return false" class="form-control" value="" autocomplete="new-password">
+                                                                        <input id="email" name="email" class="required" type="text"  ondrop="return false" class="form-control" value="" autocomplete="new-password">
                                                                     </label>
                                                                 </section>
                                                                 <section class="col col-2">
@@ -618,7 +618,7 @@ include("inc/scripts.php");
             }
 
             if (validarData(dataNascimento) == false) {
-                smartAlert("Atenção", "Não é possível cadastrar essa data de nascimento pois é menor de idade!", "error");
+                smartAlert("Atenção", "Não é possível cadastrar essa data de nascimento pois é menor que 14 anos!", "error");
                 $("#idade").val("");
                 $("#dataNascimento").val("");
             }
@@ -651,9 +651,8 @@ include("inc/scripts.php");
             }
         });
 
-        $("#btnNovo").on("click", function() {
-            novo();
-        });
+        $("#btnNovo").on("click", () => novo());
+
         $("#btnGerar").on("click", function() {
             gerarPdf();
         });
@@ -1519,6 +1518,8 @@ include("inc/scripts.php");
         let emailChecked = $('#emailPrincipal').is(':checked');
         let sequencial = +$('#sequencialEmail').val();
 
+        
+        
 
         if ($('#descricaoPrincipal').is(':checked')) {
             descricaoPrincipal = "Sim";
@@ -1526,14 +1527,14 @@ include("inc/scripts.php");
             descricaoPrincipal = "Não";
         }
 
-        if (email === '') {
+        if (email == '') {
             smartAlert("Erro", "Informe o Email ", "error");
             return false;
         }
 
         for (i = jsonEmailArray.length - 1; i >= 0; i--) {
             if (emailPrincipal) {
-                if (jsonEmailArray[i].emailPrincipal && jsonEmailArray[i].sequencialEmail !== sequencial) {
+                if (jsonEmailArray[i].emailPrincipal == achouEmailPrincipal && (jsonEmailArray[i].sequencialEmail !== sequencial)) {
                     achouEmailPrincipal = true;
                     break;
                 }

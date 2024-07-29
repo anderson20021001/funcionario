@@ -52,11 +52,15 @@ $pdf->SetMargins(5, 10, 5); #Seta a Margin Esquerda com 20 milímetro, superrior
 $pdf->SetDisplayMode('default', 'continuous'); #Digo que o PDF abrirá em tamanho PADRÃO e as páginas na exibição serão contínuas
 
 $codigo = $_GET['codigo'];
-$sql = "SELECT FC.codigo, FC.nome, FC.ativo, FC.cpf, FC.dataNascimento, FC.rg, E.estadoCivil, G.descricao as genero, FC.cep, FC.logradouro, FC.complemento, FC.numero, FC.uf, FC.bairro,
-FC.cidade, FC.primeiroEmprego, FC.pis FROM funcionarioCadastro FC
-LEFT JOIN dbo.estadoCivil E on E.codigo = FC.estadoCivil
+$sql = "SELECT FC.codigo, FC.nome, FC.ativo, FC.cpf, FC.dataNascimento, FC.rg, EC.estadoCivil, G.descricao as genero, FC.cep, FC.logradouro, FC.complemento, FC.numero, FC.uf, FC.bairro,
+FC.cidade, FC.primeiroEmprego, FC.pis, FD.tipoDependente as TipoDependente, FD.nomeDependente, FD.cpfDependente, FD.dataNascimentoDependente, D.dependente  FROM dbo.funcionarioCadastro FC
+LEFT JOIN dbo.estadoCivil EC on EC.codigo = FC.estadoCivil
 LEFT JOIN dbo.genero G on G.codigo = FC.genero
- where FC.codigo = $codigo ";
+LEFT JOIN dbo.telefone T ON T.codigo = FC.codigo
+LEFT JOIN dbo.email E ON E.codigo = FC.codigo
+LEFT JOIN dbo.funcionarioDependente FD ON FD.codigoDependente = FC.codigo
+LEFT JOIN dbo.dependente D ON D.codigo = FD.tipoDependente
+where FC.codigo = $codigo ";
 $reposit = new reposit();
 $resultParamentro = $reposit->RunQuery($sql);
 $rowParamentro = $resultParamentro[0];
@@ -88,16 +92,16 @@ $pdf->SetFont('Arial', 'B', 8);
 
 
 $pdf->SetY(34);
-$pdf->SetX(10);
-$pdf->Cell(55, 10, iconv('UTF-8', 'windows-1252', "NOME"), 1, 0, "C", 1);
+$pdf->SetX(8);
+$pdf->Cell(55, 10, iconv('UTF-8', 'windows-1252', "NOME:"), 0, 0, "L", 0);
 
 // $pdf->SetY(55);
 // $pdf->Cell(75, 10, iconv('UTF-8', 'windows-1252', $nomeFuncionario), 1, 0, "C", 2);
 
 
-$pdf->SetX(68);
+$pdf->SetXY(8,40);
 // $pdf->SetX(5);
-$pdf->Cell(40, 10, iconv('UTF-8', 'windows-1252', "CPF"), 1, 0, "C", 1);
+$pdf->Cell(40, 10, iconv('UTF-8', 'windows-1252', "CPF:"), 0, 0, "L", 0);
 
 // $pdf->SetXY(90, 60);
 // $pdf->Cell(15, 5, iconv('UTF-8', 'windows-1252', "INÍCIO"), 1, 0, "C", 1);
@@ -105,8 +109,8 @@ $pdf->Cell(40, 10, iconv('UTF-8', 'windows-1252', "CPF"), 1, 0, "C", 1);
 // $pdf->SetX(105);
 // $pdf->Cell(15, 5, iconv('UTF-8', 'windows-1252', "FIM"), 1, 0, "C", 1);
 
-$pdf->SetXY(112, 34);
-$pdf->Cell(45, 10, iconv('UTF-8', 'windows-1252', "DATA DE NASCIMENTO"), 1, 0, "C", 1);
+$pdf->SetXY(8, 50);
+$pdf->Cell(45, 10, iconv('UTF-8', 'windows-1252', "DATA DE NASCIMENTO:"), 0, 0, "L", 0);
 
 // $pdf->SetXY(120, 60);
 // $pdf->Cell(15, 5, iconv('UTF-8', 'windows-1252', "INÍCIO"), 1, 0, "C", 1);
@@ -117,8 +121,8 @@ $pdf->Cell(45, 10, iconv('UTF-8', 'windows-1252', "DATA DE NASCIMENTO"), 1, 0, "
 // $pdf->SetXY(150, 55);
 // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', "SAÍDA"), 1, 0, "C", 1);
 
-$pdf->SetXY(160, 34);
-$pdf->Cell(40, 10, iconv('UTF-8', 'windows-1252', "RG"), 1, 0, "C", 1);
+$pdf->SetXY(8, 45);
+$pdf->Cell(20, 10, iconv('UTF-8', 'windows-1252', "RG:"), 0, 0, "L", 0);
 
 // $pdf->SetXY(120, 60);
 // $pdf->Cell(15, 5, iconv('UTF-8', 'windows-1252', "INÍCIO"), 1, 0, "C", 1);
@@ -228,6 +232,18 @@ $complemento = mb_strimwidth(trim($rowParamentro['complemento']), 0, 29, "...");
 $uf = $rowParamentro['uf'];
 $bairro = $rowParamentro['bairro'];
 $cidade = $rowParamentro['cidade'];
+$bairro = $rowParamentro['bairro'];
+$nomeDependente = $rowParamentro['nomeDependente'];
+$cpfDependente = $rowParamentro['cpfDependente'];
+$dataNascimentoDependente = $rowParamentro['dataNascimentoDependente'];
+$dataNascimentoDependente = explode(" ", $dataNascimentoDependente);
+$dataNascimentoDependente = explode("-", $dataNascimentoDependente[0]);
+$dataNascimentoDependente =  $dataNascimentoDependente[2] . "/" . $dataNascimentoDependente[1] . "/" . $dataNascimentoDependente[0];
+$dataNascimentoDependente = mb_strimwidth(trim($rowParamentro['dataNascimentoDependente']), 0, 5, "...");
+
+$dependente = $rowParamentro['dependente'];
+
+
 
 
 if ($ativoFuncionario == 1) {
@@ -245,6 +261,13 @@ if ($primeiroEmprego == 1) {
 
 if ($complemento == "") {
     $complemento = 'Não Possui Complemento'; 
+}
+
+if ($nomeDependente == "") {
+    $nomeDependente = 'Não Possui'; 
+    $cpfDependente = 'Não Possui'; 
+    $dataNascimentoDependente = 'Não Possui'; 
+    $dependente = 'Não Possui'; 
 }
 
 // $sqlProjeto = "SELECT P.descricao FROM Ntl.projeto P where P.codigo = $projeto";
@@ -281,8 +304,8 @@ if ($complemento == "") {
 
 
 
-$pdf->SetXY(10, $y);
-$pdf->Cell(55, 5, iconv('UTF-8', 'windows-1252',  $nomeFuncionario), 1, 0, "L", 0);
+$pdf->SetXY(18, 36.5);
+$pdf->Cell(55, 5, iconv('UTF-8', 'windows-1252',  $nomeFuncionario), 0, 0, "L", 0);
 
 // ....
 
@@ -292,8 +315,8 @@ $pdf->Cell(55, 5, iconv('UTF-8', 'windows-1252',  $nomeFuncionario), 1, 0, "L", 
 // $pdf->SetXY(60, $y);
 // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ''), 1, 0, "C", 0);
 
-$pdf->SetXY(68, $y);
-$pdf->Cell(40, 5, iconv('UTF-8', 'windows-1252', $cpfFuncionario), 1, 0, "C", 0);
+$pdf->SetXY(15, 42.3);
+$pdf->Cell(40, 5, iconv('UTF-8', 'windows-1252', $cpfFuncionario), 0, 0, "L", 0);
 
 // $pdf->SetXY(90, $y);
 // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
@@ -301,16 +324,16 @@ $pdf->Cell(40, 5, iconv('UTF-8', 'windows-1252', $cpfFuncionario), 1, 0, "C", 0)
 // $pdf->SetXY(105, $y);
 // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
 
-$pdf->SetXY(112, $y);
-$pdf->Cell(45, 5, iconv('UTF-8', 'windows-1252', $dataNascimento,), 1, 0, "C", 0);
+$pdf->SetXY(42.8, 52.3);
+$pdf->Cell(45, 5, iconv('UTF-8', 'windows-1252', $dataNascimento,), 0, 0, "L", 0);
 
 // $pdf->SetXY(135, $y);
 // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ''), 1, 0, "C", 0);
 
 // $pdf->SetXY(150, $y);
 // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
-$pdf->SetXY(160, $y);
-$pdf->Cell(40, 5, iconv('UTF-8', 'windows-1252', $rg), 1, 0, "C", 0);
+$pdf->SetXY(15, 47.5);
+$pdf->Cell(40, 5, iconv('UTF-8', 'windows-1252', $rg), 0, 0, "L", 0);
 
 // $pdf->SetXY(90, $y);
 // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
@@ -343,17 +366,56 @@ $pdf->SetFillColor(238, 238, 238);
 $pdf->SetFont('Arial', 'B', 8);
 
 
-$pdf->SetY(74);
-$pdf->SetX(9);
-$pdf->Cell(55, 10, iconv('UTF-8', 'windows-1252', "CEP"), 1, 0, "C", 1);
+$pdf->SetY(75.2);
+$pdf->SetX(8);
+$pdf->Cell(55, 10, iconv('UTF-8', 'windows-1252', "CEP:"), 0, 0, "L", 0);
+
+// $pdf->SetY(55);
+// $pdf->Cell(75, 10, iconv('UTF-8', 'windows-1252', $nomeFuncionario), 1, 0, "C", 2);
+
+$pdf->SetY(35.2);
+$pdf->SetX(125);
+$pdf->Cell(55, 10, iconv('UTF-8', 'windows-1252', "NOME DO DEPENDENTE:"), 0, 0, "L", 0);
+
+$pdf->SetY(40.2);
+$pdf->SetX(125);
+$pdf->Cell(55, 10, iconv('UTF-8', 'windows-1252', "CPF DO DEPENDENTE:"), 0, 0, "L", 0);
+
+
+$pdf->SetY(45.2);
+$pdf->SetX(125);
+$pdf->Cell(55, 10, iconv('UTF-8', 'windows-1252', "DATA DE NASCIMENTO DO DEPENDENTE:"), 0, 0, "L", 0);
+
+$pdf->SetY(50.2);
+$pdf->SetX(125);
+$pdf->Cell(55, 10, iconv('UTF-8', 'windows-1252', "TIPO DE DEPENDENTE:"), 0, 0, "L", 0);
+
+
+// $pdf->SetY(55);
+// $pdf->Cell(75, 10, iconv('UTF-8', 'windows-1252', $nomeFuncionario), 1, 0, "C", 2);
+// $pdf->SetY(75.2);
+// $pdf->SetX(8);
+// $pdf->Cell(55, 10, iconv('UTF-8', 'windows-1252', "CPF:"), 0, 0, "L", 0);
+
+// $pdf->SetY(55);
+// $pdf->Cell(75, 10, iconv('UTF-8', 'windows-1252', $nomeFuncionario), 1, 0, "C", 2);
+// $pdf->SetY(75.2);
+// $pdf->SetX(8);
+// $pdf->Cell(55, 10, iconv('UTF-8', 'windows-1252', "DATA DE NASCIMENTO:"), 0, 0, "L", 0);
+
+// $pdf->SetY(55);
+// $pdf->Cell(75, 10, iconv('UTF-8', 'windows-1252', $nomeFuncionario), 1, 0, "C", 2);
+// $pdf->SetY(75.2);
+// $pdf->SetX(8);
+// $pdf->Cell(55, 10, iconv('UTF-8', 'windows-1252', "TIPO DE DEPENDENTE:"), 0, 0, "L", 0);
 
 // $pdf->SetY(55);
 // $pdf->Cell(75, 10, iconv('UTF-8', 'windows-1252', $nomeFuncionario), 1, 0, "C", 2);
 
 
-$pdf->SetX(74);
+$pdf->SetXY(8,80.2);
 // $pdf->SetX(5);
-$pdf->Cell(40, 10, iconv('UTF-8', 'windows-1252', "LOGRADOURO"), 1, 0, "C", 1);
+$pdf->Cell(40, 10, iconv('UTF-8', 'windows-1252', "LOGRADOURO:"), 0, 0, "L", 0);
 
 // $pdf->SetXY(90, 60);
 // $pdf->Cell(15, 5, iconv('UTF-8', 'windows-1252', "INÍCIO"), 1, 0, "C", 1);
@@ -361,8 +423,8 @@ $pdf->Cell(40, 10, iconv('UTF-8', 'windows-1252', "LOGRADOURO"), 1, 0, "C", 1);
 // $pdf->SetX(105);
 // $pdf->Cell(15, 5, iconv('UTF-8', 'windows-1252', "FIM"), 1, 0, "C", 1);
 
-$pdf->SetXY(127, 74);
-$pdf->Cell(35, 10, iconv('UTF-8', 'windows-1252', "COMPLEMENTO"), 1, 0, "C", 1);
+$pdf->SetXY(8, 85.2);
+$pdf->Cell(35, 10, iconv('UTF-8', 'windows-1252', "COMPLEMENTO:"), 0, 0, "L", 0);
 
 // $pdf->SetXY(120, 60);
 // $pdf->Cell(15, 5, iconv('UTF-8', 'windows-1252', "INÍCIO"), 1, 0, "C", 1);
@@ -373,8 +435,8 @@ $pdf->Cell(35, 10, iconv('UTF-8', 'windows-1252', "COMPLEMENTO"), 1, 0, "C", 1);
 // $pdf->SetXY(150, 55);
 // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', "SAÍDA"), 1, 0, "C", 1);
 
-$pdf->SetXY(170, 74);
-$pdf->Cell(30, 10, iconv('UTF-8', 'windows-1252', "NUMERO"), 1, 0, "C", 1);
+$pdf->SetXY(8, 90.2);
+$pdf->Cell(30, 10, iconv('UTF-8', 'windows-1252', "NUMERO:"), 0, 0, "L", 0);
 
 // $pdf->SetXY(120, 60);
 // $pdf->Cell(15, 5, iconv('UTF-8', 'windows-1252', "INÍCIO"), 1, 0, "C", 1);
@@ -480,8 +542,8 @@ $y += 40;
 
 
 
-$pdf->SetXY(9, $y);
-$pdf->Cell(55, 5, iconv('UTF-8', 'windows-1252',  $cep), 1, 0, "C", 0);
+$pdf->SetXY(16, $y-6.5);
+$pdf->Cell(55, 5, iconv('UTF-8', 'windows-1252',  $cep), 0, 0, "L", 0);
 
 // ....
 
@@ -491,8 +553,8 @@ $pdf->Cell(55, 5, iconv('UTF-8', 'windows-1252',  $cep), 1, 0, "C", 0);
 // $pdf->SetXY(60, $y);
 // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ''), 1, 0, "C", 0);
 
-$pdf->SetXY(74, $y);
-$pdf->Cell(40, 5, iconv('UTF-8', 'windows-1252', $logradouro), 1, 0, "C", 0);
+$pdf->SetXY(30, 82.8);
+$pdf->Cell(40, 5, iconv('UTF-8', 'windows-1252', $logradouro), 0, 0, "L", 0);
 
 // $pdf->SetXY(90, $y);
 // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
@@ -500,16 +562,73 @@ $pdf->Cell(40, 5, iconv('UTF-8', 'windows-1252', $logradouro), 1, 0, "C", 0);
 // $pdf->SetXY(105, $y);
 // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
 
-$pdf->SetXY(127, $y);
-$pdf->Cell(35, 5, iconv('UTF-8', 'windows-1252', $complemento,), 1, 0, "C", 0);
+$pdf->SetXY(33, 88.1);
+$pdf->Cell(35, 5, iconv('UTF-8', 'windows-1252', $complemento,), 0, 0, "L", 0);
 
 // $pdf->SetXY(135, $y);
 // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ''), 1, 0, "C", 0);
 
 // $pdf->SetXY(150, $y);
 // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
-$pdf->SetXY(170, $y);
-$pdf->Cell(30, 5, iconv('UTF-8', 'windows-1252', $numero), 1, 0, "C", 0);
+$pdf->SetXY(23, 92);
+$pdf->Cell(30, 5, iconv('UTF-8', 'windows-1252', $numero), 0, 0, "L", 0);
+
+// $pdf->SetXY(90, $y);
+// $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
+
+// $pdf->SetXY(105, $y);
+// $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
+
+
+
+$pdf->SetXY(160, $y-46.4);
+$pdf->Cell(55, 5, iconv('UTF-8', 'windows-1252',  $nomeDependente), 0, 0, "L", 0);
+
+// ....
+
+// $pdf->SetXY(45, $y);
+// $pdf->Cell(190, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
+
+// $pdf->SetXY(60, $y);
+// $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ''), 1, 0, "C", 0);
+
+$pdf->SetXY(157, $y-41.4);
+$pdf->Cell(55, 5, iconv('UTF-8', 'windows-1252',  $cpfDependente), 0, 0, "L", 0);
+
+
+$pdf->SetXY(184, $y-36.1);
+$pdf->Cell(55, 5, iconv('UTF-8', 'windows-1252',  $dataNascimentoDependente), 0, 0, "L", 0);
+
+
+$pdf->SetXY(159, $y-31.6);
+$pdf->Cell(55, 5, iconv('UTF-8', 'windows-1252',  $dependente), 0, 0, "L", 0);
+// ....
+
+// $pdf->SetXY(45, $y);
+// $pdf->Cell(190, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
+
+// $pdf->SetXY(60, $y);
+// $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ''), 1, 0, "C", 0);
+
+$pdf->SetXY(30, 82.8);
+$pdf->Cell(40, 5, iconv('UTF-8', 'windows-1252', $logradouro), 0, 0, "L", 0);
+
+// $pdf->SetXY(90, $y);
+// $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
+
+// $pdf->SetXY(105, $y);
+// $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
+
+$pdf->SetXY(33, 88.1);
+$pdf->Cell(35, 5, iconv('UTF-8', 'windows-1252', $complemento,), 0, 0, "L", 0);
+
+// $pdf->SetXY(135, $y);
+// $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ''), 1, 0, "C", 0);
+
+// $pdf->SetXY(150, $y);
+// $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
+$pdf->SetXY(23, 92);
+$pdf->Cell(30, 5, iconv('UTF-8', 'windows-1252', $numero), 0, 0, "L", 0);
 
 // $pdf->SetXY(90, $y);
 // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
@@ -535,17 +654,16 @@ $pdf->SetFillColor(238, 238, 238);
 $pdf->SetFont('Arial', 'B', 8);
 
 
-$pdf->SetY(114);
-$pdf->SetX(9);
-$pdf->Cell(35, 10, iconv('UTF-8', 'windows-1252', "UF"), 1, 0, "C", 1);
+$pdf->SetY(100.2);
+$pdf->SetX(8);
+$pdf->Cell(35, 10, iconv('UTF-8', 'windows-1252', "UF:"), 0, 0, "L", 0);
 
 // $pdf->SetY(55);
 // $pdf->Cell(75, 10, iconv('UTF-8', 'windows-1252', $nomeFuncionario), 1, 0, "C", 2);
 
 
-$pdf->SetX(49);
-// $pdf->SetX(5);
-$pdf->Cell(40, 10, iconv('UTF-8', 'windows-1252', "BAIRRO"), 1, 0, "C", 1);
+$pdf->SetXY(8,95.2);
+$pdf->Cell(40, 10, iconv('UTF-8', 'windows-1252', "BAIRRO:"), 0, 0, "L", 0);
 
 // $pdf->SetXY(90, 60);
 // $pdf->Cell(15, 5, iconv('UTF-8', 'windows-1252', "INÍCIO"), 1, 0, "C", 1);
@@ -553,8 +671,8 @@ $pdf->Cell(40, 10, iconv('UTF-8', 'windows-1252', "BAIRRO"), 1, 0, "C", 1);
 // $pdf->SetX(105);
 // $pdf->Cell(15, 5, iconv('UTF-8', 'windows-1252', "FIM"), 1, 0, "C", 1);
 
-$pdf->SetXY(95, 114);
-$pdf->Cell(35, 10, iconv('UTF-8', 'windows-1252', "CIDADE"), 1, 0, "C", 1);
+$pdf->SetXY(8, 105.2);
+$pdf->Cell(35, 10, iconv('UTF-8', 'windows-1252', "CIDADE:"), 0, 0, "L", 0);
 
 // $pdf->SetXY(120, 60);
 // $pdf->Cell(15, 5, iconv('UTF-8', 'windows-1252', "INÍCIO"), 1, 0, "C", 1);
@@ -565,8 +683,8 @@ $pdf->Cell(35, 10, iconv('UTF-8', 'windows-1252', "CIDADE"), 1, 0, "C", 1);
 // $pdf->SetXY(150, 55);
 // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', "SAÍDA"), 1, 0, "C", 1);
 
-$pdf->SetXY(135, 114);
-$pdf->Cell(30, 10, iconv('UTF-8', 'windows-1252', "PRIMEIRO EMPREGO"), 1, 0, "C", 1);
+$pdf->SetXY(8, 55);
+$pdf->Cell(30, 10, iconv('UTF-8', 'windows-1252', "PRIMEIRO EMPREGO:"), 0, 0, "L", 0);
 
 // $pdf->SetXY(120, 60);
 // $pdf->Cell(15, 5, iconv('UTF-8', 'windows-1252', "INÍCIO"), 1, 0, "C", 1);
@@ -577,8 +695,8 @@ $pdf->Cell(30, 10, iconv('UTF-8', 'windows-1252', "PRIMEIRO EMPREGO"), 1, 0, "C"
 // $pdf->SetXY(150, 55);
 // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', "SAÍDA"), 1, 0, "C", 1);
 
-$pdf->SetXY(170, 114);
-$pdf->Cell(30, 10, iconv('UTF-8', 'windows-1252', "PIS"), 1, 0, "C", 1);
+$pdf->SetXY(8, 60.2);
+$pdf->Cell(30, 10, iconv('UTF-8', 'windows-1252', "PIS:"), 0, 0, "L", 0);
 
 // $pdf->SetXY(120, 60);
 // $pdf->Cell(15, 5, iconv('UTF-8', 'windows-1252', "INÍCIO"), 1, 0, "C", 1);
@@ -589,8 +707,8 @@ $pdf->Cell(30, 10, iconv('UTF-8', 'windows-1252', "PIS"), 1, 0, "C", 1);
 // $pdf->SetXY(150, 55);
 // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', "SAÍDA"), 1, 0, "C", 1);
 
-$pdf->SetXY(110, 150);
-$pdf->Cell(30, 10, iconv('UTF-8', 'windows-1252', "ESTADO CÍVIL"), 1, 0, "C", 1);
+$pdf->SetXY(8, 70.2);
+$pdf->Cell(30, 10, iconv('UTF-8', 'windows-1252', "ESTADO CÍVIL:"), 0, 0, "L", 0);
 
 // $pdf->SetXY(120, 60);
 // $pdf->Cell(15, 5, iconv('UTF-8', 'windows-1252', "INÍCIO"), 1, 0, "C", 1);
@@ -600,8 +718,8 @@ $pdf->Cell(30, 10, iconv('UTF-8', 'windows-1252', "ESTADO CÍVIL"), 1, 0, "C", 1
 
 // $pdf->SetXY(150, 55);
 // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', "SAÍDA"), 1, 0, "C", 1);
-$pdf->SetXY(70, 150);
-$pdf->Cell(30, 10, iconv('UTF-8', 'windows-1252', "GÊNERO"), 1, 0, "C", 1);
+$pdf->SetXY(8, 65.2);
+$pdf->Cell(30, 10, iconv('UTF-8', 'windows-1252', "GÊNERO:"), 0, 0, "L", 0);
 
 // $pdf->SetXY(120, 60);
 // $pdf->Cell(15, 5, iconv('UTF-8', 'windows-1252', "INÍCIO"), 1, 0, "C", 1);
@@ -692,8 +810,8 @@ $y += 40;
 
 
 
-$pdf->SetXY(9, $y);
-$pdf->Cell(35, 5, iconv('UTF-8', 'windows-1252',  $uf), 1, 0, "C", 0);
+$pdf->SetXY(14, 102.8);
+$pdf->Cell(35, 5, iconv('UTF-8', 'windows-1252',  $uf), 0, 0, "L", 0);
 
 // ....
 
@@ -703,8 +821,8 @@ $pdf->Cell(35, 5, iconv('UTF-8', 'windows-1252',  $uf), 1, 0, "C", 0);
 // $pdf->SetXY(60, $y);
 // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ''), 1, 0, "C", 0);
 
-$pdf->SetXY(49, $y);
-$pdf->Cell(40, 5, iconv('UTF-8', 'windows-1252', $bairro), 1, 0, "C", 0);
+$pdf->SetXY(21, 97.5);
+$pdf->Cell(40, 5, iconv('UTF-8', 'windows-1252', $bairro), 0, 0, "L", 0);
 
 // $pdf->SetXY(90, $y);
 // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
@@ -712,8 +830,8 @@ $pdf->Cell(40, 5, iconv('UTF-8', 'windows-1252', $bairro), 1, 0, "C", 0);
 // $pdf->SetXY(105, $y);
 // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
 
-$pdf->SetXY(95, $y);
-$pdf->Cell(35, 5, iconv('UTF-8', 'windows-1252', $cidade,), 1, 0, "C", 0);
+$pdf->SetXY(20, 107.5);
+$pdf->Cell(35, 5, iconv('UTF-8', 'windows-1252', $cidade,), 0, 0, "L", 0);
 
 // $pdf->SetXY(135, $y);
 // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ''), 1, 0, "C", 0);
@@ -729,8 +847,8 @@ $pdf->Cell(35, 5, iconv('UTF-8', 'windows-1252', $cidade,), 1, 0, "C", 0);
 // $pdf->SetXY(105, $y);
 // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
 
-$pdf->SetXY(135, $y);
-$pdf->Cell(30, 5, iconv('UTF-8', 'windows-1252', $primeiroEmprego), 1, 0, "C", 0);
+$pdf->SetXY(40, 57.5);
+$pdf->Cell(30, 5, iconv('UTF-8', 'windows-1252', $primeiroEmprego), 0, 0, "L", 0);
 
 // $pdf->SetXY(90, $y);
 // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
@@ -741,8 +859,8 @@ $pdf->Cell(30, 5, iconv('UTF-8', 'windows-1252', $primeiroEmprego), 1, 0, "C", 0
 
 
 
-$pdf->SetXY(170, $y);
-$pdf->Cell(30, 5, iconv('UTF-8', 'windows-1252', $pis), 1, 0, "C", 0);
+$pdf->SetXY(14, 62.8);
+$pdf->Cell(30, 5, iconv('UTF-8', 'windows-1252', $pis), 0, 0, "L", 0);
 
 // $pdf->SetXY(90, $y);
 // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
@@ -753,8 +871,8 @@ $pdf->Cell(30, 5, iconv('UTF-8', 'windows-1252', $pis), 1, 0, "C", 0);
 
 
 
-$pdf->SetXY(110, 160);
-$pdf->Cell(30, 5, iconv('UTF-8', 'windows-1252', $estadoCivil), 1, 0, "C", 0);
+$pdf->SetXY(29,  72.5);
+$pdf->Cell(30, 5, iconv('UTF-8', 'windows-1252', $estadoCivil), 0, 0, "L", 0);
 
 // $pdf->SetXY(90, $y);
 // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
@@ -762,8 +880,8 @@ $pdf->Cell(30, 5, iconv('UTF-8', 'windows-1252', $estadoCivil), 1, 0, "C", 0);
 // $pdf->SetXY(105, $y);
 // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
 
-$pdf->SetXY(70, 160);
-$pdf->Cell(30, 5, iconv('UTF-8', 'windows-1252', $genero), 1, 0, "C", 0);
+$pdf->SetXY(22, 67.4);
+$pdf->Cell(30, 5, iconv('UTF-8', 'windows-1252', $genero), 0, 0, "L", 0);
 
 // $pdf->SetXY(90, $y);
 // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);

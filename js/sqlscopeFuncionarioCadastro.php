@@ -1,5 +1,7 @@
 <?php
 
+use LDAP\Result;
+
 include "repositorio.php";
 include "girComum.php";
 
@@ -46,7 +48,6 @@ if ($funcao == 'validaDataInversa') {
 
 function grava()
 {
-
     if ((empty($_POST['codigo'])) || (!isset($_POST['codigo'])) || (is_null($_POST['codigo']))) {
         $codigo = 0;
     } else {
@@ -272,7 +273,6 @@ function recupera()
     $reposit = new reposit();
     $result = $reposit->RunQuery($sql);
 
-    $out = "";
     if ($row = $result[0]) {
         $codigo = +$row['codigo'];
         $ativo = $row['ativo'];
@@ -295,24 +295,15 @@ function recupera()
 
     $sql = "SELECT  codigo, telefone, principal, whatsapp FROM dbo.telefone WHERE codigoTel = $id";
     $reposit = new reposit();
-    $result = $reposit->RunQuery($sql);
+    $resultTelefone = $reposit->RunQuery($sql);
 
     $arrayTelefone = [];
 
-    foreach ($result as $index => $item) {
+    foreach ($resultTelefone as $index => $item) {
         $sequencialTelefone = $index + 1;
 
-        if ($item['principal']) {
-            $descricaoPrincipal = 'Sim';
-        } else {
-            $descricaoPrincipal = 'Não';
-        }
-
-        if ($item['whatsapp']) {
-            $descricaoWhatsApp = 'Sim';
-        } else {
-            $descricaoWhatsApp = 'Não';
-        }
+        $descricaoPrincipal =  $item['principal'] ? 'Sim' : 'Não';
+        $descricaoWhatsApp = $item['whatsapp'] ? 'Sim' : 'Não';
 
         array_push($arrayTelefone, [
             'codigo' => $item['codigo'],
@@ -333,19 +324,14 @@ function recupera()
 
     $sql = "SELECT  codigo, email, principal FROM dbo.email WHERE codigoEmail = $id";
     $reposit = new reposit();
-    $result = $reposit->RunQuery($sql);
+    $resultEmail = $reposit->RunQuery($sql);
 
     $arrayEmail = [];
 
-    foreach ($result as $index => $item) {
+    foreach ($resultEmail as $index => $item) {
         $sequencialEmail = $index + 1;
 
-        if ($item['principal'] == 1) {
-            $descricaoPrincipal = 'Sim';
-        } else {
-            $descricaoPrincipal = 'Não';
-        }
-
+        $descricaoPrincipal = $item['principal'] ? 'Sim' : 'Não';
 
         array_push($arrayEmail, [
             'codigo' => $item['codigo'],
@@ -380,39 +366,36 @@ function recupera()
     }
 
     $jsonDependente = json_encode($arrayDependente);
-
-
-
-    $out =   $codigo . "^" .
-        $ativo . "^" .
-        $nome . "^" .
-        $cpf . "^" .
-        $dataNascimento . "^" .
-        $rg . "^" .
-        $genero . "^" .
-        $estadoCivil  . "^" .
-        $jsonTelefone . "^" .
-        $jsonEmail . "^" .
-        $jsonDependente . "^" .
-        $cep . "^" .
-        $logradouro . "^" .
-        $complemento . "^" .
-        $numero . "^" .
-        $uf . "^" .
-        $bairro . "^" .
-        $cidade . "^" .
-        $primeiroEmprego . "^" .
-        $pis;
-
-    if ($out == "") {
-        echo "failed#";
+    if ($result) {
+        echo json_encode([
+            'status' => 'success',
+            'data' => [
+                'codigo' => $codigo,
+                'ativo' => $ativo,
+                'nome' => $nome,
+                'dataNascimento' => $dataNascimento,
+                'rg' => $rg,
+                'genero' => $genero,
+                'estadoCivil' => $estadoCivil,
+                'jsonTelefone' => $jsonTelefone,
+                'jsonEmail' => $jsonEmail,
+                'jsonDependente' => $jsonDependente,
+                'cep' => $cep,
+                'logradouro' => $logradouro,
+                'complemento' => $complemento,
+                'numero' => $numero,
+                'uf' => $uf,
+                'bairro' => $bairro,
+                'cidade' => $cidade,
+                'primeiroEmprego' => $primeiroEmprego,
+                'pis' => $pis
+            ]
+        ]);
         return;
     }
-
-    echo "sucess#" . $out . "#" . $jsonTelefone . "^" .
-        $jsonEmail . "^" .
-        $jsonDependente;
-
+    echo json_encode([
+        'status' => 'failed'
+    ]);
     return;
 }
 

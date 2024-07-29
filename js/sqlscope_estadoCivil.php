@@ -174,31 +174,6 @@ function verificaCpf(){
     return;
 }
 
-function verificaRG(){
-    if ((empty($_POST['rg'])) || (!isset($_POST['rg'])) || (is_null($_POST['rg']))) {
-        $id = 0;
-    } else {
-        $id = $_POST["rg"];
-    }
-
-
-    $reposit = new reposit();
-    $utils = new comum();
-
-    $rg = $utils->formatarString($_POST['rg']);
-
-    $sql = "SELECT rg from dbo.funcionarioCadastro where rg = $rg";
-
-    $reposit = new reposit();
-    $result = $reposit->RunQuery($sql);
-
-    $ret = 'sucess#Pode Cadastrar rg';
-    if (count($result)>0) {
-        $ret = 'failed#rg ja cadastrado';
-    }
-    echo $ret;
-    return;
-}
 
 function verificaEstadoCivil(){
     if ((empty($_POST['codigo'])) || (!isset($_POST['codigo'])) || (is_null($_POST['codigo']))) {
