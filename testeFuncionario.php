@@ -70,7 +70,7 @@ include("inc/nav.php");
                         </header>
                         <div>
                             <div class="widget-body no-padding">
-                                <form class="smart-form client-form" id="formUsuario">
+                                <form class="smart-form client-form" id="formUsuario" autocomplete="new-password">
                                     <div class="panel-group smart-accordion-default" id="accordion">
                                         <div class="panel panel-default">
                                             <div class="panel-heading">
@@ -101,24 +101,25 @@ include("inc/nav.php");
                                                             </section>
                                                         </div>
                                                         <div class="row">
-                                                            <section class="col col-2">
+                                                            <section class="col col-3">
                                                                 <label class="label">Nome</label>
                                                                 <label class="input"><i class="icon-prepend fa fa-user"></i>
-                                                                    <input id="nome" name="nome" pattern="[a-zA]" class="required" onpaste="return false" ondrop="return false" type="text" value="">
+                                                                    <input id="nome" name="nome" pattern="[a-zA]" class="required" ondrop="return false" type="text" autocomplete="new-password" maxlength="50" value="">
                                                                 </label>
                                                             </section>
                                                             <section class="col col-2">
                                                                 <label class="label">CPF</label>
                                                                 <label class="input">
-                                                                    <input id="cpf" maxlength="14" name="cpf" type="text" onpaste="return false" ondrop="return false" class="required" value="" placeholder="xxx.xxx.xxx-xx">
+                                                                    <input id="cpf" maxlength="14" name="cpf" type="text" ondrop="return false" class="required" value="" placeholder="xxx.xxx.xxx-xx" autocomplete="new-password">
                                                                 </label>
                                                             </section>
                                                             <section class="col col-2">
                                                                 <label class="label">RG</label>
                                                                 <label class="input">
-                                                                    <input id="rg" maxlength="12" name="rg" type="text" class="required" onpaste="return false" ondrop="return false" value="" placeholder="xx.xxx.xxx-x">
+                                                                    <input id="rg" maxlength="12" name="rg" type="text" class="required" ondrop="return false" value="" placeholder="xx.xxx.xxx-x" autocomplete="new-password">
                                                                 </label>
                                                             </section>
+
                                                             <!-- <section class="col col-2">
                                                             <label class="label"> Data de Nascimento</label>
                                                             <label class="input">                                                                
@@ -126,11 +127,12 @@ include("inc/nav.php");
                                                                 <input id="dataNascimento" name="dataNascimento" type="text" class="datepicker">
                                                                 </label>
                                                             </section> -->
+
                                                             <section class="col col-2">
                                                                 <label class="label" for="dataNascimento">Data de Nascimento</label>
                                                                 <label class="input">
                                                                     <i class="icon-append fa fa-calendar"></i>
-                                                                    <input id="dataNascimento" name="dataNascimento" data-dateformat="dd/mm/yy" placeholder="dd/mm/aaaa" type="text" onpaste="return false" ondrop="return false" class="required datepicker" value="">
+                                                                    <input id="dataNascimento" name="dataNascimento" data-dateformat="dd/mm/yy" placeholder="dd/mm/aaaa" type="text" ondrop="return false" class="required datepicker text-center" autocomplete="new-password" value="">
                                                                 </label>
                                                             </section>
                                                             <section class="col col-1">
@@ -184,8 +186,6 @@ include("inc/nav.php");
                                                                         <option hidden selected value=""> Selecione </option>
                                                                         <option value="1">Sim</option>
                                                                         <option value="0">Não</option>
-
-                                                                        ?>
                                                                     </select><i></i>
                                                                 </label>
                                                             </section>
@@ -193,7 +193,7 @@ include("inc/nav.php");
                                                             <section class="col col-2">
                                                                 <label class="label">Pis</label>
                                                                 <label class="input">
-                                                                    <input id="pis" name="pis" class="required" type="text" onpaste="return false" ondrop="return" value="">
+                                                                    <input id="pis" name="pis" class="required" type="text" onpaste="return false" ondrop="return" autocomplete="new-password" value="">
                                                                 </label>
                                                             </section>
                                                         </div>
@@ -225,7 +225,7 @@ include("inc/nav.php");
                                                                 <section class="col col-4">
                                                                     <label class="label">Telefone</label>
                                                                     <label class="input"><i class="icon-prepend fa fa-phone"></i>
-                                                                        <input id="telefone" name="telefone" class="required" type="tel" onpaste="return false" ondrop="return false" class="form-control" value="">
+                                                                        <input id="telefone" name="telefone" class="required" type="tel" ondrop="return false" class="form-control" value="" autocomplete="new-password">
                                                                     </label>
                                                                 </section>
                                                                 <section class="col col-2">
@@ -278,7 +278,7 @@ include("inc/nav.php");
                                                                 <section class="col col-6">
                                                                     <label class="label">Email</label>
                                                                     <label class="input"><i class="icon-prepend fa fa-envelope"></i>
-                                                                        <input id="email" name="email" class="required" type="text" onpaste="return false" ondrop="return false" class="form-control" value="">
+                                                                        <input id="email" name="email" class="required" type="text" ondrop="return false" class="form-control" value="" autocomplete="new-password">
                                                                     </label>
                                                                 </section>
                                                                 <section class="col col-2">
@@ -334,7 +334,7 @@ include("inc/nav.php");
                                                             <section class="col col-2 ">
                                                                 <label class="label">CEP</label>
                                                                 <label class="input">
-                                                                    <input id="cep" name="cep" type="text" onpaste="return false" ondrop="return false" class="required">
+                                                                    <input id="cep" name="cep" type="text" ondrop="return false" class="required" autocomplete="new-password">
                                                                 </label>
                                                             </section>
                                                         </div>
@@ -342,38 +342,38 @@ include("inc/nav.php");
                                                             <section class="col col-4">
                                                                 <label class="label">Logradouro</label>
                                                                 <label class="input">
-                                                                    <input id="logradouro" maxlength="255" name="logradouro" type="text" value="" class="required">
+                                                                    <input id="logradouro" maxlength="255" name="logradouro" type="text" value="" onpaste="return false" ondrop="return false" class="required" autocomplete="new-password">
                                                                 </label>
                                                             </section>
                                                             <section class="col col-4">
                                                                 <label class="label">Complemento</label>
                                                                 <label class="input">
-                                                                    <input id="complemento" name="complemento" onpaste="return false" ondrop="return false" type="text" class="required" value="">
+                                                                    <input id="complemento" name="complemento" type="text" value="" autocomplete="new-password">
                                                                 </label>
                                                             </section>
                                                             <section class="col col-1">
                                                                 <label class="label">Número</label>
                                                                 <label class="input">
-                                                                    <input id="numero" name="numero" type="text" maxlength="7" pattern="[0-9]+$" onpaste="return false" ondrop="return false" value="" class="required">
+                                                                    <input id="numero" name="numero" type="text" maxlength="7" pattern="[0-9]+$" onpaste="return false" class="required" ondrop="return false" value="" autocomplete="new-password">
                                                                 </label>
                                                             </section>
                                                             <section class="col col-2">
                                                                 <label class="label">UF</label>
                                                                 <label class="input">
-                                                                    <input type="text" id="uf" name="uf" class="required">
+                                                                    <input type="text" id="uf" name="uf" onpaste="return false" ondrop="return false" class="required" autocomplete="new-password">
                                                                 </label>
                                                             </section>
                                                             <section class="col col-4">
                                                                 <label class="label" for="idade">Bairro</label>
                                                                 <label class="input">
-                                                                    <input type="text" id="bairro" name="bairro" class="required">
+                                                                    <input type="text" id="bairro" name="bairro" class="required" autocomplete="new-password">
                                                                 </label>
                                                             </section>
 
                                                             <section class="col col-4">
                                                                 <label class="label" for="idade">Cidade</label>
                                                                 <label class="input">
-                                                                    <input type="text" id="cidade" name="cidade" class="required">
+                                                                    <input type="text" id="cidade" name="cidade" class="required" autocomplete="new-password">
                                                                 </label>
                                                             </section>
                                                         </div>
@@ -393,18 +393,21 @@ include("inc/nav.php");
                                                     </a>
                                                 </h4>
                                             </div>
-                                            <input id="jsonDependente" name="jsonDependente" type="hidden" value="[]">
-                                            <div id="formDependente" class="col-12 required">
-                                                <input id="dependenteId" name="dependenteId" type="hidden" value="">
-                                                <input id="sequencialDependente" name="sequencialDependente" type="hidden" value="">
-                                                <div id="collapseDependente" class="panel-collapse collapse">
-                                                    <div class="panel-body no-padding">
-                                                        <fieldset>
+                                            <div id="collapseDependente" class="panel-collapse collapse">
+                                                <div class="panel-body no-padding">
+                                                    <fieldset>
+                                                        <input id="jsonDependente" name="jsonDependente" type="hidden" value="[]">
+                                                        <div id="formDependente" class="col-12 required">
+                                                            <input id="dependenteId" name="dependenteId" type="hidden" value="">
+                                                            <input id="sequencialDependente" name="sequencialDependente" type="hidden" value="">
+
+
+
                                                             <div class="row">
                                                                 <section class="col col-3 ">
                                                                     <label class="label">Nome</label>
                                                                     <label class="input">
-                                                                        <input id="nomeDependente" name="nomeDependente" type="text" onpaste="return false" ondrop="return false" class="required">
+                                                                        <input id="nomeDependente" name="nomeDependente" type="text" onpaste="return false" ondrop="return false" autocomplete="new-password">
                                                                     </label>
                                                                 </section>
 
@@ -412,34 +415,35 @@ include("inc/nav.php");
                                                                 <section class="col col-2">
                                                                     <label class="label">CPF</label>
                                                                     <label class="input">
-                                                                        <input id="cpfDependente" maxlength="255" name="cpfDependente" type="text" value="" class="required">
+                                                                        <input id="cpfDependente" maxlength="255" name="cpfDependente" type="text" value="" autocomplete="new-password">
                                                                     </label>
                                                                 </section>
                                                                 <section class="col col-2">
                                                                     <label class="label">Data de Nascimento</label>
                                                                     <label class="input">
                                                                         <i class="icon-append fa fa-calendar"></i>
-                                                                        <input id="dataNascimentoDependente" name="dataNascimentoDependente" data-dateformat="dd/mm/yy" placeholder="dd/mm/aaaa" type="text" onpaste="return false" ondrop="return false" class="required datepicker" value="">
+                                                                        <input id="dataNascimentoDependente" name="dataNascimentoDependente" data-dateformat="dd/mm/yy" placeholder="dd/mm/aaaa" type="text" onpaste="return false" ondrop="return false" class="datepicker text-center" value="" autocomplete="new-password">
                                                                     </label>
                                                                 </section>
                                                                 <section class="col col-2 col-auto" required>
-                                                                <label class="label" for="dependente">Dependentes</label>
-                                                                <label class="select">
-                                                                    <select id="tipoDependente" class="required" name="tipoDependente">
-                                                                        <option hidden selected value=""> Selecione </option>
-                                                                        <?php
-                                                                        $reposit = new reposit();
-                                                                        $sql = "SELECT codigo, dependente, ativo FROM dbo.dependente where ativo = 1";
-                                                                        $result = $reposit->RunQuery($sql);
-                                                                        foreach ($result as $row) {
-                                                                            $codigo = +$row['codigo'];
-                                                                            $dependente = $row['dependente'];
-                                                                            echo '<option value=' . $codigo . '>' . $dependente. '</option>';
-                                                                        }
-                                                                        ?>
-                                                                    </select><i></i>
-                                                                </label>
-                                                            </section>
+                                                                    <label class="label" for="dependente">Dependentes</label>
+                                                                    <label class="select">
+                                                                        <select id="tipoDependente" name="tipoDependente">
+                                                                            <!-- <option hidden selected value=""> Selecione </option> -->
+                                                                            <option value=""> </option>
+                                                                            <?php
+                                                                            $reposit = new reposit();
+                                                                            $sql = "SELECT codigo, dependente, ativo FROM dbo.dependente where ativo = 1";
+                                                                            $result = $reposit->RunQuery($sql);
+                                                                            foreach ($result as $row) {
+                                                                                $codigo = +$row['codigo'];
+                                                                                $dependente = $row['dependente'];
+                                                                                echo '<option value=' . $codigo . '>' . $dependente . '</option>';
+                                                                            }
+                                                                            ?>
+                                                                        </select><i></i>
+                                                                    </label>
+                                                                </section>
                                                                 <section class="col col-2">
                                                                     <label class="label">&nbsp;</label>
                                                                     <button id="btnAddDependente" type="button" class="btn btn-primary">
@@ -450,10 +454,7 @@ include("inc/nav.php");
                                                                     </button>
                                                                 </section>
 
-
                                                                 <fieldset class="col col-12">
-
-
                                                                     <div class="table-responsive" style="min-height: 115px; width: 95%; border: 1px solid #ddd; margin-bottom: 13px; overflow-x: auto;">
                                                                         <table id="tableDependente" class="table table-bordered table-striped table-condensed table-hover dataTable">
                                                                             <thead>
@@ -470,43 +471,41 @@ include("inc/nav.php");
                                                                         </table>
                                                                     </div>
                                                             </div>
-                                                        </fieldset>
-
-
-
+                                                    </fieldset>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <footer>
+                                            <button type="button" id="btnExcluir" class="btn btn-danger hidden" aria-hidden="true" title="Excluir" style="display:<?php echo $esconderBtnExcluir ?>">
+                                                <span class="fa fa-trash"></span>
+                                            </button>
+                                            <div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-dialog-buttons ui-draggable" tabindex="-1" role="dialog" aria-describedby="dlgSimpleExcluir" aria-labelledby="ui-id-1" style="height: auto; width: 600px; top: 220px; left: 262px; display: none;">
+                                                <div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
+                                                    <span id="ui-id-2" class="ui-dialog-title">
+                                                    </span>
+                                                </div>
+                                                <div id="dlgSimpleExcluir" class="ui-dialog-content ui-widget-content " style="width: auto; min-height: 0px; max-height: none; height: auto;">
+                                                    <p>CONFIRMA A EXCLUSÃO ? </p>
+                                                </div>
+                                                <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+                                                    <div class="ui-dialog-buttonset">
                                                     </div>
                                                 </div>
                                             </div>
+                                            <button type="button" id="btnGravar" class="btn btn-success" aria-hidden="true" title="Gravar" style="display:<?php echo $esconderBtnGravar ?>">
+                                                <span class="fa fa-floppy-o"></span>
+                                            </button>
+                                            <button type="button" id="btnNovo" class="btn btn-primary" aria-hidden="true" title="Novo" style="display:<?php echo $esconderBtnGravar ?>">
+                                                <span class="fa fa-file-o"></span>
+                                            </button>
+                                            <button type="button" id="btnGerar" class="btn btn-warning hidden" aria-hidden="true" title="Gerar" style="display:<?php echo $esconderBtnGerar ?>">
+                                                <span class="pull-left fa fa-file"> Relatório Contato </span>
+                                            </button>
+                                            <button type="button" id="btnVoltar" class="btn btn-default" aria-hidden="true" title="Voltar">
+                                                <span class="fa fa-backward "></span>
+                                            </button>
 
-
-
-                                            <footer>
-                                                <button type="button" id="btnExcluir" class="btn btn-danger" aria-hidden="true" title="Excluir" style="display:<?php echo $esconderBtnExcluir ?>">
-                                                    <span class="fa fa-trash"></span>
-                                                </button>
-                                                <div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-dialog-buttons ui-draggable" tabindex="-1" role="dialog" aria-describedby="dlgSimpleExcluir" aria-labelledby="ui-id-1" style="height: auto; width: 600px; top: 220px; left: 262px; display: none;">
-                                                    <div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
-                                                        <span id="ui-id-2" class="ui-dialog-title">
-                                                        </span>
-                                                    </div>
-                                                    <div id="dlgSimpleExcluir" class="ui-dialog-content ui-widget-content" style="width: auto; min-height: 0px; max-height: none; height: auto;">
-                                                        <p>CONFIRMA A EXCLUSÃO ? </p>
-                                                    </div>
-                                                    <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-                                                        <div class="ui-dialog-buttonset">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <button type="submited" id="btnGravar" class="btn btn-success" aria-hidden="true" title="Gravar" style="display:<?php echo $esconderBtnGravar ?>">
-                                                    <span class="fa fa-floppy-o"></span>
-                                                </button>
-                                                <button type="button" id="btnNovo" class="btn btn-primary" aria-hidden="true" title="Novo" style="display:<?php echo $esconderBtnGravar ?>">
-                                                    <span class="fa fa-file-o"></span>
-                                                </button>
-                                                <button type="button" id="btnVoltar" class="btn btn-default" aria-hidden="true" title="Voltar">
-                                                    <span class="fa fa-backward "></span>
-                                                </button>
-                                            </footer>
+                                        </footer>
                                 </form>
                             </div>
                         </div>
@@ -569,6 +568,7 @@ include("inc/scripts.php");
         jsonEmailArray = JSON.parse($("#jsonEmail").val());
         jsonTelefoneArray = JSON.parse($("#jsonTelefone").val());
         jsonDependenteArray = JSON.parse($("#jsonDependente").val());
+
         $("#cpf").mask("999.999.999-99");
         $("#cpfDependente").mask("999.999.999-99");
         $("#rg").mask("99.999.999-9");
@@ -618,7 +618,7 @@ include("inc/scripts.php");
             }
 
             if (validarData(dataNascimento) == false) {
-                smartAlert("Atenção", "Data Inválida!", "error");
+                smartAlert("Atenção", "Não é possível cadastrar essa data de nascimento pois é menor que 14 anos!", "error");
                 $("#idade").val("");
                 $("#dataNascimento").val("");
             }
@@ -632,8 +632,8 @@ include("inc/scripts.php");
             }
 
             if (validarDataDependente(dataNascimentoDependente) == false) {
-                smartAlert("Atenção", "Data Inválida!", "error");
-                $("#dataNascimento").val("");
+                smartAlert("Atenção", "Data anterior a 1900 ou superior a data atual não é permitido!", "error");
+                $("#dataNascimentoDependente").val("");
             }
         });
 
@@ -651,8 +651,10 @@ include("inc/scripts.php");
             }
         });
 
-        $("#btnNovo").on("click", function() {
-            novo();
+        $("#btnNovo").on("click", () => novo());
+
+        $("#btnGerar").on("click", function() {
+            gerarPdf();
         });
 
         $("#btnGravar").on("click", function() {
@@ -665,18 +667,29 @@ include("inc/scripts.php");
 
         $("#cpf").on("change", function() {
             verificarCpf();
+            validarCPFIguais();
+
+        });
+
+        $("#cpfDependente").on("change", function() {
+            validarCPFDependente();
+        });
+
+        $("#dataNascimento").on("change", function() {
+            validaDataInversa(dataNascimento);
         });
 
         $("#rg").on("change", function() {
             verificarRG();
+            apagarRg();
         });
 
         $("#btnAddTelefone").on("click", function() {
+
             if (validaTelefone() === true) {
-                validEmail(email);
+                // validEmail(email);
                 addTelefone();
-            } else {
-                clearFormTelefone()
+                clearFormTelefone();
             }
         });
 
@@ -684,20 +697,20 @@ include("inc/scripts.php");
             if (validEmail()) {
                 if (validaEmail() === true) {
                     addEmail();
-                } else {
-                    clearFormEmail()
                 }
             } else {
-                smartAlert("Atenção", "Email incorreto", "error");
-                clearFormEmail()
+                smartAlert("Atenção", "Email inválido", "error");
+                // clearFormEmail()
                 return false;
             }
         });
+
         $("#btnAddDependente").on("click", function() {
+
             if (validaDependente() === true) {
                 addDependente();
             } else {
-                clearFormDependente()
+                // clearFormDependente()
             }
         });
 
@@ -721,22 +734,17 @@ include("inc/scripts.php");
                 }
             });
 
-
-
-
-            document.getElementById("nome").onkeypress = function(e) {
-                var chr = String.fromCharCode(e.which);
-                // Permitir letras (maiúsculas e minúsculas) e espaço
-                if (!/^[A-Za-z\s]*$/.test(chr)) {
-                    e.preventDefault(); // Impede a inserção do caractere
-                }
-            };
             document.getElementById("nomeDependente").onkeypress = function(e) {
                 var chr = String.fromCharCode(e.which);
                 // Permitir letras (maiúsculas e minúsculas) e espaço
                 if (!/^[A-Za-z\s]*$/.test(chr)) {
                     e.preventDefault(); // Impede a inserção do caractere
                 }
+            };
+            document.getElementById("nome").onkeypress = function(e) {
+                var chr = String.fromCharCode(e.which);
+                if ("qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM éáíóô".indexOf(chr) < 0)
+                    return false;
             };
 
             document.getElementById("numero").onkeypress = function(e) {
@@ -765,18 +773,52 @@ include("inc/scripts.php");
 
             document.getElementById("logradouro").onkeypress = function(e) {
                 var chr = String.fromCharCode(e.which);
-                if ("qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM ".indexOf(chr) < 0)
+                if ("qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM".indexOf(chr) < 0)
                     return false;
             };
 
+            document.getElementById("telefone").onkeypress = function(e) {
+                var chr = String.fromCharCode(e.which);
+                if ("1234567890".indexOf(chr) < 0)
+                    return false;
+            };
+
+            document.getElementById("rg").onkeypress = function(e) {
+                var chr = String.fromCharCode(e.which);
+                if ("1234567890".indexOf(chr) < 0)
+                    return false;
+            };
+
+            document.getElementById("cpf").onkeypress = function(e) {
+                var chr = String.fromCharCode(e.which);
+                if ("1234567890".indexOf(chr) < 0)
+                    return false;
+            };
+
+            document.getElementById("pis").onkeypress = function(e) {
+                var chr = String.fromCharCode(e.which);
+                if ("1234567890".indexOf(chr) < 0)
+                    return false;
+            };
+
+            document.getElementById("cep").onkeypress = function(e) {
+                var chr = String.fromCharCode(e.which);
+                if ("1234567890".indexOf(chr) < 0)
+                    return false;
+            };
 
             document.getElementById("complemento").onkeypress = function(e) {
                 var chr = String.fromCharCode(e.which);
-                if ("1234567890qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM& ".indexOf(chr) < 0)
+                if ("1234567890qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM&' ".indexOf(chr) < 0)
+                    return false;
+            };
+
+            document.getElementById("cpfDependente").onkeypress = function(e) {
+                var chr = String.fromCharCode(e.which);
+                if ("1234567890.-".indexOf(chr) < 0)
                     return false;
             };
         });
-
 
 
         $('#nome').on("focusout", campo => {
@@ -784,17 +826,14 @@ include("inc/scripts.php");
                 smartAlert("Atenção", "No puede digitar", "error");
                 $('#nome').val('');
             } else {
-                $('#nome').val((campo.currentTarget.value).trim());
+                $('#nome').val((campo.currentTarget.value).replace(/( )+/g, " "));
             }
 
         });
+        // var str = "Esta        string       tem    alguns espaços     desnecessários!";
+        // console.log(str); // "Esta string tem alguns espaços desnecessários!"
 
-
-
-
-
-
-        $('#emprego').on("change", campo => +campo.currentTarget.value ? $('#pis').addClass("readonly").attr("disabled", true) : $('#pis').removeClass("readonly").attr("disabled", false))
+        $('#emprego').on("change", campo => +campo.currentTarget.value ? $('#pis').addClass("readonly").attr("disabled", true).val("") : $('#pis').removeClass("readonly").attr("disabled", false))
 
         var SPMaskBehavior = function(val) {
                 return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00000';
@@ -825,10 +864,10 @@ include("inc/scripts.php");
                 if (validacep.test(cep)) {
 
                     //Preenche os campos com "..." enquanto consulta webservice.
-                    $("#rua").val("...");
-                    $("#bairro").val("...");
-                    $("#cidade").val("...");
-                    $("#uf").val("...");
+                    $("#logradouro").val("");
+                    $("#bairro").val("");
+                    $("#cidade").val("");
+                    $("#uf").val("");
 
 
                     //Consulta o webservice viacep.com.br/
@@ -844,7 +883,7 @@ include("inc/scripts.php");
                         else {
                             //CEP pesquisado não foi encontrado.
                             limpa_formulário_cep();
-                            alert("CEP não encontrado.");
+                            smartAlert("Atenção", "CEP não encontrado.", "error");
                         }
                     });
                 } //end if.
@@ -863,6 +902,14 @@ include("inc/scripts.php");
         carregaPagina();
     });
 
+    function limpa_formulário_cep() {
+        $("#cep").val()
+    }
+
+    function gerarPdf() {
+        var codigo = $("#codigo").val();
+        $(location).attr('href', 'relatorioContato.php?codigo=' + codigo);
+    }
 
     function carregaPagina() {
         var urlx = window.document.URL.toString();
@@ -873,10 +920,12 @@ include("inc/scripts.php");
             var idd = idx[1];
             if (idd !== "") {
                 recuperaUsuario(idd);
+                validaDataInversa();
 
             }
         }
         $("#nome").focus();
+
     }
 
     function novo() {
@@ -884,7 +933,7 @@ include("inc/scripts.php");
     }
 
     function voltar() {
-        $(location).attr('href', 'index.php');
+        $(location).attr('href', 'filtroFuncionario.php');
     }
 
     function excluir() {
@@ -898,7 +947,7 @@ include("inc/scripts.php");
     }
 
     function gravar() {
-        var id = +($("#codigo").val());
+        var codigo = +$("#codigo").val();
         var ativo = $('#ativo').val();
         var nome = $("#nome").val();
         var cpf = $("#cpf").val();
@@ -915,74 +964,149 @@ include("inc/scripts.php");
         var cidade = $("#cidade").val();
         var emprego = $("#emprego").val();
         var pis = $("#pis").val();
+        var telefone = $("#jsonTelefone").val();
+        var email = $("#jsonEmail").val();
 
-        if (nome === "") {
+
+        if (nome == "") {
             smartAlert("Atenção", "Informe o nome !", "error");
             $("#nome").focus();
             return false;
         }
 
-        if (cpf === "") {
+        if (cpf == "") {
             smartAlert("Atenção", "Informe o cpf !", "error");
             $("#cpf").focus();
             return false;
         }
-        if (rg === "") {
+        if (rg == "") {
             smartAlert("Atenção", "Informe o rg !", "error");
             $("#rg").focus();
             return false;
         }
 
-        if (dataNascimento === "") {
-            smartAlert("Atenção", "Informe a data de nascimento !", "error");
+        if (dataNascimento == "") {
+            smartAlert("Atenção", "Preencha a Data de Nascimento !", "error");
             $("#dataNascimento").focus();
             return false;
         }
-        if (genero === "") {
+        if (genero == "") {
             smartAlert("Atenção", "Informe o gênero !", "error");
             $("#genero").focus();
             return false;
         }
-        if (estadoCivil === "") {
+        if (estadoCivil == "") {
             smartAlert("Atenção", "Informe o estado civil !", "error");
             $("#estadoCivil").focus();
             return false;
         }
-        if (cep === "") {
+
+        if (telefone == "[]") {
+            smartAlert("Atenção", "Informe um telefone principal para contato !", "error");
+            $("#telefone").focus();
+            return false;
+        }
+
+        if (verificaTelefone() == false) {
+            smartAlert("Atenção", "Informe pelo menos um Telefone Principal", "error");
+            return;
+        }
+
+        if (verificaEmail() == false) {
+            smartAlert("Atenção", "Informe pelo menos um Email Principal", "error");
+            return;
+        }
+
+        if (email == "[]") {
+            smartAlert("Atenção", "Informe o email !", "error");
+            $("#email").focus();
+            return false;
+        }
+
+        if (cep == "") {
             smartAlert("Atenção", "Informe o cep !", "error");
             $("#cep").focus();
             return false;
         }
-        if (complemento === "") {
-            smartAlert("Atenção", "Informe o complemento !", "error");
-            $("#complemento").focus();
-            return false;
-        }
-        if (numero === "") {
-            smartAlert("Atenção", "Informe o estado civil !", "error");
-            $("#numero").focus();
+
+        if (numero == "") {
+            smartAlert("Atenção", "Informe o número !", "error");
+            $("#cep").focus();
             return false;
         }
 
-        if (emprego === "") {
+        if (emprego == "") {
             smartAlert("Atenção", "Informe se é o primeiro emprego !", "error");
             $("#emprego").focus();
-            return;
+            return false;
         }
 
-        if (pis === "") {
-            smartAlert("Atenção", "Informe o pis caso tenha trabalhado !", "error");
-            $("#pis").focus();
-            return;
+        desabilitaBotao();
+        gravaUsuario(codigo, ativo, nome, cpf, rg, dataNascimento, genero, estadoCivil, jsonTelefoneArray, jsonEmailArray, jsonDependenteArray, cep, logradouro, complemento, numero, uf, bairro, cidade, emprego, pis);
+    }
+
+    function verificaTelefone() {
+        jsonTelefoneArray = JSON.parse($("#jsonTelefone").val());
+        var achouTelefonePrincipal = "";
+
+        for (i = jsonTelefoneArray.length - 1; i >= 0; i--) {
+
+            if ((jsonTelefoneArray[i].telefonePrincipal == 1)) {
+                achouTelefonePrincipal = true;
+                break;
+            }
         }
-        gravaUsuario(id, ativo, nome, cpf, rg, dataNascimento, genero, estadoCivil, jsonTelefoneArray, jsonEmailArray, jsonDependenteArray, cep, logradouro, complemento, numero, uf, bairro, cidade, emprego, pis);
+
+        if (achouTelefonePrincipal === true) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function verificaEmail() {
+        jsonEmailArray = JSON.parse($("#jsonEmail").val());
+        var achouEmailPrincipal = "";
+
+        for (i = jsonEmailArray.length - 1; i >= 0; i--) {
+
+            if ((jsonEmailArray[i].emailPrincipal == 1)) {
+                achouEmailPrincipal = true;
+                break;
+            }
+        }
+
+        if (achouEmailPrincipal === true) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+    function verificaCpfIguais() {
+        var cpf = $("#cpf").val();
+        jsonDependenteArray = JSON.parse($("#jsonDependente").val());
+
+
+        if (jsonDependenteArray.cpfDependente == cpf) {
+            return false;
+        }
+    }
+
+    function desabilitaBotao() {
+        document.getElementById("btnGravar").disabled = true;
     }
 
     function verificarCpf() {
 
-
+        var jsonDependenteArray = JSON.parse($("#jsonDependente").val());
+        var ativo = $("#ativo").val();
         var cpf = $("#cpf").val();
-
+        if (jsonDependenteArray.cpfDependente == cpf) {
+            smartAlert("Atenção", "CPF INVÁLIDO", "Error");
+            return false;
+        }
         if (cpf == '000.000.000-00' ||
             cpf == '111.111.111-11' ||
             cpf == '..-' ||
@@ -1000,12 +1124,46 @@ include("inc/scripts.php");
             $("#cpf").focus();
             return false;
         } else {
-            verificaCpf(cpf);
+            verificaCpf(ativo, cpf);
         }
+        // validarCPFDependente()
+    }
+
+
+    function validarCPFIguais(cpf) {
+        cpfFuncionario = $("#cpf").val();
+        cpf = $("#cpfDependente").val();
+
+        if (cpfFuncionario == cpf) {
+            smartAlert("Atenção", "CPF NÃO PODEM SER iguais", "error")
+            apagarCpf();
+            return false
+        }
+    }
+
+    function validarCPFDependente(cpfDependente) {
+        cpfFuncionario = $("#cpf").val();
+        cpf = $("#cpfDependente").val();
+
+        if (cpfFuncionario == cpf) {
+            smartAlert("Atenção", "Cpf não pode ser igual ao do funcionário", "error")
+            apagarCpfDependente();
+            return false
+        }
+        validaCPFDependente(cpf);
+    }
+
+    function validarDataInversa(dataNascimento) {
+        dataNascimento = $("#dataNascimento").val();
+        validaDataInversa(dataNascimento);
     }
 
     function apagarCpf() {
         document.getElementById('cpf').value = "";
+    }
+
+    function apagarCpfDependente() {
+        document.getElementById('cpfDependente').value = "";
     }
 
     function verificarRG() {
@@ -1032,8 +1190,6 @@ include("inc/scripts.php");
         function apagarRg() {
             document.getElementById('rg').value = "";
         }
-
-
     }
 
     function validarData() {
@@ -1060,9 +1216,23 @@ include("inc/scripts.php");
         //     return false;
         // }
 
+        // if(hoje.getDate() < nasc.getDate()){
+        //     smartAlert("Atenção","Não é possível cadatrar uma data além da atual", "error");
+        //     $("#idade").val("");
+        //     $("#dataNascimento").val("");
+
+        //     return;
+        // }
+        if (idade < 0) {
+            smartAlert("Atenção", "Não é possível cadatrar uma data além da atual", "error");
+            $("#idade").val("");
+            $("#dataNascimento").val("");
+            return;
+        }
+
         if (idade >= 14 && idade <= 150) {
             // smartAlert("Sucesso","Data permitida.", "success")
-            $("#idade").val(idade)
+            $("#idade").val(idade);
             $("#btnGravar").prop('disabled', false);
             return;
         }
@@ -1071,6 +1241,16 @@ include("inc/scripts.php");
 
         if (hoje) return false;
     }
+
+    function defineIdade() {
+        var data = $("#dataNascimento").val();
+        var hoje = new Date();
+        var nasc = new Date(data);
+        var idade = hoje.getFullYear() - nasc.getFullYear();
+
+        $("#idade").val(idade);
+    }
+
     function validarDataDependente() {
         var data = $("#dataNascimentoDependente").val();
         data = data.replace(" /g, /");
@@ -1086,36 +1266,42 @@ include("inc/scripts.php");
         var nasc = new Date(data);
         var idade = hoje.getFullYear() - nasc.getFullYear();
         var m = hoje.getMonth() - nasc.getMonth();
-        if (m < 0 || (m === 0 && hoje.getDate() < nasc.getDate())) idade--;
+        if (m < 0 || (m === 0 && hoje.getDate() < nasc.getDate() + 1)) idade--;
 
-        // if (idade <= 18) {
-        //     // alert("Usuários com menos de 18 anos não podem ser cadastrados.");
-        //     $("#idade").val(idade)
-        //     $("#btnGravar").prop('disabled', false);
-        //     return false;
-        // }
-
-        if (idade >= 14 && idade <= 150) {
-            // smartAlert("Sucesso","Data permitida.", "success")
-            $("#idade").val(idade)
+        if (idade < 0) {
+            // alert("Usuários com menos de 18 anos não podem ser cadastrados.");
             $("#btnGravar").prop('disabled', false);
-            return;
+            return false;
         }
 
-        //Idade superior a 50 não altera o cadastro
+        if (nasc.getFullYear < 1900) {
+            // alert("Usuários com menos de 18 anos não podem ser cadastrados.");
+            $("#btnGravar").prop('disabled', false);
+            return false;
+        }
 
-        if (hoje) return false;
+
+
+        if (idade >= 0 && idade <= 135) {
+            // smartAlert("Sucesso","Data permitida.", "success")
+            $("#btnGravar").prop('disabled', false);
+            return;
+
+            //Idade superior a 50 não altera o cadastro
+
+            // if (hoje) return false;
+        } else {
+            return false;
+
+        }
     }
-
     //TABELA DE TELEFONEf
-
     function validaTelefone() {
         var achouTelefone = false;
         var achouTelefonePrincipal = false;
         let tell = $('#telefone').val();
         let tellChecked = $('#telefonePrincipal').is(':checked');
         let sequencial = +$('#sequencialTel').val();
-
 
         if ($('#telefonePrincipal').is(':checked')) {
             telefonePrincipal = true;
@@ -1160,17 +1346,9 @@ include("inc/scripts.php");
 
         if (achouTelefonePrincipal === true) {
             smartAlert("Erro", "Já existe o Telefone Principal na lista.", "error");
-            clearFormTelefone();
             return false;
 
         }
-
-        // if (jsonEmailArray[i].telefone === telefone ) {
-        //     smartAlert("Erro", "Já existe o Email na lista.", "error");
-        //     clearFormTelefone();
-        //     return false;
-
-        // }
 
         if (achouTelefone === true) {
             smartAlert("Erro", "Já existe o Telefone na lista.", "error");
@@ -1226,9 +1404,9 @@ include("inc/scripts.php");
             jsonTelefoneArray.push(item);
 
         $("#jsonTelefone").val(JSON.stringify(jsonTelefoneArray));
+
         fillTableTelefone();
         clearFormTelefone();
-
     }
 
     function fillTableTelefone() {
@@ -1304,13 +1482,30 @@ include("inc/scripts.php");
         });
 
 
-        clearFormTelefone();
+        // clearFormTelefone();
         if (arr.length > 0) {
             var item = arr[0];
             $("#sequencialTel").val(item.sequencialTel);
             $("#telefoneId").val(item.telefoneId);
             $("#telefone").val(item.telefone);
+            if (item.telefonePrincipal == true && item.telefoneWhatsapp == true) {
+                $("#telefonePrincipal").prop('checked', true);
+                $("#telefoneWhatsapp").prop('checked', true);
+            }
+            if (item.telefonePrincipal == false && item.telefoneWhatsapp == true) {
+                $("#telefonePrincipal").prop('checked', false);
+                $("#telefoneWhatsapp").prop('checked', true);
+            }
 
+            if (item.telefonePrincipal == true && item.telefoneWhatsapp == false) {
+                $("#telefonePrincipal").prop('checked', true);
+                $("#telefoneWhatsapp").prop('checked', false);
+            }
+
+            if (item.telefonePrincipal == false && item.telefoneWhatsapp == false) {
+                $("#telefonePrincipal").prop('checked', false);
+                $("#telefoneWhatsapp").prop('checked', false);
+            }
         }
     }
 
@@ -1318,6 +1513,8 @@ include("inc/scripts.php");
         $("#sequencialTel").val("");
         $("#telefoneId").val("");
         $("#telefone").val("");
+        $("#telefonePrincipal").prop('checked', false);
+        $("#telefoneWhatsapp").prop('checked', false);
         return true;
     }
 
@@ -1341,14 +1538,14 @@ include("inc/scripts.php");
             descricaoPrincipal = "Não";
         }
 
-        if (email === '') {
+        if (email == '') {
             smartAlert("Erro", "Informe o Email ", "error");
             return false;
         }
 
         for (i = jsonEmailArray.length - 1; i >= 0; i--) {
             if (emailPrincipal) {
-                if (jsonEmailArray[i].emailPrincipal && jsonEmailArray[i].sequencialEmail !== sequencial) {
+                if (jsonEmailArray[i].emailPrincipal && (jsonEmailArray[i].sequencialEmail !== sequencial)) {
                     achouEmailPrincipal = true;
                     break;
                 }
@@ -1363,7 +1560,7 @@ include("inc/scripts.php");
             }
         }
 
-        if (achouEmailPrincipal === true) {
+        if (achouEmailPrincipal === true && emailChecked === true) {
             smartAlert("Erro", "Já existe o Email Principal na lista.", "error");
             clearFormTelefone();
             return false;
@@ -1376,8 +1573,6 @@ include("inc/scripts.php");
             return false;
 
         }
-
-
 
         return true;
     }
@@ -1425,6 +1620,7 @@ include("inc/scripts.php");
         $("#jsonEmail").val(JSON.stringify(jsonEmailArray));
         fillTableEmail();
         // clearFormTelefone();
+
         clearFormEmail();
 
     }
@@ -1457,14 +1653,14 @@ include("inc/scripts.php");
                 value: valorTel
             };
         }
-        if (fieldName !== '' && (fieldId === "telefonePrincipal")) {
+        if (fieldName !== '' && (fieldId === "emailPrincipal")) {
             var telefonePrincipal = 0;
-            if ($("#telefonePrincipal").is(':checked') === true) {
-                telefonePrincipal = 1;
+            if ($("#emailPrincipal").is(':checked') === true) {
+                emailPrincipal = 1;
             }
             return {
                 name: fieldName,
-                value: telefonePrincipal
+                value: emailPrincipal
             };
         }
 
@@ -1486,7 +1682,7 @@ include("inc/scripts.php");
             $("#jsonEmail").val(JSON.stringify(jsonEmailArray));
             fillTableEmail();
         } else
-            smartAlert("Erro", "Selecione pelo menos 1 telefone para excluir.", "error");
+            smartAlert("Erro", "Selecione pelo menos 1 email para excluir.", "error");
     }
 
     function carregaEmail(sequencialEmail) {
@@ -1504,30 +1700,36 @@ include("inc/scripts.php");
             $("#sequencialEmail").val(item.sequencialEmail);
             $("#emailId").val(item.emailId);
             $("#email").val(item.email);
+            if (item.emailPrincipal == true) {
+                $("#emailPrincipal").prop('checked', true);
+            } else {
+                $("#emailPrincipal").prop('checked', false);
+            }
+            // if (emailPrincipal == false){
+            //     $("#emailPrincipal").prop('checked', false);
+            // }
         }
     }
-
     function clearFormEmail() {
         $("#sequencialEmail").val("");
         $("#emailId").val("");
         $("#email").val("");
+        $("#emailPrincipal").prop('checked', false);
         return true;
     }
-
-    // function clearFormEmail() {
-    //     $("#email").val('');
-    // }
 
     function validaDependente() {
         let cpfDependente = $('#cpfDependente').val();
         let nomeDependente = $('#nomeDependente').val()
         let dataNascimentoDependente = $('#dataNascimentoDependente').val();
         let tipoDependente = $('#tipoDependente').val();
+        let sequencialDependente = +$('#sequencialDependente').val();
         let achouCpf = false;
 
-
-
-
+        if (nomeDependente === '') {
+            smartAlert("Erro", "Informe o Nome ", "error");
+            return false;
+        }
 
         if (cpfDependente === '') {
             smartAlert("Erro", "Informe o CPF ", "error");
@@ -1539,12 +1741,8 @@ include("inc/scripts.php");
             return false;
         }
 
-        if (nomeDependente === '') {
-            smartAlert("Erro", "Informe o Nome ", "error");
-            return false;
-        }
         if (dataNascimentoDependente === '') {
-            smartAlert("Erro", "Informe a data ", "error");
+            smartAlert("Erro", "Preencha a data de Nascimento ", "error");
             return false;
         }
         if (tipoDependente === '') {
@@ -1552,13 +1750,9 @@ include("inc/scripts.php");
             return false;
         }
 
-
-
-
-
         for (i = jsonDependenteArray.length - 1; i >= 0; i--) {
             if (cpfDependente) {
-                if ((jsonDependenteArray[i].sequencialDependente !== sequencialDependente)) {
+                if ((jsonDependenteArray[i].sequencialDependente == sequencialDependente)) {
                     achouCpf = true;
                     break;
                 }
@@ -1566,7 +1760,7 @@ include("inc/scripts.php");
 
             if (cpfDependente !== "") {
 
-                if ((jsonDependenteArray[i].cpfDependente === cpfDependente) && (jsonDependenteArray[i].sequencialDependente !== sequencial)) {
+                if ((jsonDependenteArray[i].cpfDependente == cpfDependente) && (jsonDependenteArray[i].sequencialDependente !== sequencialDependente)) {
                     achouCpf = true;
                     break;
                 }
@@ -1575,7 +1769,7 @@ include("inc/scripts.php");
 
         if (achouCpf === true) {
             smartAlert("Erro", "Já existe o cpf na lista.", "error");
-            clearFormDependente();
+            // clearFormDependente();
             return false;
 
         }
@@ -1590,9 +1784,6 @@ include("inc/scripts.php");
             skipEmpty: false,
             nodeCallback: processDataTel
         });
-
-
-
 
         if (item["sequencialDependente"] === '') {
             if (jsonDependenteArray.length === 0) {
@@ -1618,36 +1809,31 @@ include("inc/scripts.php");
                 return false;
             }
         });
-
         if (index >= 0)
             jsonDependenteArray.splice(index, 1, item);
         else
             jsonDependenteArray.push(item);
 
         $("#jsonDependenteArray").val(JSON.stringify(jsonDependenteArray));
-        fillTableDependente();
-        clearFormTelefone();
 
+        fillTableDependente();
+        clearFormDependente();
     }
 
     function fillTableDependente() {
         $("#tableDependente tbody").empty();
         for (var i = 0; i < jsonDependenteArray.length; i++) {
             if (jsonDependenteArray[i].cpfDependente !== null && jsonDependenteArray[i].cpfDependente != '') {
-            
+                var dependente = $("#tipoDependente option[value = '" + jsonDependenteArray[i].tipoDependente + "']").text();
                 var row = $('<tr />');
                 $("#tableDependente tbody").append(row);
                 row.append($('<td><label class="checkbox"><input type="checkbox" name="checkbox" value="' + jsonDependenteArray[i].sequencialDependente + '"><i></i></label></td>'));
-                row.append($('<td class="text-nowrap" onclick="carregaTelefone(' + jsonDependenteArray[i].sequencialDependente + ');">' + jsonDependenteArray[i].nomeDependente + '</td>'));
+                row.append($('<td class="text-nowrap" onclick="carregaDependente(' + jsonDependenteArray[i].sequencialDependente + ');">' + jsonDependenteArray[i].nomeDependente + '</td>'));
                 row.append($('<td class="text-nowrap">' + jsonDependenteArray[i].cpfDependente + '</td>'));
                 row.append($('<td class="text-nowrap">' + jsonDependenteArray[i].dataNascimentoDependente + '</td>'));
-                row.append($('<td class="text-nowrap">' + jsonDependenteArray[i].tipoDependente + '</td>'));
+                row.append($('<td class="text-nowrap">' + dependente + '</td>'));
 
             }
-
-
-
-
         }
     }
 
@@ -1655,10 +1841,10 @@ include("inc/scripts.php");
         var fieldId = node.getAttribute ? node.getAttribute('id') : '';
         var fieldName = node.getAttribute ? node.getAttribute('name') : '';
 
-        if (fieldName !== '' && (fieldId === "telefone")) {
-            var valorTel = $("#telefone").val();
+        if (fieldName !== '' && (fieldId === "dependente")) {
+            var valorTel = $("#dependente").val();
             if (valorTel !== '') {
-                fieldName = "telefone";
+                fieldName = "dependente";
             }
             return {
                 name: fieldName,
@@ -1694,31 +1880,32 @@ include("inc/scripts.php");
             $("#jsonDependente").val(JSON.stringify(jsonDependenteArray));
             fillTableDependente();
         } else
-            smartAlert("Erro", "Selecione pelo menos 1 telefone para excluir.", "error");
+            smartAlert("Erro", "Selecione pelo menos 1 dependente para excluir.", "error");
     }
 
     function carregaDependente(sequencialDependente) {
-
-
         var arr = jQuery.grep(jsonDependenteArray, function(item, i) {
-            return (item.sequencialTel === sequencialTel);
+            return (item.sequencialDependente === sequencialDependente);
         });
-
 
         clearFormDependente();
         if (arr.length > 0) {
             var item = arr[0];
-            $("#sequencialTel").val(item.sequencialTel);
-            $("#telefoneId").val(item.telefoneId);
-            $("#telefone").val(item.telefone);
+            $("#sequencialDependente").val(item.sequencialDependente);
+            $("#nomeDependente").val(item.nomeDependente);
+            $("#cpfDependente").val(item.cpfDependente);
+            $("#dataNascimentoDependente").val(item.dataNascimentoDependente);
+            $("#tipoDependente").val(item.tipoDependente);
 
         }
     }
 
     function clearFormDependente() {
-        $("#sequencialTel").val("");
-        $("#telefoneId").val("");
-        $("#telefone").val("");
+        $("#sequencialDependente").val("");
+        $("#nomeDependente").val("");
+        $("#cpfDependente").val("");
+        $("#dataNascimentoDependente").val("");
+        $("#tipoDependente").val("");
         return true;
     }
 </script>

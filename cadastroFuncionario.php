@@ -104,7 +104,7 @@ include("inc/nav.php");
                                                             <section class="col col-3">
                                                                 <label class="label">Nome</label>
                                                                 <label class="input"><i class="icon-prepend fa fa-user"></i>
-                                                                    <input id="nome" name="nome" pattern="[a-zA]" class="required"  ondrop="return false" type="text" autocomplete="new-password" maxlength="50" value="">
+                                                                    <input id="nome" name="nome" pattern="[a-zA]" class="required" ondrop="return false" type="text" autocomplete="new-password" maxlength="50" value="">
                                                                 </label>
                                                             </section>
                                                             <section class="col col-2">
@@ -116,7 +116,7 @@ include("inc/nav.php");
                                                             <section class="col col-2">
                                                                 <label class="label">RG</label>
                                                                 <label class="input">
-                                                                    <input id="rg" maxlength="12" name="rg" type="text" class="required"  ondrop="return false" value="" placeholder="xx.xxx.xxx-x" autocomplete="new-password">
+                                                                    <input id="rg" maxlength="12" name="rg" type="text" class="required" ondrop="return false" value="" placeholder="xx.xxx.xxx-x" autocomplete="new-password">
                                                                 </label>
                                                             </section>
 
@@ -278,7 +278,7 @@ include("inc/nav.php");
                                                                 <section class="col col-6">
                                                                     <label class="label">Email</label>
                                                                     <label class="input"><i class="icon-prepend fa fa-envelope"></i>
-                                                                        <input id="email" name="email" class="required" type="text"  ondrop="return false" class="form-control" value="" autocomplete="new-password">
+                                                                        <input id="email" name="email" class="required" type="text" ondrop="return false" class="form-control" value="" autocomplete="new-password">
                                                                     </label>
                                                                 </section>
                                                                 <section class="col col-2">
@@ -334,7 +334,7 @@ include("inc/nav.php");
                                                             <section class="col col-2 ">
                                                                 <label class="label">CEP</label>
                                                                 <label class="input">
-                                                                    <input id="cep" name="cep" type="text"  ondrop="return false" class="required" autocomplete="new-password">
+                                                                    <input id="cep" name="cep" type="text" ondrop="return false" class="required" autocomplete="new-password">
                                                                 </label>
                                                             </section>
                                                         </div>
@@ -517,26 +517,20 @@ include("inc/nav.php");
     </div>
 </div>
 <!-- END MAIN CONTENT -->
-
 <!-- PAGE FOOTER -->
-
 <!-- END MAIN PANEL -->
-
 <!-- ==========================CONTENT ENDS HERE ========================== -->
-
 <!-- PAGE FOOTER -->
 <?php
 include("inc/footer.php");
 ?>
 <!-- END PAGE FOOTER -->
-
 <?php
 //include required scripts
 include("inc/scripts.php");
 ?>
 
 <script src="<?php echo ASSETS_URL; ?>/js/businessFuncionario.js" type="text/javascript"></script>
-
 <!-- PAGE RELATED PLUGIN(S) 
 <script src="..."></script>-->
 <!-- Flot Chart Plugin: Flot Engine, Flot Resizer, Flot Tooltip -->
@@ -668,7 +662,7 @@ include("inc/scripts.php");
         $("#cpf").on("change", function() {
             verificarCpf();
             validarCPFIguais();
-           
+
         });
 
         $("#cpfDependente").on("change", function() {
@@ -700,11 +694,10 @@ include("inc/scripts.php");
                 }
             } else {
                 smartAlert("Atenção", "Email inválido", "error");
-                clearFormEmail()
+                // clearFormEmail()
                 return false;
             }
         });
-
         $("#btnAddDependente").on("click", function() {
 
             if (validaDependente() === true) {
@@ -779,7 +772,7 @@ include("inc/scripts.php");
 
             document.getElementById("telefone").onkeypress = function(e) {
                 var chr = String.fromCharCode(e.which);
-                if ("123456789".indexOf(chr) < 0)
+                if ("1234567890".indexOf(chr) < 0)
                     return false;
             };
 
@@ -820,7 +813,6 @@ include("inc/scripts.php");
             };
         });
 
-
         $('#nome').on("focusout", campo => {
             if (["1", "2", "3", "4", "5", "6", "7", "8", "9"].find(valor => valor == campo.currentTarget.value ? true : false)) {
                 smartAlert("Atenção", "No puede digitar", "error");
@@ -832,7 +824,6 @@ include("inc/scripts.php");
         });
         // var str = "Esta        string       tem    alguns espaços     desnecessários!";
         // console.log(str); // "Esta string tem alguns espaços desnecessários!"
-
         $('#emprego').on("change", campo => +campo.currentTarget.value ? $('#pis').addClass("readonly").attr("disabled", true).val("") : $('#pis').removeClass("readonly").attr("disabled", false))
 
         var SPMaskBehavior = function(val) {
@@ -848,28 +839,20 @@ include("inc/scripts.php");
         $("#telefonePrincipal").prop('checked', false);
         $("#telefoneWhatsapp").prop('checked', false);
         $("#emailPrincipal").prop('checked', false);
-
         $("#cep").blur(function() {
-
             //Nova variável "cep" somente com dígitos.
             var cep = $(this).val().replace(/\D/g, '');
-
             //Verifica se campo cep possui valor informado.
             if (cep != "") {
-
                 //Expressão regular para validar o CEP.
                 var validacep = /^[0-9]{8}$/;
-
                 //Valida o formato do CEP.
                 if (validacep.test(cep)) {
-
                     //Preenche os campos com "..." enquanto consulta webservice.
                     $("#logradouro").val("");
                     $("#bairro").val("");
                     $("#cidade").val("");
                     $("#uf").val("");
-
-
                     //Consulta o webservice viacep.com.br/
                     $.getJSON("https://viacep.com.br/ws/" + cep + "/json/?callback=?", function(dados) {
 
@@ -908,7 +891,7 @@ include("inc/scripts.php");
 
     function gerarPdf() {
         var codigo = $("#codigo").val();
-        $(location).attr('href', 'relatorioContato.php?codigo=' +codigo);
+        $(location).attr('href', 'relatorioContato.php?codigo=' + codigo);
     }
 
     function carregaPagina() {
@@ -921,7 +904,6 @@ include("inc/scripts.php");
             if (idd !== "") {
                 recuperaUsuario(idd);
                 validaDataInversa();
-
             }
         }
         $("#nome").focus();
@@ -1083,16 +1065,29 @@ include("inc/scripts.php");
         }
     }
 
+    function verificaCpfIguais() {
+        var cpf = $("#cpf").val();
+        jsonDependenteArray = JSON.parse($("#jsonDependente").val());
+
+
+        if (jsonDependenteArray.cpfDependente == cpf) {
+            return false;
+        }
+    }
+
     function desabilitaBotao() {
         document.getElementById("btnGravar").disabled = true;
     }
 
     function verificarCpf() {
-     
 
+        var jsonDependenteArray = JSON.parse($("#jsonDependente").val());
         var ativo = $("#ativo").val();
         var cpf = $("#cpf").val();
-
+        if (jsonDependenteArray.cpfDependente == cpf) {
+            smartAlert("Atenção", "CPF INVÁLIDO", "Error");
+            return false;
+        }
         if (cpf == '000.000.000-00' ||
             cpf == '111.111.111-11' ||
             cpf == '..-' ||
@@ -1112,9 +1107,7 @@ include("inc/scripts.php");
         } else {
             verificaCpf(ativo, cpf);
         }
-        // validarCPFDependente()
     }
-
 
     function validarCPFIguais(cpf) {
         cpfFuncionario = $("#cpf").val();
@@ -1195,20 +1188,6 @@ include("inc/scripts.php");
         var m = hoje.getMonth() - nasc.getMonth();
         if (m < 0 || (m === 0 && hoje.getDate() < nasc.getDate())) idade--;
 
-        // if (idade <= 18) {
-        //     // alert("Usuários com menos de 18 anos não podem ser cadastrados.");
-        //     $("#idade").val(idade)
-        //     $("#btnGravar").prop('disabled', false);
-        //     return false;
-        // }
-
-        // if(hoje.getDate() < nasc.getDate()){
-        //     smartAlert("Atenção","Não é possível cadatrar uma data além da atual", "error");
-        //     $("#idade").val("");
-        //     $("#dataNascimento").val("");
-
-        //     return;
-        // }
         if (idade < 0) {
             smartAlert("Atenção", "Não é possível cadatrar uma data além da atual", "error");
             $("#idade").val("");
@@ -1265,17 +1244,10 @@ include("inc/scripts.php");
             $("#btnGravar").prop('disabled', false);
             return false;
         }
-
-
-
         if (idade >= 0 && idade <= 135) {
             // smartAlert("Sucesso","Data permitida.", "success")
             $("#btnGravar").prop('disabled', false);
             return;
-
-            //Idade superior a 50 não altera o cadastro
-
-            // if (hoje) return false;
         } else {
             return false;
 
@@ -1288,7 +1260,6 @@ include("inc/scripts.php");
         let tell = $('#telefone').val();
         let tellChecked = $('#telefonePrincipal').is(':checked');
         let sequencial = +$('#sequencialTel').val();
-
 
         if ($('#telefonePrincipal').is(':checked')) {
             telefonePrincipal = true;
@@ -1408,10 +1379,6 @@ include("inc/scripts.php");
                 row.append($('<td class="text-nowrap">' + jsonTelefoneArray[i].descricaoWhatsApp + '</td>'));
 
             }
-
-
-
-
         }
     }
 
@@ -1468,8 +1435,6 @@ include("inc/scripts.php");
             return (item.sequencialTel === sequencialTel);
         });
 
-
-        // clearFormTelefone();
         if (arr.length > 0) {
             var item = arr[0];
             $("#sequencialTel").val(item.sequencialTel);
@@ -1518,8 +1483,6 @@ include("inc/scripts.php");
         let emailChecked = $('#emailPrincipal').is(':checked');
         let sequencial = +$('#sequencialEmail').val();
 
-        
-        
 
         if ($('#descricaoPrincipal').is(':checked')) {
             descricaoPrincipal = "Sim";
@@ -1534,7 +1497,7 @@ include("inc/scripts.php");
 
         for (i = jsonEmailArray.length - 1; i >= 0; i--) {
             if (emailPrincipal) {
-                if (jsonEmailArray[i].emailPrincipal == achouEmailPrincipal && (jsonEmailArray[i].sequencialEmail !== sequencial)) {
+                if (jsonEmailArray[i].emailPrincipal && (jsonEmailArray[i].sequencialEmail !== sequencial)) {
                     achouEmailPrincipal = true;
                     break;
                 }
@@ -1549,22 +1512,17 @@ include("inc/scripts.php");
             }
         }
 
-        if (achouEmailPrincipal === true) {
+        if (achouEmailPrincipal === true && emailChecked === true) {
             smartAlert("Erro", "Já existe o Email Principal na lista.", "error");
             clearFormTelefone();
             return false;
-
         }
-
         if (achouEmail === true) {
             smartAlert("Erro", "Já existe o Email na lista.", "error");
             clearFormTelefone();
             return false;
 
         }
-
-
-
         return true;
     }
 
@@ -1610,10 +1568,7 @@ include("inc/scripts.php");
 
         $("#jsonEmail").val(JSON.stringify(jsonEmailArray));
         fillTableEmail();
-        // clearFormTelefone();
-
         clearFormEmail();
-
     }
 
     function fillTableEmail() {
@@ -1677,14 +1632,9 @@ include("inc/scripts.php");
     }
 
     function carregaEmail(sequencialEmail) {
-
-
         var arr = jQuery.grep(jsonEmailArray, function(item, i) {
             return (item.sequencialEmail === sequencialEmail);
         });
-
-
-
         clearFormEmail();
         if (arr.length > 0) {
             var item = arr[0];
@@ -1696,10 +1646,6 @@ include("inc/scripts.php");
             } else {
                 $("#emailPrincipal").prop('checked', false);
             }
-            // if (emailPrincipal == false){
-            //     $("#emailPrincipal").prop('checked', false);
-            // }
-
         }
     }
 
@@ -1719,8 +1665,6 @@ include("inc/scripts.php");
         let sequencialDependente = +$('#sequencialDependente').val();
         let achouCpf = false;
 
-
-
         if (nomeDependente === '') {
             smartAlert("Erro", "Informe o Nome ", "error");
             return false;
@@ -1736,7 +1680,6 @@ include("inc/scripts.php");
             return false;
         }
 
-
         if (dataNascimentoDependente === '') {
             smartAlert("Erro", "Preencha a data de Nascimento ", "error");
             return false;
@@ -1745,10 +1688,6 @@ include("inc/scripts.php");
             smartAlert("Erro", "Informe o tipo dependente ", "error");
             return false;
         }
-
-
-
-
 
         for (i = jsonDependenteArray.length - 1; i >= 0; i--) {
             if (cpfDependente) {
@@ -1769,7 +1708,7 @@ include("inc/scripts.php");
 
         if (achouCpf === true) {
             smartAlert("Erro", "Já existe o cpf na lista.", "error");
-            clearFormDependente();
+            // clearFormDependente();
             return false;
 
         }
@@ -1784,9 +1723,6 @@ include("inc/scripts.php");
             skipEmpty: false,
             nodeCallback: processDataTel
         });
-
-
-
 
         if (item["sequencialDependente"] === '') {
             if (jsonDependenteArray.length === 0) {
@@ -1812,7 +1748,6 @@ include("inc/scripts.php");
                 return false;
             }
         });
-
         if (index >= 0)
             jsonDependenteArray.splice(index, 1, item);
         else
@@ -1820,11 +1755,8 @@ include("inc/scripts.php");
 
         $("#jsonDependenteArray").val(JSON.stringify(jsonDependenteArray));
 
-
-
         fillTableDependente();
         clearFormDependente();
-
     }
 
     function fillTableDependente() {
@@ -1841,10 +1773,6 @@ include("inc/scripts.php");
                 row.append($('<td class="text-nowrap">' + dependente + '</td>'));
 
             }
-
-
-
-
         }
     }
 
@@ -1895,12 +1823,9 @@ include("inc/scripts.php");
     }
 
     function carregaDependente(sequencialDependente) {
-
-
         var arr = jQuery.grep(jsonDependenteArray, function(item, i) {
             return (item.sequencialDependente === sequencialDependente);
         });
-
 
         clearFormDependente();
         if (arr.length > 0) {
@@ -1910,7 +1835,6 @@ include("inc/scripts.php");
             $("#cpfDependente").val(item.cpfDependente);
             $("#dataNascimentoDependente").val(item.dataNascimentoDependente);
             $("#tipoDependente").val(item.tipoDependente);
-
 
         }
     }

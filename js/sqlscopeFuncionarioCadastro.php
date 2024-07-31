@@ -46,7 +46,7 @@ if ($funcao == 'validaDataInversa') {
 
 // return;
 
-function grava()
+function grava() 
 {
     if ((empty($_POST['codigo'])) || (!isset($_POST['codigo'])) || (is_null($_POST['codigo']))) {
         $codigo = 0;
@@ -477,7 +477,7 @@ function verificaCpf()
 
     $cpf = "'" . $_POST["cpf"] . "'";
 
-    $sql = " SELECT cpf FROM dbo.funcionarioCadastro WHERE cpf = $cpf and ativo = 1 and codigo = $codigo";
+    $sql = " SELECT cpf FROM dbo.funcionarioCadastro WHERE cpf = $cpf and ativo = 1";
     //achou 
     $reposit = new reposit();
     $result = $reposit->RunQuery($sql);

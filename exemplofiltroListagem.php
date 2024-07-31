@@ -7,9 +7,11 @@ include "js/repositorio.php";
             <thead>
                 <tr role="row">
                     <!-- <th class="text-left" style="min-width:20px;">Codigo</th> -->
-                    <th class="text-left" style="min-width:20px;">Nome</th>
+                    <th class="text-left" style="min-width:30px;">Nome</th>
                     <th class="text-left" style="min-width:20px;">Data de Nascimento</th>
                     <th class="text-left" style="min-width:25px;">Cpf</th>
+                    <th class="text-left" style="min-width:25px;">Estado Cívil</th>
+                    <th class="text-left" style="min-width:25px;">Gênero</th>
                     <th class="text-left" style="min-width:25px;">Ativo</th>
                     <th class="text-center" style="min-width:25px;">Gerar PDF</th>
                 </tr>
@@ -23,6 +25,8 @@ include "js/repositorio.php";
                 $dataNascimentoInicio = $_POST['dataNascimentoInicio'];
                 $dataNascimentoFim = $_POST['dataNascimentoFim'];
                 $cpf = $_POST['cpf'];
+                $estadoCivil = $_POST['estadoCivil'];
+                $genero = $_POST['genero'];
                 $ativo = $_POST['ativo'];
 
                 if ($nome != "") {
@@ -31,6 +35,14 @@ include "js/repositorio.php";
 
                 if ($cpf != "") {
                     $where = $where . " AND cpf = '$cpf'";
+                }
+
+                if ($estadoCivil != "") {
+                    $where = $where . " AND (estadoCivil like '%' + " . "replace('" . $estadoCivil . "',' ','%') + " . "'%')";
+                }
+
+                if ($genero != "") {
+                    $where = $where . " AND (genero like '%' + " . "replace('" . $genero . "',' ','%') + " . "'%')";
                 }
 
 
@@ -86,11 +98,13 @@ include "js/repositorio.php";
                 $ativo = $ativo;
                 if ($_POST["ativo"] != "") {
                     $ativo = $_POST["ativo"];
-                    $where = $where . " AND ativo = '$ativo'";;
+                    $where = $where . " AND FC.ativo = '$ativo'";;
                 }
 
 
-                $sql = " select codigo, nome, ativo, cpf, dataNascimento from dbo.funcionarioCadastro";
+                $sql = "SELECT FC.codigo, FC.ativo, FC.nome, FC.cpf, FC.dataNascimento, EC.estadoCivil as estadoCivil, G.descricao as genero FROM dbo.funcionarioCadastro FC
+                        LEFT JOIN dbo.genero G ON G.codigo = FC.genero
+                        LEFT JOIN dbo.estadoCivil EC ON EC.codigo = FC.estadoCivil ";
 
                 $sql = $sql . $where . "ORDER BY dataNascimento DESC";
                 $reposit = new reposit();
@@ -102,6 +116,8 @@ include "js/repositorio.php";
                     $ativo = (int)$row['ativo'];
                     $cpf =   $row['cpf'];
                     $dataNascimento = $row['dataNascimento'];
+                    $estadoCivil = $row['estadoCivil'];
+                    $genero = $row['genero'];
                     if ($ativo == 1) {
                         $descricaoAtivo = "Sim";
                     } else {
@@ -119,6 +135,8 @@ include "js/repositorio.php";
                     echo '<td class="text-left"><a href="cadastroFuncionario.php?id=' . $codigo . '">' . $nome . '</a></td>';
                     echo '<td class="text-left">' . $dataNascimento . '</td>';
                     echo '<td class="text-left">' . $cpf . '</td>';
+                    echo '<td class="text-left">' . $estadoCivil . '</td>';
+                    echo '<td class="text-left">' . $genero . '</td>';
                     echo '<td class="text-left">' . $descricaoAtivo . '</td>';
                     echo '<td class="text-center"> ' . '' . '  <a href="relatorioFuncionario.php?codigo=' . $codigo . '"><span class="btn btn-primary fa fa-file text-center "> </span> </td>';
                     echo '</tr >';
@@ -135,8 +153,6 @@ include "js/repositorio.php";
 <script src="js/plugin/datatables/dataTables.bootstrap.min.js"></script>
 <script src="js/plugin/datatable-responsive/datatables.responsive.min.js"></script>
 <script>
-   
-
     // function abreviar(nome) {
     //     const [nome, ...sobrenomes] = str.split(' ');
 
