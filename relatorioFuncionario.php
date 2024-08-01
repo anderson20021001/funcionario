@@ -52,7 +52,7 @@ $pdf->SetMargins(5, 10, 5); #Seta a Margin Esquerda com 20 milímetro, superrior
 $pdf->SetDisplayMode('default', 'continuous'); #Digo que o PDF abrirá em tamanho PADRÃO e as páginas na exibição serão contínuas
 
 $codigo = $_GET['codigo'];
-$sql = "SELECT FC.codigo, FC.nome, FC.ativo, FC.cpf, FC.dataNascimento, FC.rg, EC.estadoCivil, G.descricao as genero, FC.cep, FC.logradouro, FC.complemento, FC.numero, FC.uf, FC.bairro,
+$sql = "SELECT FC.codigo, FC.nome, FC.ativo, FC.cpf, FC.dataNascimento, FC.rg, EC.descricao, G.descricao as genero, FC.cep, FC.logradouro, FC.complemento, FC.numero, FC.uf, FC.bairro,
 FC.cidade, FC.primeiroEmprego, FC.pis, FD.tipoDependente as TipoDependente, FD.nomeDependente, FD.cpfDependente, FD.dataNascimentoDependente, D.dependente  FROM dbo.funcionarioCadastro FC
 LEFT JOIN dbo.estadoCivil EC on EC.codigo = FC.estadoCivil
 LEFT JOIN dbo.genero G on G.codigo = FC.genero

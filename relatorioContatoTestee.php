@@ -24,7 +24,6 @@ $utils = new comum();
 
 $nome = ($utils->formatarString($_GET['nome']));
 $cpf = ($utils->formatarString($_GET['cpf']));
-$dataNascimento = ($utils->formataDataSql($_GET['dataNascimento']));
 $ativo = $_GET['ativo'];
 
 
@@ -46,6 +45,7 @@ class PDF extends FPDF
         $this->SetY(202);
         // $this->Image('img\footerPdf.jpg', 1, 272, 210, 25);
     }
+    
 }
 $pdf = new PDF('P', 'mm', 'A4'); #Crio o PDF padrão RETRATO, Medida em Milímetro e papel A$
 $pdf->SetMargins(5, 10, 5); #Seta a Margin Esquerda com 20 milímetro, superrior com 20 milímetro e esquerda com 20 milímetros
@@ -61,18 +61,63 @@ $resultParamentro = $reposit->RunQuery($sql);
 $rowParamentro = $resultParamentro[0];
 $linkName = $rowParamentro['linkUpload'];
 
-
-
 $pdf->AddPage();
+$nomeFuncionario = mb_strimwidth(trim($rowParamentro['nome']), 0, 29, "...");
+// $partesNomes = explode(' ', $nomeFuncionario);
+// $primeiroNome = $partesNomes[0];
+// $ultimoSobrenome = $partesNomes[count($partesNomes) - 1];
+// // Abrevia os nomes do meio
+// $nomesDoMeioAbreviados = '';
+// for ($i = 1; $i < count($partesNomes) - 1; $i++) {
+//     $nomesDoMeioAbreviados .= substr($partesNomes[$i], 0, 1) . '. ';
+// }
+// $nomeCompletoFuncionario = $primeiroNome . ' ' . $nomesDoMeioAbreviados . $ultimoSobrenome;
+// // Concatena o primeiro nome, os nomes do meio abreviados e o último sobrenome
+$cpfFuncionario = $rowParamentro['cpf'];
+
+// $dataNascimento = ($utils->formataDataSql($_GET['dataNascimento']));
+$telefone = $rowParamentro['telefone'];
+$email = mb_strimwidth(trim($rowParamentro['emailFuncionario']), 0, 35, "...");
+$ativoFuncionario = $rowParamentro['ativo'];
+$telefonePrincipal = $rowParamentro['principal'];
+$telefoneWhatsapp = $rowParamentro['whatsapp'];
+$emailPrincipal = $rowParamentro['principal'];
+
+
+if ($ativoFuncionario == 1) {
+    $ativoFuncionario = 'Sim';
+} else {
+    $ativoFuncionario = 'Não';
+}
+if ($telefonePrincipal == 1) {
+    $telefonePrincipal = 'Sim';
+} else {
+    $telefonePrincipal = 'Não';
+}
+if ($telefoneWhatsapp == 1) {
+    $telefoneWhatsapp = 'Sim';
+} else {
+    $telefoneWhatsapp = 'Não';
+}
+if ($telefoneWhatsapp == 1) {
+    $telefoneWhatsapp = 'Sim';
+} else {
+    $telefoneWhatsapp = 'Não';
+}
+if ($emailPrincipal == 1) {
+    $emailPrincipal = 'Sim';
+} else {
+    $emailPrincipal = 'Não';
+}
 $l = 13;
 $margem = 5;
 
 
-$y = 32.5;
+$y = 34;
 
 $pdf->SetFont('Arial', '', 15);
 $pdf->SetXY(98, 25);
-$pdf->Cell(22, 5, iconv('UTF-8', 'windows-1252', "RELATÓRIO DE CONTATO"), 0, 0, "C", 0);
+$pdf->Cell(11, 5, iconv('UTF-8', 'windows-1252', "RELATÓRIO DOS FUNCIONÁRIOS"), 0, 0, "C", 0);
 
 $pdf->line(5, 34, 205, 34);
 
@@ -84,8 +129,8 @@ $pdf->Cell(20, 5, iconv('UTF-8', 'windows-1252', " "), 0, 0, "L", 0);
 $pdf->SetXY(5, 46);
 $pdf->Cell(20, 5, iconv('UTF-8', 'windows-1252', " " . " "), 0, 0, "L", 0);
 
-// $pdf->SetFillColor(238, 238, 238);
-// $pdf->SetFont('Arial', 'B', 8);
+$pdf->SetFillColor(238, 238, 238);
+$pdf->SetFont('Arial', 'B', 8);
 
 
 $pdf->SetY(40);
@@ -99,6 +144,7 @@ $pdf->Cell(55, 10, iconv('UTF-8', 'windows-1252', "NOME:"), 0, 0, "L", 0);
 $pdf->SetXY(10, 45);
 // $pdf->SetX(5);
 $pdf->Cell(40, 10, iconv('UTF-8', 'windows-1252', "CPF:"), 0, 0, "L", 0);
+
 
 // $pdf->SetXY(90, 60);
 // $pdf->Cell(15, 5, iconv('UTF-8', 'windows-1252', "INÍCIO"), 1, 0, "C", 1);
@@ -115,6 +161,12 @@ $pdf->Cell(20, 10, iconv('UTF-8', 'windows-1252', "PRINCÍPAL"), 1, 0, "C", 0);
 $pdf->SetX(70);
 $pdf->Cell(20, 10, iconv('UTF-8', 'windows-1252', "WHATSAPP"), 1, 0, "C", 0);
 
+// $pdf->SetXY(120, 60);
+// $pdf->Cell(15, 5, iconv('UTF-8', 'windows-1252', "INÍCIO"), 1, 0, "C", 1);
+
+// $pdf->SetX(135);
+// $pdf->Cell(15, 5, iconv('UTF-8', 'windows-1252', "FIM"), 1, 0, "C", 1);
+
 // $pdf->SetXY(150, 55);
 // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', "SAÍDA"), 1, 0, "C", 1);
 
@@ -124,16 +176,19 @@ $pdf->Cell(70, 10, iconv('UTF-8', 'windows-1252', "EMAIL"), 1, 0, "C", 0);
 $pdf->SetXY(175, 77.5);
 $pdf->Cell(25, 10, iconv('UTF-8', 'windows-1252', "PRINCÍPAL"), 1, 0, "C", 0);
 
-// $pdf->SetX(175);
-// $pdf->Cell(25, 5, iconv('UTF-8', 'windows-1252', "WHATSAPP"), 1, 0, "C", 0);
+// $pdf->SetXY(120, 60);
+// $pdf->Cell(15, 5, iconv('UTF-8', 'windows-1252', "INÍCIO"), 1, 0, "C", 1);
+
+// $pdf->SetX(135);
+// $pdf->Cell(15, 5, iconv('UTF-8', 'windows-1252', "FIM"), 1, 0, "C", 1);
 
 // $pdf->SetXY(150, 55);
 // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', "SAÍDA"), 1, 0, "C", 1);
 
 $pdf->SetXY(165, 40.5);
-$pdf->Cell(18, 10, iconv('UTF-8', 'windows-1252', "ATIVO:"), 0, 0, "L", 0);
+$pdf->Cell(18, 10, iconv('UTF-8', 'windows-1252', "ATIVO:"), 0, 0, "L", 0);;
 
-$y += 55;
+$y += 10;
 
 // $pdf->SetXY(5, $y);
 // $pdf->Cell(75, 10, iconv('UTF-8', 'windows-1252', ''), 1, 0, "L", 0);
@@ -166,69 +221,8 @@ $y += 55;
 // $pdf->Cell(20, 10, iconv('UTF-8', 'windows-1252', ''), 1, 0, "C", 0);
 // }
 
-
-$nomeFuncionario = mb_strimwidth(trim($rowParamentro['nome']), 0, 29, "...");
-// $partesNomes = explode(' ', $nomeFuncionario);
-// $primeiroNome = $partesNomes[0];
-// $ultimoSobrenome = $partesNomes[count($partesNomes) - 1];
-// // Abrevia os nomes do meio
-// $nomesDoMeioAbreviados = '';
-// for ($i = 1; $i < count($partesNomes) - 1; $i++) {
-//     $nomesDoMeioAbreviados .= substr($partesNomes[$i], 0, 1) . '. ';
-// }
-// $nomeCompletoFuncionario = $primeiroNome . ' ' . $nomesDoMeioAbreviados . $ultimoSobrenome;
-// // Concatena o primeiro nome, os nomes do meio abreviados e o último sobrenome
-$cpfFuncionario = $rowParamentro['cpf'];
-
-// $dataNascimento = ($utils->formataDataSql($_GET['dataNascimento']));
-$telefone = $rowParamentro['telefone'];
-$email = mb_strimwidth(trim($rowParamentro['emailFuncionario']), 0, 35, "...");
-$ativoFuncionario = $rowParamentro['ativo'];
-$telefonePrincipal = $rowParamentro['principal'];
-$telefoneWhatsapp = $rowParamentro['whatsapp'];
-$emailPrincipal = $rowParamentro['principal'];
-$ativoFuncionario = $rowParamentro['ativo'];
-
-
-if ($ativoFuncionario == 1) {
-    $ativoFuncionario = 'Sim';
-} else {
-    $ativoFuncionario = 'Não';
-}
-if ($telefonePrincipal == 1) {
-    $telefonePrincipal = 'Sim';
-} else {
-    $telefonePrincipal = 'Não';
-}
-if ($telefoneWhatsapp == 1) {
-    $telefoneWhatsapp = 'Sim';
-} else {
-    $telefoneWhatsapp = 'Não';
-}
-if ($telefoneWhatsapp == 1) {
-    $telefoneWhatsapp = 'Sim';
-} else {
-    $telefoneWhatsapp = 'Não';
-}
-if ($emailPrincipal == 1) {
-    $emailPrincipal = 'Sim';
-} else {
-    $emailPrincipal = 'Não';
-}
-
-
-
-$pdf->SetXY(27, $y - 341.7);
-$pdf->Cell(25, 5, iconv('UTF-8', 'windows-1252', $nomeFuncionario,), 0, 0, "C", 0);
-
-
-$pdf->SetXY(21, $y - 337.5);
-$pdf->Cell(21, 5, iconv('UTF-8', 'windows-1252', $cpfFuncionario,), 0, 0, "C", 0);
-
-
-$pdf->SetXY(178, $y - 342);
-$pdf->Cell(20, 5, iconv('UTF-8', 'windows-1252', $ativoFuncionario,), 0, 0, "L", 0);
-
+$pdf->SetXY(175, $y-310);
+    $pdf->Cell(25, 5, iconv('UTF-8', 'windows-1252', $cpfFuncionario,), 1, 0, "C", 0);
 
 foreach ($resultParamentro as $rowParamentro) {
     if ($l < 245) {
@@ -247,6 +241,7 @@ foreach ($resultParamentro as $rowParamentro) {
     }
 
 
+   
 
     // function abreviarNome($nomeCompleto) {
     //     // Divide o nome completo em partes
@@ -317,7 +312,7 @@ foreach ($resultParamentro as $rowParamentro) {
 
 
 
-
+   
 
     $pdf->SetXY(10, $y);
     $pdf->Cell(40, 5, iconv('UTF-8', 'windows-1252', $telefone,), 1, 0, "C", 0);
@@ -369,18 +364,15 @@ foreach ($resultParamentro as $rowParamentro) {
 
 
     $y += 5;
-    if ($y > 260) {
+    if ($y > 270) {
         $pdf->AddPage();
         $y = 12;
     }
+
+    
     // $pdf->Line(5, $l, 205, $l); //linha divisória
     // // $contador = 0;
 }
-
-
-
-
-
 // ....
 
 
@@ -399,3 +391,4 @@ foreach ($resultParamentro as $rowParamentro) {
 
 
 $pdf->Output('', "lancamentoHorarioContingencia_" . " " . ".pdf", '');
+

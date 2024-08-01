@@ -42,7 +42,7 @@ include "js/repositorio.php";
                 }
 
 
-                $sql = " select codigo, estadoCivil, ativo from dbo.estadoCivil";
+                $sql = " select codigo, descricao, ativo from dbo.estadoCivil";
 
                 $sql = $sql . $where;
                 $reposit = new reposit();
@@ -50,7 +50,7 @@ include "js/repositorio.php";
 
                 foreach($result as $row) {
                     $codigo = (int) $row['codigo'];
-                    $descricao =  $row['estadoCivil'];
+                    $descricao =  $row['descricao'];
                     $ativo = (int )$row['ativo'];
                     if ($ativo == 1) {
                         $descricaoAtivo = "Sim";

@@ -25,7 +25,7 @@ include "js/repositorio.php";
                 $dataNascimentoInicio = $_POST['dataNascimentoInicio'];
                 $dataNascimentoFim = $_POST['dataNascimentoFim'];
                 $cpf = $_POST['cpf'];
-                $estadoCivil = $_POST['estadoCivil'];
+                $descricao = $_POST['descricao'];
                 $genero = $_POST['genero'];
                 $ativo = $_POST['ativo'];
 
@@ -37,12 +37,12 @@ include "js/repositorio.php";
                     $where = $where . " AND cpf = '$cpf'";
                 }
 
-                if ($estadoCivil != "") {
-                    $where = $where . " AND (estadoCivil like '%' + " . "replace('" . $estadoCivil . "',' ','%') + " . "'%')";
+                if ($descricao != "") {
+                    $where = $where . " AND (descricao like '%' + " . "replace('" . $descricao . "',' ','%') + " . "'%')";
                 }
 
                 if ($genero != "") {
-                    $where = $where . " AND (genero like '%' + " . "replace('" . $genero . "',' ','%') + " . "'%')";
+                    $where = $where . " AND (descricao like '%' + " . "replace('" . $genero . "',' ','%') + " . "'%')";
                 }
 
 
@@ -102,7 +102,7 @@ include "js/repositorio.php";
                 }
 
 
-                $sql = "SELECT FC.codigo, FC.ativo, FC.nome, FC.cpf, FC.dataNascimento, EC.estadoCivil as estadoCivil, G.descricao as genero FROM dbo.funcionarioCadastro FC
+                $sql = "SELECT FC.codigo, FC.ativo, FC.nome, FC.cpf, FC.dataNascimento, EC.descricao as estadoCivil, G.descricao as genero FROM dbo.funcionarioCadastro FC
                         LEFT JOIN dbo.genero G ON G.codigo = FC.genero
                         LEFT JOIN dbo.estadoCivil EC ON EC.codigo = FC.estadoCivil ";
 

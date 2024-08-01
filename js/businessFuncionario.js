@@ -162,36 +162,65 @@ function recuperaUsuario(id) {
         dataType: 'html', //tipo do retorno
         type: 'post', //metodo de envio
         data: { funcao: 'recupera', id: id }, //valores enviados ao script     
-     
-        success: (result)=> {     
+        beforeSend: function () {
+            //função chamada antes de realizar o ajax
+        },
+        complete: function () {
+            //função executada depois de terminar o ajax
+        },
+        success: function (data, textStatus) {
+            if (data.indexOf('failed') > -1) {
+                return;
+            } else {
 
-                let {status, data} = JSON.parse(result)
-                if(status == 'failed'){
-                    smartAlert('Atenção', "Operação não realizada", 'error');
-                    return
-                }
-                if(status == 'success'){
-                    $("#codigo").val(data.codigo);
-                    $("#ativo").val(data.ativo);
-                    $("#nome").val(data.nome);
-                    $("#cpf").val(data.cpf);
-                    $("#rg").val(data.rg);
-                    $("#dataNascimento").val(data.dataNascimento);
-                    defineIdade();
-                    $("#genero").val(data.genero);
-                    $("#estadoCivil").val(data.estadoCivil);
-                    $("#jsonTelefone").val(data.jsonTelefone);
-                    $("#jsonEmail").val(data.jsonEmail);
-                    $("#jsonDependente").val(data.jsonDependente);
-                    $("#cep").val(cep);
-                    $("#logradouro").val(data.logradouro);
-                    $("#complemento").val(data.complemento);
-                    $("#numero").val(data.numero);
-                    $("#uf").val(data.uf);
-                    $("#bairro").val(data.bairro);
-                    $("#cidade").val(data.cidade);
-                    $("#emprego").val(data.emprego);
-                    $("#pis").val(data.pis);
+                data = data.replace(/failed/g, '');
+                var piece = data.split("#");
+                var mensagem = piece[0];
+                var out = piece[1];
+                piece = out.split("^");
+                var codigo = +piece[0];
+                var ativo = piece[1];
+                var nome = piece[2];
+                var cpf = piece[3];
+                var dataNascimento = piece[4];
+                var rg = piece[5];
+                var genero = piece[6];
+                var estadoCivil = piece[7];
+                var jsonTelefone = piece[8];
+                var jsonEmail = piece[9];
+                var jsonDependente = piece[10];
+                var cep = piece[11];
+                var logradouro = piece[12];
+                var complemento = piece[13];
+                var numero = piece[14];
+                var uf = piece[15];
+                var bairro = piece[16];
+                var cidade = piece[17];
+                var emprego = piece[18];
+                var pis = piece[19];
+
+
+                $("#codigo").val(codigo);
+                $("#ativo").val(ativo);
+                $("#nome").val(nome);
+                $("#cpf").val(cpf);
+                $("#rg").val(rg);
+                $("#dataNascimento").val(dataNascimento);
+                defineIdade();
+                $("#genero").val(genero);
+                $("#estadoCivil").val(estadoCivil);
+                $("#jsonTelefone").val(jsonTelefone);
+                $("#jsonEmail").val(jsonEmail);
+                $("#jsonDependente").val(jsonDependente);
+                $("#cep").val(cep);
+                $("#logradouro").val(logradouro);
+                $("#complemento").val(complemento);
+                $("#numero").val(numero);
+                $("#uf").val(uf);
+                $("#bairro").val(bairro);
+                $("#cidade").val(cidade);
+                $("#emprego").val(emprego);
+                $("#pis").val(pis);
     
                     if (ativo === 1) {
                         $('#ativo').prop('checked', true);

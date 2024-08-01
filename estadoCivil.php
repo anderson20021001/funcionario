@@ -450,7 +450,7 @@ include("inc/scripts.php");
 
 
 
-        desabilitaBotao();
+        // desabilitaBotao();
         gravaEstadoCivilPessoa(codigo, ativo, estadoCivil);
     }
 

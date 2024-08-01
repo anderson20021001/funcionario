@@ -296,6 +296,7 @@ function recupera()
     $sql = "SELECT  codigo, telefone, principal, whatsapp FROM dbo.telefone WHERE codigoTel = $id";
     $reposit = new reposit();
     $resultTelefone = $reposit->RunQuery($sql);
+    $result = $reposit->RunQuery($sql);
 
     $arrayTelefone = [];
 
@@ -366,38 +367,38 @@ function recupera()
     }
 
     $jsonDependente = json_encode($arrayDependente);
-    if ($result) {
-        echo json_encode([
-            'status' => 'success',
-            'data' => [
-                'codigo' => $codigo,
-                'ativo' => $ativo,
-                'nome' => $nome,
-                'dataNascimento' => $dataNascimento,
-                'rg' => $rg,
-                'genero' => $genero,
-                'estadoCivil' => $estadoCivil,
-                'jsonTelefone' => $jsonTelefone,
-                'jsonEmail' => $jsonEmail,
-                'jsonDependente' => $jsonDependente,
-                'cep' => $cep,
-                'logradouro' => $logradouro,
-                'complemento' => $complemento,
-                'numero' => $numero,
-                'uf' => $uf,
-                'bairro' => $bairro,
-                'cidade' => $cidade,
-                'primeiroEmprego' => $primeiroEmprego,
-                'pis' => $pis
-            ]
-        ]);
+    $out =   $codigo . "^" .
+    $ativo . "^" .
+    $nome . "^" .
+    $cpf . "^" .
+    $dataNascimento . "^" .
+    $rg . "^" .
+    $genero . "^" .
+    $estadoCivil  . "^" .
+    $jsonTelefone . "^" .
+    $jsonEmail . "^" .
+    $jsonDependente . "^" .
+    $cep . "^" .
+    $logradouro . "^" .
+    $complemento . "^" .
+    $numero . "^" .
+    $uf . "^" .
+    $bairro . "^" .
+    $cidade . "^" .
+    $primeiroEmprego . "^" .
+    $pis;
+
+if ($out == "") {
+    echo "failed#";
+    return;
+    }
+
+    echo "sucess#" . $out . "#" . $jsonTelefone . "^" .
+        $jsonEmail . "^" .
+        $jsonDependente;
+
         return;
     }
-    echo json_encode([
-        'status' => 'failed'
-    ]);
-    return;
-}
 
 function validaDataInversa($dataNascimento)
 {

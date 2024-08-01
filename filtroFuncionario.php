@@ -127,7 +127,7 @@ include("inc/nav.php");
                                                             <section class="col col-2">
                                                                 <label class="label">Estado Cívil</label>
                                                                 <label class="input"><i class="icon-prepend fa fa-address-card"></i>
-                                                                    <input id="estadoCivil" maxlength="50" name="estadoCivil" type="text" value="" ondrop="return false" autocomplete="new-password">
+                                                                    <input id="descricao" maxlength="50" name="descricao" type="text" value="" ondrop="return false" autocomplete="new-password">
                                                                 </label>
                                                             </section>
                                                             <section class="col col-2">
@@ -250,7 +250,7 @@ include("inc/scripts.php");
         var dataNascimentoInicio = $('#dataNascimentoInicio').val();
         var dataNascimentoFim = $('#dataNascimentoFim').val();
         var cpf = $('#cpf').val();
-        var estadoCivil = $('#estadoCivil').val();
+        var descricao = $('#descricao').val();
         var genero = $('#genero').val();
         var ativo = $('#ativo').val();
 
@@ -260,7 +260,7 @@ include("inc/scripts.php");
             dataNascimentoFim: dataNascimentoFim,
             cpf: cpf,
             ativo: ativo,
-            estadoCivil: estadoCivil,
+            descricao: descricao,
             genero: genero,
             ativo: ativo
         });

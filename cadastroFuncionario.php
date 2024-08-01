@@ -167,12 +167,12 @@ include("inc/nav.php");
                                                                         <option hidden selected value=""> Selecione </option>
                                                                         <?php
                                                                         $reposit = new reposit();
-                                                                        $sql = "SELECT codigo, estadoCivil, ativo FROM dbo.estadoCivil where ativo = 1";
+                                                                        $sql = "SELECT codigo, descricao, ativo FROM dbo.estadoCivil where ativo = 1";
                                                                         $result = $reposit->RunQuery($sql);
                                                                         foreach ($result as $row) {
                                                                             $codigo = +$row['codigo'];
-                                                                            $estadoCivil = $row['estadoCivil'];
-                                                                            echo '<option value=' . $codigo . '>' . $estadoCivil . '</option>';
+                                                                            $descricao = $row['descricao'];
+                                                                            echo '<option value=' . $codigo . '>' . $descricao . '</option>';
                                                                         }
                                                                         ?>
                                                                     </select><i></i>
@@ -225,7 +225,7 @@ include("inc/nav.php");
                                                                 <section class="col col-4">
                                                                     <label class="label">Telefone</label>
                                                                     <label class="input"><i class="icon-prepend fa fa-phone"></i>
-                                                                        <input id="telefone" name="telefone" class="required" type="tel" ondrop="return false" class="form-control" value="" autocomplete="new-password">
+                                                                        <input id="telefone" name="telefone" class="required" type="tel"  class="form-control" value="" autocomplete="new-password">
                                                                     </label>
                                                                 </section>
                                                                 <section class="col col-2">
@@ -278,7 +278,7 @@ include("inc/nav.php");
                                                                 <section class="col col-6">
                                                                     <label class="label">Email</label>
                                                                     <label class="input"><i class="icon-prepend fa fa-envelope"></i>
-                                                                        <input id="email" name="email" class="required" type="text" ondrop="return false" class="form-control" value="" autocomplete="new-password">
+                                                                        <input id="email" name="email" class="required" type="text"  class="form-control" value="" autocomplete="new-password">
                                                                     </label>
                                                                 </section>
                                                                 <section class="col col-2">
@@ -446,10 +446,10 @@ include("inc/nav.php");
                                                                 </section>
                                                                 <section class="col col-2">
                                                                     <label class="label">&nbsp;</label>
-                                                                    <button id="btnAddDependente" type="button" class="btn btn-primary">
+                                                                    <button id="btnAddDependente" type="button" class="btn btn-primary disabled">
                                                                         <i class="fa fa-plus"></i>
                                                                     </button>
-                                                                    <button id="btnExcluirDependente" type="button" class="btn btn-danger">
+                                                                    <button id="btnExcluirDependente" type="button" class="btn btn-danger disabled">
                                                                         <i class="fa fa-minus"></i>
                                                                     </button>
                                                                 </section>
@@ -688,6 +688,7 @@ include("inc/scripts.php");
         });
 
         $("#btnAddEmail").on("click", function() {
+            
             if (validEmail()) {
                 if (validaEmail() === true) {
                     addEmail();
@@ -862,6 +863,8 @@ include("inc/scripts.php");
                             $("#bairro").val(dados.bairro);
                             $("#cidade").val(dados.localidade);
                             $("#uf").val(dados.uf);
+                            // $("#btnAddDependente").removeClass("disabled");
+                            // $("#btnExcluirDependente").removeClass("disabled");
                         } //end if.
                         else {
                             //CEP pesquisado não foi encontrado.
@@ -1377,7 +1380,7 @@ include("inc/scripts.php");
                 row.append($('<td class="text-nowrap" onclick="carregaTelefone(' + jsonTelefoneArray[i].sequencialTel + ');">' + jsonTelefoneArray[i].telefone + '</td>'));
                 row.append($('<td class="text-nowrap">' + jsonTelefoneArray[i].descricaoPrincipal + '</td>'));
                 row.append($('<td class="text-nowrap">' + jsonTelefoneArray[i].descricaoWhatsApp + '</td>'));
-
+                
             }
         }
     }
@@ -1473,6 +1476,10 @@ include("inc/scripts.php");
     //TABELA DE EMAIL
     function validEmail(email) {
         var email = $("#email").val();
+        if(email == ""){
+            smartAlert("Atenção", "Verifique o email corretamente, pois pode estar incorreto ou vazio", "error");
+            return ;
+        }
         return /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(email)
     }
 
@@ -1771,6 +1778,8 @@ include("inc/scripts.php");
                 row.append($('<td class="text-nowrap">' + jsonDependenteArray[i].cpfDependente + '</td>'));
                 row.append($('<td class="text-nowrap">' + jsonDependenteArray[i].dataNascimentoDependente + '</td>'));
                 row.append($('<td class="text-nowrap">' + dependente + '</td>'));
+
+                
 
             }
         }
