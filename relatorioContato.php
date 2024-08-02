@@ -52,20 +52,36 @@ $pdf->SetMargins(5, 10, 5); #Seta a Margin Esquerda com 20 milímetro, superrior
 $pdf->SetDisplayMode('default', 'continuous'); #Digo que o PDF abrirá em tamanho PADRÃO e as páginas na exibição serão contínuas
 
 $codigo = $_GET['codigo'];
-$sql = "SELECT FC.codigo, FC.nome, FC.cpf, FC.ativo, T.telefone, T.principal, T.whatsapp as telefoneFuncionario, E.email as emailFuncionario, E.principal FROM dbo.funcionarioCadastro FC
-LEFT JOIN dbo.telefone T ON T.codigoTel = FC.codigo
-LEFT JOIN dbo.email E ON E.codigoEmail = FC.codigo
+$sqlFuncionario = "SELECT FC.codigo,FC.ativo, FC.nome, FC.cpf FROM dbo.funcionarioCadastro FC
 where FC.codigo = $codigo";
+
+$sqlTelefone = "SELECT T.telefone, T.codigoTel, T.telefone, T.principal, T.whatsapp FROM dbo.telefone T
+where T.codigoTel = $codigo";
+
+$sqlEmail = "SELECT E.codigo, E.codigoEmail, E.email, E.principal FROM dbo.email E
+where E.codigoEmail = $codigo";
+
+
 $reposit = new reposit();
-$resultParamentro = $reposit->RunQuery($sql);
+$resultParamentro = $reposit->RunQuery($sqlFuncionario);
 $rowParamentro = $resultParamentro[0];
 $linkName = $rowParamentro['linkUpload'];
 
+$repositTelefone = new reposit();
+$resultParamentroTelefone = $repositTelefone->RunQuery($sqlTelefone);
+$rowParamentroTelefone = $resultParamentroTelefone[0];
+$linkNameTelefone = $rowParamentroTelefone['linkUploadTelefone'];
+
+$repositEmail = new reposit();
+$resultParamentroEmail = $reposit->RunQuery($sqlEmail);
+$rowParamentroEmail = $resultParamentroEmail[0];
+$linkNameEmail = $rowParamentroEmail['linkUploadEmail'];
 
 
 $pdf->AddPage();
 $l = 13;
 $margem = 5;
+
 
 
 $y = 32.5;
@@ -181,12 +197,12 @@ $nomeFuncionario = mb_strimwidth(trim($rowParamentro['nome']), 0, 29, "...");
 $cpfFuncionario = $rowParamentro['cpf'];
 
 // $dataNascimento = ($utils->formataDataSql($_GET['dataNascimento']));
-$telefone = $rowParamentro['telefone'];
-$email = mb_strimwidth(trim($rowParamentro['emailFuncionario']), 0, 35, "...");
+$telefone = $rowParamentroTelefone['telefone'];
+$email = mb_strimwidth(trim($rowParamentroEmail['email']), 0, 35, "...");
 $ativoFuncionario = $rowParamentro['ativo'];
-$telefonePrincipal = $rowParamentro['principal'];
-$telefoneWhatsapp = $rowParamentro['whatsapp'];
-$emailPrincipal = $rowParamentro['principal'];
+$telefonePrincipal = $rowParamentroTelefone['principal'];
+$telefoneWhatsapp = $rowParamentroTelefone['whatsapp'];
+$emailPrincipal = $rowParamentroEmail['principal'];
 $ativoFuncionario = $rowParamentro['ativo'];
 
 
@@ -219,7 +235,7 @@ if ($emailPrincipal == 1) {
 
 
 $pdf->SetXY(27, $y - 341.7);
-$pdf->Cell(25, 5, iconv('UTF-8', 'windows-1252', $nomeFuncionario,), 0, 0, "C", 0);
+$pdf->Cell(25, 5, iconv('UTF-8', 'windows-1252', $nomeFuncionario,), 0, 0, "L", 0);
 
 
 $pdf->SetXY(21, $y - 337.5);
@@ -318,37 +334,67 @@ foreach ($resultParamentro as $rowParamentro) {
 
 
 
+    foreach ($resultParamentroTelefone as $rowTelefone) {
 
-    $pdf->SetXY(10, $y);
-    $pdf->Cell(40, 5, iconv('UTF-8', 'windows-1252', $telefone,), 1, 0, "C", 0);
+        if ($rowTelefone['principal'] == 1) {
+            $rowTelefone['principal'] = 'Sim';
+        } else {
+            $rowTelefone['principal'] = 'Não';
+        }
+        if ($rowTelefone['whatsapp'] == 1) {
+            $rowTelefone['whatsapp'] = 'Sim';
+        } else {
+            $rowTelefone['whatsapp'] = 'Não';
+        }
 
-    // $pdf->SetXY(135, $y);
-    // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ''), 1, 0, "C", 0);
-
-    // $pdf->SetXY(150, $y);
-    // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
+        $pdf->SetXY(10, $y);
+        $pdf->Cell(40, 5, iconv('UTF-8', 'windows-1252', $rowTelefone['telefone'],), 1, 0, "C", 0);
 
 
-    $pdf->SetXY(50, $y);
-    $pdf->Cell(20, 5, iconv('UTF-8', 'windows-1252', $telefonePrincipal,), 1, 0, "C", 0);
+        // $pdf->SetXY(135, $y);
+        // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ''), 1, 0, "C", 0);
 
-    // $pdf->SetXY(135, $y);
-    // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ''), 1, 0, "C", 0);
+        // $pdf->SetXY(150, $y);
+        // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
 
-    // $pdf->SetXY(150, $y);
-    // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
 
-    $pdf->SetXY(70,  $y);
-    $pdf->Cell(20, 5, iconv('UTF-8', 'windows-1252', $telefoneWhatsapp,), 1, 0, "C", 0);
+        $pdf->SetXY(50, $y);
+        $pdf->Cell(20, 5, iconv('UTF-8', 'windows-1252',  $rowTelefone['principal'],), 1, 0, "C", 0);
 
-    // $pdf->SetXY(135, $y);
-    // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ''), 1, 0, "C", 0);
+        // $pdf->SetXY(135, $y);
+        // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ''), 1, 0, "C", 0);
 
-    // $pdf->SetXY(150, $y);
-    // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
+        // $pdf->SetXY(150, $y);
+        // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
 
-    $pdf->SetXY(105,  $y);
-    $pdf->Cell(70, 5, iconv('UTF-8', 'windows-1252', $email), 1, 0, "L", 0);
+        $pdf->SetXY(70,  $y);
+        $pdf->Cell(20, 5, iconv('UTF-8', 'windows-1252', $rowTelefone['whatsapp'],), 1, 0, "C", 0);
+
+        // $pdf->SetXY(135, $y);
+        // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ''), 1, 0, "C", 0);
+
+        // $pdf->SetXY(150, $y);
+        // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
+
+        $y += 5;
+        if ($y > 260) {
+            $pdf->AddPage();
+            $y = 12;
+        }
+    }
+
+
+    foreach ($resultParamentroEmail as $rowEmail) {
+
+        if ($rowEmail['principal'] == 1) {
+            $rowEmail['principal'] = 'Sim';
+        } else {
+            $rowEmail['principal'] = 'Não';
+        }
+
+
+    $pdf->SetXY(105,  $y-10);
+    $pdf->Cell(70, 5, iconv('UTF-8', 'windows-1252', $rowEmail['email'],), 1, 0, "L", 0);
 
     // $pdf->SetXY(90, $y);
     // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
@@ -356,8 +402,8 @@ foreach ($resultParamentro as $rowParamentro) {
     // $pdf->SetXY(105, $y);
     // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
 
-    $pdf->SetXY(175, $y);
-    $pdf->Cell(25, 5, iconv('UTF-8', 'windows-1252', $emailPrincipal,), 1, 0, "C", 0);
+    $pdf->SetXY(175, $y-10);
+    $pdf->Cell(25, 5, iconv('UTF-8', 'windows-1252', $rowEmail['principal'],), 1, 0, "C", 0);
 
     // $pdf->SetXY(135, $y);
     // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ''), 1, 0, "C", 0);
@@ -365,6 +411,9 @@ foreach ($resultParamentro as $rowParamentro) {
     // $pdf->SetXY(150, $y);
     // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
 
+
+        $y += 5;
+    }
 
 
 

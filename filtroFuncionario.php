@@ -125,20 +125,45 @@ include("inc/nav.php");
                                                             </section>
 
                                                             <section class="col col-2">
-                                                                <label class="label">Estado Cívil</label>
-                                                                <label class="input"><i class="icon-prepend fa fa-address-card"></i>
-                                                                    <input id="descricao" maxlength="50" name="descricao" type="text" value="" ondrop="return false" autocomplete="new-password">
+                                                                <label class="label" for="estadoCivil">Estado Civil</label>
+                                                                <label class="select">
+                                                                    <select id="estadoCivil"  name="estadoCivil">
+                                                                        <option value=""> </option>
+                                                                        <?php
+                                                                        $reposit = new reposit();
+                                                                        $sql = "SELECT codigo, descricao, ativo FROM dbo.estadoCivil where ativo = 1";
+                                                                        $result = $reposit->RunQuery($sql);
+                                                                        foreach ($result as $row) {
+                                                                            $codigo = +$row['codigo'];
+                                                                            $descricao = $row['descricao'];
+                                                                            echo '<option value=' . $codigo . '>' . $descricao . '</option>';
+                                                                        }
+                                                                        ?>
+                                                                    </select><i></i>
                                                                 </label>
                                                             </section>
                                                             <section class="col col-2">
-                                                                <label class="label">Gênero</label>
-                                                                <label class="input"><i class="icon-prepend fa fa-address-card"></i>
-                                                                    <input id="genero" maxlength="50" name="genero" type="text" value="" ondrop="return false" autocomplete="new-password">
+                                                                <label class="label" for="genero">Gênero</label>
+                                                                <label class="select">
+                                                                    <select id="genero" name="genero">
+                                                                        <option value="">  </option>
+                                                                        <?php
+                                                                        $reposit = new reposit();
+                                                                        $sql = "SELECT codigo, descricao, ativo FROM dbo.genero where ativo = 1";
+                                                                        $result = $reposit->RunQuery($sql);
+                                                                        foreach ($result as $row) {
+                                                                            $codigo = +$row['codigo'];
+                                                                            $descricao = $row['descricao'];
+
+                                                                            echo '<option value=' . $codigo . '>' . $descricao . '</option>';
+                                                                        }
+                                                                        ?>
+                                                                    </select><i></i>
                                                                 </label>
                                                             </section>
-                                                            
 
-                                                           
+
+
                                                         </div>
 
                                                         <div class="row"></div>
@@ -205,7 +230,7 @@ include("inc/scripts.php");
 <script src="<?php echo ASSETS_URL; ?>/js/plugin/moment/moment.min.js"></script>
 <!--<script src="/js/plugin/fullcalendar/jquery.fullcalendar.min.js"></script>-->
 <script src="<?php echo ASSETS_URL; ?>/js/plugin/fullcalendar/fullcalendar.js"></script>
- <script src="<?php echo ASSETS_URL; ?>/js/plugin/fullcalendar/locale-all.js"></script>
+<script src="<?php echo ASSETS_URL; ?>/js/plugin/fullcalendar/locale-all.js"></script>
 
 
 <script>
@@ -250,7 +275,7 @@ include("inc/scripts.php");
         var dataNascimentoInicio = $('#dataNascimentoInicio').val();
         var dataNascimentoFim = $('#dataNascimentoFim').val();
         var cpf = $('#cpf').val();
-        var descricao = $('#descricao').val();
+        var estadoCivil = $('#estadoCivil').val();
         var genero = $('#genero').val();
         var ativo = $('#ativo').val();
 
@@ -260,7 +285,7 @@ include("inc/scripts.php");
             dataNascimentoFim: dataNascimentoFim,
             cpf: cpf,
             ativo: ativo,
-            descricao: descricao,
+            estadoCivil: estadoCivil,
             genero: genero,
             ativo: ativo
         });

@@ -446,10 +446,10 @@ include("inc/nav.php");
                                                                 </section>
                                                                 <section class="col col-2">
                                                                     <label class="label">&nbsp;</label>
-                                                                    <button id="btnAddDependente" type="button" class="btn btn-primary disabled">
+                                                                    <button id="btnAddDependente" type="button" class="btn btn-primary ">
                                                                         <i class="fa fa-plus"></i>
                                                                     </button>
-                                                                    <button id="btnExcluirDependente" type="button" class="btn btn-danger disabled">
+                                                                    <button id="btnExcluirDependente" type="button" class="btn btn-danger ">
                                                                         <i class="fa fa-minus"></i>
                                                                     </button>
                                                                 </section>
@@ -661,7 +661,8 @@ include("inc/scripts.php");
 
         $("#cpf").on("change", function() {
             verificarCpf();
-            validarCPFIguais();
+            
+            // validarCPFIguais();
 
         });
 
@@ -1192,7 +1193,7 @@ include("inc/scripts.php");
         if (m < 0 || (m === 0 && hoje.getDate() < nasc.getDate())) idade--;
 
         if (idade < 0) {
-            smartAlert("Atenção", "Não é possível cadatrar uma data além da atual", "error");
+            smartAlert("Atenção", "Não é possível cadastrar uma data além da atual", "error");
             $("#idade").val("");
             $("#dataNascimento").val("");
             return;
@@ -1665,12 +1666,19 @@ include("inc/scripts.php");
     }
 
     function validaDependente() {
+        let cpfFuncionario = $('#cpf').val();
         let cpfDependente = $('#cpfDependente').val();
         let nomeDependente = $('#nomeDependente').val()
         let dataNascimentoDependente = $('#dataNascimentoDependente').val();
         let tipoDependente = $('#tipoDependente').val();
         let sequencialDependente = +$('#sequencialDependente').val();
         let achouCpf = false;
+
+
+        if (cpfFuncionario === '') {
+            smartAlert("Erro", "Preencha as informações acima primeiro ", "error");
+            return false;
+        }
 
         if (nomeDependente === '') {
             smartAlert("Erro", "Informe o Nome ", "error");

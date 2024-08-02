@@ -25,7 +25,7 @@ include "js/repositorio.php";
                 $dataNascimentoInicio = $_POST['dataNascimentoInicio'];
                 $dataNascimentoFim = $_POST['dataNascimentoFim'];
                 $cpf = $_POST['cpf'];
-                $descricao = $_POST['descricao'];
+                $estadoCivil = $_POST['estadoCivil'];
                 $genero = $_POST['genero'];
                 $ativo = $_POST['ativo'];
 
@@ -37,12 +37,12 @@ include "js/repositorio.php";
                     $where = $where . " AND cpf = '$cpf'";
                 }
 
-                if ($descricao != "") {
-                    $where = $where . " AND (descricao like '%' + " . "replace('" . $descricao . "',' ','%') + " . "'%')";
+                if ($estadoCivil != "") {
+                    $where = $where . " AND EC.codigo = '$estadoCivil'";
                 }
 
                 if ($genero != "") {
-                    $where = $where . " AND (descricao like '%' + " . "replace('" . $genero . "',' ','%') + " . "'%')";
+                    $where = $where . " AND G.codigo = '$genero'";
                 }
 
 

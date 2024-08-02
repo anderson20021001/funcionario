@@ -370,8 +370,8 @@ foreach ($resultParamentro as $rowParamentro) {
     }
 
     
-    // $pdf->Line(5, $l, 205, $l); //linha divisória
-    // // $contador = 0;
+    $pdf->Line(5, $l, 205, $l); //linha divisória
+    // $contador = 0;
 }
 // ....
 
