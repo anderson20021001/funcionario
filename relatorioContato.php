@@ -183,22 +183,22 @@ $y += 55;
 // }
 
 
-$nomeFuncionario = mb_strimwidth(trim($rowParamentro['nome']), 0, 29, "...");
-// $partesNomes = explode(' ', $nomeFuncionario);
-// $primeiroNome = $partesNomes[0];
-// $ultimoSobrenome = $partesNomes[count($partesNomes) - 1];
-// // Abrevia os nomes do meio
-// $nomesDoMeioAbreviados = '';
-// for ($i = 1; $i < count($partesNomes) - 1; $i++) {
-//     $nomesDoMeioAbreviados .= substr($partesNomes[$i], 0, 1) . '. ';
-// }
-// $nomeCompletoFuncionario = $primeiroNome . ' ' . $nomesDoMeioAbreviados . $ultimoSobrenome;
-// // Concatena o primeiro nome, os nomes do meio abreviados e o último sobrenome
+$nomeFuncionario = $rowParamentro['nome'];
+$partesNomes = explode(' ', $nomeFuncionario);
+$primeiroNome = $partesNomes[0];
+$ultimoSobrenome = $partesNomes[count($partesNomes) - 1];
+// Abrevia os nomes do meio
+$nomesDoMeioAbreviados = '';
+for ($i = 1; $i < count($partesNomes) - 1; $i++) {
+    $nomesDoMeioAbreviados .= substr($partesNomes[$i], 0, 1) . '. ';
+}
+$nomeCompletoFuncionario = $primeiroNome . ' ' . $nomesDoMeioAbreviados . $ultimoSobrenome;
+// Concatena o primeiro nome, os nomes do meio abreviados e o último sobrenome
 $cpfFuncionario = $rowParamentro['cpf'];
 
 // $dataNascimento = ($utils->formataDataSql($_GET['dataNascimento']));
 $telefone = $rowParamentroTelefone['telefone'];
-$email = mb_strimwidth(trim($rowParamentroEmail['email']), 0, 35, "...");
+$email = mb_strimwidth(trim($rowParamentroEmail['email']), 0, 20, "...");
 $ativoFuncionario = $rowParamentro['ativo'];
 $telefonePrincipal = $rowParamentroTelefone['principal'];
 $telefoneWhatsapp = $rowParamentroTelefone['whatsapp'];
@@ -235,7 +235,7 @@ if ($emailPrincipal == 1) {
 
 
 $pdf->SetXY(27, $y - 341.7);
-$pdf->Cell(25, 5, iconv('UTF-8', 'windows-1252', $nomeFuncionario,), 0, 0, "L", 0);
+$pdf->Cell(25, 5, iconv('UTF-8', 'windows-1252', $nomeCompletoFuncionario,), 0, 0, "L", 0);
 
 
 $pdf->SetXY(21, $y - 337.5);
@@ -393,8 +393,8 @@ foreach ($resultParamentro as $rowParamentro) {
         }
 
 
-    $pdf->SetXY(105,  $y-10);
-    $pdf->Cell(70, 5, iconv('UTF-8', 'windows-1252', $rowEmail['email'],), 1, 0, "L", 0);
+    $pdf->SetXY(105,  $y-5);
+    $pdf->Cell(70, 5, iconv('UTF-8', 'windows-1252', mb_strimwidth(trim($rowEmail['email']), 0, 37, "...")), 1, 0, "L", 0);
 
     // $pdf->SetXY(90, $y);
     // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
@@ -402,7 +402,7 @@ foreach ($resultParamentro as $rowParamentro) {
     // $pdf->SetXY(105, $y);
     // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
 
-    $pdf->SetXY(175, $y-10);
+    $pdf->SetXY(175, $y-5);
     $pdf->Cell(25, 5, iconv('UTF-8', 'windows-1252', $rowEmail['principal'],), 1, 0, "C", 0);
 
     // $pdf->SetXY(135, $y);

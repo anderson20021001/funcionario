@@ -358,30 +358,25 @@ include("inc/scripts.php");
             }
         });
 
-        $("#btnNovo").on("click", function() {
-            novo();
-        });
+        $("#btnNovo").on("click", () => $(location).attr('href', 'dependentes.php'));
 
         $("#btnGravar").on("click", function() {
             // verificarDependente();
+            verificarDependente()
             document.getElementById("btnGravar").disabled = true;
             setTimeout(function() {
                 document.getElementById("btnGravar").disabled = false
-                    gravarDependente();
-                    
+                gravarDependente();
+
             }, 500)
-            // gravarDependente();
+
         });
 
-        $("#btnVoltar").on("click", function() {
-            voltar();
-        });
 
-        $("#dependente").on("change", function() {
-            verificarDependente();
-            // voltar();
-        });
     });
+
+    $("#btnVoltar").on("click", () => $(location).attr('href', 'dependenteFiltro.php'));
+    $("#dependente").on("change", () => verificarDependente());
 
 
     $('#dependente').on("focusout", campo => {
@@ -400,9 +395,9 @@ include("inc/scripts.php");
             return false;
     }
 
-    function desabilitaBotao(){
-     document.getElementById("btnGravar").disabled = true;
-}
+    function desabilitaBotao() {
+        document.getElementById("btnGravar").disabled = true;
+    }
 
 
 
@@ -443,11 +438,11 @@ include("inc/scripts.php");
     function verificarDependente() {
         var descricao = $("#dependente").val();
         verificaDependente(descricao);
-       
+
     }
 
     function gravarDependente() {
-        
+
         var codigo = +($("#codigo").val());
         var ativo = $('#ativo').val();
         var dependente = $("#dependente").val();
@@ -458,108 +453,7 @@ include("inc/scripts.php");
             return false
         }
 
-        // if (descricao.length === 0 || descricao.trim()) {
-        //     (descricao).focus();
-        //     return false
-        // }
-        desabilitaBotao();
+
         gravaDependente(codigo, ativo, dependente);
     }
-
-    // ------------------------------------------------------------------------
-
-    // function verificarDependente() {
-    //     var descricao = $("#descricao").val();
-    //     verificaDependente(descricao)
-    //     // $("#descricao").val("");
-    //     return false
-
-    // }
-
-    // function gravarGenero() {
-
-    //     var codigo = +($("#codigo").val());
-    //     var ativo = $('#ativo').val();
-    //     var dependente = $("#dependente").val();
-
-    //     if (dependente === "") {
-    //         smartAlert("Atenção", "Informe o Gênero !", "error");
-    //         $("#dependente").focus();
-    //         return false;
-
-    //     }
-
-    //     if (dependente.length === 0 || dependente.trim()) {
-    //         (dependente).focus();
-    //         return false
-    //     }
-
-    //     gravaDependente(codigo, ativo, dependente);
-    // }
-
-
-
-    // function verificarCpf(){
-    //     var cpf = $("#cpf").val();
-    //     verificaCpf(cpf)
-
-    // }
-
-    // function verificarGenero(){
-    //     var descricao = $("#descricao").val();
-    //     verificaGenero(descricao)
-
-    // }
-
-
-    // function limparCampoData() {
-    //     document.getElementById('dataNascimento').value = ""; // Limpa o valor do campo de entrada de data
-    // }
-
-    // $('#dataNascimento').on('change', function(){
-    //     if (validadeData()) {
-    //     }
-    // });
-    // function calcularIdade() {
-    //     var dataNasc = document.getElementById('dataNascimento').value;
-    //     if (dataNasc) {
-    //         var hoje = new Date();
-    //         var nasc = new Date(dataNasc);
-    //         var idade = hoje.getFullYear() - nasc.getFullYear();
-    //         var m = hoje.getMonth() - nasc.getMonth();
-    //         if (m < 0 || (m === 0 && hoje.getDate() < nasc.getDate())) {
-    //             idade--;
-    //         }
-    //         // document.getElementById('idade').value = idade;
-    //         $('#idade').val(idade);
-    //     } else {
-    //         alert('Por favor, insira uma data de nascimento válida.');
-    //     }
-    // }
-
-    // Adiciona o evento de clique ao documento inteiro
-    // document.addEventListener('focusout', calcularIdade);
-    // $('#dataNascimento').on('change', function(){calcularIdade()});
-
-
-    //         function verificaIdade() {
-    //     var idadeCalcule = document.getElementById('idade').value;
-
-    //     if (idadeCalcule < 14 || idadeCalcule > 120) {
-    //         limparCampoData();
-    //         alert("Por favor, digite uma idade válida entre 14 e 120 anos.");
-    //         return false; // Retorna false para indicar que a validação falhou
-    //     }
-
-    //     return true; // Retorna true se a validação for bem-sucedida
-    // }
-
-    // function limparCampoData() {
-    //     document.getElementById('dataNascimento').value = ""; // Limpa o valor do campo de entrada de data
-    // }
-
-    // Chama a função verificaIdade() quando o campo de data de nascimento é alterado
-    // $('#dataNascimento').on('change', function() {
-    //     verificaIdade();
-    // });
 </script>

@@ -1,4 +1,5 @@
 function gravaDependente(codigo, ativo, dependente) {
+    
     $.ajax({
         url: 'js/sqlscope_dependentes.php',
         dataType: 'html', //tipo do retorno
@@ -31,6 +32,7 @@ function gravaDependente(codigo, ativo, dependente) {
             //tratamento de erro
         }
     });
+    verificaDependente();
     return '';
 
 }

@@ -358,9 +358,7 @@ include("inc/scripts.php");
             }
         });
 
-        $("#btnNovo").on("click", function() {
-            novo();
-        });
+        $("#btnNovo").on("click", () =>  $(location).attr('href', 'tabelaBasica_generoCadastro.php'));
 
         $("#btnGravar").on("click", function() {
            
@@ -372,19 +370,15 @@ include("inc/scripts.php");
             }, 550)
         });
 
-        $("#btnVoltar").on("click", function() {
-            voltar();
-        });
+        $("#btnVoltar").on("click", () =>  $(location).attr('href', 'generoFiltro.php'));
 
-        $("#descricao").on("change", function() {
-            verificarGenero();
-        });
+        $("#descricao").on("change", () => verificarGenero());
     });
 
 
     $('#descricao').on("focusout", campo => {
         if (["1", "2", "3", "4", "5", "6", "7", "8", "9", " "].find(valor => valor == campo.currentTarget.value ? true : false)) {
-            smartAlert("Atenção", "Corrigir Campo", "error");
+            // smartAlert("Atenção", "Corrigir Campo", "error");
             $('#descricao').val('');
         } else {
             $('#descricao').val((campo.currentTarget.value).replace(/( )+/g, " "));
@@ -452,11 +446,7 @@ include("inc/scripts.php");
 
         }
 
-        // if (descricao.length === 0 || descricao.trim()) {
-        //     $("#descricao").focus();
-        //     return
-        // }
-        desabilitaBotao();
+        
         gravaGenero(codigo, ativo, descricao);
     }
 </script>

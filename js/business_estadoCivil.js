@@ -1,9 +1,9 @@
-function gravaEstadoCivilPessoa(codigo, ativo, estadoCivil) {
+function gravaEstadoCivilPessoa(codigo, ativo, descricao) {
     $.ajax({
         url: 'js/sqlscope_estadoCivil.php',
         dataType: 'html', //tipo do retorno
         type: 'post', //metodo de envio
-        data: {funcao: "gravaEstadoCivilPessoa", codigo:codigo, ativo:ativo, estadoCivil:estadoCivil}, //valores enviados ao script     
+        data: {funcao: "gravaEstadoCivilPessoa", codigo:codigo, ativo:ativo, descricao:descricao}, //valores enviados ao script     
         beforeSend: function () {
             //função chamada antes de realizar o ajax
         },
@@ -94,13 +94,13 @@ function recuperaEstadoCivil(id) {
                 piece = out.split("^");
                 var codigo = +piece[0];
                 var ativo = piece[1];
-                var estadoCivil = piece[2];
+                var descricao = piece[2];
                
     
                 $("#btnExcluir").removeClass("hidden");
                 $("#codigo").val(codigo);
                 $("#ativo").val(ativo);
-                $("#estadoCivil").val(estadoCivil);
+                $("#descricao").val(descricao);
                 if (ativo === 1) {
                     $('#ativo').prop('checked', true);
                 } else {

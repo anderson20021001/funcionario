@@ -55,7 +55,7 @@ function gravaEstadoCivilPessoa()
     $utils = new comum();
 
     
-    $estadoCivil = $utils->formatarString($_POST['estadoCivil']);
+    $descricao = $utils->formatarString($_POST['descricao']);
     
     $ativo = 1;
 
@@ -63,10 +63,10 @@ function gravaEstadoCivilPessoa()
     $sql = "dbo.estadoCivil_Atualiza
      $codigo,
      $ativo,
-     $estadoCivil";
-    if($estadoCivil == "''"){
-        $ret = 'failed#';
-        echo $ret;
+     $descricao";
+    if($descricao == "''"){
+        $mensagem = "Informe o Estado Cívil corretamente, pode estar cadastrado ou a forma digitada esteja errada!";
+        echo "failed#" . $mensagem . ' ';
         return;
     }
     $reposit = new reposit();
@@ -93,7 +93,7 @@ function recupera()
 
     $id = (int) $_POST["id"];
 
-    $sql = " SELECT codigo, ativo, estadoCivil
+    $sql = " SELECT codigo, ativo, descricao
              FROM dbo.estadoCivil WHERE (0 = 0) and codigo = $id";
 
     $reposit = new reposit();
@@ -103,7 +103,7 @@ function recupera()
     if ($row = $result[0]) {
         $codigo = +$row['codigo'];
         $ativo = $row['ativo'];
-        $estadoCivil = $row['estadoCivil'];
+        $estadoCivil = $row['descricao'];
       
     }
 
@@ -186,10 +186,10 @@ function verificaEstadoCivil(){
     $reposit = new reposit();
     $utils = new comum();
 
-    $estadoCivil = $utils->formatarString($_POST['estadoCivil']);
+    $descricao = $utils->formatarString($_POST['descricao']);
     
 
-    $sql = "SELECT estadoCivil from dbo.estadoCivil where estadoCivil = $estadoCivil AND codigo != $id";
+    $sql = "SELECT descricao from dbo.estadoCivil where descricao = $descricao AND codigo != $id";
 
     $reposit = new reposit();
     $result = $reposit->RunQuery($sql);

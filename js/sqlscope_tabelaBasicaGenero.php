@@ -57,8 +57,7 @@ function gravaGenero()
     '$descricao'";
 
     if($descricao == "''"){
-        $ret = 'failed#';
-        echo $ret;
+        verificaGenero();
         return;
     }
 
@@ -205,7 +204,7 @@ function verificaGenero(){
         echo  "success";
         return true;
     } else {
-        $mensagem = "Informe o Estado Cívil corretamente, pode estar cadastrado ou a forma digitada esteja errada!";
+        $mensagem = "Informe o Gênero corretamente, pode estar cadastrado ou a forma digitada esteja errada!";
         echo "failed#" . $mensagem . ' ';
     }
     

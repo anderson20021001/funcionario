@@ -9,7 +9,7 @@ include "js/repositorio.php";
                     <!-- <th class="text-left" style="min-width:20px;">Codigo</th> -->
                     <th class="text-left" style="min-width:30px;">Nome</th>
                     <th class="text-left" style="min-width:20px;">Data de Nascimento</th>
-                    <th class="text-left" style="min-width:25px;">Cpf</th>
+                    <th class="text-left" style="min-width:25px;">CPF</th>
                     <th class="text-left" style="min-width:25px;">Estado Cívil</th>
                     <th class="text-left" style="min-width:25px;">Gênero</th>
                     <th class="text-left" style="min-width:25px;">Ativo</th>
@@ -47,7 +47,11 @@ include "js/repositorio.php";
 
 
                 if ($dataNascimentoInicio != "") {
-                    $where = $where . " AND dataNascimento  = '$dataNascimentoInicio' OR dataNascimento BETWEEN '$dataNascimentoInicio' AND '$dataNascimentoFim' ";
+                    $where = $where . " AND dataNascimento  >= '$dataNascimentoInicio' OR dataNascimento BETWEEN '$dataNascimentoInicio' AND '$dataNascimentoFim' ";
+                }
+
+                if ($dataNascimentoFim != "") {
+                    $where = $where . " AND dataNascimento  <= '$dataNascimentoFim' OR dataNascimento BETWEEN '$dataNascimentoFim' AND '$dataNascimentoInicio' ";
                 }
 
 
@@ -138,7 +142,7 @@ include "js/repositorio.php";
                     echo '<td class="text-left">' . $estadoCivil . '</td>';
                     echo '<td class="text-left">' . $genero . '</td>';
                     echo '<td class="text-left">' . $descricaoAtivo . '</td>';
-                    echo '<td class="text-center"> ' . '' . '  <a href="relatorioFuncionario.php?codigo=' . $codigo . '"><span class="btn btn-primary fa fa-file text-center "> </span> </td>';
+                    echo '<td class="text-center"> ' . '' . '  <a href="relatorioFuncionario.php?codigo=' . $codigo . '"><span class="btn btn-danger fa fa-file text-center "> </span> </td>';
                     echo '</tr >';
                 }
                 ?>

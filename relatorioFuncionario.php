@@ -99,7 +99,7 @@ $pdf->Cell(55, 10, iconv('UTF-8', 'windows-1252', "NOME:"), 0, 0, "L", 0);
 // $pdf->Cell(75, 10, iconv('UTF-8', 'windows-1252', $nomeFuncionario), 1, 0, "C", 2);
 
 
-$pdf->SetXY(8,40);
+$pdf->SetXY(8, 40);
 // $pdf->SetX(5);
 $pdf->Cell(40, 10, iconv('UTF-8', 'windows-1252', "CPF:"), 0, 0, "L", 0);
 
@@ -203,17 +203,17 @@ $pdf->Line(5, 292, 205, 292);
 
 
 $codigo = $rowParamentro['codigo'];
-$nomeFuncionario = mb_strimwidth(trim($rowParamentro['nome']), 0, 29, "...");
-// $partesNomes = explode(' ', $nomeFuncionario);
-//         $primeiroNome = $partesNomes[0];
-//         $ultimoSobrenome = $partesNomes[count($partesNomes) - 1];
-//         // Abrevia os nomes do meio
-//         $nomesDoMeioAbreviados = '';
-//         for ($i = 1; $i < count($partesNomes) - 1; $i++) {
-//             $nomesDoMeioAbreviados .= substr($partesNomes[$i], 0, 1) . '. ';
-//         }
-//         $nomeCompletoFuncionario = $primeiroNome . ' ' . $nomesDoMeioAbreviados . $ultimoSobrenome;
-//         // Concatena o primeiro nome, os nomes do meio abreviados e o último sobrenome
+$nomeFuncionario = $rowParamentro['nome'];
+$partesNomes = explode(' ', $nomeFuncionario);
+        $primeiroNome = $partesNomes[0];
+        $ultimoSobrenome = $partesNomes[count($partesNomes) - 1];
+        // Abrevia os nomes do meio
+        $nomesDoMeioAbreviados = '';
+        for ($i = 1; $i < count($partesNomes) - 1; $i++) {
+            $nomesDoMeioAbreviados .= substr($partesNomes[$i], 0, 1) . '. ';
+        }
+        $nomeCompletoFuncionario = $primeiroNome . ' ' . $nomesDoMeioAbreviados . $ultimoSobrenome;
+        // Concatena o primeiro nome, os nomes do meio abreviados e o último sobrenome
 $cpfFuncionario = $rowParamentro['cpf'];
 // $dataNascimento = ($utils->formataDataSql($_GET['dataNascimento']));
 $dataNascimento = $rowParamentro['dataNascimento'];
@@ -230,7 +230,7 @@ $cep = $rowParamentro['cep'];
 $logradouro = mb_strimwidth(trim($rowParamentro['logradouro']), 0, 29, "...");
 $complemento = mb_strimwidth(trim($rowParamentro['complemento']), 0, 29, "...");
 $uf = $rowParamentro['uf'];
-$bairro = $rowParamentro['bairro'];
+$numero = $rowParamentro['numero'];
 $cidade = $rowParamentro['cidade'];
 $bairro = $rowParamentro['bairro'];
 $nomeDependente = $rowParamentro['nomeDependente'];
@@ -239,7 +239,7 @@ $dataNascimentoDependente = $rowParamentro['dataNascimentoDependente'];
 $dataNascimentoDependente = explode(" ", $dataNascimentoDependente);
 $dataNascimentoDependente = explode("-", $dataNascimentoDependente[0]);
 $dataNascimentoDependente =  $dataNascimentoDependente[2] . "/" . $dataNascimentoDependente[1] . "/" . $dataNascimentoDependente[0];
-$dataNascimentoDependente = mb_strimwidth(trim($rowParamentro['dataNascimentoDependente']), 0, 5, "...");
+
 
 $dependente = $rowParamentro['dependente'];
 
@@ -260,14 +260,14 @@ if ($primeiroEmprego == 1) {
 }
 
 if ($complemento == "") {
-    $complemento = 'Não Possui Complemento'; 
+    $complemento = 'Não Possui Complemento';
 }
 
 if ($nomeDependente == "") {
-    $nomeDependente = 'Não Possui'; 
-    $cpfDependente = 'Não Possui'; 
-    $dataNascimentoDependente = 'Não Possui'; 
-    $dependente = 'Não Possui'; 
+    $nomeDependente = 'Não Possui';
+    $cpfDependente = 'Não Possui';
+    $dataNascimentoDependente = 'Não Possui';
+    $dependente = 'Não Possui';
 }
 
 // $sqlProjeto = "SELECT P.descricao FROM Ntl.projeto P where P.codigo = $projeto";
@@ -305,7 +305,7 @@ if ($nomeDependente == "") {
 
 
 $pdf->SetXY(18, 36.5);
-$pdf->Cell(55, 5, iconv('UTF-8', 'windows-1252',  $nomeFuncionario), 0, 0, "L", 0);
+$pdf->Cell(55, 5, iconv('UTF-8', 'windows-1252',  $nomeCompletoFuncionario), 0, 0, "L", 0);
 
 // ....
 
@@ -373,22 +373,6 @@ $pdf->Cell(55, 10, iconv('UTF-8', 'windows-1252', "CEP:"), 0, 0, "L", 0);
 // $pdf->SetY(55);
 // $pdf->Cell(75, 10, iconv('UTF-8', 'windows-1252', $nomeFuncionario), 1, 0, "C", 2);
 
-$pdf->SetY(35.2);
-$pdf->SetX(125);
-$pdf->Cell(55, 10, iconv('UTF-8', 'windows-1252', "NOME DO DEPENDENTE:"), 0, 0, "L", 0);
-
-$pdf->SetY(40.2);
-$pdf->SetX(125);
-$pdf->Cell(55, 10, iconv('UTF-8', 'windows-1252', "CPF DO DEPENDENTE:"), 0, 0, "L", 0);
-
-
-$pdf->SetY(45.2);
-$pdf->SetX(125);
-$pdf->Cell(55, 10, iconv('UTF-8', 'windows-1252', "DATA DE NASCIMENTO DO DEPENDENTE:"), 0, 0, "L", 0);
-
-$pdf->SetY(50.2);
-$pdf->SetX(125);
-$pdf->Cell(55, 10, iconv('UTF-8', 'windows-1252', "TIPO DE DEPENDENTE:"), 0, 0, "L", 0);
 
 
 // $pdf->SetY(55);
@@ -413,7 +397,7 @@ $pdf->Cell(55, 10, iconv('UTF-8', 'windows-1252', "TIPO DE DEPENDENTE:"), 0, 0, 
 // $pdf->Cell(75, 10, iconv('UTF-8', 'windows-1252', $nomeFuncionario), 1, 0, "C", 2);
 
 
-$pdf->SetXY(8,80.2);
+$pdf->SetXY(8, 80.2);
 // $pdf->SetX(5);
 $pdf->Cell(40, 10, iconv('UTF-8', 'windows-1252', "LOGRADOURO:"), 0, 0, "L", 0);
 
@@ -542,7 +526,7 @@ $y += 40;
 
 
 
-$pdf->SetXY(16, $y-6.5);
+$pdf->SetXY(16, $y - 6.5);
 $pdf->Cell(55, 5, iconv('UTF-8', 'windows-1252',  $cep), 0, 0, "L", 0);
 
 // ....
@@ -570,7 +554,7 @@ $pdf->Cell(35, 5, iconv('UTF-8', 'windows-1252', $complemento,), 0, 0, "L", 0);
 
 // $pdf->SetXY(150, $y);
 // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
-$pdf->SetXY(23, 92);
+$pdf->SetXY(23, 93);
 $pdf->Cell(30, 5, iconv('UTF-8', 'windows-1252', $numero), 0, 0, "L", 0);
 
 // $pdf->SetXY(90, $y);
@@ -580,29 +564,67 @@ $pdf->Cell(30, 5, iconv('UTF-8', 'windows-1252', $numero), 0, 0, "L", 0);
 // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
 
 
+foreach ($resultParamentro as $rowDependente) {
 
-$pdf->SetXY(160, $y-46.4);
-$pdf->Cell(55, 5, iconv('UTF-8', 'windows-1252',  $nomeDependente), 0, 0, "L", 0);
 
+
+    if ($rowDependente['nomeDependente'] == "") {
+        $rowDependente['nomeDependente'] = 'Não Possui';
+        $cpfDependente = 'Não Possui';
+        $dataNascimentoDependente = 'Não Possui';
+        $dependente = 'Não Possui';
+    }
+
+    $pdf->SetY($y-48.5);
+    $pdf->SetX(125);
+    $pdf->Cell(55, 10, iconv('UTF-8', 'windows-1252', "NOME DO DEPENDENTE:"), 0, 0, "L", 0);
+
+    $pdf->SetY($y - 44.1);
+    $pdf->SetX(125);
+    $pdf->Cell(55, 10, iconv('UTF-8', 'windows-1252', "CPF DO DEPENDENTE:"), 0, 0, "L", 0);
+
+
+    $pdf->SetY($y-38.5);
+    $pdf->SetX(125);
+    $pdf->Cell(55, 10, iconv('UTF-8', 'windows-1252', "DATA DE NASCIMENTO DO DEPENDENTE:"), 0, 0, "L", 0);
+
+    $pdf->SetY($y-34.1);
+    $pdf->SetX(125);
+    $pdf->Cell(55, 10, iconv('UTF-8', 'windows-1252', "TIPO DE DEPENDENTE:"), 0, 0, "L", 0);
+
+    $pdf->SetXY(160, $y - 46.4);
+    $pdf->Cell(55, 5, iconv('UTF-8', 'windows-1252',  $rowDependente['nomeDependente']), 0, 0, "L", 0);
+
+    // ....
+
+    // $pdf->SetXY(45, $y);
+    // $pdf->Cell(190, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
+
+    // $pdf->SetXY(60, $y);
+    // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ''), 1, 0, "C", 0);
+
+    $pdf->SetXY(157, $y - 41.4);
+    $pdf->Cell(55, 5, iconv('UTF-8', 'windows-1252',  $rowDependente['cpfDependente']), 0, 0, "L", 0);
+
+    $dataNascimentoDependente = $rowDependente['dataNascimentoDependente'];
+    $dataNascimentoDependente = explode(" ", $dataNascimentoDependente);
+    $dataNascimentoDependente = explode("-", $dataNascimentoDependente[0]);
+    $dataNascimentoDependente =  $dataNascimentoDependente[2] . "/" . $dataNascimentoDependente[1] . "/" . $dataNascimentoDependente[0];
+
+    $pdf->SetXY(184, $y - 36.1);
+    $pdf->Cell(55, 5, iconv('UTF-8', 'windows-1252',  $dataNascimentoDependente), 0, 0, "L", 0);
+
+
+    $pdf->SetXY(159, $y - 31.6);
+    $pdf->Cell(55, 5, iconv('UTF-8', 'windows-1252',  $rowDependente['dependente']), 0, 0, "L", 0);
+
+    $y += 25;
+//     if ($y > 260) {
+//         // $pdf->AddPage();
+//         $y = 12;
+// }
 // ....
-
-// $pdf->SetXY(45, $y);
-// $pdf->Cell(190, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
-
-// $pdf->SetXY(60, $y);
-// $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ''), 1, 0, "C", 0);
-
-$pdf->SetXY(157, $y-41.4);
-$pdf->Cell(55, 5, iconv('UTF-8', 'windows-1252',  $cpfDependente), 0, 0, "L", 0);
-
-
-$pdf->SetXY(184, $y-36.1);
-$pdf->Cell(55, 5, iconv('UTF-8', 'windows-1252',  $dataNascimentoDependente), 0, 0, "L", 0);
-
-
-$pdf->SetXY(159, $y-31.6);
-$pdf->Cell(55, 5, iconv('UTF-8', 'windows-1252',  $dependente), 0, 0, "L", 0);
-// ....
+}
 
 // $pdf->SetXY(45, $y);
 // $pdf->Cell(190, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
@@ -627,8 +649,8 @@ $pdf->Cell(35, 5, iconv('UTF-8', 'windows-1252', $complemento,), 0, 0, "L", 0);
 
 // $pdf->SetXY(150, $y);
 // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
-$pdf->SetXY(23, 92);
-$pdf->Cell(30, 5, iconv('UTF-8', 'windows-1252', $numero), 0, 0, "L", 0);
+// $pdf->SetXY(23, 92);
+// $pdf->Cell(30, 5, iconv('UTF-8', 'windows-1252', $numero), 0, 0, "L", 0);
 
 // $pdf->SetXY(90, $y);
 // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
@@ -662,7 +684,7 @@ $pdf->Cell(35, 10, iconv('UTF-8', 'windows-1252', "UF:"), 0, 0, "L", 0);
 // $pdf->Cell(75, 10, iconv('UTF-8', 'windows-1252', $nomeFuncionario), 1, 0, "C", 2);
 
 
-$pdf->SetXY(8,95.2);
+$pdf->SetXY(8, 95.2);
 $pdf->Cell(40, 10, iconv('UTF-8', 'windows-1252', "BAIRRO:"), 0, 0, "L", 0);
 
 // $pdf->SetXY(90, 60);

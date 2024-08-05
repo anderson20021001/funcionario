@@ -179,16 +179,16 @@ foreach ($resultParamentro as $rowParamentro) {
     }
 
 
-    $nomeFuncionario = mb_strimwidth(trim($rowParamentro['nome']), 0, 29, "...");
-    // $partesNomes = explode(' ', $nomeFuncionario);
-    //     $primeiroNome = $partesNomes[0];
-    //     $ultimoSobrenome = $partesNomes[count($partesNomes) - 1];
-    //     // Abrevia os nomes do meio
-    //     $nomesDoMeioAbreviados = '';
-    //     for ($i = 1; $i < count($partesNomes) - 1; $i++) {
-    //         $nomesDoMeioAbreviados .= substr($partesNomes[$i], 0, 1) . '. ';
-    //     }
-    //     $nomeCompletoFuncionario = $primeiroNome . ' ' . $nomesDoMeioAbreviados . $ultimoSobrenome;
+    $nomeFuncionario = $rowParamentro['nome'];
+    $partesNomes = explode(' ', $nomeFuncionario);
+        $primeiroNome = $partesNomes[0];
+        $ultimoSobrenome = $partesNomes[count($partesNomes) - 1];
+        // Abrevia os nomes do meio
+        $nomesDoMeioAbreviados = '';
+        for ($i = 1; $i < count($partesNomes) - 1; $i++) {
+            $nomesDoMeioAbreviados .= substr($partesNomes[$i], 0, 1) . '. ';
+        }
+        $nomeCompletoFuncionario = $primeiroNome . ' ' . $nomesDoMeioAbreviados . $ultimoSobrenome;
     //     // $nomeFormatado = mb_strimwidth(trim($rowParamentro['nomeCompletoFuncionario']), 0, 5, "...");;
     //     // Concatena o primeiro nome, os nomes do meio abreviados e o último sobrenome
     $cpfFuncionario = $rowParamentro['cpf'];
@@ -280,7 +280,7 @@ foreach ($resultParamentro as $rowParamentro) {
 
     
     $pdf->SetXY(5, $y);
-    $pdf->Cell(55, 5, iconv('UTF-8', 'windows-1252',  $nomeFuncionario), 1, 0, "L", 0);
+    $pdf->Cell(55, 5, iconv('UTF-8', 'windows-1252',  $nomeCompletoFuncionario), 1, 0, "L", 0);
 
     // ....
 

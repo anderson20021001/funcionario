@@ -88,7 +88,7 @@ include("inc/nav.php");
                                                                     <input id="nome" maxlength="50" name="nome" type="text" value="" onpaste="return false" ondrop="return false" autocomplete="new-password">
                                                                 </label>
                                                             </section>
-                                                            <section class="col col-3">
+                                                            <section class="col col-2">
                                                                 <label class="label">CPF</label>
                                                                 <label class="input"><i class="icon-prepend fa fa-address-card"></i>
                                                                     <input id="cpf" maxlength="50" name="cpf" type="text" value="" ondrop="return false" autocomplete="new-password">
@@ -175,7 +175,7 @@ include("inc/nav.php");
                                                         <span class="fa fa-search"></span>
                                                     </button>
 
-                                                    <button id="btnGerarPdf" type="button" class="btn btn-primary pull-right" title="GerarPdf">
+                                                    <button id="btnGerarPdf" type="button" class="btn btn-danger pull-right" title="GerarPdf">
                                                         <span class="fa fa-file-pdf-o"></span>
                                                     </button>
                                                     <?php if ($condicaoGravarOK) { ?>
@@ -235,49 +235,23 @@ include("inc/scripts.php");
 
 <script>
     $(document).ready(function() {
-        $('#btnSearch').on("click", function() {
-            listarFiltro();
-        });
-        $('#btnNovo').on("click", function() {
-            novo();
-        });
-
-        $('#btnGerarPdf').on("click", function() {
-            gerar();
-        });
-
+        $('#btnSearch').on("click", () => listarFiltro() );
+        $('#btnNovo').on("click", () => $(location).attr('href', 'cadastroFuncionario.php') );
+        $('#btnGerarPdf').on("click",() =>  $(location).attr('href', 'relatorio.php') );
 
         $("#dataNascimentoInicio").mask('99/99/9999')
         $("#dataNascimentoFim").mask('99/99/9999')
         $("#cpf").mask("999.999.999-99");
     });
 
-
-    // function abreviar(nome) {
-    //     const [nome, ...sobrenomes] = str.split(' ');
-
-    //     const abreviaturas = sobrenomes.reduce((arr, str) => {
-    //         const letraGrande = str.match(/[A-ZÖÄÅÀÁÂÃÌÍÒÓÉÊÚ]/);
-    //         if (!letraGrande) return arr;
-    //         return arr.concat(`${letraGrande[0]}.`);
-    //     }, []);
-
-    //     return [nome, ...abreviaturas].join(' ');
-    // }
-
-    // testes.forEach((teste, i) => {
-    //     return (i, '>', abreviar(nome));
-    // });
-
-
     function listarFiltro() {
-        var nome = $('#nome').val();
-        var dataNascimentoInicio = $('#dataNascimentoInicio').val();
-        var dataNascimentoFim = $('#dataNascimentoFim').val();
-        var cpf = $('#cpf').val();
-        var estadoCivil = $('#estadoCivil').val();
-        var genero = $('#genero').val();
-        var ativo = $('#ativo').val();
+        let nome = $('#nome').val();
+        let dataNascimentoInicio = $('#dataNascimentoInicio').val();
+        let dataNascimentoFim = $('#dataNascimentoFim').val();
+        let cpf = $('#cpf').val();
+        let estadoCivil = $('#estadoCivil').val();
+        let genero = $('#genero').val();
+        let ativo = $('#ativo').val();
 
         $('#resultadoBusca').load('exemploFiltroListagem.php?', {
             nome: nome,
@@ -289,14 +263,5 @@ include("inc/scripts.php");
             genero: genero,
             ativo: ativo
         });
-    }
-
-
-    function novo() {
-        $(location).attr('href', 'cadastroFuncionario.php');
-    }
-
-    function gerar() {
-        $(location).attr('href', 'relatorio.php');
     }
 </script>
