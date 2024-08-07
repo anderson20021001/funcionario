@@ -185,7 +185,7 @@ function recuperaUsuario(id) {
                 var dataNascimento = piece[4];
                 var rg = piece[5];
                 var genero = piece[6];
-                var descricao = piece[7];
+                var estadoCivil = piece[7];
                 var jsonTelefone = piece[8];
                 var jsonEmail = piece[9];
                 var jsonDependente = piece[10];
@@ -208,7 +208,7 @@ function recuperaUsuario(id) {
                 $("#dataNascimento").val(dataNascimento);
                 defineIdade();
                 $("#genero").val(genero);
-                $("#descricao").val(descricao);
+                $("#estadoCivil").val(estadoCivil);
                 $("#jsonTelefone").val(jsonTelefone);
                 $("#jsonEmail").val(jsonEmail);
                 $("#jsonDependente").val(jsonDependente);

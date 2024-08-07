@@ -264,75 +264,6 @@ foreach ($resultParamentro as $rowParamentro) {
 
 
 
-    // function abreviarNome($nomeCompleto) {
-    //     // Divide o nome completo em partes
-    //     $partes = explode(' ', $nomeCompleto);
-
-    //     // Se o nome tiver apenas uma parte, retorna-o como está
-    //     if (count($partes) <= 1) {
-    //         return $nomeCompleto;
-    //     }
-
-    //     // Armazena o primeiro nome e o último sobrenome
-    //     $primeiroNome = $partes[0];
-    //     $ultimoSobrenome = $partes[count($partes) - 1];
-
-    //     // Abrevia os nomes do meio
-    //     $nomesDoMeioAbreviados = '';
-    //     for ($i = 1; $i < count($partes) - 1; $i++) {
-    //         $nomesDoMeioAbreviados .= substr($partes[$i], 0, 1) . '. ';
-    //     }
-    //     $nomeCompletoFuncionario = $primeiroNome . ' ' . $nomesDoMeioAbreviados . $ultimoSobrenome;
-    //     // Concatena o primeiro nome, os nomes do meio abreviados e o último sobrenome
-    //     return $nomeCompletoFuncionario;
-    // }
-
-    // // Exemplo de uso
-    // $nomeCompleto = "Adriele Maria da Silva André";
-    // $nomeAbreviado = abreviarNome($nomeCompleto);
-    // echo $nomeAbreviado; // Saída: Adriele M. da S. André
-
-
-
-    // // Exemplo de uso
-    // $nomeCompleto = "Adriele Maria da Silva André";
-    // $nomeAbreviado = abreviarNome($nomeCompleto);
-    // echo $nomeAbreviado; // Saída: Adriele M. da S. André
-
-
-    // $sqlProjeto = "SELECT P.descricao FROM Ntl.projeto P where P.codigo = $projeto";
-    // $resultProjeto = $reposit->RunQuery($sqlProjeto);
-
-    // $sqlDepartamento = "SELECT D.descricao FROM Ntl.departamento D where D.codigo = $departamento";
-    // $resultDepartamento = $reposit->RunQuery($sqlDepartamento);
-
-    // $sql = "SELECT DISTINCT F.nome as 'nomeFuncionario'
-    //                   FROM Ntl.funcionario F
-    //                   INNER JOIN Ntl.beneficioProjeto BP ON BP.funcionario = F.codigo
-    //                   INNER JOIN Ntl.projeto P ON P.codigo = BP.projeto
-    //                   LEFT JOIN Ntl.departamentoResponsavel DR ON DR.departamento = BP.departamento
-    //                   LEFT JOIN Ntl.projetoResponsavel PR ON PR.projeto = P.codigo
-    //                   LEFT JOIN Ntl.departamento D ON D.codigo = BP.departamento
-    //                   LEFT JOIN Funcionario.folhaPontoMensal PM ON PM.funcionario = F.codigo
-    // 				  LEFT JOIN Funcionario.folhaPontoMensalDetalheDiario DD ON DD.folhaPontoMensal = PM.codigo";
-
-    // $where = " WHERE BP.ativo = 1 AND (BP.dataDemissaoFuncionario IS NULL OR BP.dataDemissaoFuncionario <= GETDATE()) AND BP.registraPonto = 1 
-    //                AND DR.responsavelDepartamentoLogin = $login AND PM.mesAno = $data AND DD.dia = $dia";
-    // $orderBy = " ORDER BY F.nome ASC";
-    // if ($departamento) {
-    //     $where = $where . " AND (D.codigo = $departamento)";
-    // }
-    // if ($projeto) {
-    //     $where = $where . " AND (P.codigo = $projeto)";
-    // }
-    // $sql .= $where . $orderBy;
-    // $result = $reposit->RunQuery($sql);
-
-
-    // $pdf->AddPage();
-
-
-
 
     foreach ($resultParamentroTelefone as $rowTelefone) {
 
@@ -396,20 +327,9 @@ foreach ($resultParamentro as $rowParamentro) {
     $pdf->SetXY(105,  $y-5);
     $pdf->Cell(70, 5, iconv('UTF-8', 'windows-1252', mb_strimwidth(trim($rowEmail['email']), 0, 37, "...")), 1, 0, "L", 0);
 
-    // $pdf->SetXY(90, $y);
-    // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
-
-    // $pdf->SetXY(105, $y);
-    // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
 
     $pdf->SetXY(175, $y-5);
     $pdf->Cell(25, 5, iconv('UTF-8', 'windows-1252', $rowEmail['principal'],), 1, 0, "C", 0);
-
-    // $pdf->SetXY(135, $y);
-    // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ''), 1, 0, "C", 0);
-
-    // $pdf->SetXY(150, $y);
-    // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
 
 
         $y += 5;

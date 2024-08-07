@@ -165,12 +165,8 @@ include("inc/scripts.php");
 
 <script>
     $(document).ready(function() {
-        $('#btnSearch').on("click", function() {
-            listarFiltro();
-        });
-        $('#btnNovo').on("click", function() {
-            novo();
-        });
+        $('#btnSearch').on("click", () =>  listarFiltro());
+        $('#btnNovo').on("click", () => $(location).attr('href', 'tabelaBasica_generoCadastro.php'));
     });
 
     function listarFiltro() {

@@ -34,6 +34,7 @@ if ($funcao == 'validaCPFDependente') {
     call_user_func($funcao);
 }
 
+
 if ($funcao == 'verificaRG') {
     call_user_func($funcao);
 }
@@ -46,7 +47,7 @@ if ($funcao == 'validaDataInversa') {
 
 // return;
 
-function grava() 
+function grava()
 {
     if ((empty($_POST['codigo'])) || (!isset($_POST['codigo'])) || (is_null($_POST['codigo']))) {
         $codigo = 0;
@@ -68,7 +69,7 @@ function grava()
     $nome = $utils->formatarString($_POST['nome']);
     $cpf = $utils->formatarString($_POST['cpf']);
     $rg = $utils->formatarString($_POST['rg']);
-    $dataNascimento = $utils->formataDataSql($_POST['dataNascimento']);
+    $dataNascimento = $utils->formatarString($_POST['dataNascimento']);
     $genero = $_POST['genero'];
     $estadoCivil = $_POST['estadoCivil'];
     $telefone = $_POST['jsonTelefoneArray'];
@@ -368,37 +369,37 @@ function recupera()
 
     $jsonDependente = json_encode($arrayDependente);
     $out =   $codigo . "^" .
-    $ativo . "^" .
-    $nome . "^" .
-    $cpf . "^" .
-    $dataNascimento . "^" .
-    $rg . "^" .
-    $genero . "^" .
-    $estadoCivil  . "^" .
-    $jsonTelefone . "^" .
-    $jsonEmail . "^" .
-    $jsonDependente . "^" .
-    $cep . "^" .
-    $logradouro . "^" .
-    $complemento . "^" .
-    $numero . "^" .
-    $uf . "^" .
-    $bairro . "^" .
-    $cidade . "^" .
-    $primeiroEmprego . "^" .
-    $pis;
+        $ativo . "^" .
+        $nome . "^" .
+        $cpf . "^" .
+        $dataNascimento . "^" .
+        $rg . "^" .
+        $genero . "^" .
+        $estadoCivil  . "^" .
+        $jsonTelefone . "^" .
+        $jsonEmail . "^" .
+        $jsonDependente . "^" .
+        $cep . "^" .
+        $logradouro . "^" .
+        $complemento . "^" .
+        $numero . "^" .
+        $uf . "^" .
+        $bairro . "^" .
+        $cidade . "^" .
+        $primeiroEmprego . "^" .
+        $pis;
 
-if ($out == "") {
-    echo "failed#";
-    return;
+    if ($out == "") {
+        echo "failed#";
+        return;
     }
 
     echo "sucess#" . $out . "#" . $jsonTelefone . "^" .
         $jsonEmail . "^" .
         $jsonDependente;
 
-        return;
-    }
+    return;
+}
 
 function validaDataInversa($dataNascimento)
 {
@@ -505,6 +506,8 @@ function validaCPFDependente()
 
     // Verifica se foi informado todos os digitos corretamente
     if (strlen($cpfPessoaDependente) != 11) {
+        $mensagem = "CPF INCOMPLETO!";
+        echo "failed#" . $mensagem . ' ';
         return false;
     }
 

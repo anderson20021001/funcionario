@@ -143,10 +143,7 @@ include("inc/footer.php");
 //include required scripts
 include("inc/scripts.php");
 ?>
-<!--script src="<?php echo ASSETS_URL; ?>/js/businessTabelaBasica.js" type="text/javascript"></script-->
-<!-- PAGE RELATED PLUGIN(S) 
-<script src="..."></script>-->
-<!-- Flot Chart Plugin: Flot Engine, Flot Resizer, Flot Tooltip -->
+
 <script src="<?php echo ASSETS_URL; ?>/js/plugin/flot/jquery.flot.cust.min.js"></script>
 <script src="<?php echo ASSETS_URL; ?>/js/plugin/flot/jquery.flot.resize.min.js"></script>
 <script src="<?php echo ASSETS_URL; ?>/js/plugin/flot/jquery.flot.time.min.js"></script>
@@ -166,18 +163,14 @@ include("inc/scripts.php");
 
 
 <script>
-    document.getElementById("estadoCivil").onkeypress = function(e) {
+    $("#estadoCivil").on('keypress', function(e) {
         var chr = String.fromCharCode(e.which);
         if ("qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM".indexOf(chr) < 0)
             return false;
-    };
+    });
     $(document).ready(function() {
-        $('#btnSearch').on("click", function() {
-            listarFiltro();
-        });
-        $('#btnNovo').on("click", function() {
-            novo();
-        });
+        $('#btnSearch').on("click", () => listarFiltro());
+        $('#btnNovo').on("click", () =>  $(location).attr('href', 'estadoCivil.php'));
     });
 
     function listarFiltro() {
@@ -191,7 +184,5 @@ include("inc/scripts.php");
         });
     }
 
-    function novo() {
-        $(location).attr('href', 'estadoCivil.php');
-    }
+    
 </script>

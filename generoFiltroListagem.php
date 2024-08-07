@@ -16,24 +16,13 @@ include "js/repositorio.php";
                 $descricaoFiltro = "";
                 $where = " WHERE (0 = 0)";
 
-                // $nomeFiltro = "$nome";
-                // if ($_GET["nomeFiltro"] != "") {
-                //     $nomeFiltro = $_GET["nomeFiltro"];
-                //     $where = $where . " AND (USU.[login] like '%' + " . "replace('" . $nomeFiltro . "',' ','%') + " . "'%')";
-                // }
-
+        
                 $descricao = $descricao;
                 if ($_POST["descricaoFiltro"] != "") {
                     $descricaoFiltro = $_POST["descricaoFiltro"];
                     $where = $where . " AND (descricao like '%' + " . "replace('" . $descricaoFiltro . "',' ','%') + " . "'%')";
                 }
 
-
-                // $cpfFiltro = $cpf;
-                // if ($_POST["cpf"] != "") {
-                //     $cpfFiltro = $_POST["cpfFiltro"];
-                //     $where = $where . " AND (nome like '%' + " . "replace('" . $cpfFiltro . "',' ','%') + " . "'%')";
-                // }
 
 
                 $ativoFiltro = $ativo;
@@ -60,7 +49,6 @@ include "js/repositorio.php";
                     }
 
                     echo '<tr >';
-                    // echo '<td class="text-left"><a href="tabelaBasica_generoCadastro.php?id=' . $codigo . '">' . $codigo . '</a></td>';
                     echo '<td class="text-left"><a href="tabelaBasica_generoCadastro.php?id=' . $codigo . '">' . $descricao . '</a></td>';
                     echo '<td class="text-left">' . $descricaoAtivo . '</td>';
                 }

@@ -386,11 +386,11 @@ include("inc/scripts.php");
 
     });
 
-    document.getElementById("descricao").onkeypress = function(e) {
+    $("#descricao").on('keypress', function(e) {
         var chr = String.fromCharCode(e.which);
         if ("qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM-éáóúíô ".indexOf(chr) < 0)
             return false;
-    }
+    });
 
     function desabilitaBotao(){
      document.getElementById("btnGravar").disabled = true;
@@ -410,13 +410,6 @@ include("inc/scripts.php");
         $("#nome").focus();
     }
 
-    function novo() {
-        $(location).attr('href', 'tabelaBasica_generoCadastro.php');
-    }
-
-    function voltar() {
-        $(location).attr('href', 'generoFiltro.php');
-    }
 
     function excluir() {
         var id = +$("#codigo").val();
@@ -446,7 +439,7 @@ include("inc/scripts.php");
 
         }
 
-        
+
         gravaGenero(codigo, ativo, descricao);
     }
 </script>

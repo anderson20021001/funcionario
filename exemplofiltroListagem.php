@@ -71,33 +71,7 @@ include "js/repositorio.php";
 
 
 
-                // if ($dataNascimentoInicio == "" && $dataNascimentoFim != "") {
-                //     $where = $where . " AND dataNascimento  <= $dataNascimentoFim ";
-                // }
-
-
-
-
-
-                // $dataNascimentoFiltro = $dataNascimento;
-                // if ($_POST["dataNascimentoFiltro"] != "") {
-                //     $dataNascimentoFiltro = $_POST["dataNascimentoFiltro"];
-                //     $where = $where . " AND dataNascimento >= '$dataNascimentoFiltro'";;
-                // }
-
-                // $dataFimFiltro = $dataFim;
-                // if ($_POST["dataFimFiltro"] != "") {
-                //     $dataFimFiltro = $_POST["dataFimFiltro"];
-                //     $where = $where . " AND dataNascimento <= '$dataFimFiltro'";;
-                // }
-
-                // $dataFimFiltro = $dataFim;
-                // if ($_POST["dataFimFiltro"] != "") {
-                //     $dataNascimentoFiltro = $_POST["dataNascimentoFiltro"];
-                //     $dataFimFiltro = $_POST["dataFimFiltro"];
-                //     $where = $where . " AND dataNascimento between '$dataFimFiltro'";;
-                // }
-
+             
 
                 $ativo = $ativo;
                 if ($_POST["ativo"] != "") {
@@ -157,21 +131,6 @@ include "js/repositorio.php";
 <script src="js/plugin/datatables/dataTables.bootstrap.min.js"></script>
 <script src="js/plugin/datatable-responsive/datatables.responsive.min.js"></script>
 <script>
-    // function abreviar(nome) {
-    //     const [nome, ...sobrenomes] = str.split(' ');
-
-    //     const abreviaturas = sobrenomes.reduce((arr, str) => {
-    //         const letraGrande = str.match(/[A-ZÖÄÅÀÁÂÃÌÍÒÓÉÊÚ]/);
-    //         if (!letraGrande) return arr;
-    //         return arr.concat(`${letraGrande[0]}.`);
-    //     }, []);
-
-    //     return [nome, ...abreviaturas].join(' ');
-    // }
-
-    // testes.forEach((teste, i) => {
-    //     console.log(i, '>', abreviar(teste));
-    // });
     $(document).ready(function() {
 
         var responsiveHelper_dt_basic = undefined;

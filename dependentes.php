@@ -363,9 +363,9 @@ include("inc/scripts.php");
         $("#btnGravar").on("click", function() {
             // verificarDependente();
             verificarDependente()
-            document.getElementById("btnGravar").disabled = true;
+            $("#btnGravar").disabled = true;
             setTimeout(function() {
-                document.getElementById("btnGravar").disabled = false
+                $("#btnGravar").disabled = false
                 gravarDependente();
 
             }, 500)

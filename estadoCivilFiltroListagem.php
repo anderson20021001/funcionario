@@ -16,11 +16,7 @@ include "js/repositorio.php";
                 $descricaoFiltro = "";
                 $where = " WHERE (0 = 0)";
 
-                // $nomeFiltro = "$nome";
-                // if ($_GET["nomeFiltro"] != "") {
-                //     $nomeFiltro = $_GET["nomeFiltro"];
-                //     $where = $where . " AND (USU.[login] like '%' + " . "replace('" . $nomeFiltro . "',' ','%') + " . "'%')";
-                // }
+          
 
                  $descricao = $descricao;
                 if ($_POST["descricaoFiltro"] != "") {
@@ -29,11 +25,6 @@ include "js/repositorio.php";
                 }
 
 
-                // $cpfFiltro = $cpf;
-                // if ($_POST["cpf"] != "") {
-                //     $cpfFiltro = $_POST["cpfFiltro"];
-                //     $where = $where . " AND (nome like '%' + " . "replace('" . $cpfFiltro . "',' ','%') + " . "'%')";
-                // }
 
                 $ativoFiltro = $ativo;
                 if ($_POST["ativoFiltro"] != "") {

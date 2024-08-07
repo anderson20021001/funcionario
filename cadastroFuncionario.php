@@ -193,7 +193,7 @@ include("inc/nav.php");
                                                             <section class="col col-2">
                                                                 <label class="label">Pis</label>
                                                                 <label class="input">
-                                                                    <input id="pis" name="pis" type="text" onpaste="return false" ondrop="return" class="readonly" disabled  autocomplete="new-password" value="">
+                                                                    <input id="pis" name="pis" type="text" onpaste="return false" ondrop="return" class="readonly" disabled autocomplete="new-password" value="">
                                                                 </label>
                                                             </section>
                                                         </div>
@@ -225,7 +225,7 @@ include("inc/nav.php");
                                                                 <section class="col col-4">
                                                                     <label class="label">Telefone</label>
                                                                     <label class="input"><i class="icon-prepend fa fa-phone"></i>
-                                                                        <input id="telefone" name="telefone" class="required" type="tel"  class="form-control" value="" autocomplete="new-password">
+                                                                        <input id="telefone" name="telefone" class="required" type="tel" class="form-control" value="" autocomplete="new-password">
                                                                     </label>
                                                                 </section>
                                                                 <section class="col col-2">
@@ -278,7 +278,7 @@ include("inc/nav.php");
                                                                 <section class="col col-6">
                                                                     <label class="label">Email</label>
                                                                     <label class="input"><i class="icon-prepend fa fa-envelope"></i>
-                                                                        <input id="email" name="email" class="required" type="text"  class="form-control" value="" autocomplete="new-password">
+                                                                        <input id="email" name="email" class="required" type="text" class="form-control" value="" autocomplete="new-password">
                                                                     </label>
                                                                 </section>
                                                                 <section class="col col-2">
@@ -622,7 +622,7 @@ include("inc/scripts.php");
         $("#dataNascimentoDependente").on("change", campo => {
             let dataNascimentoDependente = campo.currentTarget.value;
 
-            if (dataNascimentoDependente.length < 10){ 
+            if (dataNascimentoDependente.length < 10) {
                 $("#dataNascimentoDependente").val("");
             }
 
@@ -647,9 +647,9 @@ include("inc/scripts.php");
         });
 
         $("#btnNovo").on("click", () => $(location).attr('href', 'cadastroFuncionario.php'));
-        
+
         var codigo = $("#codigo").val();
-        $("#btnGerar").on("click", () =>  $(location).attr('href', 'relatorioContato.php?codigo=' + codigo));
+        $("#btnGerar").on("click", () => $(location).attr('href', 'relatorioContato.php?codigo=' + codigo));
 
         $("#btnGravar").on("click", () => gravar());
 
@@ -671,10 +671,9 @@ include("inc/scripts.php");
         });
 
         $("#btnAddEmail").on("click", function() {
-            if (validEmail()) {
-                if (validaEmail() === true) {
-                    addEmail();
-                }
+
+            if (validaEmail() === true) {
+                addEmail();
             } else {
                 smartAlert("Atenção", "Email inválido", "error");
                 return false;
@@ -694,7 +693,7 @@ include("inc/scripts.php");
         $("#btnExcluirEmail").on("click", () => excluirContatoEmail());
 
         $("#btnExcluirEmail").on("keypress", () => excluirContatoEmail());
-        
+
 
         $(function() {
             $('#nome').on('keypress', function(e) {
@@ -704,91 +703,93 @@ include("inc/scripts.php");
                 }
             });
 
-            document.getElementById("nomeDependente").onkeypress = function(e) {
+            $("#nomeDependente").on('keypress', function(e) {
                 var chr = String.fromCharCode(e.which);
                 // Permitir letras (maiúsculas e minúsculas) e espaço
                 if (!/^[A-Za-z\s]*$/.test(chr)) {
                     e.preventDefault(); // Impede a inserção do caractere
                 }
-            };
+            });
 
-            document.getElementById("nome").onkeypress = function(e) {
+            $("#nome").on('keypress', function(e) {
                 var chr = String.fromCharCode(e.which);
                 if ("qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM éáíóô".indexOf(chr) < 0)
                     return false;
-            };
+            });
 
-            document.getElementById("numero").onkeypress = function(e) {
+            $("#numero").on('keypress', function(e) {
                 var chr = String.fromCharCode(e.which);
                 if ("1234567890".indexOf(chr) < 0)
                     return false;
-            };
+            });
 
-            document.getElementById("uf").onkeypress = function(e) {
+            $("#uf").on('keypress', function(e) {
                 var chr = String.fromCharCode(e.which);
                 if ("qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM".indexOf(chr) < 0)
                     return false;
-            };
+            });
 
-            document.getElementById("cidade").onkeypress = function(e) {
+            $("#cidade").on('keypress', function(e) {
                 var chr = String.fromCharCode(e.which);
                 if ("qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM".indexOf(chr) < 0)
                     return false;
-            };
+            });
 
-            document.getElementById("bairro").onkeypress = function(e) {
+            $("#bairro").on('keypress', function(e) {
                 var chr = String.fromCharCode(e.which);
                 if ("qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM".indexOf(chr) < 0)
                     return false;
-            };
+            });
 
-            document.getElementById("logradouro").onkeypress = function(e) {
+
+            $("#logradouro").on('keypress', function(e) {
                 var chr = String.fromCharCode(e.which);
                 if ("qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM".indexOf(chr) < 0)
                     return false;
-            };
+            });
 
-            document.getElementById("telefone").onkeypress = function(e) {
+
+            $("#telefone").on('keypress', function(e) {
                 var chr = String.fromCharCode(e.which);
                 if ("1234567890".indexOf(chr) < 0)
                     return false;
-            };
+            });
 
-            document.getElementById("rg").onkeypress = function(e) {
+            $("#rg").on('keypress', function(e) {
                 var chr = String.fromCharCode(e.which);
                 if ("1234567890".indexOf(chr) < 0)
                     return false;
-            };
+            });
 
-            document.getElementById("cpf").onkeypress = function(e) {
+            $("#cpf").on('keypress', function(e) {
                 var chr = String.fromCharCode(e.which);
                 if ("1234567890".indexOf(chr) < 0)
                     return false;
-            };
+            });
 
-            document.getElementById("pis").onkeypress = function(e) {
+            $("#pis").on('keypress', function(e) {
                 var chr = String.fromCharCode(e.which);
                 if ("1234567890".indexOf(chr) < 0)
                     return false;
-            };
+            });
 
-            document.getElementById("cep").onkeypress = function(e) {
+            $("#cep").on('keypress', function(e) {
                 var chr = String.fromCharCode(e.which);
                 if ("1234567890".indexOf(chr) < 0)
                     return false;
-            };
+            });
 
-            document.getElementById("complemento").onkeypress = function(e) {
+            $("#complemento").on('keypress', function(e) {
                 var chr = String.fromCharCode(e.which);
                 if ("1234567890qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM&' ".indexOf(chr) < 0)
                     return false;
-            };
+            });
 
-            document.getElementById("cpfDependente").onkeypress = function(e) {
+            $("#cpfDependente").on('keypress', function(e) {
                 var chr = String.fromCharCode(e.which);
-                if ("1234567890.-".indexOf(chr) < 0)
+                if ("1234567890".indexOf(chr) < 0)
                     return false;
-            };
+            });
         });
 
         $('#nome').on("focusout", campo => {
@@ -839,8 +840,7 @@ include("inc/scripts.php");
                             $("#bairro").val(dados.bairro);
                             $("#cidade").val(dados.localidade);
                             $("#uf").val(dados.uf);
-                        } 
-                        else {
+                        } else {
                             $("#cep").val()
                             smartAlert("Atenção", "CEP não encontrado.", "error");
                         }
@@ -880,7 +880,7 @@ include("inc/scripts.php");
 
     }
 
- 
+
 
     function voltar() {
         $(location).attr('href', 'filtroFuncionario.php');
@@ -991,7 +991,7 @@ include("inc/scripts.php");
             return false;
         }
 
-        desabilitaBotao();
+        
         gravaUsuario(codigo, ativo, nome, cpf, rg, dataNascimento, genero, estadoCivil, jsonTelefoneArray, jsonEmailArray, jsonDependenteArray, cep, logradouro, complemento, numero, uf, bairro, cidade, emprego, pis);
     }
 
@@ -1345,7 +1345,7 @@ include("inc/scripts.php");
                 row.append($('<td class="text-nowrap">' + jsonTelefoneArray[i].descricaoPrincipal + '</td>'));
                 row.append($('<td class="text-nowrap">' + jsonTelefoneArray[i].descricaoWhatsApp + '</td>'));
                 $('#telefone').removeClass("required");
-                
+
             }
         }
     }
@@ -1441,9 +1441,9 @@ include("inc/scripts.php");
     //TABELA DE EMAIL
     function validEmail(email) {
         var email = $("#email").val();
-        if(email == ""){
+        if (email == "") {
             smartAlert("Atenção", "Verifique o email corretamente, pois pode estar incorreto ou vazio", "error");
-            return ;
+            return;
         }
         return /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(email)
     }
@@ -1494,7 +1494,7 @@ include("inc/scripts.php");
             return false;
 
         }
-        return true;
+        return /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(email);
     }
 
     function addEmail() {
@@ -1687,7 +1687,6 @@ include("inc/scripts.php");
 
         if (achouCpf === true) {
             smartAlert("Erro", "Já existe o cpf na lista.", "error");
-            // clearFormDependente();
             return false;
 
         }
@@ -1752,7 +1751,7 @@ include("inc/scripts.php");
                 row.append($('<td class="text-nowrap">' + dependente + '</td>'));
 
 
-                
+
             }
         }
     }
@@ -1821,7 +1820,7 @@ include("inc/scripts.php");
     }
 
     function clearFormDependente() {
-        
+
         $("#nomeDependente").val("");
         $("#cpfDependente").val("");
         $("#dataNascimentoDependente").val("");

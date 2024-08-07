@@ -354,21 +354,19 @@ include("inc/scripts.php");
         }
     });
 
-    $("#btnNovo").on("click", function() {
-        novo();
-    });
+    $("#btnNovo").on("click", () =>  $(location).attr('href', 'estadoCivil.php'));
 
     $("#btnGravar").on("click", function() {
         // verificarEstadoCivil();
-        document.getElementById("btnGravar").disabled = true;
+        $("#btnGravar").disabled = true;
         setTimeout(function() {
-            document.getElementById("btnGravar").disabled = false;
+            $("#btnGravar").disabled = false;
             gravarEstadoCivilPessoa();
             
         }, )
     });
 
-    $("#btnVoltar").on("click", () => voltar());
+    $("#btnVoltar").on("click", () =>  $(location).attr('href', 'estadoCivilFiltro.php'));
     $("#estadoCivil").on("change", () => verificarEstadoCivil());
     $('#estadoCivil').on("focusout", campo => {
         if (["1", "2", "3", "4", "5", "6", "7", "8", "9"].find(valor => valor == campo.currentTarget.value ? true : false)) {
@@ -406,9 +404,7 @@ include("inc/scripts.php");
         $("#nome").focus();
     }
 
-    function novo() {
-        $(location).attr('href', 'estadoCivil.php');
-    }
+   
 
     function voltar() {
         $(location).attr('href', 'estadoCivilFiltro.php');
