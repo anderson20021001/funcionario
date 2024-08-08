@@ -136,12 +136,12 @@ function grava()
         foreach ($email as $chave) {
             $xmlEmail = $xmlEmail . "<" . $nomeTabela . ">";
             foreach ($chave as $campo => $valor) {
-                if ($campo == "emailPrincipal") {
-                    if ($valor == "true")
-                        $valor = 1;
-                    else
-                        $valor = 0;
-                }
+                // if ($campo == "emailPrincipal") {
+                //     if ($valor == "true")
+                //         $valor = 1;
+                //     else
+                //         $valor = 0;
+                // }
 
                 $xmlEmail = $xmlEmail . "<" . $campo . ">" . $valor . "</" . $campo . ">";
             }
@@ -478,8 +478,7 @@ function verificaCpf()
     }
 
     $cpf = "'" . $_POST["cpf"] . "'";
-
-    $sql = " SELECT cpf FROM dbo.funcionarioCadastro WHERE cpf = $cpf and ativo = 1";
+    $sql = " SELECT cpf FROM dbo.funcionarioCadastro WHERE cpf = $cpf and ativo = 1 and codigo = $codigo";
     //achou 
     $reposit = new reposit();
     $result = $reposit->RunQuery($sql);

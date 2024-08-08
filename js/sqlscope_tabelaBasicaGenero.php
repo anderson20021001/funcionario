@@ -58,7 +58,7 @@ function gravaGenero()
 
     if($descricao == "''"){
         verificaGenero();
-        return;
+        
     }
 
    $reposit = new reposit();
@@ -131,57 +131,7 @@ function excluirGenero()
     return;
 }
 
-function verificaCpf(){
-    if ((empty($_POST['id'])) || (!isset($_POST['id'])) || (is_null($_POST['id']))) {
-        $id = 0;
-    } else {
-        $id = $_POST["id"];
-    }
 
-
-    $reposit = new reposit();
-    $utils = new comum();
-
-    $cpf = $utils->formatarString($_POST['cpf']);
-
-    $sql = "SELECT cpf from dbo.funcionarioCadastro where cpf = $cpf";
-
-    $reposit = new reposit();
-    $result = $reposit->RunQuery($sql);
-
-    $ret = 'sucess#Pode Cadastrar cpf';
-    if (count($result)>0) {
-        $ret = 'failed#cpf ja cadastrado';
-    }
-    echo $ret;
-    return;
-}
-
-function verificaRG(){
-    if ((empty($_POST['id'])) || (!isset($_POST['id'])) || (is_null($_POST['id']))) {
-        $id = 0;
-    } else {
-        $id = $_POST["id"];
-    }
-
-
-    $reposit = new reposit();
-    $utils = new comum();
-
-    $rg = $utils->formatarString($_POST['rg']);
-
-    $sql = "SELECT rg from dbo.funcionarioCadastro where rg = $rg";
-
-    $reposit = new reposit();
-    $result = $reposit->RunQuery($sql);
-
-    $ret = 'sucess#Pode Cadastrar rg';
-    if (count($result)>0) {
-        $ret = 'failed#rg ja cadastrado';
-    }
-    echo $ret;
-    return;
-}
 function verificaGenero(){
     if ((empty($_POST['codigo'])) || (!isset($_POST['codigo'])) || (is_null($_POST['codigo']))) {
         $id = 0;

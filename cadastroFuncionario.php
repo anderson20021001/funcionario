@@ -649,7 +649,7 @@ include("inc/scripts.php");
         $("#btnNovo").on("click", () => $(location).attr('href', 'cadastroFuncionario.php'));
 
         var codigo = $("#codigo").val();
-        $("#btnGerar").on("click", () => $(location).attr('href', 'relatorioContato.php?codigo=' + codigo));
+        $("#btnGerar").on("click", () => $(location).attr('href', 'relatorioContato.php?codigo=' + $("#codigo").val()));
 
         $("#btnGravar").on("click", () => gravar());
 
@@ -725,26 +725,26 @@ include("inc/scripts.php");
 
             $("#uf").on('keypress', function(e) {
                 var chr = String.fromCharCode(e.which);
-                if ("qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM".indexOf(chr) < 0)
+                if ("qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM éáíóô".indexOf(chr) < 0)
                     return false;
             });
 
             $("#cidade").on('keypress', function(e) {
                 var chr = String.fromCharCode(e.which);
-                if ("qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM".indexOf(chr) < 0)
+                if ("qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM éáíóô".indexOf(chr) < 0)
                     return false;
             });
 
             $("#bairro").on('keypress', function(e) {
                 var chr = String.fromCharCode(e.which);
-                if ("qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM".indexOf(chr) < 0)
+                if ("qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM éáíóô".indexOf(chr) < 0)
                     return false;
             });
 
 
             $("#logradouro").on('keypress', function(e) {
                 var chr = String.fromCharCode(e.which);
-                if ("qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM".indexOf(chr) < 0)
+                if ("qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM éáíóô".indexOf(chr) < 0)
                     return false;
             });
 
@@ -843,6 +843,7 @@ include("inc/scripts.php");
                         } else {
                             $("#cep").val()
                             smartAlert("Atenção", "CEP não encontrado.", "error");
+                            $("#cep").val("")
                         }
                     });
                 } else {
@@ -979,6 +980,31 @@ include("inc/scripts.php");
             return false;
         }
 
+        if (logradouro == "") {
+            smartAlert("Atenção", "Informe o logradouro !", "error");
+            $("#logradouro").focus();
+            return false;
+        }
+
+        if (uf == "") {
+            smartAlert("Atenção", "Informe UF !", "error");
+            $("#uf").focus();
+            return false;
+        }
+
+        if (bairro == "") {
+            smartAlert("Atenção", "Informe o Bairro !", "error");
+            $("#bairro").focus();
+            return false;
+        }
+
+        if (cidade == "") {
+            smartAlert("Atenção", "Informe a cidade !", "error");
+            $("#cidade").focus();
+            return false;
+        }
+
+
         if (numero == "") {
             smartAlert("Atenção", "Informe o número !", "error");
             $("#cep").focus();
@@ -991,7 +1017,7 @@ include("inc/scripts.php");
             return false;
         }
 
-        
+        $("#btnGravar").disabled = true;
         gravaUsuario(codigo, ativo, nome, cpf, rg, dataNascimento, genero, estadoCivil, jsonTelefoneArray, jsonEmailArray, jsonDependenteArray, cep, logradouro, complemento, numero, uf, bairro, cidade, emprego, pis);
     }
 
@@ -1043,9 +1069,6 @@ include("inc/scripts.php");
         }
     }
 
-    function desabilitaBotao() {
-        document.getElementById("btnGravar").disabled = true;
-    }
 
     function verificarCpf() {
 

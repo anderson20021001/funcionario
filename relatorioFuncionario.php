@@ -570,9 +570,8 @@ foreach ($resultParamentro as $rowDependente) {
 
     if ($rowDependente['nomeDependente'] == "") {
         $rowDependente['nomeDependente'] = 'Não Possui';
-        $cpfDependente = 'Não Possui';
-        $dataNascimentoDependente = 'Não Possui';
-        $dependente = 'Não Possui';
+        $rowDependente['cpfDependente'] = 'Não Possui';
+        $rowDependente['dependente'] = 'Não Possui';
     }
 
     $pdf->SetY($y-48.5);

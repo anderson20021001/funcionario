@@ -105,7 +105,7 @@ include("inc/nav.php");
                                                             <section class="col col-2">
                                                                 <label class="label">Descrição</label>
                                                                 <label class="input"><i class=""></i>
-                                                                    <input id="descricao" maxlength="255" name="descricao" class="required" type="text" value="" autocomplete="new-password">
+                                                                    <input id="descricao" maxlength="255" name="descricao" ondrop="return false" onpaste="return false" class="required" type="text" value="" autocomplete="new-password">
                                                                 </label>
                                                             </section>
                                                         </div>
@@ -370,7 +370,7 @@ include("inc/scripts.php");
             }, 550)
         });
 
-        $("#btnVoltar").on("click", () =>  $(location).attr('href', 'generoFiltro.php'));
+        $("#btnVoltar").on("click", () =>voltar());
 
         $("#descricao").on("change", () => verificarGenero());
     });
@@ -427,13 +427,17 @@ include("inc/scripts.php");
         verificaGenero(genero);
     }
 
+    function voltar() {
+        $(location).attr('href', 'generoFiltro.php')
+}
+
     function gravarGenero() {
         var codigo = +($("#codigo").val());
         var ativo = $('#ativo').val();
         var descricao = $("#descricao").val();
 
-        if (descricao === "") {
-            smartAlert("Atenção", "Informe o Gênero !", "error");
+        if (descricao == "") {
+
             $("#descricao").focus();
             return false;
 

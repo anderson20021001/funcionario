@@ -34,12 +34,12 @@ function gravaEstadoCivilPessoa(codigo, ativo, descricao) {
     return '';
 
 }
-function verificaEstadoCivil(estadoCivil) {
+function verificaEstadoCivil(descricao) {
     $.ajax({
         url: 'js/sqlscope_estadoCivil.php', //caminho do arquivo a ser executado
         dataType: 'html', //tipo do retorno
         type: 'post', //metodo de envio
-        data: {funcao: 'verificaEstadoCivil', estadoCivil: estadoCivil}, //valores enviados ao script     
+        data: {funcao: 'verificaEstadoCivil', descricao: descricao}, //valores enviados ao script     
         beforeSend: function () {
             //função chamada antes de realizar o ajax
         },

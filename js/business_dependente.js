@@ -24,7 +24,7 @@ function gravaDependente(codigo, ativo, dependente) {
                 return '';
             } else {
                 smartAlert("Sucesso", "Operação realizada com sucesso!", "success");
-                 setInterval(function(){voltar()}, 1500);
+                setInterval(function(){voltar()}, 1500);
             }
             //retorno dos dados
         },
@@ -33,7 +33,7 @@ function gravaDependente(codigo, ativo, dependente) {
         }
     });
     verificaDependente();
-    return '';
+   
 
 }
 // function verificaCpf(cpf) {

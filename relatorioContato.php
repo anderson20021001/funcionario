@@ -83,9 +83,6 @@ $l = 13;
 $margem = 5;
 
 
-
-$y = 32.5;
-
 $pdf->SetFont('Arial', '', 15);
 $pdf->SetXY(98, 25);
 $pdf->Cell(22, 5, iconv('UTF-8', 'windows-1252', "RELATÓRIO DE CONTATO"), 0, 0, "C", 0);
@@ -93,94 +90,42 @@ $pdf->Cell(22, 5, iconv('UTF-8', 'windows-1252', "RELATÓRIO DE CONTATO"), 0, 0,
 $pdf->line(5, 34, 205, 34);
 
 
-$pdf->SetXY(5, 40);
-$pdf->SetFont('Arial', 'B', 9);
-$pdf->Cell(20, 5, iconv('UTF-8', 'windows-1252', " "), 0, 0, "L", 0);
-
-$pdf->SetXY(5, 46);
-$pdf->Cell(20, 5, iconv('UTF-8', 'windows-1252', " " . " "), 0, 0, "L", 0);
-
-// $pdf->SetFillColor(238, 238, 238);
-// $pdf->SetFont('Arial', 'B', 8);
-
-
-$pdf->SetY(40);
-$pdf->SetX(10);
+$pdf->SetXY(10,40);
+$pdf->SetFont('Arial', '', 9);
 $pdf->Cell(55, 10, iconv('UTF-8', 'windows-1252', "NOME:"), 0, 0, "L", 0);
 
-// $pdf->SetY(55);
-// $pdf->Cell(75, 10, iconv('UTF-8', 'windows-1252', $nomeFuncionario), 1, 0, "C", 2);
-
-
 $pdf->SetXY(10, 45);
-// $pdf->SetX(5);
+$pdf->SetFont('Arial', '', 9);
 $pdf->Cell(40, 10, iconv('UTF-8', 'windows-1252', "CPF:"), 0, 0, "L", 0);
 
-// $pdf->SetXY(90, 60);
-// $pdf->Cell(15, 5, iconv('UTF-8', 'windows-1252', "INÍCIO"), 1, 0, "C", 1);
+$pdf->SetXY(165, 40.5);
+$pdf->SetFont('Arial', '', 9);
+$pdf->Cell(18, 10, iconv('UTF-8', 'windows-1252', "ATIVO:"), 0, 0, "L", 0);
 
-// $pdf->SetX(105);
-// $pdf->Cell(15, 5, iconv('UTF-8', 'windows-1252', "FIM"), 1, 0, "C", 1);
 
 $pdf->SetXY(10, 77.5);
+$pdf->SetFont('Arial', '', 9);
 $pdf->Cell(40, 10, iconv('UTF-8', 'windows-1252', "TELEFONE"), 1, 0, "C", 0);
 
 $pdf->SetXY(50, 77.5);
+$pdf->SetFont('Arial', '', 9);
 $pdf->Cell(20, 10, iconv('UTF-8', 'windows-1252', "PRINCÍPAL"), 1, 0, "C", 0);
 
 $pdf->SetX(70);
+$pdf->SetFont('Arial', '',9 );
 $pdf->Cell(20, 10, iconv('UTF-8', 'windows-1252', "WHATSAPP"), 1, 0, "C", 0);
 
-// $pdf->SetXY(150, 55);
-// $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', "SAÍDA"), 1, 0, "C", 1);
 
 $pdf->SetXY(105, 77.5);
+$pdf->SetFont('Arial', '', 9);
 $pdf->Cell(70, 10, iconv('UTF-8', 'windows-1252', "EMAIL"), 1, 0, "C", 0);
 
 $pdf->SetXY(175, 77.5);
+
 $pdf->Cell(25, 10, iconv('UTF-8', 'windows-1252', "PRINCÍPAL"), 1, 0, "C", 0);
 
-// $pdf->SetX(175);
-// $pdf->Cell(25, 5, iconv('UTF-8', 'windows-1252', "WHATSAPP"), 1, 0, "C", 0);
+$y  = $pdf->GetY();
 
-// $pdf->SetXY(150, 55);
-// $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', "SAÍDA"), 1, 0, "C", 1);
-
-$pdf->SetXY(165, 40.5);
-$pdf->Cell(18, 10, iconv('UTF-8', 'windows-1252', "ATIVO:"), 0, 0, "L", 0);
-
-$y += 55;
-
-// $pdf->SetXY(5, $y);
-// $pdf->Cell(75, 10, iconv('UTF-8', 'windows-1252', ''), 1, 0, "L", 0);
-
-// $pdf->SetXY(45, $y);
-// $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
-
-// $pdf->SetXY(60, $y);
-// $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ''), 1, 0, "C", 0);
-
-// $pdf->SetXY(80, $y);
-// $pdf->Cell(40, 10, iconv('UTF-8', 'windows-1252', ''), 1, 0, "C", 0);
-
-// $pdf->SetXY(90, $y);
-// $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
-
-// $pdf->SetXY(105, $y);
-// $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
-
-// $pdf->SetXY(120, $y);
-// $pdf->Cell(45, 10, iconv('UTF-8', 'windows-1252', ''), 1, 0, "C", 0);
-
-// $pdf->SetXY(135, $y);
-// $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ''), 1, 0, "C", 0);
-
-// $pdf->SetXY(150, $y);
-// $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
-
-// $pdf->SetXY(165, $y);
-// $pdf->Cell(20, 10, iconv('UTF-8', 'windows-1252', ''), 1, 0, "C", 0);
-// }
 
 
 $nomeFuncionario = $rowParamentro['nome'];
@@ -233,16 +178,15 @@ if ($emailPrincipal == 1) {
 }
 
 
-
-$pdf->SetXY(27, $y - 341.7);
+$pdf->SetXY(21, $y - 35 );
 $pdf->Cell(25, 5, iconv('UTF-8', 'windows-1252', $nomeCompletoFuncionario,), 0, 0, "L", 0);
 
 
-$pdf->SetXY(21, $y - 337.5);
+$pdf->SetXY(21, $y - 30);
 $pdf->Cell(21, 5, iconv('UTF-8', 'windows-1252', $cpfFuncionario,), 0, 0, "C", 0);
 
 
-$pdf->SetXY(178, $y - 342);
+$pdf->SetXY(178, $y-35);
 $pdf->Cell(20, 5, iconv('UTF-8', 'windows-1252', $ativoFuncionario,), 0, 0, "L", 0);
 
 
@@ -263,10 +207,9 @@ foreach ($resultParamentro as $rowParamentro) {
     }
 
 
+    foreach ($resultParamentroTelefone as $index => $rowTelefone) {
 
-
-    foreach ($resultParamentroTelefone as $rowTelefone) {
-
+        $index > 0?  $y += 5 : $y += 10;
         if ($rowTelefone['principal'] == 1) {
             $rowTelefone['principal'] = 'Sim';
         } else {
@@ -278,44 +221,27 @@ foreach ($resultParamentro as $rowParamentro) {
             $rowTelefone['whatsapp'] = 'Não';
         }
 
+       
         $pdf->SetXY(10, $y);
         $pdf->Cell(40, 5, iconv('UTF-8', 'windows-1252', $rowTelefone['telefone'],), 1, 0, "C", 0);
-
-
-        // $pdf->SetXY(135, $y);
-        // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ''), 1, 0, "C", 0);
-
-        // $pdf->SetXY(150, $y);
-        // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
-
 
         $pdf->SetXY(50, $y);
         $pdf->Cell(20, 5, iconv('UTF-8', 'windows-1252',  $rowTelefone['principal'],), 1, 0, "C", 0);
 
-        // $pdf->SetXY(135, $y);
-        // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ''), 1, 0, "C", 0);
-
-        // $pdf->SetXY(150, $y);
-        // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
-
         $pdf->SetXY(70,  $y);
         $pdf->Cell(20, 5, iconv('UTF-8', 'windows-1252', $rowTelefone['whatsapp'],), 1, 0, "C", 0);
-
-        // $pdf->SetXY(135, $y);
-        // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ''), 1, 0, "C", 0);
-
-        // $pdf->SetXY(150, $y);
-        // $pdf->Cell(15, 10, iconv('UTF-8', 'windows-1252', ""), 1, 0, "C", 0);
-
-        $y += 5;
+       
+      
         if ($y > 260) {
             $pdf->AddPage();
             $y = 12;
         }
     }
 
+    $y = 77.5;
+    foreach ($resultParamentroEmail as $index => $rowEmail) {
 
-    foreach ($resultParamentroEmail as $rowEmail) {
+        $index > 0?  $y += 5 : $y += 10;
 
         if ($rowEmail['principal'] == 1) {
             $rowEmail['principal'] = 'Sim';
@@ -323,16 +249,12 @@ foreach ($resultParamentro as $rowParamentro) {
             $rowEmail['principal'] = 'Não';
         }
 
-
-    $pdf->SetXY(105,  $y-5);
-    $pdf->Cell(70, 5, iconv('UTF-8', 'windows-1252', mb_strimwidth(trim($rowEmail['email']), 0, 37, "...")), 1, 0, "L", 0);
-
-
-    $pdf->SetXY(175, $y-5);
-    $pdf->Cell(25, 5, iconv('UTF-8', 'windows-1252', $rowEmail['principal'],), 1, 0, "C", 0);
+        $pdf->SetXY(105,  $y);
+        $pdf->Cell(70, 5, iconv('UTF-8', 'windows-1252', mb_strimwidth(trim($rowEmail['email']), 0, 37, "...")), 1, 0, "L", 0);
 
 
-        $y += 5;
+        $pdf->SetXY(175, $y);
+        $pdf->Cell(25, 5, iconv('UTF-8', 'windows-1252', $rowEmail['principal'],), 1, 0, "C", 0);
     }
 
 
@@ -342,8 +264,8 @@ foreach ($resultParamentro as $rowParamentro) {
         $pdf->AddPage();
         $y = 12;
     }
-    // $pdf->Line(5, $l, 205, $l); //linha divisória
-    // // $contador = 0;
+    $pdf->Line(5, $l, 205, $l); //linha divisória
+    // $contador = 0;
 }
 
 

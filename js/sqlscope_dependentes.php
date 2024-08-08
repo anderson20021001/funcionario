@@ -58,7 +58,7 @@ function gravaDependente()
      $codigo,
      $ativo,
      $dependente";
-     if($dependente == "''"){
+     if($dependente == "''" || $dependente == ""){
         $mensagem = "Informe o Dependente corretamente, pode estar cadastrado ou a forma digitada esteja errada!";
         echo "failed#" . $mensagem . ' ';
         return;
@@ -217,8 +217,8 @@ function verificaDependente(){
         echo  "success";
         return true;
     } else {
-        // $mensagem = "Informe o Dependente corretamente, pode estar cadastrado ou a forma digitada esteja errada!";
-        // echo "failed#" . $mensagem . ' ';
+        $mensagem = "Informe o Dependente corretamente, pode estar cadastrado ou a forma digitada esteja errada!";
+        echo "failed#" . $mensagem . ' ';
     }
 
     return;

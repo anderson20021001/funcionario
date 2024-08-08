@@ -105,7 +105,7 @@ include("inc/nav.php");
                                                             <section class="col col-2">
                                                                 <label class="label">Estado Civil</label>
                                                                 <label class="input"><i class=""></i>
-                                                                    <input id="descricao" maxlength="255" name="descricao" class="required" type="text" onpaste="return false" ondrop="return false" value="">
+                                                                    <input id="descricao" maxlength="255" name="descricao" class="required" type="text" ondrop="return false" onpaste="return false" value="">
                                                                 </label>
                                                             </section>
                                                         </div>
@@ -367,8 +367,10 @@ include("inc/scripts.php");
     });
 
     $("#btnVoltar").on("click", () =>  $(location).attr('href', 'estadoCivilFiltro.php'));
-    $("#estadoCivil").on("change", () => verificarEstadoCivil());
-    $('#estadoCivil').on("focusout", campo => {
+    $("#descricao").on("change", function() { 
+        verificarEstadoCivil()
+    });
+    $('#descricao').on("focusout", campo => {
         if (["1", "2", "3", "4", "5", "6", "7", "8", "9"].find(valor => valor == campo.currentTarget.value ? true : false)) {
             smartAlert("Atenção", "No puede digitar", "error");
             $('#descricao').val('');
@@ -420,9 +422,10 @@ include("inc/scripts.php");
         excluirEstadoCivil(id);
     }
 
-    function verificarEstadoCivil(estadoCivil) {
-        var estadoCivil = $("#estadoCivil").val();
-        verificaEstadoCivil(estadoCivil)
+    function verificarEstadoCivil(descricao) {
+        var descricao = $("#descricao").val();
+        verificaEstadoCivil(descricao);
+        
 
     }
 
@@ -433,7 +436,7 @@ include("inc/scripts.php");
         var descricao = $("#descricao").val();
 
         if (descricao == "") {
-            smartAlert("Atenção", "Informe o Estado Cívil !", "error");
+            // smartAlert("Atenção", "Informe o Estado Cívil !", "error");
             $("#descricao").focus();
             return false;
         }

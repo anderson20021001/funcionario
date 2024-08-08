@@ -105,7 +105,7 @@ include("inc/nav.php");
                                                             <section class="col col-2">
                                                                 <label class="label">Descrição</label>
                                                                 <label class="input"><i class=""></i>
-                                                                    <input id="dependente" maxlength="255" name="dependente" onpaste="return false" ondrop="return false" class="required" type="text" value="">
+                                                                    <input id="dependente" maxlength="255" name="dependente" ondrop="return false" onpaste="return false" class="required" type="text" value="">
                                                                 </label>
                                                             </section>
                                                         </div>
@@ -362,7 +362,6 @@ include("inc/scripts.php");
 
         $("#btnGravar").on("click", function() {
             // verificarDependente();
-            verificarDependente()
             $("#btnGravar").disabled = true;
             setTimeout(function() {
                 $("#btnGravar").disabled = false
@@ -376,12 +375,12 @@ include("inc/scripts.php");
     });
 
     $("#btnVoltar").on("click", () => $(location).attr('href', 'dependenteFiltro.php'));
-    $("#dependente").on("change", () => verificarDependente());
+    $("#dependente").on("focusout", () => verificarDependente());
 
 
     $('#dependente').on("focusout", campo => {
         if (["1", "2", "3", "4", "5", "6", "7", "8", "9"].find(valor => valor == campo.currentTarget.value ? true : false)) {
-            smartAlert("Atenção", "No puede digitar", "error");
+            smartAlert("Atenção", "Não pode digitar número.", "error");
             $('#dependente').val('');
         } else {
             $('#dependente').val((campo.currentTarget.value).replace(/( )+/g, " "));
@@ -389,11 +388,11 @@ include("inc/scripts.php");
 
     });
 
-    document.getElementById("dependente").onkeypress = function(e) {
+    $("#dependente").on("keypress", function(e)  {
         var chr = String.fromCharCode(e.which);
         if ("qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM-()óôíáé ".indexOf(chr) < 0)
             return false;
-    }
+    })
 
     function desabilitaBotao() {
         document.getElementById("btnGravar").disabled = true;
@@ -443,12 +442,13 @@ include("inc/scripts.php");
 
     function gravarDependente() {
 
+        verificarDependente();
         var codigo = +($("#codigo").val());
         var ativo = $('#ativo').val();
         var dependente = $("#dependente").val();
 
         if (dependente == "") {
-            smartAlert("Atenção", "Informe o Dependente !", "error");
+            // smartAlert("Atenção", "Informe o Dependente !", "error");
             $("#dependente").focus();
             return false
         }
